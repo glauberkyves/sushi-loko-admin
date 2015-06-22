@@ -1,0 +1,68 @@
+services:
+    service.usuario:
+          class: SiteBundle\Service\Usuario
+          arguments:  ["@service_container"]
+
+    service.pessoa:
+          class: SiteBundle\Service\Pessoa
+          arguments:  ["@service_container"]
+
+    service.pessoa_fisica:
+          class: SiteBundle\Service\PessoaFisica
+          arguments:  ["@service_container"]
+
+    service.pessoa_juridica:
+          class: SiteBundle\Service\PessoaJuridica
+          arguments:  ["@service_container"]
+
+    service.anuncio:
+          class: SiteBundle\Service\Anuncio
+          arguments:  ["@service_container"]
+
+    service.imovel:
+          class: SiteBundle\Service\Imovel
+          arguments:  ["@service_container"]
+
+    service.galeria:
+          class: SiteBundle\Service\Galeria
+          arguments:  ["@service_container"]
+
+    service.rl_imovel_caracteristica:
+          class: SiteBundle\Service\ImovelCaracteristica
+          arguments:  ["@service_container"]
+
+    app.twig_tipo_imovel_extension:
+          class: SiteBundle\Twig\TipoImovelExtension
+          arguments:  ["@service_container"]
+          tags:
+              - { name: twig.extension }
+
+    app.twig_endereco_imovel_extension:
+          class: SiteBundle\Twig\EnderecoImovelExtension
+          arguments:  ["@service_container"]
+          tags:
+              - { name: twig.extension }
+
+#    service.agenda:
+#          class: SiteBundle\Service\Agenda
+#          arguments:  ["@service_container"]
+#
+#    service.agenda_horario:
+#          class: SiteBundle\Service\RlAgendaHorario
+#          arguments:  ["@service_container"]
+
+#    service.favorito:
+#        class: SiteBundle\Service\Favorito
+#        arguments:  ["@service_container"]
+#
+#    service.agendarhorario:
+#        class: SiteBundle\Service\AgendarHorario
+#        arguments:  ["@service_container"]
+#
+#    service.agendar:
+#        class: SiteBundle\Service\Agendar
+#        arguments:  ["@service_container"]
+#
+#    service.alerta:
+#        class: SiteBundle\Service\Alerta
+#        arguments:  ["@service_container"]

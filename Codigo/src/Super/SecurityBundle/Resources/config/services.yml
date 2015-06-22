@@ -1,0 +1,12 @@
+services:
+    handler_success:
+        class:     Super\SecurityBundle\Security\LoginSuccessHandler
+        arguments:  ["@router", "@security.context", "@service_container"]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+
+    handler_error:
+          class:     Super\SecurityBundle\Security\LoginErrorHandler
+          arguments:  ["@router", "@security.context", "@service_container"]
+          tags:
+              - { name: 'monolog.logger', channel: 'security' }

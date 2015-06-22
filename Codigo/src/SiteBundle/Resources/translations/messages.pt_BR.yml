@@ -1,0 +1,9 @@
+site_bundle:
+    messages:
+        usuario:
+            recoverSuccess: Uma nova senha foi enviada para e-mail: email@email.com.
+            recoverError: O e-mail informado não está cadastrado.
+            activate: Cadastro ativado com sucesso. Efetue o login utilizando o e-mail e senha informado.
+            activateError: Não encontramos esse token, por favor contacte o suporte.
+            emaiduplicity: E-mail já cadastrado.
+            nuCpfduplicity: CPF já  cadastrado.

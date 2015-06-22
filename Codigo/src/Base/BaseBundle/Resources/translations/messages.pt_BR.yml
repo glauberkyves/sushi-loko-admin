@@ -1,0 +1,4 @@
+base_bundle:
+    messages:
+        success: Cadastro realizado com sucesso.
+

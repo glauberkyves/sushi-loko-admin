@@ -1,0 +1,74 @@
+{% extends "SiteBundle::layout.html.twig" %}
+{% block body %}
+    <div class="container-fluid noo-mainbody">
+        <div class="noo-mainbody-inner">
+            <div class="row clearfix">
+
+                <div class="noo-content col-xs-12">
+                    <div class="page-content row">
+                        <div class="col-md-12">
+                            <div class="noo-logreg both">
+                                <div class="logreg-container">
+                                    <div class="row clearfix logreg-content">
+                                        <div class="col-md-6 login-form">
+                                            <form method="post" role="form" action="{{ path('login_check') }}">
+                                                <div class="logreg-title">Entrar</div>
+                                                {% if error  %}
+                                                    <div class="alert alert-block alert-danger fade in">
+                                                        <button type="button" class="close close-sm" data-dismiss="alert">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        E-mail / senha inválidos.
+                                                    </div>
+                                                {% endif %}
+                                                <p class="logreg-desc">Já é um usuário do Bee Imóveis. Utilize o formulário abaixo para
+                                                    efetuar login.</p>
+
+                                                <div class="form-message"></div>
+                                                <div class="logreg-content">
+                                                    <div class="form-group">
+                                                        <input class="form-control required email" type="text" name="_username"
+                                                               placeholder="E-mail">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="form-control required" type="password" name="_password"
+                                                               placeholder="Senha">
+                                                    </div>
+                                                </div>
+                                                <div class="logreg-action">
+                                                    <button type="submit" class="btn navbar-btn">Entrar</button>
+                                                </div>
+                                                <p class="logreg-desc">Esqueceu sua senha? <a href="{{ path('site_esqueci_senha') }}">Clique
+                                                        aqui para resetar sua senha</a>
+                                                </p>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6 register-form">
+                                            <div class="logreg-title">Cadastre-se</div>
+                                            <p class="logreg-desc">Não tem uma conta? Clique aqui e desfrute o melhor do Bee Imóveis.</p>
+
+                                            <p class="logreg-desc">O usuário cadastrado tem acesso a diversos recursos no Bee Imóveis :</p>
+                                            <ul>
+                                                <li>Anûncio Gratis</li>
+                                                <li>Equipe de consultores especializados</li>
+                                                <li>Pode favoritar os anûncios para visitar posteriormente</li>
+                                                <li>Pode agendar visitas a imóveis diretamente no site</li>
+                                                <li>Pode enviar mensagens para anunciantes.</li>
+                                            </ul>
+
+                                            <div class="form-message"></div>
+                                            <div class="logreg-action">
+                                                <a href="{{ path('site_cadastrar') }}" class="btn navbar-btn">Cadastre-se agora!</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

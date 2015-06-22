@@ -1,0 +1,31 @@
+    <div class="containerCenter col-xs-12 col-sm-8 col-md-12">
+        <h3>Dados recebidos pelo portal BeeImóveis</h3>
+
+        <form method="post" action="{{ path('site_fale_conosco') }}" id="form-cadastro" class="form-horizontal">
+            <div class="form-group col-xs-6">
+                <label for="noNome">Nome</label>
+                {{ app.request.get('noNome') }}
+            </div>
+
+            <div class="form-group col-xs-4">
+                <label for="noEmail">E-mail</label>
+                {{ app.request.get('noEmail') }}
+            </div>
+
+            <div class="form-group col-xs-4">
+                <label for="nuTelefone">Telefone</label>
+                {{ app.request.get('nuTelefone') }}
+            </div>
+
+            <div class="form-group col-xs-4">
+                <label for="dsComoChegou">Como chegou até nós</label>
+                {{ app.request.get('dsComoChegou') }}
+            </div>
+
+            <div class="form-group col-xs-6">
+                <label for="dsMensagem">Mensagem</label>
+                {{ app.request.get('dsMensagem') }}
+            </div>
+
+        </form>
+    </div>

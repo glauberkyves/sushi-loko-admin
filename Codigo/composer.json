@@ -1,0 +1,79 @@
+{
+  "name": "Fidelidade",
+  "description": "The \"2CreativeGames Symfony Custom Edition\" distribution",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Glauber Oliveira",
+      "email": "glauberkyves@gmail.com"
+    }
+  ],
+  "version": "0.1.0",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/glauberkyves/mysql-functions-doctrine2"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/glauberkyves/zend-form-twig"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/symfony": "2.6.*",
+    "doctrine/orm": "~2.2,>=2.2.3",
+    "doctrine/doctrine-bundle": "~1.2",
+    "twig/extensions": "~1.0",
+    "symfony/assetic-bundle": "~2.3",
+    "symfony/swiftmailer-bundle": "~2.3",
+    "symfony/monolog-bundle": "~2.4",
+    "sensio/distribution-bundle": "~3.0.12",
+    "sensio/framework-extra-bundle": "~3.0",
+    "sensio/generator-bundle": "2.5.*@dev",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "composer/composer": "1.0.*@dev",
+    "knplabs/knp-paginator-bundle": "~2.4",
+    "glauberkyves/mysql-functions-doctrine2": "master",
+    "glauberkyves/zend-form-twig": "master"
+  },
+  "autoload": {
+    "psr-0": {
+      "": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "config": {
+    "bin-dir": "bin"
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+    ],
+    "post-install-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+    ]
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.3-dev"
+    },
+    "symfony-web-dir": "web",
+    "symfony-app-dir": "app",
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    }
+  }
+}

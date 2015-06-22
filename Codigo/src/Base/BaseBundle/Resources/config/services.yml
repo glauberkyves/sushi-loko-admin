@@ -1,0 +1,28 @@
+services:
+    service.email_error:
+        class: Base\BaseBundle\Service\EmailError
+        arguments:  ["@service_container"]
+
+    service.endereco:
+        class: Base\BaseBundle\Service\Endereco
+        arguments:  ["@service_container"]
+
+    service.estado:
+        class: Base\BaseBundle\Service\Estado
+        arguments:  ["@service_container"]
+
+    service.municipio:
+        class: Base\BaseBundle\Service\Municipio
+        arguments:  ["@service_container"]
+
+    service.bairro:
+        class: Base\BaseBundle\Service\Bairro
+        arguments:  ["@service_container"]
+
+    service.logradouro:
+        class: Base\BaseBundle\Service\Logradouro
+        arguments:  ["@service_container"]
+
+    service.newsletter:
+        class: Base\BaseBundle\Service\Newsletter
+        arguments:  ["@service_container"]

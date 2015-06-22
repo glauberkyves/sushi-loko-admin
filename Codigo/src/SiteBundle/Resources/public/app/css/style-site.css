@@ -1,0 +1,278 @@
+.footerMain {
+    background-image: url("../images/der.png") !important;
+    background-repeat: repeat-x;
+    margin-top: 30px !important;
+    height: 180px;
+}
+
+label.error{
+    color: #E20000;
+}
+
+/* Style of Denisson */
+.noo-map .gsearch .gsearch-wrap > form {
+    background: rgba(000,000,000,0.5) !important;
+}
+
+.gsearch .gsearch-wrap .gsearch-content .gsearch-field .form-group .label-select:before {
+
+    background: #E5AF21 !important;
+}
+
+
+.gsearch-wrap .gsearchform .col-xs-12 a
+{
+    float: right;
+    margin-top: -35px;
+    margin-right: 37px !important;
+}
+
+.gsearch .gsearch-wrap .gsearch-content .gsearch-action .gsubmit .btn {
+    background:url('../images/encontrarImovel.png') #E5AF21 no-repeat;
+    background-position-x:5px ;
+    background-position-y:35px ;
+    width: 217px !important;
+    height: 120px !important;
+    background-position: center !important;
+}
+
+.gsearch-wrap .gsearchform .col-sm-12
+{
+    background: rgba(000,000,000,0.5) !important;
+    color: #fff !important;
+    margin-top: -1px;
+}
+
+.gsearch-wrap .gsearchform .col-sm-12 label
+{
+    margin-left:50px;
+}
+
+.gsearch-wrap .gsearchform .gsearch-content .gsearch-field  section
+{
+    display: none;
+}
+
+.input-de
+{
+    width: 50%;
+    float: left;
+    margin-right: 5px;
+}
+
+.input-ate
+{
+    width: 47%;
+}
+
+.properties .hentry .property-detail > div {
+    text-align: left !important;
+    padding:0px !important;
+}
+
+.agent-detail-info span{
+    color: #000 !important;
+}
+.agent-detail-info{
+    color: #E5AF21 !important;
+    font-size: 19px;
+}
+@media screen and (max-width: 770px) {
+
+    .gsearch .gsearch-wrap .gsearch-content .gsearch-action .gsubmit .btn {
+        background:url('../images/encontrarImovel.png') #E5AF21 no-repeat;
+        background-position: center !important;
+        width:100% !important;
+        height: 120px !important;
+        margin-left: 7px !important;
+        margin-top: -30px;
+    }
+
+    .gsearch-wrap .gsearchform .col-sm-12 label
+    {
+        display: none !important;
+    }
+
+    #gmap, .gmap-control, .gmap-zoom, .gmap-loadings, .gmap-loading{
+        display: none !important;
+    }
+
+    .fb-like{ display: none !important;}
+}
+
+.property-feature-title{
+    font-size: 13px !important;
+    color: #333 !important;
+    font-weight: bold !important;
+}
+
+#qtQuartos, #qtSuites, #qtBanheiros, #qtLavabos, #qtGaragem, #nuAndar, #qtAndares
+{
+    text-align: center;
+}
+
+#dsImovel{
+    height: 278px !important;
+}
+.file-preview {
+    margin-top: 25px !important;
+}
+.file-preview-frame{
+    width: 100px !important;
+    height:116px !important;
+    /*display: none !important;*/
+}
+.file-preview-image{
+    height: 50px !important;
+}
+.gsubmit{
+    margin-top: 5px !important;
+}
+
+.navbar-header .logo .logo-image a {
+    height: 63px;
+    width: 192px !important;
+    display: block;
+    background: url("../../assets/images/logo/logo.png") no-repeat left center;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    -ms-background-size: contain;
+    background-size: contain;
+    margin-top: 3px;
+}
+.precoDe, .precoAte, .areaDe, .areaAte{
+    font-size: 12px !important;
+}
+body { overflow-x: hidden !important; }
+.caricont{  margin-left: -29px !important;  max-width: 40px !important; margin-top: -2px !important; }
+.imgLoad{display: none !important;}
+.car2{
+    width: 500px !important;
+    padding-left: 60px !important;
+    font-weight: 300 !important;
+}
+.amount{font-size: 16px !important;}
+.noo-slider .caroufredsel_wrapper .sliders .slide-item.noo-property-slide .slide-caption .slide-caption-action a, .read-more, .form-submit input[type="submit"], .agents .hentry .agent-wrap .agent-desc .agent-action a, .btn-secondary, .contact-desc .submit, .contact-desc-1 .submit, .noo-logreg .btn, .recent-properties .recent-properties-content .property-row .hentry .property-summary .property-info .property-action a, .recent-properties.recent-properties-featured .property-info .property-action a {background-color: #ECBB23 !important; color: #333;}
+/* jssor slider arrow navigator skin 11 css */
+/*
+.jssora11l                  (normal)
+.jssora11r                  (normal)
+.jssora11l:hover            (normal mouseover)
+.jssora11r:hover            (normal mouseover)
+.jssora11l.jssora11ldn      (mousedown)
+.jssora11r.jssora11rdn      (mousedown)
+*/
+.jssora11l, .jssora11r {
+    display: block;
+    position: absolute;
+    /* size of arrow element */
+    width: 37px;
+    height: 37px;
+    cursor: pointer;
+    background: url(../../assets/images/slideshow/a11.png) no-repeat;
+    overflow: hidden;
+}
+
+.jssora11l {
+    background-position: -11px -41px;
+}
+
+.jssora11r {
+    background-position: -71px -41px;
+}
+
+.jssora11l:hover {
+    background-position: -131px -41px;
+}
+
+.jssora11r:hover {
+    background-position: -191px -41px;
+}
+
+.jssora11l.jssora11ldn {
+    background-position: -251px -41px;
+}
+
+.jssora11r.jssora11rdn {
+    background-position: -311px -41px;
+}
+
+/* jssor slider thumbnail navigator skin 07 css */
+/*
+.jssort07 .p            (normal)
+.jssort07 .p:hover      (normal mouseover)
+.jssort07 .pav          (active)
+.jssort07 .pav:hover    (active mouseover)
+.jssort07 .pdn          (mousedown)
+*/
+.jssort07 {
+    position: absolute;
+    /* size of thumbnail navigator container */
+    width: 800px;
+    height: 100px;
+}
+
+.jssort07 .p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 99px;
+    height: 66px;
+}
+
+.jssort07 .i {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 99px;
+    height: 66px;
+    filter: alpha(opacity=80);
+    opacity: .8;
+}
+
+.jssort07 .p:hover .i, .jssort07 .pav .i {
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+
+.jssort07 .o {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 97px;
+    height: 64px;
+    border: 1px solid #000;
+    box-sizing: content-box;
+    transition: border-color .6s;
+    -moz-transition: border-color .6s;
+    -webkit-transition: border-color .6s;
+    -o-transition: border-color .6s;
+}
+
+.jssort07 .pav .o {
+    border-color: #0099ff;
+}
+
+.jssort07 .p:hover .o {
+    border-color: #fff;
+    transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: none;
+}
+
+.jssort07 .p.pdn .o {
+    border-color: #0099ff;
+}
+
+* html .jssort07 .o {
+    /* ie quirks mode adjust */
+    width /**/: 99px;
+    height /**/: 66px;
+}
+
+.page-fullwidth .properties.list .property-featured img
+{
+    height: 300px !important;
+}

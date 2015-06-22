@@ -1,0 +1,17 @@
+site_bundle:
+    validators:
+        usuario:
+            noEmail:
+                notBlank: O campo E-mail é obrigatório.
+                email: Por favor, preencha um e-mail válido.
+                duplicity: Esse e-mail já está cadastrado. Se esqueceu sua senha clique em esqueci minha.
+            noSenha:
+                notBlank: O campo Senha é obrigatório.
+            invalidLogin: E-mail / Senha inválida. Se esqueceu sua senha clique em esqueci minha.
+        pessoa_fisica:
+            noPessoa:
+                notBlank: O campo Nome é obrigatório.
+            nuCpf: Esse CPF já está cadastrado. Se esqueceu sua senha clique em esqueci minha.
+        perfil:
+            noPerfil:
+                notBlank: O campo Perfil é obrigatório.

@@ -1,0 +1,393 @@
+{% extends "SiteBundle::layout.html.twig" %}
+{% block body %}
+    <div id="fb-root"></div>
+
+    <!-- START MAP HORIZONTAL -->
+    <section id="search_map_horizontal" class="wrap noo_advanced_search_property horizontal">
+        <div class="noo-map">
+            <div id="gmap"></div>
+            <div class="gmap-search">
+                <input placeholder="Search your map" type="text" autocomplete="off" id="gmap_search_input">
+            </div>
+            <div class="gmap-control">
+                <a class="gmap-mylocation" href="#"><i class="fa fa-map-marker"></i>Minha Localidade</a>
+                <a class="gmap-full" href="#"><i class="fa fa-expand"></i></a>
+                <a class="gmap-prev" href="#"><i class="fa fa-angle-left"></i></a>
+                <a class="gmap-next" href="#"><i class="fa fa-angle-right"></i></a>
+            </div>
+            <div class="gmap-zoom">
+                <a href="#" class="zoom-in"><i class="fa fa-plus"></i></a>
+                <a href="#" class="zoom-out"><i class="fa fa-minus"></i></a>
+            </div>
+            <div class="gmap-loading">Carregando
+                <div class="gmap-loader">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+
+            <div class="gsearch">
+                <div class="container">
+                    <div class="gsearch-wrap">
+                        <form class="gsearchform" method="get" role="search">
+                            <div class="gsearch-content">
+                                <div class="gsearch-field">
+                                    <div class="form-group glocation">
+                                        <div class="label-select">
+                                            {{ '' |estados|raw }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group gsub-location">
+                                        <div class="label-select">
+                                            {{ app.session.get('_location') |municipios|raw }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group gstatus">
+                                        <div class="label-select">
+                                            {{ '' |tipoAnuncio|raw }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group gtype">
+                                        <div class="label-select">
+                                            <select class="form-control" id="bairro">
+                                                <option>Todos os bairros</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group gbed">
+                                        <div class="label-select">
+                                            {{ '' |tipoImovel|raw }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group gbath">
+                                        <div class="label-select">
+                                            <select class="form-control" name="qtQuartos">
+                                                <option>Quartos</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group gbath">
+                                        <input  type="text" name="nuCodigo" class="form-control input-de" size="100"
+                                               placeholder="Preço de"/>
+                                        <input type="text" name="nuCodigo" class="form-control input-ate" size="40"
+                                               placeholder="Preço ate"/>
+                                    </div>
+
+                                    <div class="form-group gbath">
+                                        <input type="text" name="nuCodigo" class="form-control input-de" size="100"
+                                               placeholder="Área de"/>
+                                        <input type="text" name="nuCodigo" class="form-control input-ate" size="40"
+                                               placeholder="Área ate  "/>
+                                    </div>
+
+                                    <section>
+                                        <div class="form-group gbath">
+                                            <div class="label-select">
+                                                <select class="form-control suites valid" name="qtSuites">
+                                                    <option>Suites</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>Mais</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group gbath">
+                                            <div class="label-select">
+                                                <select class="form-control valid" name="qtGaragem">
+                                                    <option>Vagas</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                    <option>Mais</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group gbath">
+                                            <input type="text" name="nuCodigo" class="form-control" size="40"
+                                                   placeholder="Palavra chave">
+                                        </div>
+
+                                        <div class="form-group gbath">
+                                            <input type="text" name="codigo" class="form-control " mask="numeric"
+                                                   size="40"
+                                                   placeholder="Codigo do Imóvel">
+                                        </div>
+                                    </section>
+                                </div>
+
+                                <div class="gsearch-action">
+                                    <div class="gsubmit">
+                                        <a class="btn btn-deault" href="#"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12  col-md-12">
+                                <a><i class="fa fa-search"></i> Busca avançada</a>
+                            </div>
+                            <div class="col-sm-12 col-md-12">
+                                <label>
+                                    <input name="stParticular" type="checkbox"> Somente Imóveis de particulares
+                                </label>
+
+                                <label>
+                                    <input name="stImovelPronto" type="checkbox"> Somente Imóveis prontos
+                                </label>
+
+                                <label>
+                                    <input name="stImovelConstrucao" type="checkbox"> Somente Imóveis em construção
+                                </label>
+
+                                <label>
+                                    <input name="menoValor" type="checkbox"> Aceitar Imóvel de menor valor
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END MAP HORIZONTAL -->
+
+    <!-- START NOO MAINBODY -->
+    <div class="container noo-mainbody">
+        <div class="noo-mainbody-inner">
+            <div class="row clearfix">
+                <!-- START MAIN CONTENT -->
+                <div class="noo-content col-xs-12">
+                    <div class="properties list">
+                        {% include "SiteBundle::messages.html.twig" %}
+                        <!-- START PROPERTIES HEADER -->
+                        <div class="properties-header">
+                            <h1 class="page-title">Imóveis no {{ app.request.session.get('noEstado') }}</h1>
+
+                            <div class="properties-toolbar">
+                                <form class="properties-ordering" method="get">
+                                    <div class="properties-ordering-label">Ordenar</div>
+                                    <div class="form-group properties-ordering-select">
+                                        <div class="label-select">
+                                            <select class="form-control">
+                                                <option>Menor valor</option>
+                                                <option>Maior valor</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- END PROPERTIES HEADER -->
+                        <!-- START PROPERTIES CONTENT -->
+                        <div class="properties-content">
+
+                            {% for entity in arrAnuncio %}
+                                {% if entity.stAtivo == 1 %}
+                                    {% set tipoImovel   = entity.noTipoAnuncio|replace({' ': "-"})|lower %}
+                                    {% set estadoImovel = entity.noEstado|replace({' ': "-"})|lower %}
+                                    {% set cidadeImovel = entity.noMunicipio|replace({' ': "-"})|lower %}
+                                    {% set enderecologradouro = entity.noLogradouro|replace({' ': "-"})|lower %}
+                                    {% set enderecoImovel = enderecologradouro~entity.nuEndereco~entity.noComplemento|replace({' ': "-"})|lower %}
+
+                                    <article class="hentry">
+                                        <div class="property-featured">
+                                            <a class="content-thumb"
+                                               href="/ver-imovel/{{ tipoImovel }}/{{ estadoImovel }}/{{ cidadeImovel }}/{{ enderecoImovel }}/{{ entity.idAnuncio }}">
+                                                {% if entity.noUrl %}
+                                                    <img src="{{ entity.noUrl }}" alt="">
+                                                {% else %}
+                                                    <img src="{{ asset('/bundles/basebase/app/images/property/property1.jpg') }}"
+                                                         alt="">
+                                                {% endif %}
+                                            </a>
+                                            <span class="property-category"><a href="#">{{ entity.noTipoImovel }}</a>
+                                            </span>
+                                        </div>
+                                        <div class="property-wrap">
+                                            <h2 class="property-title">
+                                                <a href="property-details.html" title="225 E 36th St #20D">
+                                                    {{ entity.noTitulo|capitalize }}
+                                                </a>
+                                            </h2>
+
+                                            <div class="property-excerpt">
+                                                <p>
+                                                    {{ entity.dsImovel }}
+                                                </p>
+
+                                                <p class="property-fullwidth-excerpt">
+                                                    {{ entity.dsImovel }}
+                                                </p>
+                                            </div>
+                                            <div class="property-summary">
+                                                <div class="property-detail">
+                                                    <div class="agent-detail-info">
+                                                        <div class="">
+                                                            <span>Área: </span> {{ entity.nuValorMetro }}m²
+                                                        </div>
+                                                        <div class="">
+                                                            <span>Banheiro: </span> {{ entity.qtBanheiros }}</div>
+                                                        <div class="">
+                                                            <span>Quartos: </span> {{ entity.qtQuartos }}</div>
+                                                        <div class="">
+                                                            <span>Vagas: </span> {{ entity.qtGaragem }}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="property-info">
+                                                    <div class="property-price">
+                                                        <span><span class="amount">R$ {{ (entity.nuValor / 100)|number_format(2, ',', '.') }}</span></span>
+                                                    </div>
+                                                    <div class="property-action">
+                                                        <a href="/ver-imovel/{{ tipoImovel }}/{{ estadoImovel }}/{{ cidadeImovel }}/{{ enderecoImovel }}/{{ entity.idAnuncio }}">Ver
+                                                            Mais</a>
+                                                    </div>
+                                                </div>
+                                                <div class="property-info property-fullwidth-info">
+                                                    <div class="property-price">
+                                                        <span><span class="amount">R$ {{ (entity.nuValor / 100)|number_format(2, ',', '.') }}</span> </span>
+                                                    </div>
+                                                    <div class="size"><span>{{ entity.nuValorMetro }} m²</span></div>
+                                                    <div class="bathrooms"><span>{{ entity.qtBanheiros }}</span></div>
+                                                    <div class="bedrooms"><span> {{ entity.qtQuartos }}</span></div>
+                                                    <div><img class="caricont"
+                                                              src="{{ asset('/bundles/basebase/app/images/icon/car-2.png') }}"
+                                                              alt=""><span>{{ entity.qtGaragem }}</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="property-action property-fullwidth-action">
+                                            <a href="/ver-imovel/{{ tipoImovel }}/{{ estadoImovel }}/{{ cidadeImovel }}/{{ enderecoImovel }}/{{ entity.idAnuncio }}">Ver
+                                                Mais</a>
+                                        </div>
+                                    </article>
+                                {% endif %}
+                            {% endfor %}
+
+
+                            <div class="clearfix"></div>
+
+                            <!-- START PAGINATION NAVIGATION -->
+                            <nav class="pagination-nav">
+                                <ul class="pagination list-center">
+                                    <li><a class="prev page-numbers" href="#"><i class="fa fa-angle-left"></i></a></li>
+                                    <li><span class="page-numbers current">1</span></li>
+                                    <li><a class="page-numbers" href="#">2</a></li>
+                                    <li><span class="page-dots"><i class="fa fa-ellipsis-h"></i></span></li>
+                                    <li><a class="page-numbers" href="#">7</a></li>
+                                    <li><a class="page-numbers" href="#">8</a></li>
+                                    <li><a class="next page-numbers" href="#"><i class="fa fa-angle-right"></i></a></li>
+                                </ul>
+                            </nav>
+                            <!-- END PAGINATION NAVIGATION -->
+                        </div>
+                        <!-- END PROPERTIES CONTENT -->
+                    </div>
+                </div>
+                <!-- END MAIN CONTENT -->
+            </div>
+        </div>
+    </div>
+    <!-- END NOO MAINBODY -->
+
+    <script type="text/javascript" src="{{ asset('bundles/site/assets/js/noo-property-google-map.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/site/assets/js/property.js') }}"></script>
+
+    {# Like Box of Facebook #}
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            // JS of Denisson
+            $(".gsearch-wrap .gsearchform .col-xs-12 a").click(function () {
+                var buscaAvancada = $('.gsearch-wrap .gsearchform .gsearch-content .gsearch-field  section');
+                if ($(".buscaAvancadaAtivado").size() == 1) {
+                    buscaAvancada.fadeOut();
+                    $(this).removeClass("buscaAvancadaAtivado");
+                } else {
+                    buscaAvancada.fadeIn();
+                    $(this).toggleClass("buscaAvancadaAtivado");
+                }
+            });
+        });
+
+        var nooGmapL10n = {
+            "latitude": "-22.9335968",
+            "longitude": "-43.24551180000003",
+            "maxZoom_MarkerClusterer": "5",
+            "zoom": "5",
+            "area_unit": "sqft",
+            "thousands_sep": ",",
+            "decimal_sep": ".",
+            "num_decimals": "0",
+            "currency": "$",
+            "currency_position": "left",
+            "default_label": "",
+            "fullscreen_label": "",
+            "no_geolocation_pos": "O navegador não conseguiu detectar a sua posição!",
+            "no_geolocation_msg": "Geolocation não é suportado por este browser.",
+            "markers": [
+                {% for entity in arrAnuncio %}
+                {% set tipoImovel   = entity.noTipoAnuncio|replace({' ': "-"})|lower %}
+                {% set estadoImovel = entity.noEstado|replace({' ': "-"})|lower %}
+                {% set cidadeImovel = entity.noMunicipio|replace({' ': "-"})|lower %}
+                {% set enderecologradouro = entity.noLogradouro|replace({' ': "-"})|lower %}
+                {% set enderecoImovel = enderecologradouro~entity.nuEndereco~entity.noComplemento|replace({' ': "-"})|lower %}
+                {% if entity.stAtivo == 1 %}
+                {
+                    "latitude": "{{ entity.noLatitude }}",
+                    "longitude": "{{ entity.noLongitude }}",
+                    "image": "<img src='{{ entity.noUrl }}' class='attachment-property-infobox' alt='' />",
+                    "title": "{{ entity.noTitulo }}",
+                    "area": "{{ entity.nuAreaUtil }}",
+                    "bedrooms": 3,
+                    "bathrooms": 2,
+                    "price": "{{ entity.nuValor }}",
+                    "price_html": "<span class='amount'>R$: {{ entity.nuValor }}</span> ",
+                    "url": "/ver-imovel/{{ tipoImovel }}/{{ estadoImovel }}/{{ cidadeImovel }}/{{ enderecoImovel }}/{{ entity.idAnuncio }}",
+                    "location": "{{ entity.noMunicipio }}",
+                    "sub_location": "greenville",
+                    "status": "sales",
+                    "category": "single-family-home",
+                    "icon": "../bundles/basebase/app/images/icon/marker-icon-apartment.png"
+                },
+                {% endif %}
+                {% endfor %}],
+            "ajax_finishedMsg": "Todas as mensagens exibidas"
+        };
+    </script>
+{% endblock %}

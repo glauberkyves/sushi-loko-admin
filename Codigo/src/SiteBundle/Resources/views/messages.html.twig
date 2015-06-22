@@ -1,0 +1,13 @@
+{% if(app.session.flashbag.peekAll|length) %}
+    {% for label, flashes in app.session.flashbag.all %}
+        <div class="alert alert-block alert-{{ label|replace({'error': 'danger'}) }} fade in">
+            <button type="button" class="close close-sm" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+
+            {% for flash in flashes %}
+                {{ flash }}<br/>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endif %}

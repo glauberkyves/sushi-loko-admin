@@ -1,0 +1,67 @@
+{% extends 'BaseBaseBundle::layout.html.twig' %}
+
+{% block formLogin %}
+    <a href="{{ path('home_page') }}">
+    <img src = "{{ asset('bundles/basebase/img/BeeImoveis.png') }}" width="230" />
+    </a>
+{% endblock %}
+{% block body %}
+    <div class="noo-wrapper">
+        <!-- START NOO MAINBODY -->
+        <div class="container-fluid noo-mainbody">
+            <div class="noo-mainbody-inner">
+                <div class="row clearfix">
+                    <!--START MAIN CONTENT -->
+                    <div class="noo-content col-xs-12">
+                        <div class="page-content row">
+                            <div class="col-md-12">
+                                <div class="noo-logreg both">
+                                    <div class="logreg-container">
+                                        <div class="row clearfix logreg-content">
+                                            <div class="col-md-8 login-form">
+                                                <form class="form-horizontal" method="post" action="{{ path('login_check') }}">
+
+                                                    <div class="form-group" style="font-size: 25px; ">Login</div>
+                                                    <div class="form-group">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <strong>Erro!</strong> E-mail / Senha inválidos.
+                                                    </div>
+                                                    </div>
+                                                    <p class="form-group">Se você já é um membro do BeeImoveis. Utilize o formulário abaixo para efetuar login no local.</p>
+                                                    <div class="form-message"></div>
+                                                    <div class="logreg-content">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control required email" id="log" name="_username" placeholder="E-mail" required="">
+                                                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                                            <input type="hidden" name="redirect" value="{{ app.request.get('redirect') }}">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control required" id="pwd" name="_password" placeholder="Senha" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn navbar-btn btnDefalt" >Login</button>
+                                                    </div>
+                                                    <p class="logreg-desc">Esqueci minha senha ? <a href="{{ path('usuario_recuperar_senha') }}" class="esqueciSenha" >Clique aqui</a>
+                                                    </p>
+                                                    <p class="logreg-desc">Para se cadastrar  <a href="/cadastre-se" class="esqueciSenha" >Clique aqui</a>
+                                                    </p>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END MAIN CONTENT -->
+                </div>
+            </div>
+        </div>
+        <!-- END NOO MAINBODY -->
+    </div>
+
+{% endblock %}

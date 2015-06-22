@@ -1,0 +1,12 @@
+# rotas princiapis de troca de estado e busca de municipios
+lista_municipios:
+    path:     /lista-municipios
+    defaults: { _controller: BaseBaseBundle:Default:getMunicipios }
+
+lista_bairros:
+    path:     /lista-bairros
+    defaults: { _controller: BaseBaseBundle:Default:getBairros }
+
+buscar_cep:
+    path:     /buscar-cep
+    defaults: { _controller: BaseBaseBundle:Default:getDadosCep }

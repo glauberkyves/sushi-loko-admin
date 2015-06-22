@@ -1,0 +1,41 @@
+security:
+    encoders:
+        Base\BaseBundle\Entity\TbUsuario:
+            algorithm: md5
+            iterations: 0
+            encode_as_base64: false
+
+    providers:
+        auth:
+            entity: { class: BaseBaseBundle:TbUsuario, property: noEmail }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        login_firewall:
+            pattern:  ^/entrar.html$
+            anonymous: ~
+
+        auth:
+            provider: auth
+            pattern: ^/
+            anonymous: ~
+            form_login:
+                success_handler: handler_success
+                failure_path: site_login
+                failure_path: site_login
+                login_path: site_login
+            logout:
+                path:   /logout
+                target: site_homepage
+                invalidate_session: true
+
+    role_hierarchy:
+        ROLE_SUPER:        [ROLE_SUPER]
+        ROLE_USER:         [ROLE_USER]
+
+    access_control:
+         - { path: ^/super, roles: ROLE_SUPER }
+         - { path: ^/entrar.html, role: IS_AUTHENTICATED_ANONYMOUSLY }

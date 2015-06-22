@@ -1,0 +1,67 @@
+site_homepage:
+    path:     /
+    defaults: { _controller: SiteBundle:Anuncio:buscarAnuncio }
+
+site_cadastrar:
+    path:     /cadastrar.html
+    defaults: { _controller: SiteBundle:Usuario:create }
+
+site_mudar_estado:
+    path:     /mudar-estado
+    defaults: { _controller: SiteBundle:Site:mudarEstado }
+
+site_anunciar:
+    path:     /anunciar-meu-imovel.html
+    defaults: { _controller: SiteBundle:Anuncio:create }
+
+site_buscar_anuncio:
+    path:     /buscar-imovel
+    defaults: { _controller: SiteBundle:Anuncio:buscarAnuncio }
+
+site_imoveis_venda:
+    path:     /imoveis-a-venda.html
+    defaults: { _controller: SiteBundle:Anuncio:imoveisVenda }
+
+site_imoveis_alugar:
+    path:     /imoveis-pra-alugar.html
+    defaults: { _controller: SiteBundle:Anuncio:imoveisAluguel }
+
+site_detalhe_anuncio_venda:
+    path:     /venda/{noTitulo}-{idAnuncio}.html
+    defaults: { _controller: SiteBundle:Anuncio:detalheAnuncio }
+    requirements:
+        noTitulo: "[a-zA-Z1-9\-_\/]+"
+        idAnuncio: "\d+"
+
+site_login:
+    pattern: /entrar.html
+    defaults: { _controller: SiteBundle:Usuario:login }
+
+site_esqueci_senha:
+    path:     /esqueci-minha-senha.html
+    defaults: { _controller: SiteBundle:Usuario:login }
+
+site_ativar_cadastro:
+    path:     /ativar-cadastro/{token}
+    defaults: { _controller: SiteBundle:Usuario:ativarCadastro }
+
+site_anuncio_upload_foto:
+    path:     /anuncio-upload
+    defaults: { _controller: SiteBundle:Anuncio:upload }
+    methods: [POST]
+
+site_anuncio_remove_foto:
+    path:     /anuncio-remover
+    defaults: { _controller: SiteBundle:Anuncio:upload }
+
+site_meus_anuncios:
+    path:     /meus-anuncios.html
+    defaults: { _controller: SiteBundle:Anuncio:meusAnuncios }
+
+site_fale_conosco:
+    path:     /fale-conosco.html
+    defaults: { _controller: SiteBundle:Site:faleConosco }
+
+alerta_imovel:
+    path:     /alerta-imovel
+    defaults: { _controller: SiteBundle:Anuncio:alertaImoveis }

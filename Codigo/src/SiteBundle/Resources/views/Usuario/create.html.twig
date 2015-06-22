@@ -1,0 +1,170 @@
+{% extends "SiteBundle::layout.html.twig" %}
+{% block body %}
+    <div class="container noo-mainbody">
+        <div class="noo-mainbody-inner">
+            <div class="row clearfix">
+                <div class="noo-content col-xs-12 col-md-12 left-sidebar">
+                    <div class="submit-header">
+                        <h1 class="page-title">Cadastro</h1>
+                        {% include "SiteBundle::messages.html.twig" %}
+                    </div>
+                    <div class="submit-content">
+                        <form id="form-cadastro" name="profile_form" class="noo-form profile-form" role="form"
+                              action="{{ path('site_cadastrar') }}" method="post">
+
+                            <div class="noo-control-group">
+                                <div class="group-title">Escolha uma opção</div>
+                                <div class="group-container row">
+                                    <div class="pull-right">
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-warning" id="pf">Pessoa Física</button>
+                                            <button type="button" class="btn btn-warning" id="pj">Pessoa Jurídica</button>
+                                            <button type="button" class="btn btn-warning" id="pfc">Corretor</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="noo-control-group">
+                                <div class="group-title">Dados de Pessoais</div>
+                                <div class="group-container row">
+                                    <div class="col-md-6 pf">
+                                        <div class="form-group s-profile-facebook">
+                                            <label for="facebook">Nome</label>
+                                            <input type="text" class="form-control required" id="noPessoa" name="noPessoa"
+                                                   placeholder="Nome completo"
+                                                   value="{{ entity.getIdPessoa().getNoPessoa() }}">
+                                            <input type="hidden" name="tpPessoa" value="1" id="tpPessoa">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 pf">
+                                        <div class="form-group s-profile-facebook">
+                                            <label for="facebook">Telefone</label>
+                                            <input type="text" class="form-control required" mask="foneBR" id="nuTelefone" name="nuTelefone"
+                                                   placeholder="Telefone"
+                                                   value="{{ entity.getIdPessoa().getNuTelefone() }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 pf">
+                                        <div class="form-group s-profile-google_plus">
+                                            <label for="google_plus">CPF</label>
+                                            <input type="text" class="form-control required cpf" id="cpf" placeholder="999.999.999-99"
+                                                   mask="cpf" name="nuCpf"
+                                                   value="{{ entity.getIdPessoa().getIdPessoaFisica().getNuCpf() }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 pfc">
+                                        <div class="form-group s-profile-google_plus">
+                                            <label for="google_plus">CRECI</label>
+                                            <input type="text" class="form-control required" id="creci" name="creci"
+                                                   value="{{ entity.getIdPessoa().getIdPessoaFisica().getCreci() }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 pj">
+                                        <div class="form-group s-profile-google_plus">
+                                            <label for="google_plus">Razão Social</label>
+                                            <input type="text" class="form-control required" id="noPessoaPJ" name="noPessoa"
+                                                   placeholder="Razão Social"
+                                                   disabled="disabled"
+                                                   value="{{ entity.getIdPessoa().getNoPessoa() }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 pj">
+                                        <div class="form-group s-profile-google_plus">
+                                            <label for="google_plus">CNPJ</label>
+                                            <input type="text" class="form-control required cnpj" id="cnpj" placeholder="99.999.999/9999-99"
+                                                   mask="cnpj" name="nuCnpj"
+                                                   value="{{ entity.getIdPessoa().getIdPessoaJuridica().getNuCnpj() }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 pj">
+                                        <div class="form-group s-profile-google_plus">
+                                            <label for="google_plus">Nome Fantansia</label>
+                                            <input type="text" class="form-control" id="noFantansia" name="noFantansia"
+                                                   placeholder="Nome Fantansia"
+                                                   value="{{ entity.getIdPessoa().getIdPessoaJuridica().getNoFantansia() }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="noo-control-group">
+                                <div class="group-title">Dados de Acesso</div>
+                                <div class="group-container row">
+                                    <div class="col-md-6">
+                                        <div class="form-group s-profile-twitter">
+                                            <label for="twitter">E-mail</label>
+                                            <input type="text" class="form-control required email" id="email" placeholder="E-mail de acesso"
+                                                   name="noEmail"
+                                                   value="{{ entity.getNoEmail() }}">
+                                        </div>
+                                        <div class="form-group s-profile-twitter">
+                                            <label for="noSenha">* Senha</label>
+                                            <input type="password" class="form-control required" id="noSenha" placeholder="Senha"
+                                                   name="noSenha">
+                                        </div>
+                                        <div class="form-group s-profile-google_plus">
+                                            <label for="confirmaSenha">* Confirma Senha</label>
+                                            <input type="password" class="form-control required" id="confirmaSenha"
+                                                   placeholder="Confirma Senha" name="confirmaSenha">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="noo-submit">
+                                            <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.pj, .pfc').hide()
+
+            $('#pf').click(function () {
+                $('.pj, .pfc').hide()
+
+                $('.pf').show()
+                $('#tpPessoa').val(1)
+                $('#noPessoa').removeAttr('disabled')
+                $('#noPessoaPJ').attr('disabled', true)
+            })
+
+            $('#pj').click(function () {
+                $('.pf, .pfc').hide()
+
+                $('.pj').show()
+                $('#tpPessoa').val(2)
+                $('#noPessoa').attr('disabled', true)
+                $('#noPessoaPJ').removeAttr('disabled')
+            })
+
+            $('#pfc').click(function () {
+                $('.pj').hide()
+
+                $('.pfc, .pf').show()
+                $('#tpPessoa').val(3)
+                $('#noPessoa').removeAttr('disabled')
+                $('#noPessoaPJ').attr('disabled', true)
+            })
+
+            $("#confirmaSenha").rules('add', {
+                equalTo:  "#noSenha",
+                messages: {
+                    equalTo: "Senha de confirmação não confere"
+                }
+            });
+        })
+    </script>
+{% endblock %}

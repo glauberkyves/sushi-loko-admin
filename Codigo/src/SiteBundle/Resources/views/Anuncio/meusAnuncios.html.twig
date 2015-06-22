@@ -1,0 +1,458 @@
+{% extends "SiteBundle::layout.html.twig" %}
+    {% block body %}
+        <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.3";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+
+
+
+        {% for key, anuncio in anuncios %}
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalAgenda{{ key }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Agenda horario</h4>
+                        </div>
+                        <div class="modal-body">
+                            {#<form method="post" action="{{ path('agendar_imovel_create') }}">#}
+                            <input type="hidden" name="idAnuncio" value="{{ anuncio.getIdAnuncio() }}"/>
+
+                            <div class="form-group" style="width: 42%; float: left; margin-right: 10px;">
+                                <label for="user_login" class="sr-only">Data</label>
+                                <input type="date" class="form-control" name="dataAgenda" placeholder="Username *" required="">
+                            </div>
+                            <div class="form-group" style="width: 42%; float: left; margin-right: 10px;">
+                                <label for="user_login" class="sr-only">Hora</label>
+                                <input type="time" class="form-control" name="hora" placeholder="Username *" required="">
+                            </div>
+                            <div class="form-group" style="width: 10%; float: left;">
+                                <button type="submit" class="btn navbar-btn"
+                                        style=" background: #f0ad4e; height: 50px; margin-top: -0px;">
+                                    <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            {#</form>#}
+
+                            <table class="table">
+
+                                <thead>
+
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Horario</th>
+                                    <th>Remover</th>
+                                </tr>
+
+                                </thead>
+
+                                {% for key, agenda in obteridusuario %}
+
+                                    {% if  agenda.getIdAnuncio().getIdAnuncio() == anuncio.getIdAnuncio() and agenda.getStRemovido() == 0 %}
+                                        <tr class="agendamento{{ key }}">
+                                            {% if agenda.getStatus == 1 %}
+                                                <td>
+                                                    <span class="label label-success">Ativo</span>
+                                                </td>
+                                            {% else %}
+                                                <td>
+                                                    <span class="label label-default">Agendado</span>
+                                                </td>
+                                            {% endif %}
+                                            <td>
+                                                {{ agenda.getHorario()|date("m/d/Y - h:i") }}
+                                            </td>
+                                            <td>
+                                                <button type="button" name=".agendamento{{ key }}" class="btn btn-warning removerAgenda"
+                                                        id="{{ agenda.getIdAgendarHorario() }}">Remover
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </table>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="container">
+            <div class="row">
+                <div class="containerPainel  col-xs-12 col-sm-12 col-md-12">
+                    <h1>Meus anúncios ativos</h1>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Cod.</th>
+                            <th>Titulo do anuncio</th>
+                            <th>Publicado em</th>
+                            <th>Status</th>
+                            <th>Visitas</th>
+                            <th>Favoritado</th>
+                            <th>Pausa</th>
+                            {#<th>Agendar</th>#}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for key, anuncio in anuncios %}
+                            <tr>
+                                <td>{{ anuncio.getIdImovel().getNuCodigo() }} </td>
+                                <td>{{ anuncio.getNoTitulo()|capitalize }}</td>
+                                <td> {{ anuncio.getDtCadastro()|date("m/d/Y") }}</td>
+                                <td>
+                                    {% if anuncio.getStAtivo() == 1 %}
+                                        Ativado
+                                    {% else %}
+                                        Inativo
+                                    {% endif %}
+                                </td>
+                                <td>{{ anuncio.getNuVisita() }}</td>
+                                <td>{{ anuncio.getIdFavorito()|length }} </td>
+                                <td data-toggle="modal" data-target="#myModalPausar{{ key }}">
+                                    {% if anuncio.getStAtivo() == 1 %}
+                                        <span class="glyphicon glyphicon-pause"></span>
+                                    {% else %}
+                                        <span class="glyphicon glyphicon-play"></span>
+                                    {% endif %}
+                                </td>
+                                {#<td>#}
+                                    {#<button data-toggle="modal" data-target="#modalAgenda{{ key }}" type="button" class="btn btn-warning">#}
+                                        {#<span class="glyphicon glyphicon-cog"></span>#}
+                                        {#Configurar#}
+                                    {#</button>#}
+                                {#</td>#}
+                            </tr>
+
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModalPausar{{ key }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    {% set ativo =  anuncio.getStAtivo() %}
+                                    {% if ativo == 1 %}
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                            aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Pausar Anúncio</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Deseja realmente pausar seu anúncio ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                                                <button style="background: #f0ad4e;" type="button" class="btn btn-primary pausar"
+                                                        id="{{ anuncio.getIdAnuncio() }}" name="{{ anuncio.getStAtivo() }}">Sim
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    {% else %}
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                            aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Ativar Anúncio ?</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Deseja Ativar seu Anúncio
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                                                <button style="background: #f0ad4e;" type="button" class="btn btn-primary pausar"
+                                                        id="{{ anuncio.getIdAnuncio() }}" name="{{ anuncio.getStAtivo() }}">Sim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+                {#<div class="containerPainel  col-xs-12 col-sm-12 col-md-12">#}
+
+                    {#<h1>Promover Anuncio</h1>#}
+
+                    {#<!-- Modal -->#}
+                    {#<div class="modal fade" id="twiterkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+                        {#<div class="modal-dialog">#}
+                            {#<div class="modal-content">#}
+                                {#<div class="modal-header">#}
+                                    {#<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span#}
+                                                {#aria-hidden="true">&times;</span></button>#}
+                                    {#<h4 class="modal-title" id="myModalLabel">Compartilhar no Twitter</h4>#}
+                                {#</div>#}
+                                {#<div class="modal-body">#}
+                                    {#<table class="table">#}
+                                        {#<thead>#}
+                                        {#<tr>#}
+                                            {#<th>Cod.</th>#}
+                                            {#<th>Titulo</th>#}
+                                            {#<th></th>#}
+                                        {#</tr>#}
+                                        {#</thead>#}
+                                        {#<tbody>#}
+                                        {#{% for key, anuncio in anuncios %}#}
+                                            {#{% set tipoImovelRede = anuncio.getIdTipoAnuncio().getNoTipoAnuncio()|replace({' ': "-"})|lower %}#}
+                                            {#{% set imovelEstado   = anuncio.getIdImovel().getIdEndereco().getIdMunicipio().getIdEstado().getNoEstado()|replace({' ': "-"})|lower %}#}
+                                            {#{% set cidadeImovel   = anuncio.getIdImovel().getIdEndereco().getIdMunicipio().getNoMunicipio()|replace({' ': "-"})|lower %}#}
+                                            {#{% set lagradouroImovel = anuncio.getIdImovel().getIdEndereco().getNoLogradouro()|replace({' ': "-"})|replace({'/': "-"})|lower %}#}
+                                            {#{% set urlFace        =  "http://beeimoveis.com.br/ver-imovel/"~tipoImovelRede~"/"~imovelEstado~"/"~cidadeImovel~"/"~lagradouroImovel~"/"~anuncio.getIdAnuncio() %}#}
+                                            {#<tr>#}
+                                                {#<td>{{ anuncio.getIdImovel().getNuCodigo() }}</td>#}
+                                                {#<td>{{ anuncio.getNoTitulo()|capitalize }}</td>#}
+                                                {#<td><a href="https://twitter.com/share" class="twitter-share-button"#}
+                                                       {#data-url="{{ urlFace }}" data-via="denissonfelipe">Tweet</a>#}
+                                                    {#<script>!function (d, s, id) {#}
+                                                            {#var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';#}
+                                                            {#if (!d.getElementById(id)) {#}
+                                                                {#js = d.createElement(s);#}
+                                                                {#js.id = id;#}
+                                                                {#js.src = p + '://platform.twitter.com/widgets.js';#}
+                                                                {#fjs.parentNode.insertBefore(js, fjs);#}
+                                                            {#}#}
+                                                        {#}(document, 'script', 'twitter-wjs');</script>#}
+                                                {#</td>#}
+                                            {#</tr>#}
+                                        {#{% endfor %}#}
+                                        {#</tbody>#}
+                                    {#</table>#}
+                                {#</div>#}
+                                {#<div class="modal-footer">#}
+                                    {#<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+
+                    {#<!-- Modal -->#}
+                    {#<div class="modal fade" id="facebookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"#}
+                         {#aria-hidden="true">#}
+                        {#<div class="modal-dialog">#}
+                            {#<div class="modal-content">#}
+                                {#<div class="modal-header">#}
+                                    {#<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span#}
+                                                {#aria-hidden="true">&times;</span></button>#}
+                                    {#<h4 class="modal-title" id="myModalLabel">Compartilhar no Facebook</h4>#}
+                                {#</div>#}
+                                {#<div class="modal-body">#}
+                                    {#<table class="table">#}
+                                        {#<thead>#}
+                                        {#<tr>#}
+                                            {#<th>Cod.</th>#}
+                                            {#<th>Titulo</th>#}
+                                            {#<th></th>#}
+                                        {#</tr>#}
+                                        {#</thead>#}
+                                        {#<tbody>#}
+                                        {#{% for key, anuncio in anuncios %}#}
+                                            {#<tr>#}
+                                                {#{% set tipoImovelRede = anuncio.getIdTipoAnuncio().getNoTipoAnuncio()|replace({' ': "-"})|lower %}#}
+                                                {#{% set imovelEstado   = anuncio.getIdImovel().getIdEndereco().getIdMunicipio().getIdEstado().getNoEstado()|replace({' ': "-"})|lower %}#}
+                                                {#{% set cidadeImovel   = anuncio.getIdImovel().getIdEndereco().getIdMunicipio().getNoMunicipio()|replace({' ': "-"})|lower %}#}
+                                                {#{% set lagradouroImovel = anuncio.getIdImovel().getIdEndereco().getNoLogradouro()|replace({' ': "-"})|replace({'/': "-"})|lower %}#}
+                                                {#{% set urlFace        =  "/ver-imovel/"~tipoImovelRede~"/"~imovelEstado~"/"~cidadeImovel~"/"~lagradouroImovel~"/"~anuncio.getIdAnuncio() %}#}
+                                                {#<td>   {{ anuncio.getIdImovel().getNuCodigo() }} </td>#}
+                                                {#<td>{{ anuncio.getNoTitulo()|capitalize }}</td>#}
+                                                {#<td>#}
+                                                    {#<div class="fb-share-button" data-href="{{ urlFace }}" data-layout="button"></div>#}
+                                                {#</td>#}
+                                            {#</tr>#}
+                                        {#{% endfor %}#}
+                                        {#</tbody>#}
+                                    {#</table>#}
+                                {#</div>#}
+                                {#<div class="modal-footer">#}
+                                    {#<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+
+                    {#<!-- Modal -->#}
+                    {#<div class="modal fade" id="googleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+                        {#<div class="modal-dialog">#}
+                            {#<div class="modal-content">#}
+                                {#<div class="modal-header">#}
+                                    {#<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span#}
+                                                {#aria-hidden="true">&times;</span></button>#}
+                                    {#<h4 class="modal-title" id="myModalLabel">Compartilhar no Glogle +</h4>#}
+                                {#</div>#}
+                                {#<div class="modal-body">#}
+                                    {#<table class="table">#}
+                                        {#<thead>#}
+                                        {#<tr>#}
+                                            {#<th>Cod.</th>#}
+                                            {#<th>Titulo</th>#}
+                                            {#<th></th>#}
+                                        {#</tr>#}
+                                        {#</thead>#}
+                                        {#<tbody>#}
+                                        {#{% for key, anuncio in anuncios %}#}
+                                            {#{% set tipoImovelRede = anuncio.getIdTipoAnuncio().getNoTipoAnuncio()|replace({' ': "-"})|lower %}#}
+                                            {#{% set imovelEstado   = anuncio.getIdImovel().getIdEndereco().getIdMunicipio().getIdEstado().getNoEstado()|replace({' ': "-"})|lower %}#}
+                                            {#{% set cidadeImovel   = anuncio.getIdImovel().getIdEndereco().getIdMunicipio().getNoMunicipio()|replace({' ': "-"})|lower %}#}
+                                            {#{% set lagradouroImovel = anuncio.getIdImovel().getIdEndereco().getNoLogradouro()|replace({' ': "-"})|replace({'/': "-"})|lower %}#}
+                                            {#{% set urlFace        =  "/ver-imovel/"~tipoImovelRede~"/"~imovelEstado~"/"~cidadeImovel~"/"~lagradouroImovel~"/"~anuncio.getIdAnuncio() %}#}
+
+                                            {#<tr>#}
+                                                {#<td>   {{ anuncio.getIdImovel().getNuCodigo() }} </td>#}
+                                                {#<td>{{ anuncio.getNoTitulo()|capitalize }}</td>#}
+                                                {#<td>#}
+                                                    {#<div class="g-plus" data-action="share" data-annotation="none"#}
+                                                         {#data-href="{{ urlFace }}"></div>#}
+                                                {#</td>#}
+                                            {#</tr>#}
+                                        {#{% endfor %}#}
+                                        {#</tbody>#}
+                                    {#</table>#}
+                                {#</div>#}
+                                {#<div class="modal-footer">#}
+                                    {#<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<ul class="social-list agent-social clearfix">#}
+                        {#<li data-toggle="modal" data-target="#facebookModal" class="facebookBtton"><a href="#" title="Facebook"><i#}
+                                        {#class="fa fa-facebook"></i></a></li>#}
+                        {#<li data-toggle="modal" data-target="#twiterkModal" class="twiterButtin"><a href="#" title="Twitter"><i#}
+                                        {#class="fa fa-twitter"></i></a></li>#}
+                        {#<li data-toggle="modal" data-target="#googleModal" class="googlemaisnButtin"><a href="#" title="Google +"><i#}
+                                        {#class="fa fa-google-plus"></i></a></li>#}
+                    {#</ul>#}
+                {#</div>#}
+
+
+                {#<div class="containerPainel  col-xs-12 col-sm-12 col-md-12">#}
+                    {#<h1>Minha agenda</h1>#}
+
+                    {#<div class="noo-content col-xs-12 col-md-8">#}
+                        {#<div class="agents grid clearfix">#}
+
+                            {#{% for key, usuario  in obteridusuario %}#}
+
+                                {#{% if usuario.getStatus() == 0 and usuario.getStRemovido() == 0 %}#}
+
+                                    {#<article class="hentry agendado{{ key }}">#}
+                                        {#<div class="agent-featured">#}
+                                            {#<a class="content-thumb" href="agents-detail.html" title="Adam Scooter">#}
+                                                {#<img src="http://html.nootheme.com/citilights/images/agent/agent1.jpg"#}
+                                                     {#class="attachment-agent-thumb" alt="">#}
+                                            {#</a>#}
+                                        {#</div>#}
+                                        {#<div class="agent-wrap">#}
+                                            {#<div class="agent-summary">#}
+                                                {#<div class="agent-info">#}
+                                                    {#{% for agenda in usuario.getIdAgenda() %}#}
+                                                        {#<div>#}
+                                                            {#<i class="fa fa-phone"></i>&nbsp;{{ agenda.getIdUsuario().getIdPessoa().getNoPessoa() }}#}
+                                                        {#</div>#}
+                                                        {#<div>#}
+                                                            {#<i class="fa fa-envelope-square"></i>&nbsp;{{ agenda.getIdUsuario().getNoEmail() }}#}
+                                                        {#</div>#}
+                                                    {#{% endfor %}#}
+
+                                                {#</div>#}
+                                                {#<div class="agent-desc">#}
+                                                    {#<ul class="social-list agent-social clearfix">#}
+                                                        {#<h3 style="font-size: 18px;">{{ usuario.getHorario()|date("m/d/Y - H:i") }}</h3>#}
+                                                    {#</ul>#}
+                                                    {#<div class="agent-action">#}
+                                                        {#<button type="button" id="{{ usuario.getIdAgendarHorario() }}"#}
+                                                                {#name="agendado{{ key }}"#}
+                                                                {#class="cancelarAgenda btn btn-danger col-xs-12 col-sm-12 col-md-12">Cancelar#}
+                                                            {#visita#}
+                                                        {#</button>#}
+                                                    {#</div>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</article>#}
+                                {#{% endif %}#}
+                            {#{% endfor %}#}
+                        {#</div>#}
+                    {#</div>#}
+
+                    {#<div class="noo-content col-xs-12 col-md-12">#}
+                        {#<div style="display: none;" class="alert alert-success mensagemSucessoAgenda1" role="alert">...</div>#}
+                    {#</div>#}
+                {#</div>#}
+                {% block codernadasMapa %}
+                    <script src="https://apis.google.com/js/platform.js" async defer>{
+                            lang: 'pt-BR'
+                        }</script>
+
+                    {% for key, anuncio in anuncios %}
+                    <script>
+                        $(function () {
+                            $("#datepicker{{ key }}").datepicker();
+                        });
+                    </script>
+                    {% endfor %}
+
+                    <script>
+                        $(".removerAgenda").click(function () {
+                            var id = $(this).attr("id");
+                            var name = $(this).attr("name");
+                            $(name).remove();
+                            $.post('/remover-agenda', {id: id}, function ($data) {
+                                if ($data.status) {
+                                    var name = $(this).attr("name");
+                                    $(name).remove();
+                                }
+                            });
+                        });
+
+                        $('.pausar').click(function () {
+                            var id = $(this).attr('id');
+                            var sTativo = $(this).attr('name');
+
+                            $.post('/pausar-anuncio', {id: id, st: sTativo}, function ($data) {
+                                location.reload();
+                            });
+                        });
+
+
+                        $(".cancelarAgenda").click(function () {
+                            var id = $(this).attr('id');
+
+                            var canvelarBtn = $(this).attr("name");
+                            $("." + canvelarBtn).remove();
+                            $.post('/agenda-cancelar', {id: id}, function ($data) {
+                                if ($data.status) {
+                                    $(".mensagemSucessoAgenda1").fadeIn();
+                                    $(".mensagemSucessoAgenda1").html($data.mensagem);
+                                    $(".mensagemSucessoAgenda1").fadeOut(3000);
+                                }
+                            });
+                        });
+                    </script>
+                {% endblock %}
+            </div>
+            <!-- Fim de Row Principal -->
+        </div><!-- Fim de Container Principal -->
+
+    {% endblock %}

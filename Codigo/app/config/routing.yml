@@ -1,0 +1,7 @@
+site:
+    resource: "@SiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
+super_base:
+    resource: "@SuperBaseBundle/Resources/config/routing.yml"
+    prefix:   /

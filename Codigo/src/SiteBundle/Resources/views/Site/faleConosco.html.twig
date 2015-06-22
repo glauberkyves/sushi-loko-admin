@@ -1,0 +1,50 @@
+{% extends 'SiteBundle::layout.html.twig' %}
+{% block body %}
+<div class="noo-wrapper">
+
+    <div class="container">
+    <div class="containerCenter col-xs-12 col-sm-8 col-md-12 faleconosco">
+        <h3>Fale conosco</h3>
+
+        <p>Tem alguma dúvida, sugestão ou crítica a fazer? Então entre em contato com a gente. </p>
+
+        <p>Sua opinião é fundamental para o nosso aperfeiçoamento.</p>
+
+        <form method="post" action="{{ path('fale_conosco') }}" id="form-cadastro" class="form-horizontal">
+            <div class="form-group col-xs-6">
+                <label for="noNome">Nome</label>
+                <input type="text" class="form-control required" id="noNome" name="noNome" placeholder="Seu nome"/>
+            </div>
+
+            <div class="form-group col-xs-4">
+                <label for="noEmail">E-mail</label>
+                <input type="text" class="form-control required email" id="email" placeholder="Seu e-mail" name="noEmail"/>
+            </div>
+
+            <div class="form-group col-xs-4">
+                <label for="nuTelefone">Telefone</label>
+                <input type="text" class="form-control" id="nuTelefone" mask="foneBR" data-mask="(99) 9999-9999" placeholder="Ex:(61) 9180-5125" name="nuTelefone"/>
+            </div>
+
+            <div class="form-group col-xs-4">
+                <label for="dsComoChegou">Como chegou até nós</label>
+                <input type="text" class="form-control" id="Como chegou até nós" placeholder="Tv, Rádio, Jornal, etc." name="dsComoChegou"/>
+            </div>
+
+            <div class="form-group col-xs-6">
+                <label for="dsMensagem">Mensagem</label>
+                <textarea class="form-control required" id="dsMensagem" name="dsMensagem" rows="6"></textarea>
+            </div>
+
+            <div class="alert alert-warning  alertAlert alert-dismissible fade in" role="alert">
+                <strong>Atenção</strong> (*) Campo obrigatório
+            </div>
+
+            <div class="form-group col-xs-4">
+                <button type="submit" class="btn btn-default btnDefalt">Enviar</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

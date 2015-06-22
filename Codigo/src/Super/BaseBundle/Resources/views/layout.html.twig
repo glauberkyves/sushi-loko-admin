@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="{{ asset('bundles/superbase/img/favicon.png') }}">
+
+    <title>Admin-BeeImoveis</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('bundles/superbase/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/superbase/css/bootstrap-reset.css') }}" rel="stylesheet">
+    <!--external css-->
+    <link href="{{ asset('bundles/superbase/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/jquery.dataTables.min.css') }}" rel="stylesheet"/>
+    <!--right slidebar-->
+    <link href="{{ asset('bundles/superbase/css/slidebars.css') }}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('bundles/superbase/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/superbase/css/style-responsive.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/basebase/css/bootstrap-fileupload.css') }}" rel="stylesheet"/>
+
+
+    <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
+
+
+</head>
+
+<body>
+
+<section id="container" class="">
+    <!--header start-->
+    <header class="header white-bg">
+        <div class="sidebar-toggle-box">
+            <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
+        </div>
+        <!--logo start-->
+        <a href="{{ path('super_home') }}" class="logo"><img src = "{{ asset('/bundles/site/assets/images/logo/logo.png') }}" width="100" /></a>
+        <!--logo end-->
+        <div class="nav notify-row" id="top_menu">
+            <!--  notification start -->
+            <ul class="nav top-menu">
+                <!-- inbox dropdown end -->
+                <!-- notification dropdown start-->
+                <li id="header_notification_bar" class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                        <i class="fa fa-bell-o"></i>
+                        <span class="badge bg-warning">7</span>
+                    </a>
+                    <ul class="dropdown-menu extended notification">
+                        <div class="notify-arrow notify-arrow-yellow"></div>
+                        <li>
+                            <p class="yellow">You have 7 new notifications</p>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                Server #3 overloaded.
+                                <span class="small italic">34 mins</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-warning"><i class="fa fa-bell"></i></span>
+                                Server #10 not respoding.
+                                <span class="small italic">1 Hours</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
+                                Database overloaded 24%.
+                                <span class="small italic">4 hrs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-success"><i class="fa fa-plus"></i></span>
+                                New user registered.
+                                <span class="small italic">Just now</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label label-info"><i class="fa fa-bullhorn"></i></span>
+                                Application error.
+                                <span class="small italic">10 mins</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">See all notifications</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- notification dropdown end -->
+            </ul>
+        </div>
+        <div class="top-nav ">
+            <ul class="nav pull-right top-menu">
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <img alt="" src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}">
+                        <span class="username">
+                            {#{{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}#}
+                        </span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                        {#<li><a href="{{ path('usuario_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>#}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            {% include "SuperBaseBundle::menu.html.twig" %}
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            {% if(app.session.flashbag.peekAll|length) %}
+                {% for label, flashes in app.session.flashbag.all %}
+                    <div class="alert alert-block alert-{{ label|replace({'error': 'danger'}) }} fade in">
+                        <button type="button" class="close close-sm" data-dismiss="alert">
+                            <i class="fa fa-times"></i>
+                        </button>
+
+                        {% for flash in flashes %}
+                            {{ flash }}<br/>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- page start-->
+            <div class="row">
+                <div class="col-lg-12">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+    <!--footer start-->
+
+    <footer class="site-footer">
+        <div class="text-center">
+            2015 &copy; BeeImoveis
+            <a href="#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer>
+    <!--footer end-->
+</section>
+
+<!-- js placed at the end of the document so the pages load faster -->
+<script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/bootstrap.min.js') }}"></script>
+<script class="include" type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.dcjqaccordion.2.7.js') }}"></script>
+<script src="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/jquery.scrollTo.min.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
+<script src="{{ asset('bundles/basebase/DataTables-1.10.5/media/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bundles/basebase/DataTables-1.10.5/media/js/dataTables.responsive.nightly.min.js') }}"></script>
+
+<!--right slidebar-->
+<script src="{{ asset('bundles/superbase/js/slidebars.min.js') }}"></script>
+
+<!--common script for all pages-->
+<script src="{{ asset('bundles/superbase/js/common-scripts.js') }}"></script>
+<script src="{{ asset('bundles/superbase/app/js/validate.js') }}"></script>
+<script src="{{ asset('bundles/basebase/js/grid.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
+<script src="{{ asset('bundles/basebase/js/bootstrap-fileupload.js') }}"></script>
+
+<script type="text/javascript" src="/bundles/site/assets/js/bootstrap-inputmask/bootstrap-inputmask.js"></script>
+
+<!-- SCRIPT BASE -->
+<script type="text/javascript" src="/bundles/site/app/js/mask.js"></script>
+<script type="text/javascript" src="/bundles/site/app/js/validate.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+
+        $('.alterStatusImg').click(function(){
+            var id      = $(this).attr('id');
+            var sTativo = $(this).attr('name');
+                $(this).html('<img class="" width="20" src="http://site.lacosacine.com/img/gif/ajax-loader.gif"/>');
+            $.post('/super/status-img-anucio', {id:id, st:sTativo} ,function($data){
+
+                if($data.status == "inativada")
+                {
+                    $("#"+id).html("<i class='fa  fa-ban'></i>");
+                    $("#"+id).attr("name","0");
+                    $("#"+id).attr("style","background: #fc5959;");
+
+                }
+                if($data.status == "ativado")
+                {
+                    $("#"+id).html("<i class='fa  fa-check'></i>");
+                    $("#"+id).attr("style","background: green;");
+                    $("#"+id).attr("name","1");
+                }
+            });
+        });
+
+
+        $(document).ajaxComplete(function(event, xhr, settings) {
+            $( document ).ajaxSend(function( event, xhr, settings ) {
+                $(".imgLoad").fadeIn();
+            });
+            $( document ).ajaxComplete(function( event, xhr, settings ) {
+                $(".imgLoad").hide();
+            });
+                $('.pausar').click(function(){
+                    var id = $(this).attr('id');
+                    var sTativo = $(this).attr('name');
+
+                    $.post('/super/admin-pausar-anuncio', {id:id, st:sTativo} ,function($data){
+                        if($data.status == "pausa")
+                        {
+                            $("#"+id).html("Inativo");
+                            $("#"+id).attr("name","0");
+                            $("#"+id).attr('class','btn btndestaque oportunit pausar');
+
+                        }
+                        if($data.status == "play")
+                        {
+                            $("#"+id).attr('class','btn btn-success  oportunit pausar');
+                            $("#"+id).html("Ativo");
+                            $("#"+id).attr("name","1");
+                        }
+                    });
+                });
+
+            $('.verFotos').click(function(){
+                var id = $(this).attr('name');
+                $.post('/super/carregar-img', {id:id} ,function($data){
+                    $(".imgTeste").html($data.html);
+                    console.log($data);
+                });
+            });
+
+        });
+
+    });
+    $(function() {
+
+        //    fancybox
+        jQuery(".fancybox").fancybox();
+
+        $(".editarUser").click(function(){
+
+            function editarUser()
+            {
+                $(".editarContainerUser").find(".form-control").removeAttr("disabled");
+                $(".editarContainerUser").find(".salvarUser").removeAttr("disabled");
+                $(".editarContainerUser").find(".cancelarEditar").removeAttr("disabled");
+
+            }
+            editarUser();
+
+        });
+
+        $(".editarDadosEndereco").click(function(){
+            function dadosEndereco()
+            {
+                $(".editarContainerDadosEndereco").find(".form-control").removeAttr("disabled");
+                $(".editarContainerDadosEndereco").find(".salvarUser").removeAttr("disabled");
+                $(".editarContainerDadosEndereco").find(".cancelarEditar").removeAttr("disabled");
+
+            }
+            dadosEndereco();
+        });
+
+        $(".editarDadosImovel").click(function(){
+            function dadosImovel()
+            {
+                $(".editarCoontainerDadosImovel").find(".form-control").removeAttr("disabled");
+                $(".editarCoontainerDadosImovel").find(".salvarUser").removeAttr("disabled");
+                $(".editarCoontainerDadosImovel").find(".cancelarEditar").removeAttr("disabled");
+            }
+            dadosImovel();
+        });
+
+        $(".editarDescricao").click(function(){
+            function dadosDescricao()
+            {
+                $(".editarContainerDescricao").find(".form-control").removeAttr("disabled");
+                $(".editarContainerDescricao").find(".salvarUser").removeAttr("disabled");
+                $(".editarContainerDescricao").find(".cancelarEditar").removeAttr("disabled");
+
+            }
+            dadosDescricao();
+        });
+
+        function cadastrarPrestador()
+        {
+            var formPessoaFisica = $(".pessoaFisica");
+            formPessoaFisica.hide();
+
+            var formPessoaJuridica = $(".pessoaJuridica");
+            formPessoaJuridica.hide();
+
+            $(".pessoaFisicaBtn").click(function(){
+                formPessoaJuridica.hide();
+                formPessoaFisica.fadeIn();
+            });
+
+            $(".pessoaJuriticaBtn").click(function(){
+                formPessoaFisica.hide();
+                formPessoaJuridica.fadeIn();
+            });
+        }
+
+        cadastrarPrestador();
+
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.pj, .pfc').hide();
+
+        $('#pf').click(function () {
+            $('.pj, .pfc').hide()
+
+            $('.pf').show()
+            $('#tpPessoa').val(1)
+            $('#noPessoa').removeAttr('disabled')
+            $('#noPessoaPJ').attr('disabled', true)
+        })
+
+        $('#pj').click(function () {
+            $('.pf, .pfc').hide()
+
+            $('.pj').show()
+            $('#tpPessoa').val(2)
+            $('#noPessoa').attr('disabled', true)
+            $('#noPessoaPJ').removeAttr('disabled')
+        })
+
+        $('#pfc').click(function () {
+            $('.pj').hide()
+
+            $('.pfc, .pf').show()
+            $('#tpPessoa').val(3)
+            $('#noPessoa').removeAttr('disabled')
+            $('#noPessoaPJ').attr('disabled', true)
+        });
+
+        $("#confirmaSenha").rules('add', {
+            equalTo:  "#noSenha",
+            messages: {
+                equalTo: "Senha de confirmação não confere"
+            }
+        });
+    })
+</script>
+</body>
+</html>

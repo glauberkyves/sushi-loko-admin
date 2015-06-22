@@ -1,0 +1,9 @@
+logout:
+    pattern: /logout
+
+login_check:
+    pattern: /login_check
+
+logar_user:
+    path:     /logar
+    defaults: { _controller: SuperSecurityBundle:Default:logar }

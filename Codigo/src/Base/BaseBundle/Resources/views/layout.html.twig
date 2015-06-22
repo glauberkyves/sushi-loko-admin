@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>{% block title %}BeeImovéis{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% block stylesheets %}
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic,400italic' rel='stylesheet' type='text/css'>
+        <link href="{{ asset('bundles/basebase/app/css/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/bootstrap-theme.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/font-awesome.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/jquery.nouislider.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/style.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/shortcode.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/home.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/citilights-shortcode.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/basebase/app/css/color/color1.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/superbase/assets/bootstrap-fileupload/bootstrap-fileupload.css') }}" rel="stylesheet"/>
+    {% endblock %}
+</head>
+
+<body class="home page-fullwidth">
+<div class="site">
+    <header class="noo-header ">
+        <div class="top-header">
+            <div class="container">
+                <div class="top-header-inner">
+                    <ul class="social-top">
+                        <li><a href="https://www.facebook.com/beeimoveis?fref=ts" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li class="drowMobile">
+                            <div class="login content-item">
+                                <div class="main-navigation">
+                                    <nav class="collapse navbar-collapse" id="main-collapse" role="navigation">
+                                        <ul class="nav navbar-nav">
+                                            <li class="dropdown" style=" height: 20px;  margin-top: -20px;">
+                                            <a href="#" class="dropdown-toggle cidadeSelect" data-toggle="dropdown" role="button"
+                                            aria-expanded="false">
+                                                {{ app.request.session.get('noEstado') }}
+                                                <span class="glyphicon glyphicon-menu-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu" id="menu-estado" style="border-top: 2px solid #e5af21 !important;" ></ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="top-header-content">
+                        <div class="emailto content-item">
+                              <a href="{{ path('fale_conosco') }}"><i class="fa fa-envelope-o"></i>&nbsp;Fale-conosco</a>
+                        </div>
+                        <div class="register content-item">
+                            {% if not app.getUser %}
+                                <a href="{{ path('usuario_cadastro') }}"><i class="fa fa-key"></i>&nbsp;Cadastre-se</a>
+                            {% else %}
+
+                            {% endif %}
+                        </div>
+                        <div class="login content-item">
+                            {% if not app.getUser %}
+                                <a href="{{ path('logar_user') }}"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
+                            {% else %}
+                                <a  href="{{ path('logout') }}"><i class="fa fa-sign-in"></i>&nbsp;Deslogar</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-nav-wrap container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    <div class="logo-image" style="margin-bottom: 5px;">
+                        <a href="{{ path('home_page') }}" title="Bee"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="calling-info" style="border: 0px solid red !important;">
+                <div class="calling-content">
+                    {% if not app.getUser %}
+                      <a href="{{ path('planos_valores') }}">  <img style="margin-left: 5px;" src="{{ asset('bundles/basebase/app/images/icon/Anuncie.png') }}" /></a>
+                    {% else %}
+                            <span style="line-height: 70px;font-weight: 300;border: 0 none;padding: 0 20px;">
+                                Olá {{ app.user.getIdPessoa().getNoPessoa() }}
+                            </span>
+                                <div class="main-navigation">
+                                    <nav class="collapse navbar-collapse" id="main-collapse" role="navigation">
+                                        <ul class="nav navbar-nav">
+
+                                            <li class="dropdown active">
+                                                <a>Meu Painel&nbsp;<span class="caret"></span></a>
+                                                <ul class="dropdown-menu" style="  border-top: 2px solid #e5af21 !important;">
+                                                    <li><a href="{{ path('anuncar_meu_imovel') }}">Anunciar Imóvel</a></li>
+                                                    <li><a href="{{ path('logado_user') }}">Meu Painel</a></li>
+                                                    {% if validado == true %}
+                                                        <li><a href="{{ path('meus_anuncios') }}" >Meus Anúncios</a></li>
+                                                           {% else %}
+                                                    {% endif %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- START MAIN NAVIGATION -->
+            <div class="main-navigation" >
+                <nav class="collapse navbar-collapse" id="main-collapse" role="navigation">
+                    <ul class="nav navbar-nav">
+
+                        <li class="active">
+                        <a href="{{ path('planos_valores') }}"  >ANUNCIAR MEU IMÓVEL&nbsp;<span class="caret"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('comparar_imovel') }}"  >COMPARAR IMÓVEIS&nbsp;<span class="caret"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('imoveis_venda') }}"  >IMÓVEIS A VENDA&nbsp;<span class="caret"></span></a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('imoveis_alugar') }}"  >IMÓVEIS PARA ALUGAR&nbsp;<span class="caret"></span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="noo-wrapper">
+        <article class="property" style="">
+            {% for label, flashes in app.session.flashbag.all %}
+                <div class="alert alert-{{ label }} alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    {% for flash in flashes %}
+                        {{ flash }}<br/>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            </article>
+        {% block body %}
+        {% endblock %}
+    </div>
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/jquery.parallax-1.1.3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/SmoothScroll.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/jquery.carouFredSel-6.2.1-packed.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/jquery.touchSwipe.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/imagesloaded.pkgd.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/jquery.nouislider.all.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/modernizr-2.7.1.min.js') }}"></script>
+    <script type='text/javascript' src='http://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=true&amp;libraries=places'></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/infobox.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/markerclusterer.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/noo-property-google-map.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/property-slider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/novoJs/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/js/bootstrap-inputmask/bootstrap-inputmask.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/js/validate.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/basebase/app/js/mask.js') }}"></script>
+    <script type="text/javascript" src="/bundles/basebase/js/functionality.js"></script>
+{% endblock %}
+
+    <div class="footerMain">
+    </div>
+
+    <div class="footerMainTwe">
+        <div class="footerMensagem" style="color: #fff; font-weight: bold;">
+            Copyright(c) BeeImoveis 2015 - Produzido por 2creative:
+            <a style="color: #fff; font-weight: bold;" href="http://www.2creativegames.com.br/" target="_blank">www.2creativegames.com.br</a>
+            <a href="https://www.facebook.com/beeimoveis?fref=ts" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+            <a href="https://www.facebook.com/beeimoveis?fref=ts" title="Google +" target="_blank"><i class="fa fa-google"></i></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
