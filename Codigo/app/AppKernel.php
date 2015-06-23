@@ -23,20 +23,15 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new GlauberKyves\Bundle\ZendFormTwigBundle\ZendFormTwigBundle(),
-            new Gregwar\ImageBundle\GregwarImageBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             new Base\BaseBundle\BaseBaseBundle(),
             new Base\CrudBundle\BaseCrudBundle(),
 
             new Super\SecurityBundle\SuperSecurityBundle(),
-            new Super\UsuarioBundle\SuperUsuarioBundle(),
-            new Super\ImovelBundle\SuperImovelBundle(),
             new Super\BaseBundle\SuperBaseBundle(),
-            new Super\AnuncioBundle\SuperAnuncioBundle(),
 
             new SiteBundle\SiteBundle(),
-            new Super\ServicoBundle\SuperServicoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

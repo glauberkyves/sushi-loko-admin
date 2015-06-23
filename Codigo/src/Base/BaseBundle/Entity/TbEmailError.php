@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * TbEmailError
  *
  * @ORM\Table(name="tb_email_error")
- * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\EmailErrorRepository")
+ * @ORM\Entity
  */
-class TbEmailError extends AbstractEntity
+class TbEmailError
 {
     /**
      * @var integer
@@ -31,16 +31,16 @@ class TbEmailError extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="ds_mensagem", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="ds_assunto", type="string", length=250, nullable=false)
      */
-    private $dsMensagem;
+    private $dsAssunto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ds_assunto", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="ds_mensagem", type="text", length=65535, nullable=false)
      */
-    private $dsAssunto;
+    private $dsMensagem;
 
     /**
      * @var \DateTime
@@ -63,115 +63,6 @@ class TbEmailError extends AbstractEntity
      */
     private $stEnvio;
 
-    /**
-     * @param string $dsAssunto
-     */
-    public function setDsAssunto($dsAssunto)
-    {
-        $this->dsAssunto = $dsAssunto;
-    }
 
-    /**
-     * @return string
-     */
-    public function getDsAssunto()
-    {
-        return $this->dsAssunto;
-    }
-
-    /**
-     * @param string $dsMensagem
-     */
-    public function setDsMensagem($dsMensagem)
-    {
-        $this->dsMensagem = $dsMensagem;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDsMensagem()
-    {
-        return $this->dsMensagem;
-    }
-
-    /**
-     * @param \DateTime $dtCadastro
-     */
-    public function setDtCadastro($dtCadastro)
-    {
-        $this->dtCadastro = $dtCadastro;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDtCadastro()
-    {
-        return $this->dtCadastro;
-    }
-
-    /**
-     * @param \DateTime $dtEnvio
-     */
-    public function setDtEnvio($dtEnvio)
-    {
-        $this->dtEnvio = $dtEnvio;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDtEnvio()
-    {
-        return $this->dtEnvio;
-    }
-
-    /**
-     * @param int $idEmailError
-     */
-    public function setIdEmailError($idEmailError)
-    {
-        $this->idEmailError = $idEmailError;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdEmailError()
-    {
-        return $this->idEmailError;
-    }
-
-    /**
-     * @param string $noDestinatario
-     */
-    public function setNoDestinatario($noDestinatario)
-    {
-        $this->noDestinatario = $noDestinatario;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNoDestinatario()
-    {
-        return $this->noDestinatario;
-    }
-
-    /**
-     * @param int $stEnvio
-     */
-    public function setStEnvio($stEnvio)
-    {
-        $this->stEnvio = $stEnvio;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStEnvio()
-    {
-        return $this->stEnvio;
-    }
 }
+

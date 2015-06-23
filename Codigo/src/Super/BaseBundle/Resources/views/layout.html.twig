@@ -8,15 +8,15 @@
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="{{ asset('bundles/superbase/img/favicon.png') }}">
 
-    <title>Admin-BeeImoveis</title>
+    <title>{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('bundles/superbase/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/superbase/css/bootstrap-reset.css') }}" rel="stylesheet">
     <!--external css-->
     <link href="{{ asset('bundles/superbase/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/jquery.dataTables.min.css') }}" rel="stylesheet"/>
+    {#<link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css') }}" rel="stylesheet"/>#}
+    {#<link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/jquery.dataTables.min.css') }}" rel="stylesheet"/>#}
     <!--right slidebar-->
     <link href="{{ asset('bundles/superbase/css/slidebars.css') }}" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -27,7 +27,6 @@
 
 
     <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
-
 
 </head>
 
@@ -202,184 +201,5 @@
 <script type="text/javascript" src="/bundles/site/app/js/mask.js"></script>
 <script type="text/javascript" src="/bundles/site/app/js/validate.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-
-
-        $('.alterStatusImg').click(function(){
-            var id      = $(this).attr('id');
-            var sTativo = $(this).attr('name');
-                $(this).html('<img class="" width="20" src="http://site.lacosacine.com/img/gif/ajax-loader.gif"/>');
-            $.post('/super/status-img-anucio', {id:id, st:sTativo} ,function($data){
-
-                if($data.status == "inativada")
-                {
-                    $("#"+id).html("<i class='fa  fa-ban'></i>");
-                    $("#"+id).attr("name","0");
-                    $("#"+id).attr("style","background: #fc5959;");
-
-                }
-                if($data.status == "ativado")
-                {
-                    $("#"+id).html("<i class='fa  fa-check'></i>");
-                    $("#"+id).attr("style","background: green;");
-                    $("#"+id).attr("name","1");
-                }
-            });
-        });
-
-
-        $(document).ajaxComplete(function(event, xhr, settings) {
-            $( document ).ajaxSend(function( event, xhr, settings ) {
-                $(".imgLoad").fadeIn();
-            });
-            $( document ).ajaxComplete(function( event, xhr, settings ) {
-                $(".imgLoad").hide();
-            });
-                $('.pausar').click(function(){
-                    var id = $(this).attr('id');
-                    var sTativo = $(this).attr('name');
-
-                    $.post('/super/admin-pausar-anuncio', {id:id, st:sTativo} ,function($data){
-                        if($data.status == "pausa")
-                        {
-                            $("#"+id).html("Inativo");
-                            $("#"+id).attr("name","0");
-                            $("#"+id).attr('class','btn btndestaque oportunit pausar');
-
-                        }
-                        if($data.status == "play")
-                        {
-                            $("#"+id).attr('class','btn btn-success  oportunit pausar');
-                            $("#"+id).html("Ativo");
-                            $("#"+id).attr("name","1");
-                        }
-                    });
-                });
-
-            $('.verFotos').click(function(){
-                var id = $(this).attr('name');
-                $.post('/super/carregar-img', {id:id} ,function($data){
-                    $(".imgTeste").html($data.html);
-                    console.log($data);
-                });
-            });
-
-        });
-
-    });
-    $(function() {
-
-        //    fancybox
-        jQuery(".fancybox").fancybox();
-
-        $(".editarUser").click(function(){
-
-            function editarUser()
-            {
-                $(".editarContainerUser").find(".form-control").removeAttr("disabled");
-                $(".editarContainerUser").find(".salvarUser").removeAttr("disabled");
-                $(".editarContainerUser").find(".cancelarEditar").removeAttr("disabled");
-
-            }
-            editarUser();
-
-        });
-
-        $(".editarDadosEndereco").click(function(){
-            function dadosEndereco()
-            {
-                $(".editarContainerDadosEndereco").find(".form-control").removeAttr("disabled");
-                $(".editarContainerDadosEndereco").find(".salvarUser").removeAttr("disabled");
-                $(".editarContainerDadosEndereco").find(".cancelarEditar").removeAttr("disabled");
-
-            }
-            dadosEndereco();
-        });
-
-        $(".editarDadosImovel").click(function(){
-            function dadosImovel()
-            {
-                $(".editarCoontainerDadosImovel").find(".form-control").removeAttr("disabled");
-                $(".editarCoontainerDadosImovel").find(".salvarUser").removeAttr("disabled");
-                $(".editarCoontainerDadosImovel").find(".cancelarEditar").removeAttr("disabled");
-            }
-            dadosImovel();
-        });
-
-        $(".editarDescricao").click(function(){
-            function dadosDescricao()
-            {
-                $(".editarContainerDescricao").find(".form-control").removeAttr("disabled");
-                $(".editarContainerDescricao").find(".salvarUser").removeAttr("disabled");
-                $(".editarContainerDescricao").find(".cancelarEditar").removeAttr("disabled");
-
-            }
-            dadosDescricao();
-        });
-
-        function cadastrarPrestador()
-        {
-            var formPessoaFisica = $(".pessoaFisica");
-            formPessoaFisica.hide();
-
-            var formPessoaJuridica = $(".pessoaJuridica");
-            formPessoaJuridica.hide();
-
-            $(".pessoaFisicaBtn").click(function(){
-                formPessoaJuridica.hide();
-                formPessoaFisica.fadeIn();
-            });
-
-            $(".pessoaJuriticaBtn").click(function(){
-                formPessoaFisica.hide();
-                formPessoaJuridica.fadeIn();
-            });
-        }
-
-        cadastrarPrestador();
-
-
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $('.pj, .pfc').hide();
-
-        $('#pf').click(function () {
-            $('.pj, .pfc').hide()
-
-            $('.pf').show()
-            $('#tpPessoa').val(1)
-            $('#noPessoa').removeAttr('disabled')
-            $('#noPessoaPJ').attr('disabled', true)
-        })
-
-        $('#pj').click(function () {
-            $('.pf, .pfc').hide()
-
-            $('.pj').show()
-            $('#tpPessoa').val(2)
-            $('#noPessoa').attr('disabled', true)
-            $('#noPessoaPJ').removeAttr('disabled')
-        })
-
-        $('#pfc').click(function () {
-            $('.pj').hide()
-
-            $('.pfc, .pf').show()
-            $('#tpPessoa').val(3)
-            $('#noPessoa').removeAttr('disabled')
-            $('#noPessoaPJ').attr('disabled', true)
-        });
-
-        $("#confirmaSenha").rules('add', {
-            equalTo:  "#noSenha",
-            messages: {
-                equalTo: "Senha de confirmação não confere"
-            }
-        });
-    })
-</script>
 </body>
 </html>

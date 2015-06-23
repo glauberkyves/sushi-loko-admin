@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * RlUsuarioPerfil
  *
- * @ORM\Table(name="rl_usuario_perfil")
- * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\UsuarioPerfilRepository")
+ * @ORM\Table(name="rl_usuario_perfil", indexes={@ORM\Index(name="fk_usuarioperfil_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_usuarioperfil_perfil_idx", columns={"id_perfil"})})
+ * @ORM\Entity
  */
-class RlUsuarioPerfil extends AbstractEntity
+class RlUsuarioPerfil
 {
     /**
      * @var integer
@@ -31,7 +31,7 @@ class RlUsuarioPerfil extends AbstractEntity
     /**
      * @var \TbPerfil
      *
-     * @ORM\OneToOne(targetEntity="TbPerfil")
+     * @ORM\ManyToOne(targetEntity="TbPerfil")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_perfil", referencedColumnName="id_perfil")
      * })
@@ -41,55 +41,13 @@ class RlUsuarioPerfil extends AbstractEntity
     /**
      * @var \TbUsuario
      *
-     * @ORM\OneToOne(targetEntity="TbUsuario")
+     * @ORM\ManyToOne(targetEntity="TbUsuario")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
      * })
      */
-    protected $idUsuario;
+    private $idUsuario;
 
-    public function setIdUsuario($idUsuario)
-    {
-        $this->idUsuario = $idUsuario;
-    }
 
-    /**
-     * @return \Base\BaseBundle\Entity\TbUsuario
-     */
-    public function getIdUsuario()
-    {
-        return $this->idUsuario ? $this->idUsuario : new TbUsuario();
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDtCadastro()
-    {
-        return $this->dtCadastro;
-    }
-
-    /**
-     * @param \DateTime $dtCadastro
-     */
-    public function setDtCadastro($dtCadastro)
-    {
-        $this->dtCadastro = $dtCadastro;
-    }
-
-    /**
-     * @return \TbPerfil
-     */
-    public function getIdPerfil()
-    {
-        return $this->idPerfil ? $this->idPerfil : new TbPerfil();
-    }
-
-    /**
-     * @param \TbPerfil $idPerfil
-     */
-    public function setIdPerfil($idPerfil)
-    {
-        $this->idPerfil = $idPerfil;
-    }
 }
+

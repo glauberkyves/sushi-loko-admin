@@ -2,7 +2,6 @@
 
 namespace Base\BaseBundle\Entity;
 
-use Base\BaseBundle\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_pessoa_juridica", indexes={@ORM\Index(name="FK_PESSOAJURIDICA_PESSOA_idx", columns={"id_pessoa"})})
  * @ORM\Entity
  */
-class TbPessoaJuridica extends AbstractEntity
+class TbPessoaJuridica
 {
     /**
      * @var integer
@@ -32,7 +31,7 @@ class TbPessoaJuridica extends AbstractEntity
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbPessoa", inversedBy="idPessoaJuridica")
+     * @ORM\OneToOne(targetEntity="TbPessoa")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_pessoa", referencedColumnName="id_pessoa")
      * })
@@ -40,72 +39,5 @@ class TbPessoaJuridica extends AbstractEntity
     private $idPessoa;
 
 
-    /**
-     * Set nuCnpj
-     *
-     * @param integer $nuCnpj
-     * @return TbPessoaJuridica
-     */
-    public function setNuCnpj($nuCnpj)
-    {
-        $this->nuCnpj = $nuCnpj;
-
-        return $this;
-    }
-
-    /**
-     * Get nuCnpj
-     *
-     * @return integer
-     */
-    public function getNuCnpj()
-    {
-        return $this->nuCnpj;
-    }
-
-    /**
-     * Set noFantansia
-     *
-     * @param string $noFantansia
-     * @return TbPessoaJuridica
-     */
-    public function setNoFantansia($noFantansia)
-    {
-        $this->noFantansia = $noFantansia;
-
-        return $this;
-    }
-
-    /**
-     * Get noFantansia
-     *
-     * @return string
-     */
-    public function getNoFantansia()
-    {
-        return $this->noFantansia;
-    }
-
-    /**
-     * Set idPessoa
-     *
-     * @param \Base\BaseBundle\Entity\TbPessoa $idPessoa
-     * @return TbPessoaJuridica
-     */
-    public function setIdPessoa(\Base\BaseBundle\Entity\TbPessoa $idPessoa)
-    {
-        $this->idPessoa = $idPessoa;
-
-        return $this;
-    }
-
-    /**
-     * Get idPessoa
-     *
-     * @return \Base\BaseBundle\Entity\TbPessoa
-     */
-    public function getIdPessoa()
-    {
-        return $this->idPessoa;
-    }
 }
+

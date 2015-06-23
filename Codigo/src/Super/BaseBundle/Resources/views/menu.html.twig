@@ -5,45 +5,7 @@
             <span>Gerenciar Usuário</span>
         </a>
         <ul class="sub">
-            <li><a href="{{ path('super_usuario_perfil') }}">Manter Perfil</a></li>
-            <li><a href="{{ path('super_usuario_index') }}">Usuario</a></li>
+            {#<li><a href="{{ path('super_usuario_index') }}">Usuario</a></li>#}
         </ul>
     </li>
-
-    <li class="sub-menu">
-        <a href="javascript:;">
-            <i class="fa fa-home"></i>
-            <span>Imóvel</span>
-        </a>
-        <ul class="sub">
-            <li><a href="{{ path('tipo_imovel_index') }}">Manter Tipo Imóvel</a></li>
-            <li><a href="{{ path('imovel_caracteristica_index') }}">Manter Característica </a></li>
-        </ul>
-    </li>
-
-    <li class="sub-menu">
-        <a href="javascript:;">
-            <i class="fa fa-flag"></i>
-            <span>Anúncio</span>
-        </a>
-        <ul class="sub">
-            <li><a href="{{ path('todos_anuncios_index') }}">Todos Anuncios</a></li>
-            <li><a href="{{ path('tipo_anuncio_index') }}">Manter Tipo Anúncio</a></li>
-        </ul>
-    </li>
-
-    <li class="sub-menu">
-        <a href="javascript:;">
-            <i class="fa fa-cogs"></i>
-            <span>Serviço</span>
-        </a>
-        <ul class="sub">
-            <li><a href="{{ path('prestador_index') }}">Prestadores</a></li>
-            <li><a href="{{ path('pestador_servico_index') }}">Serviço</a></li>
-            {#<li><a href="{{ path('listar_prestador') }}">Listar Prestador</a></li>#}
-            <li><a href="{{ path('designar_create') }}">Designar Prestador</a></li>
-        </ul>
-    </li>
-
-
 </ul>

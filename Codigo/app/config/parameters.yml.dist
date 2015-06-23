@@ -1,10 +1,10 @@
 # This file is a "template" of what your parameters.yml file should look like
 parameters:
-    database_driver:   pdo_mysql
+    database_driver: pdo_mysql
     database_host: 187.45.198.33
     database_port: 3306
-    database_name: beeimoveis
-    database_user: beeimoveis
+    database_name: fidelidade
+    database_user: fidelidade
     database_password: Texugo@@
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
@@ -14,7 +14,6 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    url_geo: "http://ipinfo.io/"
     email_fale_conosco: contato@2creativegames.com.br
 
     locale:            pt-BR
