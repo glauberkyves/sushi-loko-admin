@@ -1,0 +1,60 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Pesquisar por promoção
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <form method="post" action=" " id="form-promocao" class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Promocção</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control " id="noPromocao" placeholder="Promoção"
+                               name="noPromocao" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                            Pesquisar
+                        </button>
+                        <a href="{{ path('manter_promocao_create') }}" class="btn btn-default">
+                            <i class="fa fa-plus"></i>
+                            Cadastrar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="panel">
+        <header class="panel-heading">
+            Resultado da pequisa
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body">
+            <section id="unseen">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-promocao">
+                    <thead>
+                    <tr>
+                        <th data-column="noPromocao">Promoção</th>
+                        <th data-column="dtValidade">Data de validade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td valign="top" colspan="3">Acione a pesquisa</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>
+{% endblock body %}

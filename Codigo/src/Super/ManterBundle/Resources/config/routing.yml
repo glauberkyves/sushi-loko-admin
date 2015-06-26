@@ -1,0 +1,15 @@
+manter_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ManterBundle:Default:index }
+
+manter_promocao_index:
+    path:     /manter-promocao
+    defaults: { _controller: SuperManterBundle:Promocao:index }
+
+manter_promocao_create:
+    path:     /manter-promocao/create
+    defaults: { _controller: SuperManterBundle:Promocao:create }
+
+manter_promocao_edit:
+    path:     /manter-promocao/edit
+    defaults: { _controller: SuperManterBundle:Promocao:edit }

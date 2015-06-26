@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_produto")
  * @ORM\Entity
  */
-class TbProduto
+class TbProduto extends AbstractEntity
 {
     /**
      * @var integer

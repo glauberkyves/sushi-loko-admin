@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * TbPromocao
  *
  * @ORM\Table(name="tb_promocao")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\PromocaoRepository")
  */
-class TbPromocao
+class TbPromocao extends AbstractEntity
 {
     /**
      * @var integer
