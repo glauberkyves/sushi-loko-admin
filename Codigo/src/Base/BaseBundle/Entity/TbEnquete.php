@@ -80,7 +80,7 @@ class TbEnquete extends AbstractEntity
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbResposta", mappedBy="idEnquete")
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbEnqueteResposta", mappedBy="idEnquete")
      */
     private $idResposta;
 

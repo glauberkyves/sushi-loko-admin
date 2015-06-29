@@ -1,0 +1,8 @@
+services:
+    service.enquete:
+              class: Super\EnqueteBundle\Service\Enquete
+              arguments:  ["@service_container"]
+
+    service.enquete_resposta:
+              class: Super\EnqueteBundle\Service\EnqueteResposta
+              arguments:  ["@service_container"]
