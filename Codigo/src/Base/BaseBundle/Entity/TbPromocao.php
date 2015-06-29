@@ -63,6 +63,118 @@ class TbPromocao extends AbstractEntity
      */
     private $dtCadastro;
 
+    /**
+     * @return int
+     */
+    public function getIdPromocao()
+    {
+        return $this->idPromocao;
+    }
+
+    /**
+     * @param int $idPromocao
+     */
+    public function setIdPromocao($idPromocao)
+    {
+        $this->idPromocao = $idPromocao;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoPromocao()
+    {
+        return $this->noPromocao;
+    }
+
+    /**
+     * @param string $noPromocao
+     */
+    public function setNoPromocao($noPromocao)
+    {
+        $this->noPromocao = $noPromocao;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDsPromocao()
+    {
+        return $this->dsPromocao;
+    }
+
+    /**
+     * @param string $dsPromocao
+     */
+    public function setDsPromocao($dsPromocao)
+    {
+        $this->dsPromocao = $dsPromocao;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtValidade()
+    {
+        return $this->dtValidade;
+    }
+
+    /**
+     * @param \DateTime $dtValidade
+     */
+    public function setDtValidade($dtValidade)
+    {
+        $this->dtValidade = $dtValidade;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoImagem()
+    {
+        return $this->noImagem;
+    }
+
+    /**
+     * @param string $noImagem
+     */
+    public function setNoImagem($noImagem)
+    {
+        $this->noImagem = $noImagem;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStAtivo()
+    {
+        return $this->stAtivo;
+    }
+
+    /**
+     * @param int $stAtivo
+     */
+    public function setStAtivo($stAtivo)
+    {
+        $this->stAtivo = $stAtivo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtCadastro()
+    {
+        return $this->dtCadastro;
+    }
+
+    /**
+     * @param \DateTime $dtCadastro
+     */
+    public function setDtCadastro($dtCadastro)
+    {
+        $this->dtCadastro = $dtCadastro;
+    }
+
 
 }
 

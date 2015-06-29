@@ -1,4 +1,4 @@
 base_bundle:
     messages:
-        success: Cadastro realizado com sucesso.
+        success: Operação realizado com sucesso.
 

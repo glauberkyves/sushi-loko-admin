@@ -35,9 +35,9 @@ class AbstractService extends BaseService
         }
 
         $params = $this->getRequest()->request->all();
-        $metadata  = $this->getEntityManager()->getClassMetadata(get_class($this->entity));
+        $metadata = $this->getEntityManager()->getClassMetadata(get_class($this->entity));
         $arguments = func_get_args();
-        $insert    = false;
+        $insert = false;
 
         $methodGet = 'get' . ucfirst(current($metadata->getIdentifier()));
 
@@ -46,7 +46,7 @@ class AbstractService extends BaseService
         ) {
             $id = $this->entity->{$methodGet}();
 
-            if(array_key_exists(current($metadata->getIdentifier()), $params) && $params[current($metadata->getIdentifier())]){
+            if (array_key_exists(current($metadata->getIdentifier()), $params) && $params[current($metadata->getIdentifier())]) {
                 $id = $params[current($metadata->getIdentifier())];
             }
 
@@ -54,7 +54,7 @@ class AbstractService extends BaseService
             $entityPersister->populate($params);
         } else {
             $entityPersister = $this->newEntity()->populate($params);
-            $insert       = true;
+            $insert = true;
         }
 
         call_user_func_array(array($this, 'preSave'), array($this->entity));
@@ -130,5 +130,13 @@ class AbstractService extends BaseService
     {
         $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush($entity);
+    }
+
+    public function preRemove(AbstractEntity $entity = null)
+    {
+    }
+
+    public function postRemove(AbstractEntity $entity = null)
+    {
     }
 }

@@ -2,20 +2,20 @@
 {% block body %}
     <section class="panel">
         <header class="panel-heading">
-            Pesquisar por promoção
+            Pesquisar por enquete
               <span class="tools pull-right">
                 <a class="fa fa-chevron-down" href="javascript:;"></a>
               </span>
         </header>
 
         <div class="panel-body">
-            <form method="post" action=" " id="form-promocao" class="form-horizontal tasi-form">
+            <form method="post" action=" " id="form-enquete" class="form-horizontal tasi-form">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Promocção</label>
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Enquete</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control " id="noPromocao" placeholder="Promoção"
-                               name="noPromocao" value="">
+                        <input type="text" class="form-control " id="noEnquete" placeholder="Enquete"
+                               name="noEnquete" value="">
                     </div>
                 </div>
                 <div class="form-group">
@@ -24,7 +24,7 @@
                             <i class="fa fa-search"></i>
                             Pesquisar
                         </button>
-                        <a href="{{ path('manter_promocao_create') }}" class="btn btn-default">
+                        <a href="{{ path('manter_enquete_create') }}" class="btn btn-default">
                             <i class="fa fa-plus"></i>
                             Cadastrar</a>
                     </div>
@@ -41,17 +41,18 @@
         </header>
         <div class="panel-body">
             <section id="unseen">
-                <table class="table table-bordered table-striped table-condensed" data-grid="form-promocao">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-enquete">
                     <thead>
                     <tr>
-                        <th data-column="noPromocao">Promoção</th>
-                        <th data-column="dtValidade">Data de validade</th>
-                        <th data-column="opcoes">Opções</th>
+                        <th data-column="noEnquete">Promoção</th>
+                        <th data-column="dtInicio">DT/Inicial</th>
+                        <th data-column="stAtivo">Status</th>
+                        <th data-column="opcoes">Data de validade</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr class="odd">
-                        <td valign="top" colspan="3">Acione a pesquisa</td>
+                        <td valign="top" colspan="4">Acione a pesquisa</td>
                     </tr>
                     </tbody>
                 </table>
