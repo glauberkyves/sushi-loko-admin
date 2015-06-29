@@ -1,0 +1,7 @@
+super_franqueador_index:
+    path:     /fraqueador/index
+    defaults: { _controller: SuperFranqueadorBundle:Default:index }
+
+super_franqueador_create:
+    path:     /fraqueador/create
+    defaults: { _controller: SuperFranqueadorBundle:Default:create }

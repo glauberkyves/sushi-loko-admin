@@ -1,0 +1,7 @@
+super_cardapio_index:
+    path:     /
+    defaults: { _controller: SuperCardapioBundle:Default:index }
+
+super_cardapio_create:
+    path:     /create
+    defaults: { _controller: SuperCardapioBundle:Default:create }

@@ -1,0 +1,7 @@
+super_operador_index:
+    path:     /
+    defaults: { _controller: SuperOperadorBundle:Default:index }
+
+super_operador_create:
+    path:     /create
+    defaults: { _controller: SuperOperadorBundle:Default:create }

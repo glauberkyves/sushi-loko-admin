@@ -5,3 +5,24 @@ super_home:
 super_security:
     resource: "@SuperSecurityBundle/Resources/config/routing.yml"
     prefix:   /
+
+super_franqueador:
+    resource: "@SuperFranqueadorBundle/Resources/config/routing.yml"
+    prefix:   /franqueador
+
+super_operador:
+    resource: "@SuperOperadorBundle/Resources/config/routing.yml"
+    prefix:   /operador
+
+super_usuario:
+    resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
+    prefix:   /usuario
+
+super_franquia:
+    resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
+    prefix:   /franquia
+
+super_cardapio:
+    resource: "@SuperCardapioBundle/Resources/config/routing.yml"
+    prefix:   /cardapio
+

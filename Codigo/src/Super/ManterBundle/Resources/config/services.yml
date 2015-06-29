@@ -1,0 +1,4 @@
+services:
+    service.promocao:
+          class: Super\ManterBundle\Service\Promocao
+          arguments:  ["@service_container"]

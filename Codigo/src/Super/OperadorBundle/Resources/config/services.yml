@@ -1,0 +1,4 @@
+services:
+    service.operador:
+        class: Super\OperadorBundle\Service\Operador
+        arguments:  ["@service_container"]

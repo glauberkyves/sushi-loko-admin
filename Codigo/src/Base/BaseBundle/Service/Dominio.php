@@ -10,31 +10,20 @@ namespace Base\BaseBundle\Service;
 
 class Dominio
 {
+    CONST SUSPENSO = 2;
     CONST ATIVO = 1;
     CONST INATIVO = 0;
 
-    CONST NASCENTE = 1;
-    CONST PERPENDICULAR = 2;
-    CONST POENTE = 3;
     CONST MASCULINO = 1;
     CONST FEMININO = 2;
 
     public static function getStAtivo()
     {
         return array(
-            ''            => 'Selecione',
-            self::INATIVO => 'Inativo',
-            self::INATIVO => 'Ativo'
-        );
-    }
-
-    public static function getPosicaoSol()
-    {
-        return array(
-            ''                  => 'Selecione',
-            self::NASCENTE      => 'Nascente',
-            self::PERPENDICULAR => 'Perpendicular',
-            self::POENTE        => 'Poente'
+            ''             => 'Selecione',
+            self::ATIVO    => 'Ativo',
+            self::INATIVO  => 'Inativo',
+            self::SUSPENSO => 'Suspenso'
         );
     }
 
