@@ -32,6 +32,9 @@ class AppKernel extends Kernel
             new Super\BaseBundle\SuperBaseBundle(),
 
             new SiteBundle\SiteBundle(),
+            new Super\PromocaoBundle\SuperPromocaoBundle(),
+            new Super\EnqueteBundle\SuperEnqueteBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
