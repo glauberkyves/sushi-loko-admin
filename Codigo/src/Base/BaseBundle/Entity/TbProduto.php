@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbProduto
  *
- * @ORM\Table(name="tb_produto")
- * @ORM\Entity
+ * @ORM\Table(name="tb_produto", indexes={@ORM\Index(name="id_cardapio", columns={"id_cardapio"})})
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\ProdutoRepository")
  */
 class TbProduto extends AbstractEntity
 {
@@ -55,6 +55,129 @@ class TbProduto extends AbstractEntity
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
+
+    /**
+     * @var \TbCardapio
+     *
+     * @ORM\ManyToOne(targetEntity="TbCardapio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_cardapio", referencedColumnName="id_cardapio")
+     * })
+     */
+    private $idCardapio;
+
+    /**
+     * @return int
+     */
+    public function getIdProduto()
+    {
+        return $this->idProduto;
+    }
+
+    /**
+     * @param int $idProduto
+     */
+    public function setIdProduto($idProduto)
+    {
+        $this->idProduto = $idProduto;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoProduto()
+    {
+        return $this->noProduto;
+    }
+
+    /**
+     * @param string $noProduto
+     */
+    public function setNoProduto($noProduto)
+    {
+        $this->noProduto = $noProduto;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNuValor()
+    {
+        return $this->nuValor;
+    }
+
+    /**
+     * @param string $nuValor
+     */
+    public function setNuValor($nuValor)
+    {
+        $this->nuValor = $nuValor;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoImagem()
+    {
+        return $this->noImagem;
+    }
+
+    /**
+     * @param string $noImagem
+     */
+    public function setNoImagem($noImagem)
+    {
+        $this->noImagem = $noImagem;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStAtivo()
+    {
+        return $this->stAtivo;
+    }
+
+    /**
+     * @param int $stAtivo
+     */
+    public function setStAtivo($stAtivo)
+    {
+        $this->stAtivo = $stAtivo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtCadastro()
+    {
+        return $this->dtCadastro;
+    }
+
+    /**
+     * @param \DateTime $dtCadastro
+     */
+    public function setDtCadastro($dtCadastro)
+    {
+        $this->dtCadastro = $dtCadastro;
+    }
+
+    /**
+     * @return \TbCardapio
+     */
+    public function getIdCardapio()
+    {
+        return $this->idCardapio;
+    }
+
+    /**
+     * @param \TbCardapio $idCardapio
+     */
+    public function setIdCardapio($idCardapio)
+    {
+        $this->idCardapio = $idCardapio;
+    }
+
 
 
 }

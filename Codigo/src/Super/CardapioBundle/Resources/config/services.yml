@@ -1,0 +1,8 @@
+services:
+    service.cardapio:
+        class: Super\CardapioBundle\Service\Cardapio
+        arguments:  ["@service_container"]
+
+    service.produto:
+        class: Super\CardapioBundle\Service\Produto
+        arguments:  ["@service_container"]

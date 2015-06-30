@@ -15,3 +15,5 @@
 /.idea/*
 composer.lock
 desktop.ini
+/web/produto/
+/web/promocao/

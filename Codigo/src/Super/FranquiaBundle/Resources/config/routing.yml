@@ -1,0 +1,7 @@
+super_franquia_index:
+    path:     /
+    defaults: { _controller: SuperFranquiaBundle:Default:index }
+
+super_franquia_create:
+    path:     /create
+    defaults: { _controller: SuperFranquiaBundle:Default:create }

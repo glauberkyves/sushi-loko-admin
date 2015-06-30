@@ -1,0 +1,4 @@
+services:
+    service.franquia:
+        class: Super\FranquiaBundle\Service\Franquia
+        arguments:  ["@service_container"]
