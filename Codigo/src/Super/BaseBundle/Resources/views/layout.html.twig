@@ -210,7 +210,7 @@
 
         $("#addProduto").click(function(){
             var totalProdutos = $(".TotalProdutos").val();
-            totalProdutos = parseInt($(".newPro").size())+1;
+            totalProdutos = parseInt(totalProdutos)+1;
             $(".TotalProdutos").attr("value",totalProdutos);
 
             $(".produtosAll").append(' <section class="panel newPro deletar'+totalProdutos+'">'+
@@ -255,10 +255,13 @@
             '</section>');
             $(".excluirPro"+totalProdutos).click(function(){
                $(".deletar"+totalProdutos).remove();
-                $(".TotalProdutos").attr("value",parseInt($(".newPro").size()));
             });
 
 
+        });
+
+        $(".excluiPainel").click(function(){
+           $(this).parent().parent().remove();
         });
     });
 </script>

@@ -82,29 +82,67 @@ class Cardapio extends CrudService
         $ActionUpdate = $this->getRequest()->request->get("updateProduto");
 
         if ($ActionUpdate) {
-            $total = $this->getRequest()->request->get("total");
-
-            for ($i = 1; $i <= $total; $i++) {
-
-                $id = $this->getRequest()->request->get("idProduto".$i);
-
-                $entidade = $this->getService('service.produto')->find($id);
 
 
-                if ($entidade) {
-                    $noProduto = $this->getRequest()->request->get("noProduto" . $i);
-                    $noPreco   = $this->getRequest()->request->get("noPreco" . $i);
+            $idProduto = $this->getRequest()->request->get("idProduto");
+            if(empty($idProduto))
+            {
+                $this->addMessage("Um cardapio tem que ter pelo penos um produto.");
+            }else{
+                $noProduto = $this->getRequest()->request->get("noProduto");
+                $noPreco = $this->getRequest()->request->get("noPreco");
 
-                    if ($this->getRequest()->files->get('noImagem'.$i)) {
-                        $path = $this->uploadFile('produto/' .$i, 'noImagem'.$i);
+                $idCardapio = $this->getService('service.cardapio')->find($this->getRequest()->request->get("idCardapio"));
 
-                        $entidade->setNoImagem($path);
+                foreach($idCardapio->getIdProduto() as $produto){
+                    if(!in_array($produto->getIdProduto(), $idProduto)){
+                        $this->remove($produto);
                     }
-                    $entidade->setNoProduto($noProduto);
-                    $entidade->setNuValor($noPreco);
-                    $this->persist($entidade);
+                }
+
+                foreach($idProduto as $key => $id) {
+
+                    if($id){
+                        $produto = $this->getService('service.produto')->find($id);
+                    } else {
+                        $produto = $this->getService('service.produto')->newEntity();
+                        $produto->setDtCadastro(new \DateTime());
+                        $produto->setIdCardapio($this->entity);
+                    }
+
+                    if ($this->getRequest()->files->get('noImagem')) {
+                        $path = $this->uploadSingleFile('produto/' .$key, 'noImagem', $key);
+                        if($path)
+                        {
+                            $produto->setNoImagem($path);
+                        }
+                    }
+
+                    $produto->setNoProduto($noProduto[$key]);
+                    $produto->setNuValor($noPreco[$key]);
+
+                    $this->persist($produto);
                 }
             }
+
+
+        }
+    }
+
+    public function uploadSingleFile($folder, $fileInput = null, $key = 0)
+    {
+        $files = $this->getRequest()->files->get('noImagem');
+
+        if ($file = $files[$key])
+        {
+            $fileName = md5(uniqid() . microtime()) . '.' . $file->getClientOriginalExtension();
+            $rootDir  = $this->getRequest()->server->get('DOCUMENT_ROOT');
+            $path     = DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR;
+
+            $file->move($rootDir . $path, $fileName);
+            $this->getRequest()->files->remove($fileInput);
+
+            return str_replace('\\', '/', $path . $fileName);
         }
     }
 }
