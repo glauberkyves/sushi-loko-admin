@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * RlUsuarioPerfil
  *
  * @ORM\Table(name="rl_usuario_perfil", indexes={@ORM\Index(name="fk_usuarioperfil_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_usuarioperfil_perfil_idx", columns={"id_perfil"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\UsuarioPerfilRepository")
  */
-class RlUsuarioPerfil
+class RlUsuarioPerfil extends AbstractEntity
 {
     /**
      * @var integer
@@ -31,7 +31,7 @@ class RlUsuarioPerfil
     /**
      * @var \TbPerfil
      *
-     * @ORM\ManyToOne(targetEntity="TbPerfil")
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbPerfil")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_perfil", referencedColumnName="id_perfil")
      * })
@@ -41,12 +41,76 @@ class RlUsuarioPerfil
     /**
      * @var \TbUsuario
      *
-     * @ORM\ManyToOne(targetEntity="TbUsuario")
+     * @ORM\OneToOne(targetEntity="TbUsuario")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
      * })
      */
     private $idUsuario;
+
+    /**
+     * @return int
+     */
+    public function getIdUsuarioPerfil()
+    {
+        return $this->idUsuarioPerfil;
+    }
+
+    /**
+     * @return \Base\BaseBundle\Entity\TbUsuario
+     */
+    public function setIdUsuarioPerfil($idUsuarioPerfil)
+    {
+        $this->idUsuarioPerfil = $idUsuarioPerfil;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtCadastro()
+    {
+        return $this->dtCadastro;
+    }
+
+    /**
+     * @param \DateTime $dtCadastro
+     */
+    public function setDtCadastro($dtCadastro)
+    {
+        $this->dtCadastro = $dtCadastro;
+    }
+
+    /**
+     * @return \TbPerfil
+     */
+    public function getIdPerfil()
+    {
+        return $this->idPerfil ? $this->idPerfil: new TbPerfil();
+    }
+
+    /**
+     * @param \TbPerfil $idPerfil
+     */
+    public function setIdPerfil($idPerfil)
+    {
+        $this->idPerfil = $idPerfil;
+    }
+
+    /**
+     * @return \TbUsuario
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario ? $this->idUsuario: new TbUsuario();
+    }
+
+    /**
+     * @param \TbUsuario $idUsuario
+     */
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
 
 
 }

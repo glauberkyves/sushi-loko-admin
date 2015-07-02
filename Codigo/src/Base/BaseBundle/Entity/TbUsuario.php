@@ -27,13 +27,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="nu_cpf", type="string", length=11, nullable=false)
-     */
-    private $nuCpf;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="no_senha", type="string", length=32, nullable=false)
      */
     private $noSenha;
@@ -321,7 +314,7 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      */
     public function getUsername()
     {
-        return $this->noEmail;
+        return $this->getIdPessoa()->getNoPessoa(true);
     }
 
     /**
@@ -345,7 +338,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
          */
         return \serialize(array(
             $this->idUsuario,
-            $this->noEmail,
             $this->dtCadastro,
             $this->dtAtualizacao,
             $this->noSenha,
@@ -362,7 +354,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         list (
             $this->idUsuario,
-            $this->noEmail,
             $this->dtCadastro,
             $this->dtAtualizacao,
             $this->noSenha,

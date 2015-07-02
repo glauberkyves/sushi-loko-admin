@@ -5,11 +5,16 @@ $(document).ready(function () {
 
     $.mask.masks = $.extend($.mask.masks, {
         numeric:     {mask: '9', type: 'repeat'},
-        porcentagem: { mask: '99,999', type: 'reverse'},
+        porcentagem: {mask: '99,999', type: 'reverse'},
         money:       {mask: '99,999.999.999', type: 'reverse'},
         "phone-sp":  {mask: '99999-9999?'},
-        "foneBR":    {mask: '(99) 9999-99999?'}
+        "foneBR":    {mask: '(99) 9999-9999?'}
     });
 
     $('input:text').setMask();
+
+    $('input[data-mask]').each(function () {
+        var input = $(this);
+        input.setMask(input.attr('data-mask'));
+    });
 });

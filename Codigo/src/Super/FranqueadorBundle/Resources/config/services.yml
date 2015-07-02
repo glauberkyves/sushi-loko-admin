@@ -1,4 +1,4 @@
 services:
     service.franqueador:
-        class: Super\FranqueadorBundle\Franqueador
+        class: Super\FranqueadorBundle\Service\Franqueador
         arguments:  ["@service_container"]

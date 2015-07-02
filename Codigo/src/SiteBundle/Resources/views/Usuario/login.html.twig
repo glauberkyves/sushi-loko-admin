@@ -1,74 +1,93 @@
-{% extends "SiteBundle::layout.html.twig" %}
-{% block body %}
-    <div class="container-fluid noo-mainbody">
-        <div class="noo-mainbody-inner">
-            <div class="row clearfix">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="{{ asset('bundles/superbase/img/favicon.png') }}">
 
-                <div class="noo-content col-xs-12">
-                    <div class="page-content row">
-                        <div class="col-md-12">
-                            <div class="noo-logreg both">
-                                <div class="logreg-container">
-                                    <div class="row clearfix logreg-content">
-                                        <div class="col-md-6 login-form">
-                                            <form method="post" role="form" action="{{ path('login_check') }}">
-                                                <div class="logreg-title">Entrar</div>
-                                                {% if error  %}
-                                                    <div class="alert alert-block alert-danger fade in">
-                                                        <button type="button" class="close close-sm" data-dismiss="alert">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                        E-mail / senha inválidos.
-                                                    </div>
-                                                {% endif %}
-                                                <p class="logreg-desc">Já é um usuário do Bee Imóveis. Utilize o formulário abaixo para
-                                                    efetuar login.</p>
+    <title>{% block title %}{% endblock %}</title>
 
-                                                <div class="form-message"></div>
-                                                <div class="logreg-content">
-                                                    <div class="form-group">
-                                                        <input class="form-control required email" type="text" name="_username"
-                                                               placeholder="E-mail">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input class="form-control required" type="password" name="_password"
-                                                               placeholder="Senha">
-                                                    </div>
-                                                </div>
-                                                <div class="logreg-action">
-                                                    <button type="submit" class="btn navbar-btn">Entrar</button>
-                                                </div>
-                                                <p class="logreg-desc">Esqueceu sua senha? <a href="{{ path('site_esqueci_senha') }}">Clique
-                                                        aqui para resetar sua senha</a>
-                                                </p>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-6 register-form">
-                                            <div class="logreg-title">Cadastre-se</div>
-                                            <p class="logreg-desc">Não tem uma conta? Clique aqui e desfrute o melhor do Bee Imóveis.</p>
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('bundles/superbase/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/superbase/css/bootstrap-reset.css') }}" rel="stylesheet">
+    <!--external css-->
+    <link href="{{ asset('bundles/superbase/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('bundles/superbase/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/superbase/css/style-responsive.css') }}" rel="stylesheet"/>
 
-                                            <p class="logreg-desc">O usuário cadastrado tem acesso a diversos recursos no Bee Imóveis :</p>
-                                            <ul>
-                                                <li>Anûncio Gratis</li>
-                                                <li>Equipe de consultores especializados</li>
-                                                <li>Pode favoritar os anûncios para visitar posteriormente</li>
-                                                <li>Pode agendar visitas a imóveis diretamente no site</li>
-                                                <li>Pode enviar mensagens para anunciantes.</li>
-                                            </ul>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
+    <![endif]-->
 
-                                            <div class="form-message"></div>
-                                            <div class="logreg-action">
-                                                <a href="{{ path('site_cadastrar') }}" class="btn navbar-btn">Cadastre-se agora!</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/assets/bootstrap-inputmask/bootstrap-inputmask.js') }}"></script>
+
+    <script src="{{ asset('bundles/superbase/app/js/mask.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/app/js/validate.js') }}"></script>
+
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+    <form class="form-signin" action="{{ path('login_check') }}" method="post">
+        <h2 class="form-signin-heading">Entrar</h2>
+
+        <div class="login-wrap">
+            {% if error %}
+                <div class="alert alert-block alert-danger fade in">
+                    <button type="button" class="close close-sm" data-dismiss="alert">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    E-mail / senha inválidos.
+                </div>
+            {% endif %}
+
+            {{ formText('_username', '', {
+                class: 'form-control required cpf',
+                placeholder: 'Seu CPF',
+                autofocus:'',
+                'data-mask': 'cpf'
+            }) }}
+            {{ formPassword('_password', '', {class: 'form-control required', placeholder: 'Sua senha'}) }}
+            <label class="checkbox">
+                <span class="pull-right">
+                    <a data-toggle="modal" href="#myModal"> Esqueceu sua senha?</a>
+                </span>
+            </label>
+            <button class="btn btn-lg btn-login btn-block" type="submit">Entrar</button>
+        </div>
+
+        <!-- Modal -->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Esqueceu sua senha?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Entre com seu e-mail abaixo para resetar sua senha.</p>
+                        <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+                        <button class="btn btn-success" type="button">Recuperar</button>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
-{% endblock %}
+        <!-- modal -->
+    </form>
+</div>
+</body>
+</html>

@@ -7,7 +7,7 @@ security:
 
     providers:
         auth:
-            entity: { class: BaseBaseBundle:TbUsuario, property: noEmail }
+            entity: { class: BaseBaseBundle:TbUsuario, property: nuCpf }
 
     firewalls:
         dev:
@@ -33,9 +33,15 @@ security:
                 invalidate_session: true
 
     role_hierarchy:
-        ROLE_SUPER:        [ROLE_SUPER]
-        ROLE_USER:         [ROLE_USER]
+        ROLE_SUPER:               [ROLE_SUPER]
+        ROLE_FRANQUEADOR:         [ROLE_FRANQUEADOR]
+        ROLE_FRANQUIA:            [ROLE_FRANQUIA]
+        ROLE_OPERADOR:            [ROLE_OPERADOR]
+        ROLE_USER:                [ROLE_USER]
 
     access_control:
-         - { path: ^/super, roles: ROLE_SUPER }
+         - { path: ^/super,          roles: ROLE_SUPER }
+         - { path: ^/franqueador,    roles: ROLE_FRANQUEADOR }
+         - { path: ^/franquia,       roles: ROLE_FRANQUIA }
+         - { path: ^/ROLE_OPERADOR,  roles: ROLE_OPERADOR }
          - { path: ^/entrar.html, role: IS_AUTHENTICATED_ANONYMOUSLY }

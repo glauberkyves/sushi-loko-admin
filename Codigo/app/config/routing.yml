@@ -1,23 +1,13 @@
-super_enquete:
-    resource: "@SuperEnqueteBundle/Resources/config/routing.yml"
-    prefix:   /
-
-super_promocao:
-    resource: "@SuperPromocaoBundle/Resources/config/routing.yml"
-    prefix:   /
-
-super_cardapio:
-    resource: "@SuperCardapioBundle/Resources/config/routing.yml"
-    prefix:   /
-
 site:
     resource: "@SiteBundle/Resources/config/routing.yml"
-    prefix:   /site
 
 super_base:
     resource: "@SuperBaseBundle/Resources/config/routing.yml"
+    prefix:   /super
+
+super_security:
+    resource: "@SuperSecurityBundle/Resources/config/routing.yml"
     prefix:   /
 
 base:
     resource: "@BaseBaseBundle/Resources/config/routing.yml"
-    prefix:   /

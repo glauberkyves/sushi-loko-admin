@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_endereco", indexes={@ORM\Index(name="FK_ENDERECO_MUNICPIO_idx", columns={"id_bairro"}), @ORM\Index(name="FK_ENDERECO_MUNICIPIO_idx", columns={"id_municipio"})})
  * @ORM\Entity
  */
-class TbEndereco
+class TbEndereco extends AbstractEntity
 {
     /**
      * @var integer
@@ -73,7 +73,7 @@ class TbEndereco
     /**
      * @var \TbBairro
      *
-     * @ORM\ManyToOne(targetEntity="TbBairro")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbBairro")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_bairro", referencedColumnName="id_bairro")
      * })
@@ -83,12 +83,172 @@ class TbEndereco
     /**
      * @var \TbMunicipio
      *
-     * @ORM\ManyToOne(targetEntity="TbMunicipio")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbMunicipio")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_municipio", referencedColumnName="id_municipio")
      * })
      */
     private $idMunicipio;
+
+    /**
+     * @return int
+     */
+    public function getIdEndereco()
+    {
+        return $this->idEndereco;
+    }
+
+    /**
+     * @param int $idEndereco
+     */
+    public function setIdEndereco($idEndereco)
+    {
+        $this->idEndereco = $idEndereco;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoLogradouro()
+    {
+        return $this->noLogradouro;
+    }
+
+    /**
+     * @param string $noLogradouro
+     */
+    public function setNoLogradouro($noLogradouro)
+    {
+        $this->noLogradouro = $noLogradouro;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoComplemento()
+    {
+        return $this->noComplemento;
+    }
+
+    /**
+     * @param string $noComplemento
+     */
+    public function setNoComplemento($noComplemento)
+    {
+        $this->noComplemento = $noComplemento;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNuEndereco()
+    {
+        return $this->nuEndereco;
+    }
+
+    /**
+     * @param string $nuEndereco
+     */
+    public function setNuEndereco($nuEndereco)
+    {
+        $this->nuEndereco = $nuEndereco;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoBairro()
+    {
+        return $this->noBairro;
+    }
+
+    /**
+     * @param string $noBairro
+     */
+    public function setNoBairro($noBairro)
+    {
+        $this->noBairro = $noBairro;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNuCep()
+    {
+        return $this->nuCep;
+    }
+
+    /**
+     * @param int $nuCep
+     */
+    public function setNuCep($nuCep)
+    {
+        $this->nuCep = $nuCep;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoLongitude()
+    {
+        return $this->noLongitude;
+    }
+
+    /**
+     * @param string $noLongitude
+     */
+    public function setNoLongitude($noLongitude)
+    {
+        $this->noLongitude = $noLongitude;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoLatitude()
+    {
+        return $this->noLatitude;
+    }
+
+    /**
+     * @param string $noLatitude
+     */
+    public function setNoLatitude($noLatitude)
+    {
+        $this->noLatitude = $noLatitude;
+    }
+
+    /**
+     * @return \TbBairro
+     */
+    public function getIdBairro()
+    {
+        return $this->idBairro ? $this->idBairro : new TbBairro();
+    }
+
+    /**
+     * @param \TbBairro $idBairro
+     */
+    public function setIdBairro($idBairro)
+    {
+        $this->idBairro = $idBairro;
+    }
+
+    /**
+     * @return \TbMunicipio
+     */
+    public function getIdMunicipio()
+    {
+        return $this->idMunicipio ? $this->idMunicipio : new TbMunicipio();
+    }
+
+    /**
+     * @param \TbMunicipio $idMunicipio
+     */
+    public function setIdMunicipio($idMunicipio)
+    {
+        $this->idMunicipio = $idMunicipio;
+    }
 
 
 }

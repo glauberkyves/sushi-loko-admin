@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_franqueador")
  * @ORM\Entity
  */
-class TbFranqueador
+class TbFranqueador extends AbstractEntity
 {
     /**
      * @var integer
@@ -22,16 +22,16 @@ class TbFranqueador
     private $idFranqueador;
 
     /**
-     * @var integer
+     * @var TbPessoaJuridica
      *
-     * @ORM\Column(name="id_pessoa", type="integer", nullable=false)
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbPessoa", mappedBy="idPessoa")
      */
-    private $idPessoa;
+    protected $idPessoa;
 
     /**
-     * @var integer
+     * @var TbPessoaJuridica
      *
-     * @ORM\Column(name="id_endereco", type="integer", nullable=false)
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbEndereco", mappedBy="idPessoa")
      */
     private $idEndereco;
 
@@ -52,6 +52,20 @@ class TbFranqueador
     /**
      * @var integer
      *
+     * @ORM\Column(name="no_responsavel", type="string", nullable=false)
+     */
+    private $noResponsavel;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="no_email", type="string", nullable=false)
+     */
+    private $noEmail;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
     private $stAtivo;
@@ -63,6 +77,148 @@ class TbFranqueador
      */
     private $dtCadastro;
 
+    /**
+     * @return int
+     */
+    public function getIdFranqueador()
+    {
+        return $this->idFranqueador;
+    }
 
+    /**
+     * @param int $idFranqueador
+     */
+    public function setIdFranqueador($idFranqueador)
+    {
+        $this->idFranqueador = $idFranqueador;
+    }
+
+    /**
+     * @return TbPessoaJuridica
+     */
+    public function getIdPessoa()
+    {
+        return $this->idPessoa ? $this->idPessoa : new TbPessoa();
+    }
+
+    /**
+     * @param TbPessoaJuridica $idPessoa
+     */
+    public function setIdPessoa($idPessoa)
+    {
+        $this->idPessoa = $idPessoa;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdEndereco()
+    {
+        return $this->idEndereco ? $this->idEndereco : new TbEndereco();
+    }
+
+    /**
+     * @param int $idEndereco
+     */
+    public function setIdEndereco($idEndereco)
+    {
+        $this->idEndereco = $idEndereco;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStNiveis()
+    {
+        return $this->stNiveis;
+    }
+
+    /**
+     * @param int $stNiveis
+     */
+    public function setStNiveis($stNiveis)
+    {
+        $this->stNiveis = $stNiveis;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdConfiguracaoFranquia()
+    {
+        return $this->idConfiguracaoFranquia;
+    }
+
+    /**
+     * @param int $idConfiguracaoFranquia
+     */
+    public function setIdConfiguracaoFranquia($idConfiguracaoFranquia)
+    {
+        $this->idConfiguracaoFranquia = $idConfiguracaoFranquia;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStAtivo()
+    {
+        return $this->stAtivo;
+    }
+
+    /**
+     * @param int $stAtivo
+     */
+    public function setStAtivo($stAtivo)
+    {
+        $this->stAtivo = $stAtivo;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtCadastro()
+    {
+        return $this->dtCadastro;
+    }
+
+    /**
+     * @param \DateTime $dtCadastro
+     */
+    public function setDtCadastro($dtCadastro)
+    {
+        $this->dtCadastro = $dtCadastro;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNoResponsavel()
+    {
+        return $this->noResponsavel;
+    }
+
+    /**
+     * @param int $noResponsavel
+     */
+    public function setNoResponsavel($noResponsavel)
+    {
+        $this->noResponsavel = $noResponsavel;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNoEmail()
+    {
+        return $this->noEmail;
+    }
+
+    /**
+     * @param int $noEmail
+     */
+    public function setNoEmail($noEmail)
+    {
+        $this->noEmail = $noEmail;
+    }
 }
 
