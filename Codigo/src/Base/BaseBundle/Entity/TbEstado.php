@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_estado")
  * @ORM\Entity
  */
-class TbEstado
+class TbEstado extends AbstractEntity
 {
     /**
      * @var integer
@@ -35,6 +35,43 @@ class TbEstado
      */
     private $noEstado = '';
 
+    /**
+     * @return int
+     */
+    public function getIdEstado()
+    {
+        return $this->idEstado;
+    }
 
+    /**
+     * @param string $noEstado
+     */
+    public function setNoEstado($noEstado)
+    {
+        $this->noEstado = $noEstado;
 }
 
+    /**
+     * @return string
+     */
+    public function getNoEstado()
+    {
+        return $this->noEstado;
+    }
+
+    /**
+     * @param string $sgUf
+     */
+    public function setSgUf($sgUf)
+    {
+        $this->sgUf = $sgUf;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSgUf()
+    {
+        return $this->sgUf;
+    }
+}

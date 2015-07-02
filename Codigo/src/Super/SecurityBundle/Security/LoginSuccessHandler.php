@@ -25,20 +25,13 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        $redirect = $this->container->get('session')->get('redirect');
-        $this->container->get('session')->remove('redirect');
-
         switch (true) {
             case $this->security->isGranted('ROLE_SUPER'):
                 $response = new RedirectResponse($this->router->generate('super_home'));
                 break;
 
             case $this->security->isGranted('ROLE_USER'):
-                if ($redirect) {
-                    $response = new RedirectResponse($redirect);
-                } else {
-                    $response = new RedirectResponse($this->router->generate('site_homepage'));
-                }
+                $response = new RedirectResponse($this->router->generate('site_homepage'));
                 break;
         }
 

@@ -33,13 +33,6 @@ class TbPessoa extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="no_email", type="string", length=100, nullable=false)
-     */
-    private $noEmail;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="no_imagem", type="string", length=100, nullable=true)
      */
     private $noImagem;

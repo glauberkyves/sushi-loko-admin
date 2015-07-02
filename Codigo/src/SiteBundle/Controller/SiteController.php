@@ -10,21 +10,6 @@ class SiteController extends CrudController
 {
     protected $serviceName = 'service.anuncio';
 
-    public function mudarEstadoAction(Request $request)
-    {
-        $idEstado = $this->getService('service.estado')->find($request->get('estado', 0));
-
-        if ($idEstado) {
-            $request->getSession()->set('idEstado', $idEstado->getIdEstado());
-            $request->getSession()->set('noEstado', $idEstado->getNoEstado());
-
-            setcookie('idEstado', $idEstado->getIdEstado(), (time() + 3600 * 24 * 7), "/"); // 86400 = 1 day}
-            setcookie('noEstado', $idEstado->getNoEstado(), (time() + 3600 * 24 * 7), "/"); // 86400 = 1 day}
-        }
-
-        return new RedirectResponse($request->headers->get('referer'));
-    }
-
     public function faleConoscoAction(Request $request)
     {
         $this->serviceName = 'service.newsletter';

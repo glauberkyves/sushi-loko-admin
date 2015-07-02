@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_bairro", indexes={@ORM\Index(name="FK_BAIRRO_MUNICIPIO_idx", columns={"id_municipio"})})
  * @ORM\Entity
  */
-class TbBairro
+class TbBairro extends AbstractEntity
 {
     /**
      * @var integer
@@ -31,13 +31,58 @@ class TbBairro
     /**
      * @var \TbMunicipio
      *
-     * @ORM\ManyToOne(targetEntity="TbMunicipio")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbMunicipio")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_municipio", referencedColumnName="id_municipio")
      * })
      */
     private $idMunicipio;
 
+    /**
+     * @param int $idBairro
+     */
+    public function setIdBairro($idBairro)
+    {
+        $this->idBairro = $idBairro;
+    }
 
+    /**
+     * @return int
+     */
+    public function getIdBairro()
+    {
+        return $this->idBairro;
 }
 
+    /**
+     * @param int $idMunicipio
+     */
+    public function setIdMunicipio(TbMunicipio $idMunicipio)
+    {
+        $this->idMunicipio = $idMunicipio;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdMunicipio()
+    {
+        return $this->idMunicipio ? $this->idMunicipio : new TbMunicipio();
+    }
+
+    /**
+     * @param string $noBairro
+     */
+    public function setNoBairro($noBairro)
+    {
+        $this->noBairro = $noBairro;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoBairro()
+    {
+        return $this->noBairro;
+    }
+}

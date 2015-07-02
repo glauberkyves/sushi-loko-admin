@@ -22,22 +22,68 @@ class TbPessoaJuridica
     /**
      * @var string
      *
-     * @ORM\Column(name="no_fantansia", type="string", length=100, nullable=true)
+     * @ORM\Column(name="no_fantasia", type="string", length=100, nullable=true)
      */
-    private $noFantansia;
+    private $noFantasia;
 
     /**
      * @var \TbPessoa
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="TbPessoa")
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbPessoa", inversedBy="idPessoaJuridica")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_pessoa", referencedColumnName="id_pessoa")
      * })
      */
     private $idPessoa;
 
+    /**
+     * @return int
+     */
+    public function getNuCnpj()
+    {
+        return $this->nuCnpj;
+    }
 
+    /**
+     * @param int $nuCnpj
+     */
+    public function setNuCnpj($nuCnpj)
+    {
+        $this->nuCnpj = $nuCnpj;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoFantasia()
+    {
+        return $this->noFantasia;
+    }
+
+    /**
+     * @param string $noFantasia
+     */
+    public function setNoFantasia($noFantasia)
+    {
+        $this->noFantasia = $noFantasia;
+    }
+
+    /**
+     * @return \TbPessoa
+     */
+    public function getIdPessoa()
+    {
+        return $this->idPessoa;
+    }
+
+    /**
+     * @param \TbPessoa $idPessoa
+     */
+    public function setIdPessoa($idPessoa)
+    {
+        $this->idPessoa = $idPessoa;
+    }
 }
 

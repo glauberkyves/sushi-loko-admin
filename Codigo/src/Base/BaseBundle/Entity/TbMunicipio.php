@@ -38,6 +38,52 @@ class TbMunicipio
      */
     private $idEstado;
 
+    /**
+     * @return int
+     */
+    public function getIdMunicipio()
+    {
+        return $this->idMunicipio;
+    }
 
+    /**
+     * @param int $idMunicipio
+     */
+    public function setIdMunicipio($idMunicipio)
+    {
+        $this->idMunicipio = $idMunicipio;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoMunicipio()
+    {
+        return $this->noMunicipio;
+    }
+
+    /**
+     * @param string $noMunicipio
+     */
+    public function setNoMunicipio($noMunicipio)
+    {
+        $this->noMunicipio = $noMunicipio;
+    }
+
+    /**
+     * @return \TbEstado
+     */
+    public function getIdEstado()
+    {
+        return $this->idEstado ? $this->idEstado : new TbEstado();
+    }
+
+    /**
+     * @param \TbEstado $idEstado
+     */
+    public function setIdEstado($idEstado)
+    {
+        $this->idEstado = $idEstado;
+    }
 }
 

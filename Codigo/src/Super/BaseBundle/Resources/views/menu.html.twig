@@ -1,30 +1,84 @@
 <ul class="sidebar-menu" id="nav-accordion">
-    <li class="sub-menu">
-        <a href="javascript:;">
-            <i class="fa fa-user"></i>
-            <span>Gerenciar Franqueador</span>
-        </a>
-        <ul class="sub">
-            <li><a href="{{ path('super_franqueador_index') }}">Usuario</a></li>
-        </ul>
-    </li>
-    <li class="sub-menu">
-        <a href="{{ path('manter_enquete_index') }}">
-            <i class="fa  fa-bullhorn"></i>
-            <span>Manter Enquete</span>
-        </a>
-    </li>
-    <li class="sub-menu">
-        <a href="{{ path('manter_promocao_index') }}">
-            <i class="fa  fa-flag"></i>
-            <span>Manter Promoção</span>
-        </a>
-    </li>
+    {% if is_granted('ROLE_SUPER') %}
+        <li class="sub-menu">
+            <a href="{{ path('super_franqueador_index') }}">
+                <i class="fa  fa-group"></i>
+                <span>Gerenciar Franqueador</span>
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="{{ path('super_franquia_index') }}">
+                <i class="fa fa-sitemap"></i>
+                <span>Gerenciar Franquia</span>
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="{{ path('manter_enquete_index') }}">
+                <i class="fa  fa-bullhorn"></i>
+                <span>Gerenciar Enquete</span>
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="{{ path('manter_promocao_index') }}">
+                <i class="fa  fa-flag"></i>
+                <span>Gerenciar Promoção</span>
+            </a>
+        </li>
 
-    <li class="sub-menu">
-        <a href="{{ path('manter_cardapio_index') }}">
-            <i class="fa  fa-book"></i>
-            <span>Manter Cardapio</span>
-        </a>
-    </li>
+        <li class="sub-menu">
+            <a href="{{ path('manter_cardapio_index') }}">
+                <i class="fa  fa-book"></i>
+                <span>Gerenciar Cardápio</span>
+            </a>
+        </li>
+    {% endif %}
+
+    {% if is_granted('ROLE_FRANQUEADOR') %}
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-user"></i>
+                <span>Gerenciar Franquias</span>
+            </a>
+            <ul class="sub">
+                <li><a href="#">Usuários</a></li>
+            </ul>
+            <ul class="sub">
+                <li><a href="#">Operadores</a></li>
+            </ul>
+            <ul class="sub">
+                <li><a href="#">Franqueados</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="#">
+                <i class="fa  fa-group"></i>
+                <span>Relatórios</span>
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="#">
+                <i class="fa  fa-group"></i>
+                <span>Geolocalização</span>
+            </a>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-user"></i>
+                <span>Gerenciar Enquete</span>
+            </a>
+            <ul class="sub">
+                <li><a href="{{ path('manter_enquete_index') }}">Gerenciar Enquete</a></li>
+                <li><a href="{{ path('manter_enquete_index') }}">Relatórios enquete</a></li>
+            </ul>
+        </li>
+        <li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-user"></i>
+                <span>Gerenciar Feedback</span>
+            </a>
+            <ul class="sub">
+                <li><a href="{{ path('manter_enquete_index') }}">Gerenciar Enquete</a></li>
+            </ul>
+        </li>
+    {% endif %}
 </ul>

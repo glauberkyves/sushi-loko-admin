@@ -2,9 +2,17 @@ super_home:
     path:     /
     defaults: { _controller: SuperBaseBundle:Default:index }
 
-super_security:
-    resource: "@SuperSecurityBundle/Resources/config/routing.yml"
-    prefix:   /
+super_enquete:
+    resource: "@SuperEnqueteBundle/Resources/config/routing.yml"
+    prefix:   /enquete
+
+super_promocao:
+    resource: "@SuperPromocaoBundle/Resources/config/routing.yml"
+    prefix:   /promocao
+
+super_cardapio:
+    resource: "@SuperCardapioBundle/Resources/config/routing.yml"
+    prefix:   /cardapio
 
 super_franqueador:
     resource: "@SuperFranqueadorBundle/Resources/config/routing.yml"
@@ -21,8 +29,4 @@ super_usuario:
 super_franquia:
     resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
     prefix:   /franquia
-
-super_cardapio:
-    resource: "@SuperCardapioBundle/Resources/config/routing.yml"
-    prefix:   /cardapio
 
