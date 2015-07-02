@@ -1,0 +1,4 @@
+base_bundle:
+    validators:
+        operacao: Operação realizada com sucesso.
+        required: Preencha todos campos obrigatórios.

@@ -5,6 +5,7 @@ namespace Super\PromocaoBundle\Service;
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Entity\AbstractEntity;
 use Base\BaseBundle\Service\Data;
+use Symfony\Component\Validator\Validator;
 
 class Promocao extends CrudService
 {
@@ -44,6 +45,7 @@ class Promocao extends CrudService
         }
         return $itens;
     }
+
 
 
 

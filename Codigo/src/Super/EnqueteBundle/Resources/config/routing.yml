@@ -29,3 +29,7 @@ manter_cardapio_edit:
 manter_cardapio_delete:
     path:     /manter-cardapio/delete/{id}
     defaults: { _controller: SuperCardapioBundle:Cardapio:delete }
+
+manter_cardapio_view:
+    path:     /manter-cardapio/ver/{id}
+    defaults: { _controller: SuperCardapioBundle:Cardapio:ver }

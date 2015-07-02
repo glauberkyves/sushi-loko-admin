@@ -10,5 +10,11 @@ class CardapioController extends CrudController
 {
     protected $serviceName = 'service.cardapio';
 
+    public function verAction(Request $request,$id)
+    {
+        $cardapio = $this->getService('service.cardapio')->find($id);
+         $data = array("cardapio"=>$cardapio);
+        return $this->render('SuperCardapioBundle:Cardapio:viewsCardapio.html.twig',$data);
+    }
 
 }

@@ -9,10 +9,12 @@
     <link rel="shortcut icon" href="{{ asset('bundles/superbase/img/favicon.png') }}">
 
     <title>{% block title %}{% endblock %}</title>
-
+    {#<link rel="stylesheet" href="{{ asset('bundles/superbase/assets/bootstrap-datepicker/css/datepicker.css') }}">#}
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('bundles/superbase/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/superbase/css/bootstrap-reset.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/superbase/jquery-ui-1.10.4/themes/base/jquery-ui.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/superbase/jquery-ui-1.10.4/demos/demos.css') }}" rel="stylesheet">
     <!--external css-->
     <link href="{{ asset('bundles/superbase/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
     {#<link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css') }}" rel="stylesheet"/>#}
@@ -24,6 +26,7 @@
     <link href="{{ asset('bundles/superbase/css/style-responsive.css') }}" rel="stylesheet"/>
     <link href="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/superbase/css/bootstrap-fileupload.css') }}" rel="stylesheet"/>
+
     <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
 
 </head>
@@ -176,6 +179,10 @@
 
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
+{#<script src="{{ asset('bundles/superbase/assets/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>#}
+<script src="{{ asset('bundles/superbase/jquery-ui-1.10.4/ui/jquery-ui.js') }}"></script>
+{#<script src="{{ asset('bundles/superbase/js/datepicker-pt-BR.js') }}"></script>#}
+
 <script src="{{ asset('bundles/superbase/js/bootstrap.min.js') }}"></script>
 <script class="include" type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.dcjqaccordion.2.7.js') }}"></script>
 <script src="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.js') }}"></script>
@@ -204,11 +211,26 @@
 
 <script>
     $(document).ready(function(){
+
+        $(function() {
+            $( "#datepicker" ).datepicker({
+                dateFormat: 'dd/mm/yy',
+                dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+                dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+                monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                nextText: 'Próximo',
+                prevText: 'Anterior'
+            });
+        });
+
         $("#form-promocao").submit();
         $("#form-enquete").submit();
         $("#form-cardapio").submit();
 
         $("#addProduto").click(function(){
+            var gerar = $(".newPro").size()+1;
             var totalProdutos = $(".TotalProdutos").val();
             totalProdutos = parseInt(totalProdutos)+1;
             $(".TotalProdutos").attr("value",totalProdutos);
@@ -255,6 +277,7 @@
             '</section>');
             $(".excluirPro"+totalProdutos).click(function(){
                $(".deletar"+totalProdutos).remove();
+
             });
 
 
@@ -263,6 +286,7 @@
         $(".excluiPainel").click(function(){
            $(this).parent().parent().remove();
         });
+
     });
 </script>
 
