@@ -1,4 +1,5 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
+    <input type="hidden" name="idFranqueador" value="1">
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
         <div class="col-lg-10">
@@ -49,11 +50,28 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noEnderecoAmigavel">Endereço amigável</label>
+        <label class="col-sm-2 control-label col-lg-2" for="noLogradouro">Endereço amigável</label>
         <div class="col-lg-10">
-            <input type="text" class="form-control required" id="noEnderecoAmigavel" placeholder="Endereço amigavel"
-                   name="noEnderecoAmigavel" value="{{ entity.getNoFranquia() }}">
+            <input type="text" class="form-control required" id="noLogradouro" placeholder="Endereço amigavel"
+                   name="noLogradouro" value="{{ entity.getNoFranquia() }}">
         </div>
+    </div>
+    <div id="apresentacao">
+        <fieldset>
+            <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label">
+                    <p type="button" id="btnEndereco" href="#"  name="btnEndereco" class="btn btn-primary">
+                        Buscar
+                    </p>
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control required"  id="txtEndereco" name="txtEndereco" placeholder="Local">
+                </div>
+            </div>
+            <div id="mapa"></div>
+            <input type="hidden" id="txtLatitude" name="noLatitude" />
+            <input type="hidden" id="txtLongitude" name="noLongitude" />
+        </fieldset>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="idCardapio">Cardápio</label>
@@ -78,3 +96,8 @@
         </a>
     </div>
 </form>
+
+<script>
+    var LATITUDE  = {{ entity.getNoFranquia() ?: -15.565656 }};
+    var LONGITUDE = {{ entity.getNoFranquia() ?: -47.565656 }};
+</script>

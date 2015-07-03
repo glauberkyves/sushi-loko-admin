@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_municipio", indexes={@ORM\Index(name="FK_MUNICIPIO_ESTADO_idx", columns={"id_estado"})})
  * @ORM\Entity
  */
-class TbMunicipio
+class TbMunicipio extends AbstractEntity
 {
     /**
      * @var integer
@@ -31,7 +31,7 @@ class TbMunicipio
     /**
      * @var \TbEstado
      *
-     * @ORM\ManyToOne(targetEntity="TbEstado")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbEstado")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_estado", referencedColumnName="id_estado")
      * })

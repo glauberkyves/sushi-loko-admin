@@ -11,13 +11,30 @@ class DefaultController extends CrudController
 
     public function createAction(Request $request)
     {
-        $this->vars = array(
-            'cmbCardapio' => array('asdf'),
-            'cmbPromocao' => array('asdf'),
-            'arrCardapio' => array('asdf','asdf','asdf'),
-            'arrPromocao' => array('asdf','asdf','asdf')
-        );
+        $this->getComboDefault();
 
         return parent::createAction($request);
+    }
+
+    private function getComboDefault()
+    {
+        $cmbCardapio = $this->getService('service.cardapio')->getComboDefault(
+            array('stAtivo' => 1),
+            array('noCardapio' => 'ASC')
+        );
+        $cmbPromocao = $this->getService('service.promocao')->getComboDefault(
+            array('stAtivo' => 1),
+            array('noPromocao' => 'ASC')
+        );
+        array_shift($cmbPromocao);
+
+        $this->vars = array(
+            'cmbCardapio' => $cmbCardapio,
+            'cmbPromocao' => $cmbPromocao,
+            'arrCardapio' => array(),
+            'arrPromocao' => array(),
+        );
+
+        return $this->vars;
     }
 }
