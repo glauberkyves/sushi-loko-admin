@@ -1,1 +1,19 @@
+manter_cardapio_index:
+    path:     /manter-cardapio
+    defaults: { _controller: SuperCardapioBundle:Cardapio:index }
 
+manter_cardapio_create:
+    path:     /manter-cardapio/create
+    defaults: { _controller: SuperCardapioBundle:Cardapio:create }
+
+manter_cardapio_edit:
+    path:     /manter-cardapio/edit/{id}
+    defaults: { _controller: SuperCardapioBundle:Cardapio:edit }
+
+manter_cardapio_delete:
+    path:     /manter-cardapio/delete/{id}
+    defaults: { _controller: SuperCardapioBundle:Cardapio:delete }
+
+manter_cardapio_view:
+    path:     /manter-cardapio/ver/{id}
+    defaults: { _controller: SuperCardapioBundle:Cardapio:ver }

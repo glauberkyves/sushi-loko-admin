@@ -1,0 +1,4 @@
+Base\BaseBubdle\Entity\TbCardapio:
+    properties:
+        noCardapio:
+            - NotBlank: ~

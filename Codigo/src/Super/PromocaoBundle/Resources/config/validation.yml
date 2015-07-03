@@ -1,0 +1,6 @@
+Base\BaseBubdle\Entity\TbPromocao:
+    properties:
+        noPromocao:
+            - NotBlank: ~
+        dtValidade:
+            - NotBlank: ~

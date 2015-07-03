@@ -434,7 +434,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     .dropdown-menu.extended  {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.176) !important;
     };
-    }
+}
 
 .dropdown-menu.extended li p {
     background-color: #F1F2F7;
@@ -1397,7 +1397,7 @@ h3.timeline-title {
     .panel-footer.revenue-foot {
         margin-bottom: -4px;
     };
-    }
+}
 
 
 .panel-footer.revenue-foot ul  {
@@ -3238,12 +3238,6 @@ table.sliders tr td {
     top: -0.57em   !important;
 }
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    background: #fff !important;
-    border: 3px solid #22bacf !important;
-    border-radius: 50% !important;
-    -webkit-border-radius: 50% !important;
-}
 
 .ui-slider-vertical {
     width: 8px !important;
@@ -5187,9 +5181,9 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 
 
 .chat-room .user-head i {
-   float: left;
-   font-size: 40px;
-   margin-right: 10px;
+    float: left;
+    font-size: 40px;
+    margin-right: 10px;
 }
 
 .chat-room .user-head h3 {
@@ -5605,11 +5599,11 @@ a.guest-on i {
 
 
 .p-task .external a {
- color:#40cabe;
+    color:#40cabe;
 }
 
 .p-task .external a:hover {
- color:#FF6C60;
+    color:#FF6C60;
 }
 
 

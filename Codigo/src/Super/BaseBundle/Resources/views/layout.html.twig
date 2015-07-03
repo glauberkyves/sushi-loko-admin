@@ -15,6 +15,9 @@
     <link href="{{ asset('bundles/superbase/css/bootstrap-reset.css') }}" rel="stylesheet">
     <!--external css-->
     <link href="{{ asset('bundles/superbase/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/superbase/assets/bootstrap-datepicker/css/datepicker.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/superbase/assets/bootstrap-colorpicker/css/colorpicker.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/superbase/assets/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet"/>
     {#<link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css') }}" rel="stylesheet"/>#}
     {#<link href="{{ asset('bundles/basebase/DataTables-1.10.5/media/css/jquery.dataTables.min.css') }}" rel="stylesheet"/>#}
     <!--right slidebar-->
@@ -109,7 +112,7 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <img alt="" src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}">
                         <span class="username">
-                            {{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}
+                            {#{{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}#}
                         </span>
                         <b class="caret"></b>
                     </a>
@@ -177,6 +180,10 @@
 
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
+<script src="{{ asset('bundles/superbase/assets/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset('bundles/superbase/assets/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('bundles/superbase/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+
 <script src="{{ asset('bundles/superbase/js/bootstrap.min.js') }}"></script>
 <script class="include" type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.dcjqaccordion.2.7.js') }}"></script>
 <script src="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.js') }}"></script>
@@ -208,6 +215,67 @@
 <script type="text/javascript" src="/bundles/site/app/js/validate.js"></script>
 
 {% block javascripts %}{% endblock %}
+
+<script>
+    $(document).ready(function(){
+
+        $("#datepicker").datepicker( "option", "dateFormat", "dd/mm/yy" );
+        $("#form-promocao").submit();
+        $("#form-enquete").submit();
+        $("#form-cardapio").submit();
+        $("#addProduto").click(function(){
+            var totalProdutos = $(".TotalProdutos").val();
+            totalProdutos = parseInt(totalProdutos)+1;
+            $(".TotalProdutos").attr("value",totalProdutos);
+            $(".produtosAll").append(' <section class="panel newPro deletar'+totalProdutos+'">'+
+            '<header class="panel-heading">'+
+            totalProdutos+
+            '° Produto <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro'+totalProdutos+'"><span class="fa fa-times"></span></button>'+
+            '</header>'+
+            '<div class="panel-body">'+
+            '<div class="form-group">'+
+            '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>'+
+            '<div class="col-lg-9">'+
+            '<input type="text" class="form-control required"  id="noProduto1" name="noProduto'+totalProdutos+'" placeholder="Nome">'+
+            '</div>'+
+            '</div>'+
+            '<div class="form-group">'+
+            '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>'+
+            '<div class="col-lg-2">'+
+            '<input type="text" class="form-control required" id="noPreco1" mask="decimal" name="noPreco'+totalProdutos+'" placeholder="R$ Preço">'+
+            '</div>'+
+            '</div>'+
+            '<div class="form-group last">'+
+            '<label class="control-label col-md-3">Arquivo</label>'+
+            '<div class="col-md-9">'+
+            '<div class="fileupload fileupload-new" data-provides="fileupload">'+
+            '<div class="fileupload-preview fileupload-exists thumbnail"'+
+            'style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>'+
+            '<div>'+
+            '<span class="btn btn-white btn-file">'+
+            '<span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>'+
+            '<span class="fileupload-exists"><i'+
+            'class="fa fa-undo"></i> Alterar</span>'+
+            '<input type="file" name="noImagem'+totalProdutos+'" id="noImagem" accept="image/*">'+
+            '</span>'+
+            '</div>'+
+            '<div class="alert alert-info" role="alert" style="margin-top: 10px">'+
+            '<strong>Atenção!:</strong> Tamanho da Imagem: 1200px X 500px'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</section>');
+            $(".excluirPro"+totalProdutos).click(function(){
+                $(".deletar"+totalProdutos).remove();
+            });
+        });
+        $(".excluiPainel").click(function(){
+            $(this).parent().parent().remove();
+        });
+    });
+</script>
 
 </body>
 </html>

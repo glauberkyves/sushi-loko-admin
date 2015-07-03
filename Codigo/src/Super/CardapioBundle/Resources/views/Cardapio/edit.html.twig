@@ -1,7 +1,5 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block body %}
-
-
     <form method="post" id="form-cadastro"
           class="form-horizontal tasi-form" enctype="multipart/form-data">
         <input type="hidden" class="idCardapio" name="idCardapio" value="{{ entity.idCardapio }}"/>
@@ -15,46 +13,47 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
-
                     <div class="col-lg-9">
                         <input type="text" class="form-control required" value="{{ entity.noCardapio }}" id="noCardapio"
                                name="noCardapio"
                                placeholder="Nome">
                     </div>
                 </div>
-
-
-
             </div>
         </section>
         <div class="produtosAll">
             <input type="hidden" class="TotalProdutos" name="TotalProdutos" value="1"/>
             <input type="hidden" class="updateProduto" name="updateProduto" value="1"/>
-
             <div id="primeiroelemeto">
                 {% set num = 0 %}
                 {% for key, produto  in  entity.idProduto %}
 
                     {% set num = num+1 %}
                     <section class="panel">
-                        <input type="hidden" name="total" value="{{ num }}" />
-                        <input type="hidden"  name="idProduto[{{ produto.idProduto }}]" value="{{ produto.idProduto }}"/>
+                        <input type="hidden" name="total" value="{{ num }}"/>
+                        <input type="hidden" name="idProduto[{{ produto.idProduto }}]" value="{{ produto.idProduto }}"/>
                         <header class="panel-heading">
-                            {{ num }}° Produto <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluiPainel"><span class="fa fa-times"></span></button>
+                            {{ num }}° Produto
+                            <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluiPainel">
+                                <span class="fa fa-times"></span></button>
                         </header>
                         <div class="panel-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
+
                                 <div class="col-lg-9">
                                     <input type="text" class="form-control required" id="noProduto{{ num }}"
-                                           name="noProduto[{{ produto.idProduto }}]"  value="{{ produto.noProduto }}" placeholder="Nome">
+                                           name="noProduto[{{ produto.idProduto }}]" value="{{ produto.noProduto }}"
+                                           placeholder="Nome">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>
+
                                 <div class="col-lg-2">
                                     <input type="text" class="form-control required" id="noPreco{{ num }}"
-                                           mask="decimal" value="{{ produto.nuValor }}" name="noPreco[{{ produto.idProduto }}]" placeholder="R$ Preço">
+                                           mask="decimal" value="{{ produto.nuValor }}"
+                                           name="noPreco[{{ produto.idProduto }}]" placeholder="R$ Preço">
                                 </div>
                             </div>
                             <div class="form-group last">
@@ -65,7 +64,8 @@
                                             {% if produto.noImagem %}
                                                 <img src="{{ produto.noImagem }}" alt=""/>
                                             {% else %}
-                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                                                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+                                                     alt=""/>
                                             {% endif %}
                                         </div>
                                         <div class="fileupload-preview fileupload-exists thumbnail"
@@ -75,7 +75,8 @@
                                                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>
                                                 <span class="fileupload-exists"><i
                                                             class="fa fa-undo"></i> Alterar</span>
-                                                <input type="file" name="noImagem[{{ produto.idProduto }}]" id="noImagem{{ num }}"
+                                                <input type="file" name="noImagem[{{ produto.idProduto }}]"
+                                                       id="noImagem{{ num }}"
                                                        accept="image/*">
                                             </span>
                                         </div>
@@ -85,77 +86,16 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </section>
-
                 {% endfor %}
-
-                {#{% set num = 0 %}#}
-                {#{% for key, produto  in  entity.idProduto %}#}
-                    {#{% set num = num+1 %}#}
-                    {#<input type="hidden" name="total" value="{{ num }}" />#}
-                    {#<input type="hidden"  name="idProduto{{  num }}" value="{{ produto.idProduto }}"/>#}
-                    {#<section class="panel">#}
-                        {#<header class="panel-heading">#}
-                            {#{{ num }}° Produto#}
-                        {#</header>#}
-                        {#<div class="panel-body">#}
-                            {#<div class="form-group">#}
-                                {#<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>#}
-                                {#<div class="col-lg-9">#}
-                                    {#<input type="text" class="form-control required" id="noProduto{{ num }}"#}
-                                           {#name="noProduto{{ num }}"  value="{{ produto.noProduto }}" placeholder="Nome">#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>#}
-                                {#<div class="col-lg-2">#}
-                                    {#<input type="text" class="form-control required" id="noPreco{{ num }}"#}
-                                           {#mask="decimal" value="{{ produto.nuValor }}" name="noPreco{{ num }}" placeholder="R$ Preço">#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group last">#}
-                                {#<label class="control-label col-md-3">Arquivo</label>#}
-                                {#<div class="col-md-9">#}
-                                    {#<div class="fileupload fileupload-new" data-provides="fileupload">#}
-                                        {#<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">#}
-                                            {#{% if produto.noImagem %}#}
-                                                {#<img src="{{ produto.noImagem }}" alt=""/>#}
-                                            {#{% else %}#}
-                                                {#<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>#}
-                                            {#{% endif %}#}
-                                        {#</div>#}
-                                        {#<div class="fileupload-preview fileupload-exists thumbnail"#}
-                                             {#style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>#}
-                                        {#<div>#}
-                                            {#<span class="btn btn-white btn-file">#}
-                                                {#<span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>#}
-                                                {#<span class="fileupload-exists"><i#}
-                                                            {#class="fa fa-undo"></i> Alterar</span>#}
-                                                {#<input type="file" name="noImagem{{ num }}" id="noImagem{{ num }}"#}
-                                                       {#accept="image/*">#}
-                                            {#</span>#}
-                                        {#</div>#}
-                                        {#<div class="alert alert-info" role="alert" style="margin-top: 10px">#}
-                                            {#<strong>Atenção!:</strong> Tamanho da Imagem: 1200px X 500px#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                {#</div>#}
-                            {#</div>#}
-
-                        {#</div>#}
-                    {#</section>#}
-                {#{% endfor %}#}
             </div>
         </div>
-
 
         <section class="panel">
             <div class="panel-body">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
-
                     <div class="col-lg-9">
                         <select class="form-control required" id="stAtivo" name="stAtivo">
                             {% if entity.stAtivo == 1 %}
@@ -172,13 +112,10 @@
                     <i class="fa fa-save"></i>
                     Salvar
                 </button>
-
                 <a href="{{ path('manter_cardapio_index') }}" class="btn btn-default">
                     <i class="fa fa-times"></i>
                     Cancelar
                 </a>
-
-
             </div>
         </section>
     </form>

@@ -1,0 +1,10 @@
+Base\BaseBubdle\Entity\TbEnquete:
+    properties:
+        noEnquete:
+            - NotBlank: ~
+        nuPontos:
+            - NotBlank: ~
+        nuBonus:
+            - NotBlank: ~
+        dtFim:
+            - NotBlank: ~

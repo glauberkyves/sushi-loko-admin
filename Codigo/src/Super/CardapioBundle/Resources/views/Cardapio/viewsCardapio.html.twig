@@ -1,0 +1,33 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            {{ cardapio.noCardapio|capitalize }}
+        </header>
+        <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for produto in cardapio.idProduto %}
+                    <tr>
+                        {% if produto.noImagem != "" %}
+                            <td><img width="50" src="{{ produto.noImagem }}"></td>
+                        {% else %}
+                            <td><img width="50" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+                                     alt=""/></td>
+                        {% endif %}
+                        <td>{{ produto.noProduto|capitalize }}</td>
+                        <td>R$: {{ produto.nuValor }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock body %}

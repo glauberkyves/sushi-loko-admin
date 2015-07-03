@@ -31,7 +31,7 @@
                     <label for="txtData" class="control-label col-md-3">Data de Validade</label>
 
                     <div class="col-md-3">
-                        {{  formText('dtValidade', entity.getDtValidade()|date("d/m/Y"), {class: 'form-control required datepicker ', placeholder:"Validade"}) }}
+                        {{  formText('dtValidade', entity.getDtValidade()|date("d/m/Y"), {id:"datepicker", class: 'form-control required', placeholder:"Validade"}) }}
                         <span class="help-block">DD/MM/AAAA</span>
                     </div>
                 </div>

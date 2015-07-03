@@ -1,0 +1,6 @@
+Base\BaseBubdle\Entity\TbProduto:
+    properties:
+        noProduto:
+            - NotBlank: ~
+        nuValor:
+            - NotBlank: ~

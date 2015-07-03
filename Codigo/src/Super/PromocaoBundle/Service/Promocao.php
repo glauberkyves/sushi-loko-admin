@@ -5,6 +5,7 @@ namespace Super\PromocaoBundle\Service;
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Entity\AbstractEntity;
 use Base\BaseBundle\Service\Data;
+use Symfony\Component\Validator\Validator;
 
 class Promocao extends CrudService
 {
@@ -35,15 +36,16 @@ class Promocao extends CrudService
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <a href="/manter-promocao/delete/' . $id . '" class="btn btn-primary">Remover</a>
+        <a href="/super/promocao/manter-promocao/delete/' . $id . '" class="btn btn-primary">Remover</a>
       </div>
     </div>
   </div>
-</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal'.$id.'"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/manter-promocao/edit/'.$id.'" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
+</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal'.$id.'"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/promocao/manter-promocao/edit/'.$id.'" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
             }
         }
         return $itens;
     }
+
 
 
 
