@@ -5,3 +5,7 @@ super_franquia_index:
 super_franquia_create:
     path:     /create
     defaults: { _controller: SuperFranquiaBundle:Default:create }
+
+super_franquia_edit:
+    path:     /edit/{id}
+    defaults: { _controller: SuperFranquiaBundle:Default:edit }

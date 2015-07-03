@@ -16,6 +16,13 @@ class DefaultController extends CrudController
         return parent::createAction($request);
     }
 
+    public function editAction(Request $request)
+    {
+        $this->getComboDefault();
+
+        return parent::editAction($request);
+    }
+
     private function getComboDefault()
     {
         $cmbCardapio = $this->getService('service.cardapio')->getComboDefault(

@@ -1,4 +1,5 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
+    <input type="hidden" name="idFranquia" value="{{ entity.getIdFranquia() }}">
     <input type="hidden" name="idFranqueador" value="1">
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
@@ -11,49 +12,49 @@
         <label class="col-sm-2 control-label col-lg-2" for="noResponsavel">Nome responsável</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required nameLastName" id="noResponsavel" placeholder="Nome responsável"
-                   name="noResponsavel" value="{{ entity.getNoFranquia() }}">
+                   name="noResponsavel" value="">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Email responsável</label>
         <div class="col-lg-10">
             <input type="email" class="form-control required" id="noEmailResponsavel" placeholder="Email responsável"
-                   name="noEmailResponsavel" value="{{ entity.getNoFranquia() }}">
+                   name="noEmailResponsavel" value="">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noOperador">Nome operador</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required nameLastName" id="noOperador" placeholder="Nome operador"
-                   name="noOperador" value="{{ entity.getNoFranquia() }}">
+                   name="noOperador" value="">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noEmailOperador">Email operador</label>
         <div class="col-lg-10">
             <input type="email" class="form-control required" id="noEmailOperador" placeholder="Email operador"
-                   name="noEmailOperador" value="{{ entity.getNoFranquia() }}">
+                   name="noEmailOperador" value="">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="nuCep">CEP do franqueado</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required cep" id="nuCep" placeholder="CEP do franqueado"
-                   name="nuCep" data-mask="99999-999" value="{{ entity.getNoFranquia() }}">
+                   name="nuCep" data-mask="99999-999" value="{{ entity.getIdEndereco().getNuCep() }}">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="nuEndereco">Número endereço</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required number" id="nuEndereco" placeholder="Número endereco"
-                   name="nuEndereco" value="{{ entity.getNoFranquia() }}">
+                   name="nuEndereco" value="{{ entity.getIdEndereco().getNuEndereco() }}">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noLogradouro">Endereço amigável</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required" id="noLogradouro" placeholder="Endereço amigavel"
-                   name="noLogradouro" value="{{ entity.getNoFranquia() }}">
+                   name="noLogradouro" value="{{ entity.getIdEndereco().getNoLogradouro() }}">
         </div>
     </div>
     <div id="apresentacao">
@@ -69,8 +70,8 @@
                 </div>
             </div>
             <div id="mapa"></div>
-            <input type="hidden" id="txtLatitude" name="noLatitude" />
-            <input type="hidden" id="txtLongitude" name="noLongitude" />
+            <input type="hidden" id="txtLatitude" name="noLatitude" value="{{ entity.getIdEndereco().getNoLatitude() }}" />
+            <input type="hidden" id="txtLongitude" name="noLongitude" value="{{ entity.getIdEndereco().getNoLongitude() }}" />
         </fieldset>
     </div>
     <div class="form-group">
@@ -98,6 +99,6 @@
 </form>
 
 <script>
-    var LATITUDE  = {{ entity.getNoFranquia() ?: -15.565656 }};
-    var LONGITUDE = {{ entity.getNoFranquia() ?: -47.565656 }};
+    var LATITUDE  = {{ entity.getIdEndereco().getNoLatitude() ?: -15.565656 }};
+    var LONGITUDE = {{ entity.getIdEndereco().getNoLongitude() ?: -47.565656 }};
 </script>
