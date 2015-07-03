@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class TbPessoaFisica
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="nu_cpf", type="integer", nullable=true)
+     * @ORM\Column(name="nu_cpf", type="string", length=11, nullable=true)
      */
     private $nuCpf;
 

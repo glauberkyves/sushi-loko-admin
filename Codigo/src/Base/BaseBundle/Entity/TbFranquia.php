@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_franquia")
  * @ORM\Entity
  */
-class TbFranquia
+class TbFranquia extends AbstractEntity
 {
     /**
      * @var integer
@@ -49,6 +49,84 @@ class TbFranquia
      */
     private $stAtivo;
 
+    /**
+     * @return int
+     */
+    public function getIdFranquia()
+    {
+        return $this->idFranquia;
+    }
 
+    /**
+     * @param int $idFranquia
+     */
+    public function setIdFranquia($idFranquia)
+    {
+        $this->idFranquia = $idFranquia;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdEndereco()
+    {
+        return $this->idEndereco;
+    }
+
+    /**
+     * @param int $idEndereco
+     */
+    public function setIdEndereco($idEndereco)
+    {
+        $this->idEndereco = $idEndereco;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoFranquia()
+    {
+        return $this->noFranquia;
+    }
+
+    /**
+     * @param string $noFranquia
+     */
+    public function setNoFranquia($noFranquia)
+    {
+        $this->noFranquia = $noFranquia;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtCadastro()
+    {
+        return $this->dtCadastro;
+    }
+
+    /**
+     * @param \DateTime $dtCadastro
+     */
+    public function setDtCadastro($dtCadastro)
+    {
+        $this->dtCadastro = $dtCadastro;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStAtivo()
+    {
+        return $this->stAtivo;
+    }
+
+    /**
+     * @param int $stAtivo
+     */
+    public function setStAtivo($stAtivo)
+    {
+        $this->stAtivo = $stAtivo;
+    }
 }
 

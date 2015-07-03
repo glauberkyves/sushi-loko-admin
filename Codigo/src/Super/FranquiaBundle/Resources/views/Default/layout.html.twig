@@ -1,0 +1,21 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            {% block title %}{% endblock %}
+            <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+            </span>
+        </header>
+        <div class="panel-body">
+            {% include 'SuperFranquiaBundle:Default:form.html.twig' %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts '@SuperBaseBundle/Resources/public/js/franquia/*' output='js/super/franquia/main.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

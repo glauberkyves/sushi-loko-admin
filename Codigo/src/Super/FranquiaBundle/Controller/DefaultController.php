@@ -2,7 +2,6 @@
 
 namespace Super\FranquiaBundle\Controller;
 
-use Base\BaseBundle\Service\Dominio;
 use Base\CrudBundle\Controller\CrudController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -10,10 +9,15 @@ class DefaultController extends CrudController
 {
     protected $serviceName = 'service.franquia';
 
-    public function indexAction(Request $request)
+    public function createAction(Request $request)
     {
-        $this->vars['cmbStatus'] = Dominio::getStAtivo();
+        $this->vars = array(
+            'cmbCardapio' => array('asdf'),
+            'cmbPromocao' => array('asdf'),
+            'arrCardapio' => array('asdf','asdf','asdf'),
+            'arrPromocao' => array('asdf','asdf','asdf')
+        );
 
-        return parent::indexAction($request);
+        return parent::createAction($request);
     }
 }
