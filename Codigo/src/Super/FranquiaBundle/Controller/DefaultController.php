@@ -30,8 +30,10 @@ class DefaultController extends CrudController
         return $this->renderJson($response);
     }
 
-    private function getComboDefault()
+    private function getComboDefault($idFranquia = null)
     {
+        $arrCardapio = $arrPromocao = array();
+
         $cmbCardapio = $this->getService('service.cardapio')->getComboDefault(
             array('stAtivo' => 1),
             array('noCardapio' => 'ASC')
@@ -46,6 +48,10 @@ class DefaultController extends CrudController
             array(),
             array('noEstado' => 'asc')
         );
+
+//        $idFranquia = $this->getService()->find(
+//            $this->getRequest()->get('id')
+//        );
 
         $this->vars = array(
             'cmbCardapio' => $cmbCardapio,

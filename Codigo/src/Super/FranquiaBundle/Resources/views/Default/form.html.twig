@@ -1,8 +1,8 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
     {{ formHidden('idFranquia', entity.getIdFranquia()) }}
     {{ formHidden('idFranqueador', 1) }}
-    {{ formHidden('idResponsavel', 0) }}
-    {{ formHidden('idOperador', 0) }}
+    {{ formHidden('idResponsavel', entity.getIdOperador().getIdUsuario()) }}
+    {{ formHidden('idOperador', entity.getIdOperador().getIdUsuario()) }}
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
         <div class="col-lg-10">
@@ -59,7 +59,7 @@
         <label class="col-sm-2 control-label col-lg-2" for="nuRua">Rua</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required" id="noLogradouro" placeholder="Rua"
-                   name="noLogradouro" value="">
+                   name="noLogradouro" value="{{ entity.getIdEndereco().getNoLogradouro() }}">
         </div>
     </div>
     <div class="form-group">
@@ -85,6 +85,13 @@
         <div class="col-lg-10">
             <input type="text" class="form-control required number" id="nuEndereco" placeholder="Número endereco"
                    name="nuEndereco" value="{{ entity.getIdEndereco().getNuEndereco() }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="noComplemento">Complemento</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" id="noComplemento" placeholder="Complemento"
+                   name="noComplemento" value="{{ entity.getIdEndereco().getNoComplemento() }}">
         </div>
     </div>
     <div class="form-group">
