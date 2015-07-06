@@ -2,3 +2,7 @@ super_usuario_index:
     path:     /
     defaults: { _controller: SuperUsuarioBundle:Default:index }
 
+super_usuario_create:
+    pattern: /cadastro.html
+    defaults: { _controller: SuperUsuarioBundle:Default:create }
+    methods:  [POST]

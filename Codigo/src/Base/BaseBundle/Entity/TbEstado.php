@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TbEstado
  *
  * @ORM\Table(name="tb_estado")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\EstadoRepository")
  */
 class TbEstado extends AbstractEntity
 {

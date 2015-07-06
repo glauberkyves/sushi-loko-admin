@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TbLogradouro
  *
  * @ORM\Table(name="tb_logradouro", indexes={@ORM\Index(name="FK_LOGRADOURO_BAIRRO_idx", columns={"id_bairro"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\LogradouroRepository")
  */
 class TbLogradouro extends AbstractEntity
 {

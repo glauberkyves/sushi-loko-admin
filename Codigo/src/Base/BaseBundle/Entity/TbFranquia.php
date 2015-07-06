@@ -63,6 +63,26 @@ class TbFranquia extends AbstractEntity
     private $idFranqueador;
 
     /**
+     * @var \TbUsuario
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_responsavel", referencedColumnName="id_usuario")
+     * })
+     */
+    private $idResponsavel;
+
+    /**
+     * @var \TbUsuario
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
+     * })
+     */
+    private $idOperador;
+
+    /**
      * @return int
      */
     public function getIdFranquia()
@@ -131,7 +151,7 @@ class TbFranquia extends AbstractEntity
      */
     public function getIdEndereco()
     {
-        return $this->idEndereco;
+        return $this->idEndereco ?: new \Base\BaseBundle\Entity\TbEndereco;
     }
 
     /**
@@ -156,6 +176,38 @@ class TbFranquia extends AbstractEntity
     public function setIdFranqueador($idFranqueador)
     {
         $this->idFranqueador = $idFranqueador;
+    }
+
+    /**
+     * @return \TbUsuario
+     */
+    public function getIdResponsavel()
+    {
+        return $this->idResponsavel ?: new \Base\BaseBundle\Entity\TbUsuario;
+    }
+
+    /**
+     * @param \TbUsuario $idResponsavel
+     */
+    public function setIdResponsavel($idResponsavel)
+    {
+        $this->idResponsavel = $idResponsavel;
+    }
+
+    /**
+     * @return \TbUsuario
+     */
+    public function getIdOperador()
+    {
+        return $this->idOperador ?: new \Base\BaseBundle\Entity\TbUsuario;
+    }
+
+    /**
+     * @param \TbUsuario $idOperador
+     */
+    public function setIdOperador($idOperador)
+    {
+        $this->idOperador = $idOperador;
     }
 }
 

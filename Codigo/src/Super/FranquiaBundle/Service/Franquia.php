@@ -25,4 +25,34 @@ class Franquia extends CrudService
         $this->entity->setDtCadastro(new \DateTime());
         $this->entity->setStAtivo(true);
     }
+
+    public function buscarUsuario()
+    {
+        $suggestions = array();
+        $response    = array(
+            'suggestions' => array(
+                array(
+                    'value' => 'Nenhum resultado encontrado.',
+                    'data'  => 0
+                )
+            )
+        );
+
+        $noEmail         = $this->getRequest()->request->get('query', '');
+        $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
+
+        if($arrPessoaFisica)
+        {
+            foreach($arrPessoaFisica as $key => $idPessoaFisica)
+            {
+                $suggestions[$key]['noPessoa'] = "Glauber";
+                $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
+                $suggestions[$key]['data']     = 1;
+            }
+
+            $response['suggestions'] = $suggestions;
+        }
+
+        return $response;
+    }
 }

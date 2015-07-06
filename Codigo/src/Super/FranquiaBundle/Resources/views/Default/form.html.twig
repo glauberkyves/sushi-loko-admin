@@ -1,6 +1,8 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
-    <input type="hidden" name="idFranquia" value="{{ entity.getIdFranquia() }}">
-    <input type="hidden" name="idFranqueador" value="1">
+    {{ formHidden('idFranquia', entity.getIdFranquia()) }}
+    {{ formHidden('idFranqueador', 1) }}
+    {{ formHidden('idResponsavel', 0) }}
+    {{ formHidden('idOperador', 0) }}
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
         <div class="col-lg-10">
@@ -12,28 +14,38 @@
         <label class="col-sm-2 control-label col-lg-2" for="noResponsavel">Nome responsável</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required nameLastName" id="noResponsavel" placeholder="Nome responsável"
-                   name="noResponsavel" value="">
+                   name="noResponsavel" value="{{ entity.getIdResponsavel().getIdPessoa().getNoPessoa() }}" disabled>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Email responsável</label>
-        <div class="col-lg-10">
+        <div class="col-lg-9">
             <input type="email" class="form-control required" id="noEmailResponsavel" placeholder="Email responsável"
-                   name="noEmailResponsavel" value="">
+                   name="noEmailResponsavel" value="{{ entity.getIdResponsavel().getIdPessoa().getIdPessoaFisica().getNoEmail() }}">
+        </div>
+        <div class="col-lg-1">
+            <a type="button" data-toggle="modal" href="#cadastrarUsuario" class="btn btn-primary cadastrarResponsavel">
+                +
+            </a>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noOperador">Nome operador</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required nameLastName" id="noOperador" placeholder="Nome operador"
-                   name="noOperador" value="">
+                   name="noOperador" value="{{ entity.getIdOperador().getIdPessoa().getNoPessoa() }}" disabled>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noEmailOperador">Email operador</label>
-        <div class="col-lg-10">
+        <div class="col-lg-9">
             <input type="email" class="form-control required" id="noEmailOperador" placeholder="Email operador"
-                   name="noEmailOperador" value="">
+                   name="noEmailOperador" value="{{ entity.getIdOperador().getIdPessoa().getIdPessoaFisica().getNoEmail() }}">
+        </div>
+        <div class="col-lg-1">
+            <a type="button" data-toggle="modal" href="#cadastrarUsuario" class="btn btn-primary cadastrarOperador">
+                +
+            </a>
         </div>
     </div>
     <div class="form-group">
@@ -41,6 +53,31 @@
         <div class="col-lg-10">
             <input type="text" class="form-control required cep" id="nuCep" placeholder="CEP do franqueado"
                    name="nuCep" data-mask="99999-999" value="{{ entity.getIdEndereco().getNuCep() }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="nuRua">Rua</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control required" id="noLogradouro" placeholder="Rua"
+                   name="noLogradouro" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="idBairro">Bairro</label>
+        <div class="col-lg-10">
+            {{ formSelect('idBairro', {}, {'class': 'form-control required'}, {'0': 'Selecione'} ) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="idMunicipio">Município</label>
+        <div class="col-lg-10">
+            {{ formSelect('idMunicipio', {}, {'class': 'form-control required'}, {'0': 'Selecione'} ) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="idEstado">Estado</label>
+        <div class="col-lg-10">
+            {{ formSelect('idEstado', {}, {'class': 'form-control required'}, cmbEstado ) }}
         </div>
     </div>
     <div class="form-group">
@@ -97,8 +134,10 @@
         </a>
     </div>
 </form>
+{% include 'SuperFranquiaBundle:Default:cadastrarUsuarioModal.html.twig' %}
+{% include 'SuperFranquiaBundle:Default:modals.html.twig' %}
 
 <script>
-    var LATITUDE  = {{ entity.getIdEndereco().getNoLatitude() ?: -15.565656 }};
-    var LONGITUDE = {{ entity.getIdEndereco().getNoLongitude() ?: -47.565656 }};
+    var LATITUDE  = {{ entity.getIdEndereco().getNoLatitude() ?: -15.7940 }};
+    var LONGITUDE = {{ entity.getIdEndereco().getNoLongitude() ?: -47.8827 }};
 </script>
