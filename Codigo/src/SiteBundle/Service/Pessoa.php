@@ -18,6 +18,7 @@ class Pessoa extends CrudService
     public function preInsert(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());
+        $this->entity->setDtAtualizacao(new \DateTime());
         $this->entity->setStAtivo(false);
     }
 

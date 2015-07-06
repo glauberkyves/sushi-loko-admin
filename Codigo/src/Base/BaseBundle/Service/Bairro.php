@@ -8,9 +8,7 @@
 
 namespace Base\BaseBundle\Service;
 
-use Base\CrudBundle\Service\CrudService;
-
-class Bairro extends CrudService
+class Bairro extends AbstractService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbBairro';
 }

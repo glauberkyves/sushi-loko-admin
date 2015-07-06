@@ -1,0 +1,47 @@
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="cadastrarUsuario" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="cadastrar" id="form-cadastrar-usuario" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title">Adicionar usuário</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Preencha todos os campos abaixo para adicionar um novo usuário.</p>
+                    <label class="control-label" for="noPessoa">Nome Completo</label>
+                    <input type="text" name="noPessoa" placeholder="Nome Completo" autocomplete="off" class="form-control placeholder-no-fix nameLastName">
+                    <br/>
+                    <label class="control-label" for="noEmail">Email</label>
+                    <input type="email" name="noEmail" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                    <br/>
+                    <label class="control-label" for="nuCpf">CPF</label>
+                    <input type="text" name="nuCpf" placeholder="Número de CPF" autocomplete="off" class="form-control placeholder-no-fix">
+                    <br/>
+                    <label class="control-label" for="dtNascimento">Data de nascimento</label>
+                    <input type="text" name="dtNascimento" placeholder="Data de nascimento" autocomplete="off" class="form-control placeholder-no-fix datepicker">
+                    <br/>
+                    <label class="control-label" for="sgSexo">Sexo</label>
+                    <br/>
+                    <label>
+                        <input type="radio" name="sgSexo" value="M" class="required" aria-required="true"> Masculino
+                    </label>
+                    <br/>
+                    <label>
+                        <input type="radio" name="sgSexo" value="F" class="required" aria-required="true"> Feminino
+                    </label>
+                    <br/>
+                    <label class="control-label" for="noSenha">Senha</label>
+                    <input type="password" name="noSenha" placeholder="Senha" autocomplete="off" class="form-control placeholder-no-fix">
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="cadastrarOperador" style="display: none">
+                        <i class="fa fa-plus"></i> Adicionar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="cadastrarResponsavel" style="display: none">
+                        <i class="fa fa-plus"></i> Adicionar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

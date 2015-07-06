@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TbPessoaFisica
  *
  * @ORM\Table(name="tb_pessoa_fisica", indexes={@ORM\Index(name="FK_PESSOAFISICA_PESSOA_idx", columns={"id_pessoa"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\PessoaFisicaRepository")
  */
 class TbPessoaFisica extends AbstractEntity
 {
@@ -52,6 +52,85 @@ class TbPessoaFisica extends AbstractEntity
      */
     private $idPessoa;
 
+    /**
+     * @return string
+     */
+    public function getNuCpf()
+    {
+        return $this->nuCpf;
+    }
+
+    /**
+     * @param string $nuCpf
+     */
+    public function setNuCpf($nuCpf)
+    {
+        $this->nuCpf = $nuCpf;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoEmail()
+    {
+        return $this->noEmail;
+    }
+
+    /**
+     * @param string $noEmail
+     */
+    public function setNoEmail($noEmail)
+    {
+        $this->noEmail = $noEmail;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtNascimento()
+    {
+        return $this->dtNascimento;
+    }
+
+    /**
+     * @param \DateTime $dtNascimento
+     */
+    public function setDtNascimento($dtNascimento)
+    {
+        $this->dtNascimento = $dtNascimento;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSgSexo()
+    {
+        return $this->sgSexo;
+    }
+
+    /**
+     * @param string $sgSexo
+     */
+    public function setSgSexo($sgSexo)
+    {
+        $this->sgSexo = $sgSexo;
+    }
+
+    /**
+     * @return \TbPessoa
+     */
+    public function getIdPessoa()
+    {
+        return $this->idPessoa;
+    }
+
+    /**
+     * @param \TbPessoa $idPessoa
+     */
+    public function setIdPessoa($idPessoa)
+    {
+        $this->idPessoa = $idPessoa;
+    }
 
 }
 

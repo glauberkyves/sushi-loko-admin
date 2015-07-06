@@ -5692,3 +5692,15 @@ a.guest-on i {
     border: 10px solid #ccc;;
     margin-bottom: 20px;
 }
+
+.autocomplete-suggestions {
+    overflow: auto;
+    border: 1px solid #CBD3DD;
+    background: #FFF;
+}
+
+.autocomplete-suggestion {
+    overflow: hidden;
+    padding: 5px 15px;
+    white-space: nowrap;
+}

@@ -23,8 +23,17 @@ class DefaultController extends CrudController
         return parent::editAction($request);
     }
 
-    private function getComboDefault()
+    public function buscarUsuarioAction()
     {
+        $response = $this->getService()->buscarUsuario();
+
+        return $this->renderJson($response);
+    }
+
+    private function getComboDefault($idFranquia = null)
+    {
+        $arrCardapio = $arrPromocao = array();
+
         $cmbCardapio = $this->getService('service.cardapio')->getComboDefault(
             array('stAtivo' => 1),
             array('noCardapio' => 'ASC')
@@ -35,11 +44,21 @@ class DefaultController extends CrudController
         );
         array_shift($cmbPromocao);
 
+        $cmbEstado = $this->getService('service.estado')->getComboDefault(
+            array(),
+            array('noEstado' => 'asc')
+        );
+
+//        $idFranquia = $this->getService()->find(
+//            $this->getRequest()->get('id')
+//        );
+
         $this->vars = array(
             'cmbCardapio' => $cmbCardapio,
             'cmbPromocao' => $cmbPromocao,
+            'cmbEstado'   => $cmbEstado,
             'arrCardapio' => array(),
-            'arrPromocao' => array(),
+            'arrPromocao' => array()
         );
 
         return $this->vars;

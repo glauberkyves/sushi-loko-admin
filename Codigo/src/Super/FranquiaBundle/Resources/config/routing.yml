@@ -3,9 +3,13 @@ super_franquia_index:
     defaults: { _controller: SuperFranquiaBundle:Default:index }
 
 super_franquia_create:
-    path:     /create
+    path:     /cadastro.html
     defaults: { _controller: SuperFranquiaBundle:Default:create }
 
 super_franquia_edit:
-    path:     /edit/{id}
+    path:     /editar/{id}
     defaults: { _controller: SuperFranquiaBundle:Default:edit }
+
+super_franquia_buscar_usuario:
+    path:     /usuario/buscar
+    defaults: { _controller: SuperFranquiaBundle:Default:buscarUsuario }

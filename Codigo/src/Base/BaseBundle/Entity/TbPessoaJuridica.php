@@ -15,7 +15,7 @@ class TbPessoaJuridica extends AbstractEntity
     /**
      * @var integer
      *
-     * @ORM\Column(name="nu_cnpj", type="integer", nullable=false)
+     * @ORM\Column(name="nu_cnpj", type="string", length=14, nullable=true)
      */
     private $nuCnpj;
 
