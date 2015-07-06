@@ -10,12 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tb_pessoa_fisica", indexes={@ORM\Index(name="FK_PESSOAFISICA_PESSOA_idx", columns={"id_pessoa"})})
  * @ORM\Entity
  */
-class TbPessoaFisica
+class TbPessoaFisica extends AbstractEntity
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="nu_cpf", type="integer", nullable=true)
+     * @ORM\Column(name="nu_cpf", type="string", length=11, nullable=true)
      */
     private $nuCpf;
 

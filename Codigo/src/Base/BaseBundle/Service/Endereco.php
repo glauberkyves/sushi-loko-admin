@@ -16,20 +16,31 @@ class Endereco extends AbstractService
 
     public function preSave(AbstractEntity $entity = null)
     {
-        $idMunicipio = $this->getRequest()->request->getInt('idMunicipio');
+        $entityBairro = $entityMunicipio = null;
 
-        $entityMunicipio = $this
-            ->getService('service.municipio')
-            ->find($idMunicipio);
+        if($cep = $this->getRequest()->request->getDigits('nuCep'))
+        {
+            $idLogradouro    = $this->getService('service.logradouro')->findOneByNuCep($cep);
+            $entityBairro    = $idLogradouro->getIdBairro();
+            $entityMunicipio = $idLogradouro->getIdBairro()->getIdMunicipio();
+            $this->entity->setNuCep($cep);
+        }
+        else
+        {
+            $idMunicipio     = $this->getRequest()->request->getInt('idMunicipio');
+            $entityMunicipio = $this
+                ->getService('service.municipio')
+                ->find($idMunicipio);
 
-        if($this->getRequest()->request->getInt('idBairro')){
-            $entityBairro = $this
-                ->getService('service.bairro')
-                ->find($this->getRequest()->request->getInt('idBairro'));
-
-            $this->entity->setIdBairro($entityBairro);
+            if ($this->getRequest()->request->getInt('idBairro'))
+            {
+                $entityBairro = $this
+                    ->getService('service.bairro')
+                    ->find($this->getRequest()->request->getInt('idBairro'));
+            }
         }
 
+        $this->entity->setIdBairro($entityBairro);
         $this->entity->setIdMunicipio($entityMunicipio);
     }
 }

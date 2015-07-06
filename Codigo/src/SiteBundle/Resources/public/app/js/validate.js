@@ -230,6 +230,17 @@ var Validation = {
 
         }, "Por favor, informe um telefone válido.");
     },
+    addValidationNameLastName: function () {
+        jQuery.validator.addMethod("nameLastName", function (value, element) {
+
+            if (/\w+\s+\w+/.test(value)) {
+                return true;
+            }
+
+            return false;
+
+        }, "Por favor, informe nome e sobrenome.");
+    },
     init:                          function () {
         if (Validation.initializer) {
             return;
@@ -244,13 +255,14 @@ var Validation = {
         Validation.addValidationGeo();
         Validation.addValidationValidatePassword();
         Validation.addValidationFoneBr();
+        Validation.addValidationNameLastName();
 
         /**
          * percorre todos os form e verfica se em algum tem alguma classe
          * de validacao do Jquery Validate
          */
         $('form').each(function () {
-            if ($(this).find('.required, .email, .url, .number, .cep')) {
+            if ($(this).find('.required, .email, .url, .number, .cep, .nameLastName')) {
 
                 if ($(this).attr('ignore-input') == 'false') {
                     $.validator.defaults.ignore = false;

@@ -26,6 +26,7 @@
     <link href="{{ asset('bundles/superbase/css/style-responsive.css') }}" rel="stylesheet"/>
     <link href="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/superbase/css/bootstrap-fileupload.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/superbase/css/multi-select.css') }}" rel="stylesheet"/>
     <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
@@ -209,6 +210,21 @@
 <script src="{{ asset('bundles/superbase/js/grid.js') }}"></script>
 <script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
 
+<script src="{{ asset('bundles/superbase/js/bootstrap-fileupload.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/jquery.multi-select.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/bootstrap-inputmask.min.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>
+<!--
+<script type="text/javascript" src="/bundles/site/assets/js/bootstrap-inputmask/bootstrap-inputmask.js"></script>
+-->
+
+<!-- SCRIPT BASE -->
+<!--
+<script type="text/javascript" src="/bundles/site/app/js/mask.js"></script>
+-->
+<script type="text/javascript" src="/bundles/site/app/js/validate.js"></script>
+
+{% block javascripts %}{% endblock %}
 
 <script>
     $(document).ready(function () {

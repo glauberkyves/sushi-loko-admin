@@ -1,0 +1,1 @@
+$('#idPromocao').multiSelect();
