@@ -119,4 +119,63 @@
             </div>
         </section>
     </form>
+
+    <script>
+        $(document).ready(function(){
+
+            $("#datepicker").datepicker( "option", "dateFormat", "dd/mm/yy" );
+
+            $("#addProduto").click(function(){
+                var totalProdutos = $(".TotalProdutos").val();
+                totalProdutos = parseInt(totalProdutos)+1;
+                $(".TotalProdutos").attr("value",totalProdutos);
+                $(".produtosAll").append(' <section class="panel newPro deletar'+totalProdutos+'">'+
+                '<header class="panel-heading">'+
+                totalProdutos+
+                '° Produto <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro'+totalProdutos+'"><span class="fa fa-times"></span></button>'+
+                '</header>'+
+                '<div class="panel-body">'+
+                '<div class="form-group">'+
+                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>'+
+                '<div class="col-lg-9">'+
+                '<input type="text" class="form-control required"  id="noProduto1" name="noProduto'+totalProdutos+'" placeholder="Nome">'+
+                '</div>'+
+                '</div>'+
+                '<div class="form-group">'+
+                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>'+
+                '<div class="col-lg-2">'+
+                '<input type="text" class="form-control required" id="noPreco1" mask="decimal" name="noPreco'+totalProdutos+'" placeholder="R$ Preço">'+
+                '</div>'+
+                '</div>'+
+                '<div class="form-group last">'+
+                '<label class="control-label col-md-3">Arquivo</label>'+
+                '<div class="col-md-9">'+
+                '<div class="fileupload fileupload-new" data-provides="fileupload">'+
+                '<div class="fileupload-preview fileupload-exists thumbnail"'+
+                'style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>'+
+                '<div>'+
+                '<span class="btn btn-white btn-file">'+
+                '<span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>'+
+                '<span class="fileupload-exists"><i'+
+                'class="fa fa-undo"></i> Alterar</span>'+
+                '<input type="file" name="noImagem'+totalProdutos+'" id="noImagem" accept="image/*">'+
+                '</span>'+
+                '</div>'+
+                '<div class="alert alert-info" role="alert" style="margin-top: 10px">'+
+                '<strong>Atenção!:</strong> Tamanho da Imagem: 1200px X 500px'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</section>');
+                $(".excluirPro"+totalProdutos).click(function(){
+                    $(".deletar"+totalProdutos).remove();
+                });
+            });
+            $(".excluiPainel").click(function(){
+                $(this).parent().parent().remove();
+            });
+        });
+    </script>
 {% endblock body %}

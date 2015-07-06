@@ -8,13 +8,15 @@
               </span>
         </header>
         <div class="panel-body">
-            <form method="post"  id="form-cadastro" class="form-horizontal tasi-form" enctype="multipart/form-data">
+            <form method="post" id="form-cadastro" class="form-horizontal tasi-form" enctype="multipart/form-data">
                 <input type="hidden" name="idPromocao" value="{{ entity.idPromocao }}">
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
 
                     <div class="col-lg-9">
-                        <input type="text" class="form-control required"  id="noPromocao" name="noPromocao" value="{{ entity.noPromocao }}">
+                        <input type="text" class="form-control required" id="noPromocao" name="noPromocao"
+                               value="{{ entity.noPromocao }}">
                     </div>
                 </div>
 
@@ -22,8 +24,8 @@
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Descrição</label>
 
                     <div class="col-lg-9">
-                        <textarea  class="form-control required" id="dsPromocao" name="dsPromocao"
-                                   > {{ entity.dsPromocao }}</textarea>
+                        <textarea class="form-control required" id="dsPromocao"
+                                  name="dsPromocao"> {{ entity.dsPromocao }}</textarea>
                     </div>
                 </div>
 
@@ -31,7 +33,7 @@
                     <label for="txtData" class="control-label col-md-3">Data de Validade</label>
 
                     <div class="col-md-3">
-                        {{  formText('dtValidade', entity.getDtValidade()|date("d/m/Y"), {id:"datepicker", class: 'form-control required', placeholder:"Validade"}) }}
+                        {{ formText('dtValidade', entity.getDtValidade()|date("d/m/Y"), {id:"datepicker", class: 'form-control required', placeholder:"Validade"}) }}
                         <span class="help-block">DD/MM/AAAA</span>
                     </div>
                 </div>

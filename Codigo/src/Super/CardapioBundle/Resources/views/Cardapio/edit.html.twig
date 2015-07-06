@@ -119,4 +119,14 @@
             </div>
         </section>
     </form>
+
+    <script>
+        $(document).ready(function(){
+
+            $("#datepicker").datepicker( "option", "dateFormat", "dd/mm/yy" );
+            $(".excluiPainel").click(function(){
+                $(this).parent().parent().remove();
+            });
+        });
+    </script>
 {% endblock body %}
