@@ -52,7 +52,7 @@ class TbEndereco extends AbstractEntity
     /**
      * @var integer
      *
-     * @ORM\Column(name="nu_cep", type="integer", nullable=true)
+     * @ORM\Column(name="nu_cep", type="string", length=8, nullable=true)
      */
     private $nuCep;
 

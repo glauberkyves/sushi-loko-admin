@@ -1,8 +1,9 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
+    {{ formHidden('idFranqueador', idFranqueador) }}
     {{ formHidden('idFranquia', entity.getIdFranquia()) }}
-    {{ formHidden('idFranqueador', 1) }}
     {{ formHidden('idResponsavel', entity.getIdOperador().getIdUsuario()) }}
     {{ formHidden('idOperador', entity.getIdOperador().getIdUsuario()) }}
+    {{ formHidden('idEndereco', entity.getIdEndereco().getIdEndereco()) }}
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
         <div class="col-lg-10">
@@ -11,29 +12,17 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Email responsável</label>
+        <div class="col-lg-10">
+            <input type="email" class="form-control required" id="noEmailResponsavel" placeholder="Email responsável"
+                   name="noEmailResponsavel" value="{{ entity.getNoEmailResponsavel() }}">
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noResponsavel">Nome responsável</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required nameLastName" id="noResponsavel" placeholder="Nome responsável"
-                   name="noResponsavel" value="{{ entity.getIdResponsavel().getIdPessoa().getNoPessoa() }}" disabled>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Email responsável</label>
-        <div class="col-lg-9">
-            <input type="email" class="form-control required" id="noEmailResponsavel" placeholder="Email responsável"
-                   name="noEmailResponsavel" value="{{ entity.getIdResponsavel().getIdPessoa().getIdPessoaFisica().getNoEmail() }}">
-        </div>
-        <div class="col-lg-1">
-            <a type="button" data-toggle="modal" href="#cadastrarUsuario" class="btn btn-primary cadastrarResponsavel">
-                +
-            </a>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noOperador">Nome operador</label>
-        <div class="col-lg-10">
-            <input type="text" class="form-control required nameLastName" id="noOperador" placeholder="Nome operador"
-                   name="noOperador" value="{{ entity.getIdOperador().getIdPessoa().getNoPessoa() }}" disabled>
+                   name="noResponsavel" value="{{ entity.getNoResponsavel() }}">
         </div>
     </div>
     <div class="form-group">
@@ -49,10 +38,42 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="nuCep">CEP do franqueado</label>
+        <label class="col-sm-2 control-label col-lg-2" for="noOperador">Nome operador</label>
         <div class="col-lg-10">
-            <input type="text" class="form-control required cep" id="nuCep" placeholder="CEP do franqueado"
-                   name="nuCep" data-mask="99999-999" value="{{ entity.getIdEndereco().getNuCep() }}">
+            <input type="text" class="form-control required nameLastName" id="noOperador" placeholder="Nome operador"
+                   name="noOperador" value="{{ entity.getIdOperador().getIdPessoa().getNoPessoa() }}" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="nuCep">CEP do franqueado</label>
+        <div class="col-lg-3">
+            <div class="input-group">
+                <input type="text" class="form-control required cep" id="nuCep" placeholder="CEP do franqueado"
+                       name="nuCep" data-mask="99999-999" value="{{ entity.getIdEndereco().getNuCep() }}">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary buscarCep" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="idEstado">Estado</label>
+        <div class="col-lg-10">
+            {{ formSelect('idEstado', arrEstado, {'class': 'form-control required'}, cmbEstado ) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="idMunicipio">Município</label>
+        <div class="col-lg-10">
+            {{ formSelect('idMunicipio', arrMunicipio, {'class': 'form-control required'}, cmbMunicipio ) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="idBairro">Bairro</label>
+        <div class="col-lg-10">
+            {{ formSelect('idBairro', arrBairro, {'class': 'form-control required'}, cmbBairro ) }}
         </div>
     </div>
     <div class="form-group">
@@ -60,24 +81,6 @@
         <div class="col-lg-10">
             <input type="text" class="form-control required" id="noLogradouro" placeholder="Rua"
                    name="noLogradouro" value="{{ entity.getIdEndereco().getNoLogradouro() }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="idBairro">Bairro</label>
-        <div class="col-lg-10">
-            {{ formSelect('idBairro', {}, {'class': 'form-control required'}, {'0': 'Selecione'} ) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="idMunicipio">Município</label>
-        <div class="col-lg-10">
-            {{ formSelect('idMunicipio', {}, {'class': 'form-control required'}, {'0': 'Selecione'} ) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="idEstado">Estado</label>
-        <div class="col-lg-10">
-            {{ formSelect('idEstado', {}, {'class': 'form-control required'}, cmbEstado ) }}
         </div>
     </div>
     <div class="form-group">
@@ -110,7 +113,7 @@
                     </p>
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control required"  id="txtEndereco" name="txtEndereco" placeholder="Local">
+                    <input type="text" class="form-control"  id="txtEndereco" name="txtEndereco" placeholder="Local">
                 </div>
             </div>
             <div id="mapa"></div>
@@ -127,7 +130,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="idPromocao">Promoção</label>
         <div class="col-lg-10">
-            {{ formSelect('', arrPromocao, {'class': 'multi-select required', 'multiple': 'multiple', 'id': 'idPromocao', 'name': 'idPromocao[]'}, cmbPromocao) }}
+            {{ formSelect('', arrPromocao, {'class': 'multi-select', 'multiple': 'multiple', 'id': 'idPromocao', 'name': 'idPromocao[]'}, cmbPromocao) }}
         </div>
     </div>
     <div class="form-group">

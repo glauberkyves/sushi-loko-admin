@@ -3,7 +3,7 @@ super_franquia_index:
     defaults: { _controller: SuperFranquiaBundle:Default:index }
 
 super_franquia_create:
-    path:     /cadastro.html
+    path:     /cadastrar/{idFranqueador}
     defaults: { _controller: SuperFranquiaBundle:Default:create }
 
 super_franquia_edit:

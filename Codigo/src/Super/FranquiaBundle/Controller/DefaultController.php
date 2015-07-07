@@ -12,14 +12,14 @@ class DefaultController extends CrudController
 
     public function createAction(Request $request)
     {
-        $this->getComboDefault();
+        $this->vars = $this->getService()->getCombos();
 
         return parent::createAction($request);
     }
 
     public function editAction(Request $request)
     {
-        $this->getComboDefault();
+        $this->vars = $this->getService()->getCombos();
 
         return parent::editAction($request);
     }
@@ -31,6 +31,7 @@ class DefaultController extends CrudController
         return $this->renderJson($response);
     }
 
+<<<<<<< HEAD
     public function localidadeAction()
     {
         $franquia = $this->getService('service.franquia')->jsonLocalidade();
@@ -73,4 +74,18 @@ class DefaultController extends CrudController
 
         return $this->vars;
     }
+=======
+//    /**
+//     * ALTERAR A ROTA PARA A PÁGINA INICIAL DO FRANQUEADOR
+//     */
+//    public function resolveRouteIndex()
+//    {
+//        $request = $this->getRequest();
+//        $idFranqueador = $request->request->get('idFranqueador') ?: $request->query->get('idFranqueador');
+//
+//        return $this->generateUrl('super_franquia_create', array(
+//            'idFranqueador' => $idFranqueador
+//        ));
+//    }
+>>>>>>> e615df9147227f2b844ecffcc2e207567f55f92a
 }

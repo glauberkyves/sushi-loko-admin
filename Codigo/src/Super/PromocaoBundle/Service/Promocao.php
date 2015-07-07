@@ -46,6 +46,7 @@ class Promocao extends CrudService
         return $itens;
     }
 
+<<<<<<< HEAD
     public function preUpdate(AbstractEntity $entity = null)
     {
         $dtValidade = str_replace('/', '-', $this->getRequest()->request->get('dtValidade'));
@@ -53,6 +54,8 @@ class Promocao extends CrudService
     }
 
 
+=======
+>>>>>>> e615df9147227f2b844ecffcc2e207567f55f92a
     public function preSave(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());
