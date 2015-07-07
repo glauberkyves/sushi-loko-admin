@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TbFranqueador
  *
  * @ORM\Table(name="tb_franqueador", indexes={@ORM\Index(name="fk_franqueador_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_franqueador_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="fk_franqueador_configuracaofranquia_idx", columns={"id_configuracao_franquia"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\FranqueadorRepository")
  */
 class TbFranqueador extends AbstractEntity
 {
@@ -203,7 +203,7 @@ class TbFranqueador extends AbstractEntity
      */
     public function getIdEndereco()
     {
-        return $this->idEndereco;
+        return $this->idEndereco? $this->idEndereco: new TbEndereco();
     }
 
     /**
@@ -219,7 +219,7 @@ class TbFranqueador extends AbstractEntity
      */
     public function getIdUsuario()
     {
-        return $this->idUsuario;
+        return $this->idUsuario? $this->idUsuario: new TbUsuario();
     }
 
     /**

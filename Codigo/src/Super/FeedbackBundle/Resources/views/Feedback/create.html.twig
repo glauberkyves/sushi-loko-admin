@@ -8,82 +8,25 @@
               </span>
         </header>
         <div class="panel-body">
-            <form method="post" action="{{ path('manter_enquete_create') }}" id="form-cadastro"
+            <form method="post" action="{{ path('super_feedback_create') }}" id="form-cadastro"
                   class="form-horizontal tasi-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
 
                     <div class="col-lg-9">
-                        <input type="text"  class="form-control required" id="noEnquete" name="noEnquete"
+                        <input type="text"  class="form-control required" id="noFeedback" name="noFeedback"
                                placeholder="Nome">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtData" class="control-label col-md-3">Pontos</label>
-
-                    <div class="col-md-1">
-                        <input type="text" class="form-control  required" mask="integer" id="nuPontos"
-                                name="nuPontos"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="txtData" class="control-label col-md-3">Bonus $R:</label>
-
-                    <div class="col-md-2">
-                        <input type="text" class="form-control required" mask="decimal" id="nuBonus" placeholder="Bonus"
-                               name="nuBonus"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="txtData" class="control-label col-md-3">Data Final</label>
-
-                    <div class="col-md-3">
-                        <input type="text" class="form-control required" id="datepicker"
-                               placeholder="Data final" name="dtFim"/>
-                        <span class="help-block">DD/MM/AAAA</span>
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Pergunta</label>
+                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Descrição de Faad-Back</label>
 
                     <div class="col-lg-9">
-                        <textarea class="form-control required" placeholder="Pergunta" id="noPergunta"
-                               name="noPergunta"  ></textarea>
+                        <textarea class="form-control required" placeholder="Descrição" id="dsFeedback"
+                               name="dsFeedback"  ></textarea>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">1° Resposta</label>
-
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control required" placeholder="1° Resposta" id=""
-                               name="resposta1">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">2² Resposta</label>
-
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control required" id="" placeholder="2° Resposta"
-                               name="resposta2">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">3° Resposta</label>
-
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control" id="" placeholder="3° Resposta" name="resposta3">
-                    </div>
-                </div>
-
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>

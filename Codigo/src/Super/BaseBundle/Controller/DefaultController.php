@@ -10,4 +10,9 @@ class DefaultController extends Controller
     {
         return $this->render('SuperBaseBundle:Default:index.html.twig');
     }
+
+    public function pesquisaAction()
+    {
+        return $this->render('SuperBaseBundle:Default:pesquisa.html.twig');
+    }
 }

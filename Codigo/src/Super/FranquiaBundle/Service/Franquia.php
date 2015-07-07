@@ -61,4 +61,9 @@ class Franquia extends CrudService
 
         return $response;
     }
+
+    public function jsonLocalidade()
+    {
+       return $this->getService('service.franqueador')->selectLocalidade();
+    }
 }

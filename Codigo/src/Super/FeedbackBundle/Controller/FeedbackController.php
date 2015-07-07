@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class FeedbackController  extends CrudController
 {
-    protected $serviceName = 'service.enquete';
+    protected $serviceName = 'service.feedback';
 
     public function emailAction()
     {

@@ -4,6 +4,7 @@ namespace Super\FranquiaBundle\Controller;
 
 use Base\CrudBundle\Controller\CrudController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends CrudController
 {
@@ -28,6 +29,15 @@ class DefaultController extends CrudController
         $response = $this->getService()->buscarUsuario();
 
         return $this->renderJson($response);
+    }
+
+    public function localidadeAction()
+    {
+        $franquia = $this->getService('service.franquia')->jsonLocalidade();
+
+        return $this->renderJson($franquia);
+
+
     }
 
     private function getComboDefault($idFranquia = null)
