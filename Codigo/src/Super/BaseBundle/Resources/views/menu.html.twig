@@ -31,6 +31,17 @@
                 <span>Gerenciar Cardápio</span>
             </a>
         </li>
+    
+        <li class="sub-menu dcjq-parent-li">
+            <a href="javascript:;" class="dcjq-parent">
+                <i class="fa fa-comment"></i>
+                <span>Gerenciar FeedBack</span>
+                <span class="dcjq-icon"></span></a>
+            <ul class="sub" style="display: none;">
+                <li><a href="{{ path('super_feedback_index') }}">Manter FeedBack</a></li>
+                <li><a href="{{ path('super_feedback_email') }}">Personalizar Email</a></li>
+            </ul>
+        </li>
     {% endif %}
 
     {% if is_granted('ROLE_FRANQUEADOR') %}

@@ -1,0 +1,78 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Pesquisar por FeedBack
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <form method="post" action=" " id="form-enquete" class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">FeedBack</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control " id="noEnquete" placeholder="FeedBack"
+                               name="noEnquete" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Status</label>
+
+                    <div class="col-lg-10">
+                        <select name="stAtivo" id="stAtivo" class="form-control">
+                            <option value="" selected="selected">Selecione</option>
+                            <option value="1">Ativo</option>
+                            <option value="0">Inativo</option>
+                            <option value="2">Suspenso</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                            Pesquisar
+                        </button>
+                        <a href="{{ path('super_feedback_create') }}" class="btn btn-default">
+                            <i class="fa fa-plus"></i>
+                            Cadastrar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="panel">
+        <header class="panel-heading">
+            Resultado da pequisa
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body">
+            <section id="unseen">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-enquete">
+                    <thead>
+                    <tr>
+                        <th data-column="noEnquete">Promoção</th>
+                        <th data-column="dtInicio">Data Inicial</th>
+                        <th data-column="stAtivo">Status</th>
+                        <th data-column="opcoes">Opções</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td valign="top" colspan="4">Acione a pesquisa</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>
+
+
+{% endblock body %}

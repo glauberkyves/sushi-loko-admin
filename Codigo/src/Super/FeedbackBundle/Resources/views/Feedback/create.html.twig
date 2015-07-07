@@ -1,33 +1,30 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block body %}
-
-
     <section class="panel">
         <header class="panel-heading">
-            Editar Enquete
+            Cadastrar FeedBack
               <span class="tools pull-right">
                 <a class="fa fa-chevron-down" href="javascript:;"></a>
               </span>
         </header>
         <div class="panel-body">
-            <form method="post"  id="form-cadastro" class="form-horizontal tasi-form" enctype="multipart/form-data">
-                <input type="hidden" name="idEnquete" value="{{ entity.idEnquete }}">
-                <input type="hidden" name="updateEnquete" value="1">
+            <form method="post" action="{{ path('manter_enquete_create') }}" id="form-cadastro"
+                  class="form-horizontal tasi-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
 
                     <div class="col-lg-9">
-                        <input type="text" class="form-control required"  id="noPromocao" name="noPromocao" value="{{ entity.noEnquete }}">
+                        <input type="text"  class="form-control required" id="noEnquete" name="noEnquete"
+                               placeholder="Nome">
                     </div>
                 </div>
-
-
 
                 <div class="form-group">
                     <label for="txtData" class="control-label col-md-3">Pontos</label>
 
                     <div class="col-md-1">
-                        <input type="text" class="form-control  required" mask="integer" value="{{ entity.nuPontos }}" id="nuPontos" name="nuPontos"/>
+                        <input type="text" class="form-control  required" mask="integer" id="nuPontos"
+                                name="nuPontos"/>
                     </div>
                 </div>
 
@@ -35,46 +32,57 @@
                     <label for="txtData" class="control-label col-md-3">Bonus $R:</label>
 
                     <div class="col-md-2">
-                        <input type="text" class="form-control required" mask="decimal" value="{{ entity.nuBonus }}" id="nuBonus" name="nuBonus"/>
+                        <input type="text" class="form-control required" mask="decimal" id="nuBonus" placeholder="Bonus"
+                               name="nuBonus"/>
                     </div>
                 </div>
-
- 
 
                 <div class="form-group">
                     <label for="txtData" class="control-label col-md-3">Data Final</label>
 
                     <div class="col-md-3">
-                        <input type="text" value="{{ entity.getDtFim()|date("d/m/Y") }}" class="form-control required" id="datepicker"
+                        <input type="text" class="form-control required" id="datepicker"
                                placeholder="Data final" name="dtFim"/>
                         <span class="help-block">DD/MM/AAAA</span>
                     </div>
                 </div>
 
 
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Pergunta</label>
 
                     <div class="col-lg-9">
-                        <input type="text" class="form-control required" id="noPergunta" name="noPergunta" value="{{ entity.noPergunta }} ">
+                        <textarea class="form-control required" placeholder="Pergunta" id="noPergunta"
+                               name="noPergunta"  ></textarea>
                     </div>
                 </div>
 
-                {% set num = 0 %}
-                {% for key, resposta  in  entity.idResposta %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">1° Resposta</label>
 
-                    {% set num = num+1 %}
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">{{ num }}° Resposta</label>
-
-                        <div class="col-lg-9">
-                             <input type="hidden" name="idResposta{{ num }}" value="{{  resposta.idResposta }}" />
-                             <input type="hidden" name="total" value="{{ num }}" />
-                             <input type="text" class="form-control required" value="{{ resposta.noResposta }}" placeholder="{{ key }}° Resposta" id="" name="resposta{{ num }}">
-                        </div>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control required" placeholder="1° Resposta" id=""
+                               name="resposta1">
                     </div>
-                {% endfor %}
+                </div>
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">2² Resposta</label>
+
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control required" id="" placeholder="2° Resposta"
+                               name="resposta2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">3° Resposta</label>
+
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="" placeholder="3° Resposta" name="resposta3">
+                    </div>
+                </div>
 
 
                 <div class="form-group">
@@ -82,13 +90,9 @@
 
                     <div class="col-lg-9">
                         <select class="form-control required" id="stAtivo" name="stAtivo">
-                            {% if entity.stAtivo == 1 %}
-                                <option value="1">Ativo</option>
-                                <option value="0">Inativo</option>
-                            {% else %}
-                                <option value="0">Inativo</option>
-                                <option value="1">Ativo</option>
-                            {% endif %}
+                            <option value="">Selecione...</option>
+                            <option value="0">Inativo</option>
+                            <option value="1">Ativo</option>
                         </select>
                     </div>
                 </div>

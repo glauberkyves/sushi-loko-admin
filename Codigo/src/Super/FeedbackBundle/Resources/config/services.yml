@@ -1,0 +1,4 @@
+services:
+    service.feedback:
+              class: Super\EnqueteBundle\Service\FeedBack
+              arguments:  ["@service_container"]
