@@ -153,3 +153,33 @@ $('#nuCep').on("keyup", function (e)
         });
     }
 });
+
+$('.buscarCep').click(function ()
+{
+    if ($('#nuCep').val())
+    {
+        $("#cepCarregando").modal('show');
+        $.ajax({
+            url:  "/buscar-cep",
+            data: {
+                cep: $('#nuCep').val()
+            }
+        }).done(function (data) {
+            if (data) {
+                $('#idEstado').val(data.idEstado);
+                $('#noLogradouro').val(data.noLogradouro);
+
+                getMunicipio(data.idEstado, data.idMunicipio);
+                getBairro(data.idMunicipio, data.idBairro);
+
+                $("#cepCarregando").modal('hide');
+            } else {
+                $("#cepCarregando").modal('hide');
+                $("#cepErro").modal('show');
+            }
+        }).fail(function (data) {
+            $("#cepCarregando").modal('hide');
+            $("#cepErro").modal('show');
+        });
+    }
+})
