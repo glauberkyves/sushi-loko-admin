@@ -126,7 +126,7 @@ $('#nuCep').on("keyup", function (e)
     var cep = $.trim($('#nuCep').val()).replace('-', '');
     if (cep.length >= 8)
     {
-        $("#nuCep").addClass("spinner");
+        $("#cepCarregando").modal('show');
         $('#noLogradouro').focus();
 
         $.ajax({
@@ -141,70 +141,45 @@ $('#nuCep').on("keyup", function (e)
 
                 getMunicipio(data.idEstado, data.idMunicipio);
                 getBairro(data.idMunicipio, data.idBairro);
+
+                $("#cepCarregando").modal('hide');
             } else {
+                $("#cepCarregando").modal('hide');
                 $("#cepErro").modal('show');
-                $("#nuCep").removeClass("spinner");
             }
         }).fail(function (data) {
-            $("#nuCep").removeClass("spinner");
+            $("#cepCarregando").modal('hide');
+            $("#cepErro").modal('show');
         });
     }
 });
 
-$('#idEstado').change(function () {
-    if ($(this).val()) {
-        getMunicipio($(this).val());
-    }
-});
-
-$('#idMunicipio').change(function () {
-    if ($(this).val()) {
-        getBairro($(this).val());
-    }
-});
-
-function getMunicipio(idEstado, idMunicipio)
+$('.buscarCep').click(function ()
 {
-    $.ajax({
-        url: "/lista-municipios",
-        data: {
-            estado: idEstado
-        }
-    }).done(function (data) {
-        $('#idMunicipio option').remove();
-
-        $('#idMunicipio').append(new Option('Selecione', ''));
-        $.each(data, function (i, v) {
-            $('#idMunicipio').append(new Option(v, i));
-        })
-
-        if (idMunicipio) {
-            $('#idMunicipio' + ' option[value=' + idMunicipio + ']').attr('selected', 'selected');
-        }
-    });
-}
-
-function getBairro(idMunicipio, idBairro)
-{
-    $.ajax({
-        url: "/lista-bairros",
-        data: {
-            municipio: idMunicipio
-        },
-        complete:   function () {
-            $("#nuCep").removeClass("spinner");
-        }
-    }).done(function (data)
+    if ($('#nuCep').val())
     {
-        $('#idBairro option').remove();
+        $("#cepCarregando").modal('show');
+        $.ajax({
+            url:  "/buscar-cep",
+            data: {
+                cep: $('#nuCep').val()
+            }
+        }).done(function (data) {
+            if (data) {
+                $('#idEstado').val(data.idEstado);
+                $('#noLogradouro').val(data.noLogradouro);
 
-        $('#idBairro').append(new Option('Selecione', ''));
-        $.each(data, function (i, v) {
-            $('#idBairro').append(new Option(v, i));
-        })
+                getMunicipio(data.idEstado, data.idMunicipio);
+                getBairro(data.idMunicipio, data.idBairro);
 
-        if (idBairro) {
-            $('#idBairro' + ' option[value=' + idBairro + ']').attr('selected', 'selected');
-        }
-    });
-}
+                $("#cepCarregando").modal('hide');
+            } else {
+                $("#cepCarregando").modal('hide');
+                $("#cepErro").modal('show');
+            }
+        }).fail(function (data) {
+            $("#cepCarregando").modal('hide');
+            $("#cepErro").modal('show');
+        });
+    }
+})

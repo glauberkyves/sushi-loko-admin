@@ -52,40 +52,40 @@ $(document).ready(function () {
             getBairro($(this).val())
         }
     })
-
-    function getMunicipio(idEstado, idMunicipio) {
-        $.ajax({
-            url:  "/lista-municipios",
-            data: {estado: idEstado},
-        }).done(function (data) {
-            $('#idMunicipio option').remove();
-
-            $('#idMunicipio').append(new Option('Selecione', ''));
-            $.each(data, function (i, v) {
-                $('#idMunicipio').append(new Option(v, i));
-            })
-
-            if (idMunicipio) {
-                $('#idMunicipio' + ' option[value=' + idMunicipio + ']').attr('selected', 'selected')
-            }
-        });
-    }
-
-    function getBairro(idMunicipio, idBairro) {
-        $.ajax({
-            url:  "/lista-bairros",
-            data: {municipio: idMunicipio},
-        }).done(function (data) {
-            $('#idBairro option').remove();
-
-            $('#idBairro').append(new Option('Selecione', ''));
-            $.each(data, function (i, v) {
-                $('#idBairro').append(new Option(v, i));
-            })
-
-            if (idBairro) {
-                $('#idBairro' + ' option[value=' + idBairro + ']').attr('selected', 'selected')
-            }
-        });
-    }
 });
+
+function getMunicipio(idEstado, idMunicipio) {
+    $.ajax({
+        url:  "/lista-municipios",
+        data: {estado: idEstado},
+    }).done(function (data) {
+        $('#idMunicipio option').remove();
+
+        $('#idMunicipio').append(new Option('Selecione', ''));
+        $.each(data, function (i, v) {
+            $('#idMunicipio').append(new Option(v, i));
+        })
+
+        if (idMunicipio) {
+            $('#idMunicipio' + ' option[value=' + idMunicipio + ']').attr('selected', 'selected')
+        }
+    });
+}
+
+function getBairro(idMunicipio, idBairro) {
+    $.ajax({
+        url:  "/lista-bairros",
+        data: {municipio: idMunicipio},
+    }).done(function (data) {
+        $('#idBairro option').remove();
+
+        $('#idBairro').append(new Option('Selecione', ''));
+        $.each(data, function (i, v) {
+            $('#idBairro').append(new Option(v, i));
+        })
+
+        if (idBairro) {
+            $('#idBairro' + ' option[value=' + idBairro + ']').attr('selected', 'selected')
+        }
+    });
+}

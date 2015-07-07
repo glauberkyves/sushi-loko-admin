@@ -30,3 +30,7 @@ super_franquia:
     resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
     prefix:   /franquia
 
+super_pesquisa:
+    path:     /pesquisa.html
+    defaults: { _controller: SuperBaseBundle:Default:pesquisa }
+

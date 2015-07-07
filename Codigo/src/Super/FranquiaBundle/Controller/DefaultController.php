@@ -4,6 +4,7 @@ namespace Super\FranquiaBundle\Controller;
 
 use Base\CrudBundle\Controller\CrudController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends CrudController
 {
@@ -11,14 +12,14 @@ class DefaultController extends CrudController
 
     public function createAction(Request $request)
     {
-        $this->getComboDefault();
+        $this->vars = $this->getService()->getCombos();
 
         return parent::createAction($request);
     }
 
     public function editAction(Request $request)
     {
-        $this->getComboDefault();
+        $this->vars = $this->getService()->getCombos();
 
         return parent::editAction($request);
     }
@@ -28,6 +29,16 @@ class DefaultController extends CrudController
         $response = $this->getService()->buscarUsuario();
 
         return $this->renderJson($response);
+    }
+
+<<<<<<< HEAD
+    public function localidadeAction()
+    {
+        $franquia = $this->getService('service.franquia')->jsonLocalidade();
+
+        return $this->renderJson($franquia);
+
+
     }
 
     private function getComboDefault($idFranquia = null)
@@ -63,4 +74,18 @@ class DefaultController extends CrudController
 
         return $this->vars;
     }
+=======
+//    /**
+//     * ALTERAR A ROTA PARA A PÁGINA INICIAL DO FRANQUEADOR
+//     */
+//    public function resolveRouteIndex()
+//    {
+//        $request = $this->getRequest();
+//        $idFranqueador = $request->request->get('idFranqueador') ?: $request->query->get('idFranqueador');
+//
+//        return $this->generateUrl('super_franquia_create', array(
+//            'idFranqueador' => $idFranqueador
+//        ));
+//    }
+>>>>>>> e615df9147227f2b844ecffcc2e207567f55f92a
 }

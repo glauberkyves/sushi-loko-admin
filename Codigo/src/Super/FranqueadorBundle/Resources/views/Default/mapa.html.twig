@@ -1,0 +1,21 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Localizar franqueador
+        </header>
+        <div class="panel-body">
+            <div id="mapa" style="height: 500px; width: 100%">
+            </div>
+        </div>
+    </section>
+
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src={{ asset("/bundles/superbase/js/infobox.js") }}></script>
+    <script type="text/javascript" src={{ asset("/bundles/superbase/js/markerclusterer.js") }}></script>
+    <script type="text/javascript" src={{ asset("/bundles/superbase/js/mapa.js") }}></script>
+
+
+
+{% endblock body %}

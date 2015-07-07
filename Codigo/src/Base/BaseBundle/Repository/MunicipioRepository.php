@@ -10,5 +10,4 @@ namespace Base\BaseBundle\Repository;
 
 class MunicipioRepository extends  AbstractRepository
 {
-
 }
