@@ -235,32 +235,6 @@ var Validation = {
             return;
         }
 
-        // função para adicionar o erro apenas no final da div
-        $.validator.setDefaults({
-            errorPlacement: function (error, element) {
-                element
-                    .parent('div')
-                    .addClass('has-error')
-                    .addClass('has-feedback')
-
-                if (element.parent('div').find('label.has-error').size() == 0) {
-                    element
-                        .parent('div')
-                        .append('<label for="email" class="has-error">' + error.text()+ '</label>')
-                }
-            },
-            success:        function (error, element) {
-                $(element)
-                    .parent('div')
-                    .removeClass('has-error')
-                    .removeClass('has-feedback')
-
-                if ($(element).parent('div').find('label.has-error').size() > 0) {
-                    $(element).parent('div').find('label.has-error').remove()
-                }
-            }
-        });
-
         $.validator.messages = Validation.messages;
 
         Validation.addValidationDateBr();
