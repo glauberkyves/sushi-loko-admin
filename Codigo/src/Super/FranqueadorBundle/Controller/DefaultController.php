@@ -16,4 +16,16 @@ class DefaultController extends CrudController
 
         return parent::indexAction($request);
     }
+
+    public function createAction(Request $request)
+    {
+        $this->vars['cmbEstado']    = $this->getService('service.estado')->getComboDefault(
+            array(),
+            array('noEstado' => 'asc')
+        );
+        $this->vars['cmbMunicipio'] = array('' => 'Selecione');
+        $this->vars['cmbBairro']    = array('' => 'Selecione');
+
+        return parent::createAction($request);
+    }
 }

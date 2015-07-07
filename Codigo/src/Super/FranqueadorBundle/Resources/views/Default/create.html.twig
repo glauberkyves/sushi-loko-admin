@@ -14,7 +14,9 @@
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Responsável</label>
 
                     <div class="col-lg-10">
-                        {{ formText('noPessoa', entity.getNoResponsavel(), {class: 'form-control required'}) }}
+                        {{ formText('noPessoa', entity.getNoResponsavel(), {
+                            class: 'form-control required'
+                        }) }}
                     </div>
                 </div>
 
@@ -22,7 +24,9 @@
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Responsável</label>
 
                     <div class="col-lg-10">
-                        {{ formText('noPessoa', entity.getNoEmail(), {class: 'form-control required'}) }}
+                        {{ formText('noPessoa', entity.getNoEmail(), {
+                            class: 'form-control required email'
+                        }) }}
                     </div>
                 </div>
 
@@ -30,21 +34,28 @@
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Razão Social</label>
 
                     <div class="col-lg-10">
-                        {{ formText('noPessoa', entity.getIdPessoa().getNoPessoa(), {class: 'form-control required'}) }}
+                        {{ formText('noPessoa', entity.getIdUsuario().getIdPessoa().getNoPessoa(), {
+                            class: 'form-control required'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Fantansia</label>
 
                     <div class="col-lg-10">
-                        {{ formText('noFantasia', entity.getIdPessoa().getIdPessoaJuridica().getNoFantasia(), {class: 'form-control required'}) }}
+                        {{ formText('noFantasia', entity.getIdUsuario().getIdPessoa().getIdPessoaJuridica().getNoFantasia(), {
+                            class: 'form-control required'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CNPJ</label>
 
                     <div class="col-lg-10">
-                        {{ formText('nuCnpj', entity.getIdPessoa().getIdPessoaJuridica().getNuCnpj(), {class: 'form-control cnpj required'}) }}
+                        {{ formText('nuCnpj', entity.getIdUsuario().getIdPessoa().getIdPessoaJuridica().getNuCnpj(), {
+                            class: 'form-control cnpj required',
+                            'data-mask': 'cnpj',
+                        }) }}
                     </div>
                 </div>
             </div>
@@ -62,50 +73,70 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CEP</label>
 
-                    <div class="col-lg-10">
-                        {{ formText('nuCep', entity.getIdEndereco().getNuCep(), {class: 'form-control'}) }}
+                    <div class="col-md-3 col-xs-11">
+                        <div class="input-append">
+                            {{ formText('nuCep', entity.getIdEndereco().getNuCep(), {
+                                class: 'form-control cep required',
+                                'data-mask': 'cep',
+                            }) }}
+                            <span class="input-group-btn add-on">
+                            <button class="btn btn-primary buscar-cep" type="button"><i class="fa fa-search"></i></button>
+                          </span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Estado</label>
 
                     <div class="col-lg-10">
-                        {{ formSelect('idEstado', entity.getIdEndereco().getIdMunicipio().getIdEstado().getIdEstado(), {class: 'form-control required'}) }}
+                        {{ formSelect('idEstado', entity.getIdEndereco().getIdMunicipio().getIdEstado().getIdEstado(), {
+                            class: 'form-control required'
+                        }, cmbEstado) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Município</label>
 
                     <div class="col-lg-10">
-                        {{ formSelect('nuCnpj', entity.getIdEndereco().getIdMunicipio().getIdMunicipio(), {class: 'form-control required'}) }}
+                        {{ formSelect('idMunicipio', entity.getIdEndereco().getIdMunicipio().getIdMunicipio(), {
+                            class: 'form-control required'
+                        }, cmbMunicipio) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Bairro</label>
 
                     <div class="col-lg-10">
-                        {{ formSelect('nuCnpj', entity.getIdEndereco().getIdBairro().getIdBairro(), {class: 'form-control required'}) }}
+                        {{ formSelect('idBairro', entity.getIdEndereco().getIdBairro().getIdBairro(), {
+                            class: 'form-control required'
+                        }, cmbBairro) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Endereço</label>
 
                     <div class="col-lg-10">
-                        {{ formText('nuCnpj', entity.getIdEndereco().getNoLogradouro(), {class: 'form-control required'}) }}
+                        {{ formText('nuCnpj', entity.getIdEndereco().getNoLogradouro(), {
+                            class: 'form-control required'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Número</label>
 
                     <div class="col-lg-10">
-                        {{ formText('nuCnpj', entity.getIdEndereco().getNuEndereco(), {class: 'form-control required'}) }}
+                        {{ formText('nuCnpj', entity.getIdEndereco().getNuEndereco(), {
+                            class: 'form-control required'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Complemento</label>
 
                     <div class="col-lg-10">
-                        {{ formText('nuCnpj', entity.getIdEndereco().getNoComplemento(), {class: 'form-control'}) }}
+                        {{ formText('nuCnpj', entity.getIdEndereco().getNoComplemento(), {
+                            class: 'form-control'
+                        }) }}
                     </div>
                 </div>
             </div>
@@ -121,13 +152,134 @@
 
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Utilizar Níves:</label>
+                    <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Utilizar Níves?</label>
 
-                    <div class="col-lg-10">
-                        {{ formCheckbox('stNiveis', entity.getStNiveis(), {class: ''}) }}
+                    <div class="col-lg-1">
+                        {{ formCheckbox('stNiveis', entity.getStNiveis(), {
+                            class: ''
+                        }) }}
+                    </div>
+                    <div class="col-lg-1">
+                        <button class="btn btn-primary" id="add-niveis" type="button">Adicionar Níveis</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-info fade in" id="div-niveis">
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            {{ formText('stNiveis', entity.getStNiveis(), {
+                                class: 'form-control',
+                                placeholder: 'Nome do Nível required',
+                            }) }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ formText('stNiveis', entity.getStNiveis(), {
+                                class: 'form-control required',
+                                placeholder: 'Pontos Bônus por Cadastro',
+                            }) }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ formText('stNiveis', entity.getStNiveis(), {
+                                class: 'form-control required',
+                                placeholder: 'Bônus em Reais por Cadastro',
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            {{ formText('stNiveis', entity.getStNiveis(), {
+                                class: 'form-control required',
+                                placeholder: 'Porcentagem Pontos Extra',
+                                'data-mask': '99'
+                            }) }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ formText('stNiveis', entity.getStNiveis(), {
+                                class: 'form-control required',
+                                placeholder: 'Quantidade Pontos Necessária',
+                                'data-mask': 'numeric'
+                            }) }}
+                        </div>
+                        <div class="col-lg-4">
+                            <button class="btn btn-danger remover-niveis pull-right" type="button">Remover</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        {{ formText('stNiveis', entity.getStNiveis(), {
+                            class: 'form-control',
+                            placeholder: 'Valor Mínimo para resgate',
+                            'data-mask': 'decimal'
+                        }) }}
+                    </div>
+                    <div class="col-lg-4">
+                        {{ formText('stNiveis', entity.getStNiveis(), {
+                            class: 'form-control',
+                            placeholder: 'Pontos por Transação',
+                            'data-mask': 'numeric'
+                        }) }}
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        {{ formText('stNiveis', entity.getStNiveis(), {
+                            class: 'form-control required ',
+                            placeholder: 'Porcentagem Bônus por transação',
+                            'data-mask': '99'
+                        }) }}
+                    </div>
+                    <div class="col-lg-4">
+                        {{ formText('stNiveis', entity.getStNiveis(), {
+                            class: 'form-control required dateBr',
+                            placeholder: 'Validade dos Bônus',
+                            'data-mask': '99/99/9999'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                        <button class="btn btn-danger" type="submit">Cancelar</button>
                     </div>
                 </div>
             </div>
         </section>
     </form>
+
+    <script>
+        $(document).ready(function () {
+            $('#stNiveis').click(function () {
+                if ($(this).is(':checked')) {
+                    $('#div-niveis, #add-niveis').show()
+                } else {
+                    $('#div-niveis, #add-niveis').hide()
+                }
+            })
+
+            if ($('#stNiveis').is(':checked')) {
+                $('#div-niveis, #add-niveis').show()
+            } else {
+                $('#div-niveis, #add-niveis').hide()
+            }
+
+            $('#add-niveis').click(function () {
+                var div = $('#div-niveis').html()
+                $(div).find('input').val('');
+
+                $('#div-niveis').append(div)
+            })
+
+            $('#div-niveis').on('click', '.remover-niveis', function () {
+                if ($('#div-niveis div').size() > 8) {
+                    $(this).parents('div.form-group').prev().remove()
+                    $(this).parents('div.form-group').remove()
+                }
+            })
+        })
+    </script>
 {% endblock body %}

@@ -30,6 +30,41 @@
     <link href="{{ asset('bundles/superbase/css/multi-select.css') }}" rel="stylesheet"/>
     <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
 
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/assets/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/assets/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
+
+    <script src="{{ asset('bundles/superbase/js/bootstrap.min.js') }}"></script>
+    <script class="include" type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.dcjqaccordion.2.7.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/jquery.scrollTo.min.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/DataTables-1.10.5/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/DataTables-1.10.5/media/js/dataTables.responsive.nightly.min.js') }}"></script>
+
+    <!--right slidebar-->
+    <script src="{{ asset('bundles/superbase/js/slidebars.min.js') }}"></script>
+
+    <!--common script for all pages-->
+    <script src="{{ asset('bundles/superbase/js/common-scripts.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/app/js/validate.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/grid.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/bootstrap-fileupload.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/jquery.multi-select.js') }}"></script>
+    {#<script src="{{ asset('bundles/superbase/js/bootstrap-inputmask.min.js') }}"></script>#}
+    <script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>
+    <script type="text/javascript" src="/bundles/site/assets/js/bootstrap-inputmask/bootstrap-inputmask.js"></script>
+
+    <!-- SCRIPT BASE -->
+    <script type="text/javascript" src="/bundles/site/app/js/mask.js"></script>
+    <script type="text/javascript" src="/bundles/site/app/js/validate.js"></script>
+    <script type="text/javascript" src="/bundles/site/app/js/address.js"></script>
+
 </head>
 
 <body>
@@ -48,62 +83,6 @@
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
             <!--  notification start -->
-            <ul class="nav top-menu">
-                <!-- inbox dropdown end -->
-                <!-- notification dropdown start-->
-                <li id="header_notification_bar" class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-
-                        <i class="fa fa-bell-o"></i>
-                        <span class="badge bg-warning">7</span>
-                    </a>
-                    <ul class="dropdown-menu extended notification">
-                        <div class="notify-arrow notify-arrow-yellow"></div>
-                        <li>
-                            <p class="yellow">You have 7 new notifications</p>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
-                                Server #3 overloaded.
-                                <span class="small italic">34 mins</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="label label-warning"><i class="fa fa-bell"></i></span>
-                                Server #10 not respoding.
-                                <span class="small italic">1 Hours</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="label label-danger"><i class="fa fa-bolt"></i></span>
-                                Database overloaded 24%.
-                                <span class="small italic">4 hrs</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="label label-success"><i class="fa fa-plus"></i></span>
-                                New user registered.
-                                <span class="small italic">Just now</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="label label-info"><i class="fa fa-bullhorn"></i></span>
-                                Application error.
-                                <span class="small italic">10 mins</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">See all notifications</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- notification dropdown end -->
-            </ul>
         </div>
         <div class="top-nav ">
             <ul class="nav pull-right top-menu">
@@ -169,7 +148,7 @@
 
     <footer class="site-footer">
         <div class="text-center">
-            2015 &copy; BeeImoveis
+            2015 &copy; Fidelidade
             <a href="#" class="go-top">
                 <i class="fa fa-angle-up"></i>
             </a>
@@ -177,107 +156,5 @@
     </footer>
     <!--footer end-->
 </section>
-
-<!-- js placed at the end of the document so the pages load faster -->
-<script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
-<script src="{{ asset('bundles/superbase/assets/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script src="{{ asset('bundles/superbase/assets/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('bundles/superbase/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
-
-<script src="{{ asset('bundles/superbase/js/bootstrap.min.js') }}"></script>
-<script class="include" type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.dcjqaccordion.2.7.js') }}"></script>
-<script src="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/jquery.scrollTo.min.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('bundles/superbase/js/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
-<script src="{{ asset('bundles/superbase/DataTables-1.10.5/media/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bundles/superbase/DataTables-1.10.5/media/js/dataTables.responsive.nightly.min.js') }}"></script>
-
-<!--right slidebar-->
-<script src="{{ asset('bundles/superbase/js/slidebars.min.js') }}"></script>
-
-<!--common script for all pages-->
-<script src="{{ asset('bundles/superbase/js/common-scripts.js') }}"></script>
-<script src="{{ asset('bundles/superbase/app/js/validate.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/grid.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/bootstrap-fileupload.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/jquery.multi-select.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/bootstrap-inputmask.min.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>
-<!--
-<script type="text/javascript" src="/bundles/site/assets/js/bootstrap-inputmask/bootstrap-inputmask.js"></script>
--->
-
-<!-- SCRIPT BASE -->
-<!--
-<script type="text/javascript" src="/bundles/site/app/js/mask.js"></script>
--->
-<script type="text/javascript" src="/bundles/site/app/js/validate.js"></script>
-
-{% block javascripts %}{% endblock %}
-
-<script>
-    $(document).ready(function(){
-
-        $("#datepicker").datepicker( "option", "dateFormat", "dd/mm/yy" );
-        $("#form-promocao").submit();
-        $("#form-enquete").submit();
-        $("#form-cardapio").submit();
-        $("#addProduto").click(function(){
-            var totalProdutos = $(".TotalProdutos").val();
-            totalProdutos = parseInt(totalProdutos)+1;
-            $(".TotalProdutos").attr("value",totalProdutos);
-            $(".produtosAll").append(' <section class="panel newPro deletar'+totalProdutos+'">'+
-            '<header class="panel-heading">'+
-            totalProdutos+
-            '° Produto <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro'+totalProdutos+'"><span class="fa fa-times"></span></button>'+
-            '</header>'+
-            '<div class="panel-body">'+
-            '<div class="form-group">'+
-            '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>'+
-            '<div class="col-lg-9">'+
-            '<input type="text" class="form-control required"  id="noProduto1" name="noProduto'+totalProdutos+'" placeholder="Nome">'+
-            '</div>'+
-            '</div>'+
-            '<div class="form-group">'+
-            '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>'+
-            '<div class="col-lg-2">'+
-            '<input type="text" class="form-control required" id="noPreco1" mask="decimal" name="noPreco'+totalProdutos+'" placeholder="R$ Preço">'+
-            '</div>'+
-            '</div>'+
-            '<div class="form-group last">'+
-            '<label class="control-label col-md-3">Arquivo</label>'+
-            '<div class="col-md-9">'+
-            '<div class="fileupload fileupload-new" data-provides="fileupload">'+
-            '<div class="fileupload-preview fileupload-exists thumbnail"'+
-            'style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>'+
-            '<div>'+
-            '<span class="btn btn-white btn-file">'+
-            '<span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>'+
-            '<span class="fileupload-exists"><i'+
-            'class="fa fa-undo"></i> Alterar</span>'+
-            '<input type="file" name="noImagem'+totalProdutos+'" id="noImagem" accept="image/*">'+
-            '</span>'+
-            '</div>'+
-            '<div class="alert alert-info" role="alert" style="margin-top: 10px">'+
-            '<strong>Atenção!:</strong> Tamanho da Imagem: 1200px X 500px'+
-            '</div>'+
-            '</div>'+
-            '</div>'+
-            '</div>'+
-            '</div>'+
-            '</section>');
-            $(".excluirPro"+totalProdutos).click(function(){
-                $(".deletar"+totalProdutos).remove();
-            });
-        });
-        $(".excluiPainel").click(function(){
-            $(this).parent().parent().remove();
-        });
-    });
-</script>
-
 </body>
 </html>

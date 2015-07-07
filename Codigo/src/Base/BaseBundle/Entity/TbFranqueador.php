@@ -203,7 +203,7 @@ class TbFranqueador extends AbstractEntity
      */
     public function getIdEndereco()
     {
-        return $this->idEndereco;
+        return $this->idEndereco? $this->idEndereco: new TbEndereco();
     }
 
     /**
@@ -219,7 +219,7 @@ class TbFranqueador extends AbstractEntity
      */
     public function getIdUsuario()
     {
-        return $this->idUsuario;
+        return $this->idUsuario? $this->idUsuario: new TbUsuario();
     }
 
     /**
