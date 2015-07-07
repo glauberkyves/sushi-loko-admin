@@ -73,14 +73,18 @@ class TbFranquia extends AbstractEntity
     private $idFranqueador;
 
     /**
-     * @var \TbUsuario
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_responsavel", referencedColumnName="id_usuario")
-     * })
+     * @ORM\Column(name="no_responsavel", type="string", length=150, nullable=false)
      */
-    private $idResponsavel;
+    private $noResponsavel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_email_responsavel", type="string", length=150, nullable=false)
+     */
+    private $noEmailResponsavel;
 
     /**
      * @var \TbUsuario
@@ -222,22 +226,6 @@ class TbFranquia extends AbstractEntity
     /**
      * @return \TbUsuario
      */
-    public function getIdResponsavel()
-    {
-        return $this->idResponsavel ?: new \Base\BaseBundle\Entity\TbUsuario;
-    }
-
-    /**
-     * @param \TbUsuario $idResponsavel
-     */
-    public function setIdResponsavel($idResponsavel)
-    {
-        $this->idResponsavel = $idResponsavel;
-    }
-
-    /**
-     * @return \TbUsuario
-     */
     public function getIdOperador()
     {
         return $this->idOperador ?: new \Base\BaseBundle\Entity\TbUsuario;
@@ -265,6 +253,38 @@ class TbFranquia extends AbstractEntity
     public function setIdFranquiaPromocao($idFranquiaPromocao)
     {
         $this->idFranquiaPromocao = $idFranquiaPromocao;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoResponsavel()
+    {
+        return $this->noResponsavel;
+    }
+
+    /**
+     * @param string $noResponsavel
+     */
+    public function setNoResponsavel($noResponsavel)
+    {
+        $this->noResponsavel = $noResponsavel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoEmailResponsavel()
+    {
+        return $this->noEmailResponsavel;
+    }
+
+    /**
+     * @param string $noEmailResponsavel
+     */
+    public function setNoEmailResponsavel($noEmailResponsavel)
+    {
+        $this->noEmailResponsavel = $noEmailResponsavel;
     }
 }
 

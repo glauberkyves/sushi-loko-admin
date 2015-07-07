@@ -11,20 +11,17 @@ class Franquia extends CrudService
 
     public function preSave(AbstractEntity $entity = null)
     {
-        $idResponsavel = $this->getRequest()->request->getInt('idResponsavel');
         $idOperador    = $this->getRequest()->request->getInt('idOperador');
         $idFranqueador = $this->getRequest()->request->getInt('idFranqueador');
         $idCardapio    = $this->getRequest()->request->getInt('idCardapio');
 
         $idEndereco    = $this->getService('service.endereco')->save();
         $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
-        $idResponsavel = $this->getService('service.usuario')->find($idResponsavel);
         $idOperador    = $this->getService('service.usuario')->find($idOperador);
         $idCardapio    = $this->getService('service.cardapio')->find($idCardapio);
 
         $this->entity->setIdEndereco($idEndereco);
         $this->entity->setIdFranqueador($idFranqueador);
-        $this->entity->setIdResponsavel($idResponsavel);
         $this->entity->setIdOperador($idOperador);
         $this->entity->setIdCardapio($idCardapio);
     }
@@ -47,15 +44,18 @@ class Franquia extends CrudService
             $this->remove($idFranquiaPromocao);
         }
 
-        foreach($arrPromocao as $key => $idPromocao)
+        if($arrPromocao)
         {
-            $entityPromocao = $this->getService('service.promocao')->find($idPromocao);
+            foreach($arrPromocao as $key => $idPromocao)
+            {
+                $entityPromocao = $this->getService('service.promocao')->find($idPromocao);
 
-            $idFranquiaPromocao = $this->getService('service.franquia_promocao')->newEntity();
-            $idFranquiaPromocao->setIdFranquia($this->entity);
-            $idFranquiaPromocao->setIdPromocao($entityPromocao);
+                $idFranquiaPromocao = $this->getService('service.franquia_promocao')->newEntity();
+                $idFranquiaPromocao->setIdFranquia($this->entity);
+                $idFranquiaPromocao->setIdPromocao($entityPromocao);
 
-            $this->persist($idFranquiaPromocao);
+                $this->persist($idFranquiaPromocao);
+            }
         }
     }
 
@@ -121,7 +121,7 @@ class Franquia extends CrudService
             array('noEstado' => 'asc')
         );
 
-        //formulario de edição
+        //combos formulario de edição
         if($id = $this->getRequest()->get('id'))
         {
             if($entity = $this->getRepository()->find($id))

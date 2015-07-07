@@ -13,21 +13,16 @@
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Email responsável</label>
-        <div class="col-lg-9">
+        <div class="col-lg-10">
             <input type="email" class="form-control required" id="noEmailResponsavel" placeholder="Email responsável"
-                   name="noEmailResponsavel" value="{{ entity.getIdResponsavel().getIdPessoa().getIdPessoaFisica().getNoEmail() }}">
-        </div>
-        <div class="col-lg-1">
-            <a type="button" data-toggle="modal" href="#cadastrarUsuario" class="btn btn-primary cadastrarResponsavel">
-                +
-            </a>
+                   name="noEmailResponsavel" value="{{ entity.getNoEmailResponsavel() }}">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noResponsavel">Nome responsável</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required nameLastName" id="noResponsavel" placeholder="Nome responsável"
-                   name="noResponsavel" value="{{ entity.getIdResponsavel().getIdPessoa().getNoPessoa() }}" disabled>
+                   name="noResponsavel" value="{{ entity.getNoResponsavel() }}">
         </div>
     </div>
     <div class="form-group">
@@ -135,7 +130,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="idPromocao">Promoção</label>
         <div class="col-lg-10">
-            {{ formSelect('', arrPromocao, {'class': 'multi-select required', 'multiple': 'multiple', 'id': 'idPromocao', 'name': 'idPromocao[]'}, cmbPromocao) }}
+            {{ formSelect('', arrPromocao, {'class': 'multi-select', 'multiple': 'multiple', 'id': 'idPromocao', 'name': 'idPromocao[]'}, cmbPromocao) }}
         </div>
     </div>
     <div class="form-group">
