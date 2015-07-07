@@ -31,6 +31,13 @@ class TbEndereco extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="no_endereco_amigavel", type="string", length=150, nullable=true)
+     */
+    private $noEnderecoAmigavel;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="no_complemento", type="string", length=100, nullable=true)
      */
     private $noComplemento;
@@ -41,13 +48,6 @@ class TbEndereco extends AbstractEntity
      * @ORM\Column(name="nu_endereco", type="string", length=10, nullable=true)
      */
     private $nuEndereco;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="no_bairro", type="string", length=200, nullable=true)
-     */
-    private $noBairro;
 
     /**
      * @var integer
@@ -155,22 +155,6 @@ class TbEndereco extends AbstractEntity
     }
 
     /**
-     * @return string
-     */
-    public function getNoBairro()
-    {
-        return $this->noBairro;
-    }
-
-    /**
-     * @param string $noBairro
-     */
-    public function setNoBairro($noBairro)
-    {
-        $this->noBairro = $noBairro;
-    }
-
-    /**
      * @return int
      */
     public function getNuCep()
@@ -250,6 +234,20 @@ class TbEndereco extends AbstractEntity
         $this->idMunicipio = $idMunicipio;
     }
 
+    /**
+     * @return string
+     */
+    public function getNoEnderecoAmigavel()
+    {
+        return $this->noEnderecoAmigavel;
+    }
 
+    /**
+     * @param string $noEnderecoAmigavel
+     */
+    public function setNoEnderecoAmigavel($noEnderecoAmigavel)
+    {
+        $this->noEnderecoAmigavel = $noEnderecoAmigavel;
+    }
 }
 
