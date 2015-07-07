@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbFranquia
  *
- * @ORM\Table(name="tb_franquia", indexes={@ORM\Index(name="fk_franquia_franqueador_idx", columns={"id_franqueador"}), @ORM\Index(name="fk_franquia_endereco_idx", columns={"id_endereco"})})
+ * @ORM\Table(name="tb_franquia", indexes={@ORM\Index(name="fk_franquia_franqueador_idx", columns={"id_franqueador"}), @ORM\Index(name="fk_franquia_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="fk_franquia_cardapio_idx", columns={"id_cardapio"})})
  * @ORM\Entity
  */
 class TbFranquia extends AbstractEntity
@@ -41,6 +41,16 @@ class TbFranquia extends AbstractEntity
      * @ORM\Column(name="st_ativo", type="integer", nullable=true)
      */
     private $stAtivo;
+
+    /**
+     * @var \TbCardapio
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbCardapio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_cardapio", referencedColumnName="id_cardapio")
+     * })
+     */
+    private $idCardapio;
 
     /**
      * @var \TbEndereco
@@ -81,6 +91,21 @@ class TbFranquia extends AbstractEntity
      * })
      */
     private $idOperador;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFranquiaPromocao", mappedBy="idFranquia")
+     */
+    private $idFranquiaPromocao;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idFranquiaPromocao = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * @return int
@@ -147,6 +172,22 @@ class TbFranquia extends AbstractEntity
     }
 
     /**
+     * @return \TbCardapio
+     */
+    public function getIdCardapio()
+    {
+        return $this->idCardapio;
+    }
+
+    /**
+     * @param \TbCardapio $idCardapio
+     */
+    public function setIdCardapio($idCardapio)
+    {
+        $this->idCardapio = $idCardapio;
+    }
+
+    /**
      * @return \TbEndereco
      */
     public function getIdEndereco()
@@ -208,6 +249,22 @@ class TbFranquia extends AbstractEntity
     public function setIdOperador($idOperador)
     {
         $this->idOperador = $idOperador;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdFranquiaPromocao()
+    {
+        return $this->idFranquiaPromocao;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idFranquiaPromocao
+     */
+    public function setIdFranquiaPromocao($idFranquiaPromocao)
+    {
+        $this->idFranquiaPromocao = $idFranquiaPromocao;
     }
 }
 

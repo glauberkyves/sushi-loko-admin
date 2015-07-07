@@ -46,9 +46,6 @@ class Promocao extends CrudService
         return $itens;
     }
 
-
-
-
     public function preSave(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());

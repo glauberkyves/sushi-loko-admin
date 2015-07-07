@@ -18,13 +18,18 @@ class Endereco extends AbstractService
     {
         $idMunicipio     = $this->getRequest()->request->getInt('idMunicipio');
         $idBairro        = $this->getRequest()->request->getInt('idBairro');
-        $nuCep           = $this->getRequest()->request->getDigits('nuCep');
 
         $entityMunicipio = $this->getService('service.municipio')->find($idMunicipio);
         $entityBairro    = $this->getService('service.bairro')->find($idBairro);
 
-        $this->entity->setNuCep($nuCep);
         $this->entity->setIdBairro($entityBairro ?: null);
         $this->entity->setIdMunicipio($entityMunicipio ?: null);
+    }
+
+    public function postSave(AbstractEntity $entity = null)
+    {
+        $this->entity->setNuCep($this->getRequest()->request->getDigits('nuCep'));
+
+        $this->persist($this->entity);
     }
 }
