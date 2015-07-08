@@ -73,6 +73,12 @@
             </section>
         </div>
     </section>
-
-
 {% endblock body %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $("#form-enquete").submit();
+        });
+    </script>
+{% endblock %}

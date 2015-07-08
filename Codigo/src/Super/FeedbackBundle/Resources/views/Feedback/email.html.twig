@@ -26,5 +26,12 @@
             </section>
         </div>
     </div>
-
 {% endblock body %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('.wysihtml5').wysihtml5();
+        });
+    </script>
+{% endblock %}
