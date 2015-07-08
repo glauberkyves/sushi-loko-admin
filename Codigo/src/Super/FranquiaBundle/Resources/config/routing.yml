@@ -1,5 +1,5 @@
 super_franquia_index:
-    path:     /
+    path:     /{idFranqueador}
     defaults: { _controller: SuperFranquiaBundle:Default:index }
 
 super_franquia_create:

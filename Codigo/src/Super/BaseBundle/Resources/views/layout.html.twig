@@ -30,7 +30,6 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
-    <!-- js placed at the end of the document so the pages load faster -->
     <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
     <script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
     <script src="{{ asset('bundles/superbase/assets/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
@@ -49,6 +48,7 @@
     <script src="{{ asset('bundles/superbase/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js') }}"></script>
     <script src="{{ asset('bundles/superbase/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js') }}"></script>
     <script src="{{ asset('bundles/superbase/assets/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
+    <script src="{{ asset('bundles/superbase/js/grid.js') }}"></script>
 
     <!--right slidebar-->
     <script src="{{ asset('bundles/superbase/js/slidebars.min.js') }}"></script>
@@ -151,7 +151,10 @@
     <!--footer end-->
 </section>
 
+<script src="{{ asset('bundles/superbase/js/common-scripts.js') }}"></script>
+
 {% block javascripts %}
 {% endblock %}
+
 </body>
 </html>
