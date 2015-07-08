@@ -28,4 +28,9 @@ class DefaultController extends CrudController
 
         return parent::createAction($request);
     }
+
+    public function mapaAction()
+    {
+        return $this->render('SuperFranqueadorBundle:Default:mapa.html.twig');
+    }
 }

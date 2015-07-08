@@ -31,6 +31,26 @@
                 <span>Gerenciar Cardápio</span>
             </a>
         </li>
+
+        <li class="sub-menu">
+            <a href="{{ path('super_franqueador_mapa') }}">
+                <i class="fa   fa-external-link"></i>
+                <span>Localizar Franqueador</span>
+            </a>
+        </li>
+
+
+
+        <li class="sub-menu dcjq-parent-li">
+            <a href="javascript:;" class="dcjq-parent">
+                <i class="fa fa-comment"></i>
+                <span>Gerenciar FeedBack</span>
+                <span class="dcjq-icon"></span></a>
+            <ul class="sub" style="display: none;">
+                {#<li><a href="{{ path('super_feedback_index') }}">Manter FeedBack</a></li>#}
+                {#<li><a href="{{ path('super_feedback_email') }}">Personalizar Email</a></li>#}
+            </ul>
+        </li>
     {% endif %}
 
     {% if is_granted('ROLE_FRANQUEADOR') %}
@@ -77,7 +97,7 @@
                 <span>Gerenciar Feedback</span>
             </a>
             <ul class="sub">
-                <li><a href="{{ path('manter_enquete_index') }}">Gerenciar Enquete</a></li>
+                {#<li><a href="{{ path('manter_enquete_index') }}">Gerenciar Enquete</a></li>#}
             </ul>
         </li>
     {% endif %}

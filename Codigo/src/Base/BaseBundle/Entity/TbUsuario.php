@@ -99,29 +99,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     }
 
     /**
-     * Set noEmail
-     *
-     * @param string $noEmail
-     * @return TbUsuario
-     */
-    public function setNoEmail($noEmail)
-    {
-        $this->noEmail = $noEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get noEmail
-     *
-     * @return string
-     */
-    public function getNoEmail()
-    {
-        return $this->noEmail;
-    }
-
-    /**
      * Set noSenha
      *
      * @param string $noSenha

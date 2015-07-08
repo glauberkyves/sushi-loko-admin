@@ -95,17 +95,7 @@ class AbstractEntity
                     }
                     $value = $subvalues;
                 }
-                if ($value instanceof AbstractBase && $parent != $value) {
-                    $value = $value->toArray($this);
-                } else
-                    if ($value instanceof \DateTime) {
-                        $value = $value->format('Y-m-d h:m:i');
-                    } else
-                        if (is_object($value) && $parent != $value) {
-                            $value = $value->toString();
-                        }
-
-                if (!$parent || ($parent && (($value instanceof AbstractBase && $parent != $value) || !($value instanceof AbstractBase)))) {
+                if (!$parent) {
                     $data[lcfirst(substr($method, 3))] = $value;
                 }
             }

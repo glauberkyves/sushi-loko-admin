@@ -1,4 +1,20 @@
 services:
-#    super_usuario.example:
-#        class: Super\UsuarioBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    service.usuario:
+          class: Super\UsuarioBundle\Service\Usuario
+          arguments:  ["@service_container"]
+
+    service.perfil:
+          class: Super\UsuarioBundle\Service\Perfil
+          arguments:  ["@service_container"]
+          
+    service.pessoa:
+          class: Super\UsuarioBundle\Service\Pessoa
+          arguments:  ["@service_container"]
+
+    service.pessoa_fisica:
+          class: Super\UsuarioBundle\Service\PessoaFisica
+          arguments:  ["@service_container"]
+
+    service.pessoa_juridica:
+          class: Super\UsuarioBundle\Service\PessoaJuridica
+          arguments:  ["@service_container"]

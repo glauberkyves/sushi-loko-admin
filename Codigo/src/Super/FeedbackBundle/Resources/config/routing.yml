@@ -1,0 +1,19 @@
+super_feedback_index:
+    path:     /manter-feedback
+    defaults: { _controller: SuperFeedbackBundle:Feedback:index }
+
+super_feedback_create:
+    path:     /manter-feedback/create
+    defaults: { _controller: SuperFeedbackBundle:Feedback:create }
+
+super_feedback_edit:
+    path:     /manter-feedback/edit/{id}
+    defaults: { _controller: SuperFeedbackBundle:Feedback:edit }
+
+super_feedback_delete:
+    path:     /manter-feedback/delete/{id}
+    defaults: { _controller: SuperFeedbackBundle:Feedback:delete }
+
+super_feedback_email:
+    path:     /manter-feedback/email
+    defaults: { _controller: SuperFeedbackBundle:Feedback:email }

@@ -24,7 +24,7 @@ class Promocao extends CrudService
                         break;
                 }
                 $id = $itens[$key]['idPromocao'];
-                        $itens[$key]['opcoes'] =  '<div class="modal fade" id="myModal'.$id.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                $itens[$key]['opcoes'] = '<div class="modal fade" id="myModal' . $id . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -40,11 +40,18 @@ class Promocao extends CrudService
       </div>
     </div>
   </div>
-</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal'.$id.'"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/promocao/manter-promocao/edit/'.$id.'" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
+</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal' . $id . '"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/promocao/manter-promocao/edit/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
             }
         }
         return $itens;
     }
+
+    public function preUpdate(AbstractEntity $entity = null)
+    {
+        $dtValidade = str_replace('/', '-', $this->getRequest()->request->get('dtValidade'));
+        $this->entity->setDtValidade(Data::dateBr("$dtValidade 00:00"));
+    }
+
 
     public function preSave(AbstractEntity $entity = null)
     {
@@ -52,6 +59,7 @@ class Promocao extends CrudService
         $dtValidade = str_replace('/', '-', $this->getRequest()->request->get('dtValidade'));
         $this->entity->setDtValidade(Data::dateBr("$dtValidade 00:00"));
     }
+
 
     public function postSave(AbstractEntity $entity = null)
     {

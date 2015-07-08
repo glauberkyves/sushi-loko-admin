@@ -6,7 +6,7 @@
  * Time: 18:14
  */
 
-namespace SiteBundle\Service;
+namespace Super\UsuarioBundle\Service;
 
 use Base\BaseBundle\Entity\AbstractEntity;
 use Base\CrudBundle\Service\CrudService;
