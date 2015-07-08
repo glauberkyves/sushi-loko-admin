@@ -1,7 +1,6 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block body %}
 
-
     <section class="panel">
         <header class="panel-heading">
             Editar FeedBack
@@ -10,70 +9,35 @@
               </span>
         </header>
         <div class="panel-body">
-            <form method="post"  id="form-cadastro" class="form-horizontal tasi-form" enctype="multipart/form-data">
-                <input type="hidden" name="idEnquete" value="{{ entity.idEnquete }}">
-                <input type="hidden" name="updateEnquete" value="1">
+            <form method="post"  id="form-cadastro"
+                  class="form-horizontal tasi-form" enctype="multipart/form-data">
+                <input type="hidden" name="idFeedback" value="{{ entity.idFeedback }}">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
 
                     <div class="col-lg-9">
-                        <input type="text" class="form-control required"  id="noPromocao" name="noPromocao" value="{{ entity.noEnquete }}">
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label for="txtData" class="control-label col-md-3">Pontos</label>
-
-                    <div class="col-md-1">
-                        <input type="text" class="form-control  required" mask="integer" value="{{ entity.nuPontos }}" id="nuPontos" name="nuPontos"/>
+                        <input type="text"  class="form-control required" id="noFeedback" name="noFeedback"
+                               placeholder="Nome" value="{{ entity.noFeedback }}">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtData" class="control-label col-md-3">Bonus $R:</label>
+                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Descrição de Faad-Back</label>
 
-                    <div class="col-md-2">
-                        <input type="text" class="form-control required" mask="decimal" value="{{ entity.nuBonus }}" id="nuBonus" name="nuBonus"/>
+                    <div class="col-lg-9">
+                        <textarea class="form-control required" placeholder="Descrição" id="dsFeedback"
+                                  name="dsFeedback"  >{{ entity.dsFeedback }}</textarea>
                     </div>
                 </div>
 
- 
-
                 <div class="form-group">
-                    <label for="txtData" class="control-label col-md-3">Data Final</label>
+                    <label for="txtData" class="control-label col-md-3">Data Inicial</label>
 
                     <div class="col-md-3">
-                        <input type="text" value="{{ entity.getDtFim()|date("d/m/Y") }}" class="form-control required" id="datepicker"
-                               placeholder="Data final" name="dtFim"/>
+                        {{ formText('dtInicio', entity.getDtInicio()|date("d/m/Y"), {id:"datepicker", class: 'form-control required', placeholder:"Validade"}) }}
                         <span class="help-block">DD/MM/AAAA</span>
                     </div>
                 </div>
-
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Pergunta</label>
-
-                    <div class="col-lg-9">
-                        <input type="text" class="form-control required" id="noPergunta" name="noPergunta" value="{{ entity.noPergunta }} ">
-                    </div>
-                </div>
-
-                {% set num = 0 %}
-                {% for key, resposta  in  entity.idResposta %}
-
-                    {% set num = num+1 %}
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">{{ num }}° Resposta</label>
-
-                        <div class="col-lg-9">
-                             <input type="hidden" name="idResposta{{ num }}" value="{{  resposta.idResposta }}" />
-                             <input type="hidden" name="total" value="{{ num }}" />
-                             <input type="text" class="form-control required" value="{{ resposta.noResposta }}" placeholder="{{ key }}° Resposta" id="" name="resposta{{ num }}">
-                        </div>
-                    </div>
-                {% endfor %}
 
 
 
@@ -99,7 +63,7 @@
                             Salvar
                         </button>
 
-                        <a href="{{ path('manter_enquete_index') }}" class="btn btn-default">
+                        <a href="{{ path('super_feedback_index') }}" class="btn btn-default">
                             <i class="fa fa-times"></i>
                             Cancelar
                         </a>
@@ -108,4 +72,5 @@
             </form>
         </div>
     </section>
+
 {% endblock body %}

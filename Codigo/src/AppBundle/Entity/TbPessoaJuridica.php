@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class TbPessoaJuridica
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="nu_cnpj", type="integer", nullable=false)
+     * @ORM\Column(name="nu_cnpj", type="string", length=14, nullable=false)
      */
     private $nuCnpj;
 

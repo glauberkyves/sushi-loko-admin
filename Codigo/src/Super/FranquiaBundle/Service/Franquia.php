@@ -109,6 +109,18 @@ class Franquia extends CrudService
     {
         return $this->getService('service.franqueador')->selectLocalidade();
     }
+<<<<<<< HEAD
+    public function getCombos()
+    {
+        $this->vars = array(
+            'cmbMunicipio' => array('Selecione'),
+            'cmbBairro' => array('Selecione'),
+            'arrCardapio' => array(),
+            'arrPromocao' => array(),
+            'arrEstado' => array(),
+            'arrMunicipio' => array(),
+            'arrBairro' => array(),
+=======
 
     public function getCombos()
     {
@@ -122,6 +134,7 @@ class Franquia extends CrudService
             'arrMunicipio'  => array(),
             'arrBairro'     => array(),
             'arrSituacao'   => array(),
+>>>>>>> 130b6795521f3b88d3afa1277cfd6e4c9c272f13
             'idFranqueador' => $this->getRequest()->get('idFranqueador')
         );
 
@@ -145,10 +158,8 @@ class Franquia extends CrudService
         );
 
         //combos formulario de edição
-        if($id = $this->getRequest()->get('id'))
-        {
-            if($entity = $this->getRepository()->find($id))
-            {
+        if ($id = $this->getRequest()->get('id')) {
+            if ($entity = $this->getRepository()->find($id)) {
                 $idEndereco = $entity->getIdEndereco();
 
                 $this->vars['cmbMunicipio'] = $this->getService('service.municipio')->getComboDefault(
@@ -165,8 +176,7 @@ class Franquia extends CrudService
                 array_push($this->vars['arrCardapio'] , $entity->getIdCardapio()->getIdCardapio());
                 array_push($this->vars['arrSituacao'] , $entity->getStAtivo());
 
-                foreach($entity->getIdFranquiaPromocao() as $idFranquiaPromocao)
-                {
+                foreach ($entity->getIdFranquiaPromocao() as $idFranquiaPromocao) {
                     array_push($this->vars['arrPromocao'], $idFranquiaPromocao->getIdPromocao()->getIdPromocao());
                 }
             }
@@ -174,4 +184,5 @@ class Franquia extends CrudService
 
         return $this->vars;
     }
+
 }

@@ -60,7 +60,7 @@ class TbFeedback extends AbstractEntity
     /**
      * @var \TbFranqueador
      *
-     * @ORM\ManyToOne(targetEntity="TbFranqueador")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueador")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_franqueador", referencedColumnName="id_franqueador")
      * })

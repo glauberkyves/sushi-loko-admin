@@ -17,7 +17,7 @@
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
 
                     <div class="col-lg-9">
-                        <input type="text" class="form-control required"  id="noPromocao" name="noPromocao" value="{{ entity.noEnquete }}">
+                        <input type="text" class="form-control required"  id="noEnquete" name="noEnquete" value="{{ entity.noEnquete }}">
                     </div>
                 </div>
 
@@ -62,7 +62,6 @@
 
                 {% set num = 0 %}
                 {% for key, resposta  in  entity.idResposta %}
-
                     {% set num = num+1 %}
                     <div class="form-group">
                         <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">{{ num }}° Resposta</label>

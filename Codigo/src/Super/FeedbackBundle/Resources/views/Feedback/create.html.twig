@@ -29,6 +29,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="txtData" class="control-label col-md-3">Data Inicial</label>
+
+                    <div class="col-md-3">
+                        <input type="text" class="form-control required" id="datepicker"
+                               placeholder="Data Inicial" name="dtInicio"/>
+                        <span class="help-block">DD/MM/AAAA</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
 
                     <div class="col-lg-9">
@@ -46,7 +56,7 @@
                             Salvar
                         </button>
 
-                        <a href="{{ path('manter_enquete_index') }}" class="btn btn-default">
+                        <a href="{{ path('super_feedback_index') }}" class="btn btn-default">
                             <i class="fa fa-times"></i>
                             Cancelar
                         </a>
