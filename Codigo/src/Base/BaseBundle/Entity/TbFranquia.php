@@ -94,7 +94,7 @@ class TbFranquia extends AbstractEntity
      *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
      * })
      */
-    private $idOperadorFranquia;
+    private $idOperador;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
