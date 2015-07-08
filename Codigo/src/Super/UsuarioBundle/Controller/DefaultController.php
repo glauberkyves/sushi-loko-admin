@@ -17,20 +17,22 @@ class DefaultController extends CrudController
         return parent::indexAction($request);
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
     public function createAction(Request $request)
     {
         if ($request->isXmlHttpRequest() && $request->isMethod('post')) {
-            //if ($this->validate() && $this->save(false)) {
-            if(true){
+            if ($this->save()) {
                 return $this->renderJson(array(
-                    'valido' => true,
-                    'idUsuario' => 1,
-                    'noPessoa' => 'Glauber Kyves',
-                    'noEmail' => 'glauberkyves@gmail.com'
+                    'valido'   => true,
+                    'noPessoa' => $request->request->get('noPessoa'),
+                    'noEmail'  => $request->request->get('noEmail')
                 ));
-            }else{
+            } else {
                 return $this->renderJson(array(
-                    'valido' => false,
+                    'valido'   => false,
                     'mensagem' => $this->getMessage()
                 ));
             }

@@ -152,43 +152,5 @@
     <!--footer end-->
 </section>
 
-
-<!--common script for all pages-->
-<script src="{{ asset('bundles/superbase/js/common-scripts.js') }}"></script>
-<script src="{{ asset('bundles/superbase/app/js/validate.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/grid.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
-
-<script src="{{ asset('bundles/superbase/js/bootstrap-fileupload.js') }}"></script>
-<script src="{{ asset('bundles/superbase/assets/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/bootstrap-inputmask.min.js') }}"></script>
-<script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>
-<!--
-<script type="text/javascript" src="/bundles/site/assets/js/bootstrap-inputmask/bootstrap-inputmask.js"></script>
--->
-
-<!-- SCRIPT BASE -->
-<!--
-<script type="text/javascript" src="/bundles/site/app/js/mask.js"></script>
--->
-<script type="text/javascript" src="/bundles/site/app/js/validate.js"></script>
-
-{% block javascripts %}{% endblock %}
-
-<script>
-    $(document).ready(function () {
-
-        $("#form-promocao").submit();
-        $("#form-enquete").submit();
-        $("#form-cardapio").submit();
-
-        $("#datepicker").datepicker({
-            format: 'dd/mm/yyyy',
-            language: 'pt-BR'
-        });
-        $('.wysihtml5').wysihtml5();
-    });
-</script>
-
 </body>
 </html>

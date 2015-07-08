@@ -89,11 +89,10 @@ class Franquia extends CrudService
         return $response;
     }
 
-<<<<<<< HEAD
     public function jsonLocalidade()
     {
-       return $this->getService('service.franqueador')->selectLocalidade();
-=======
+        return $this->getService('service.franqueador')->selectLocalidade();
+    }
     public function getCombos()
     {
         $this->vars = array(
@@ -154,6 +153,5 @@ class Franquia extends CrudService
         }
 
         return $this->vars;
->>>>>>> e615df9147227f2b844ecffcc2e207567f55f92a
     }
 }
