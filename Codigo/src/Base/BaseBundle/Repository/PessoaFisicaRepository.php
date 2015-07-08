@@ -21,4 +21,16 @@ class PessoaFisicaRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getByNoPessoa($noPessoa = '')
+    {
+        $qb = $this->createQueryBuilder('pf');
+
+        return $qb
+            ->leftJoin('pf.idPessoa', 'p')
+            ->where($qb->expr()->like('p.noPessoa', ':noPessoa'))
+            ->setParameter('noPessoa', '%' . $noPessoa . '%', 'string')
+            ->getQuery()
+            ->getResult();
+    }
 }

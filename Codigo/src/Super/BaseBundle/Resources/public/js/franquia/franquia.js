@@ -6,7 +6,7 @@ $('.datepicker').datepicker({
 });
 
 $("#noEmailResponsavel").autocomplete({
-    serviceUrl: "/super/franquia/usuario/buscar",
+    serviceUrl: "/super/franquia/usuario/buscar?q=email",
     type: "POST",
     minChars: 3,
     maxHeight: 400,
@@ -29,17 +29,17 @@ $("#noEmailResponsavel").autocomplete({
     }
 });
 
-$("#noEmailOperador").autocomplete({
-    serviceUrl: "/super/franquia/usuario/buscar",
+$("#noOperador").autocomplete({
+    serviceUrl: "/super/franquia/usuario/buscar?q=nome",
     type: "POST",
     minChars: 3,
     maxHeight: 400,
     onSelect: function (suggestion) {
         if(suggestion.data) {
             $('#idOperador').val(suggestion.data);
-            $('#form-franquia input[id=noOperador]').val(suggestion.noPessoa);
+            $('#form-franquia input[id=noEmailOperador]').val(suggestion.noEmail);
         } else {
-            $("#noEmailOperador").val("");
+            $("#noOperador").val("");
         }
     },
     onSearchStart: function(){

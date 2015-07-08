@@ -71,19 +71,37 @@ class Franquia extends CrudService
             )
         );
 
-        $noEmail         = $this->getRequest()->request->get('query', '');
-        $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
-
-        if($arrPessoaFisica)
+        if($this->getRequest()->get('q') == 'email')
         {
-            foreach($arrPessoaFisica as $key => $idPessoaFisica)
-            {
-                $suggestions[$key]['noPessoa'] = "Glauber";
-                $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
-                $suggestions[$key]['data']     = 1;
-            }
+            $noEmail         = $this->getRequest()->request->get('query', '');
+            $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
 
-            $response['suggestions'] = $suggestions;
+            if($arrPessoaFisica)
+            {
+                foreach($arrPessoaFisica as $key => $idPessoaFisica)
+                {
+                    $suggestions[$key]['noPessoa'] = $idPessoaFisica->getIdPessoa()->getNoPessoa();
+                    $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
+                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdPessoa();
+                }
+
+                $response['suggestions'] = $suggestions;
+            }
+        } else {
+            $noPessoa        = $this->getRequest()->request->get('query', '');
+            $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoPessoa($noPessoa);
+
+            if($arrPessoaFisica)
+            {
+                foreach($arrPessoaFisica as $key => $idPessoaFisica)
+                {
+                    $suggestions[$key]['noEmail']  = $idPessoaFisica->getNoEmail();
+                    $suggestions[$key]['value']    = $idPessoaFisica->getIdPessoa()->getNoPessoa();
+                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdPessoa();
+                }
+
+                $response['suggestions'] = $suggestions;
+            }
         }
 
         return $response;

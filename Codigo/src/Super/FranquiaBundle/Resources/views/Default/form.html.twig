@@ -26,6 +26,13 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="noOperador">Nome operador</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control required nameLastName" id="noOperador" placeholder="Nome operador"
+                   name="noOperador" value="{{ entity.getIdOperador().getIdPessoa().getNoPessoa() }}">
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noEmailOperador">Email operador</label>
         <div class="col-lg-9">
             <input type="email" class="form-control required" id="noEmailOperador" placeholder="Email operador"
@@ -35,13 +42,6 @@
             <a type="button" data-toggle="modal" href="#cadastrarUsuario" class="btn btn-primary cadastrarOperador">
                 +
             </a>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noOperador">Nome operador</label>
-        <div class="col-lg-10">
-            <input type="text" class="form-control required nameLastName" id="noOperador" placeholder="Nome operador"
-                   name="noOperador" value="{{ entity.getIdOperador().getIdPessoa().getNoPessoa() }}" disabled>
         </div>
     </div>
     <div class="form-group">
