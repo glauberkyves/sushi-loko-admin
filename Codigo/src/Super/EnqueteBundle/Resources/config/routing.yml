@@ -18,6 +18,6 @@ super_franqueador_mapa:
     path:     /mapa.html
     defaults: { _controller: SuperFranqueadorBundle:Default:mapa }
 
-super_franqueador_mapa:
-    path:     /mapa.html
-    defaults: { _controller: SuperFranqueadorBundle:Default:mapa }
+super_franquia_localidade:
+    path:     /localidade
+    defaults: { _controller: SuperFranquiaBundle:Default:localidade }
