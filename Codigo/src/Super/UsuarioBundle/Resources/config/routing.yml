@@ -6,3 +6,8 @@ super_usuario_create:
     pattern: /cadastro.html
     defaults: { _controller: SuperUsuarioBundle:Default:create }
     methods:  [POST]
+
+super_usuario_create_operador:
+    pattern: /cadastro-operador
+    defaults: { _controller: SuperUsuarioBundle:Default:create }
+    methods:  [POST]

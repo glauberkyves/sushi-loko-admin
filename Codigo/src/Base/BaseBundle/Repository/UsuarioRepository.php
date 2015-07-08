@@ -10,6 +10,8 @@ namespace Base\BaseBundle\Repository;
 
 
 use Doctrine\ORM\Query\Expr;
+use Super\UsuarioBundle\Service\Perfil;
+use Symfony\Component\HttpFoundation\Request;
 
 class UsuarioRepository extends AbstractRepository
 {
@@ -33,5 +35,25 @@ class UsuarioRepository extends AbstractRepository
         }
 
         return parent::findOneBy($criteria, $orderBy);
+    }
+
+    public function findOperador(Request $request)
+    {
+        $expr = new Expr();
+
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('u')
+            ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
+            ->innerJoin('u.rlUsuarioPerfil', 'up')
+            ->innerJoin('up.idPerfil', 'per')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->where($expr->eq('pf.nuCpf', $request->request->getDigits('nuCpf')))
+            ->andWhere($expr->eq('u.stAtivo', true))
+            ->andWhere($expr->eq('per.sgPerfil', $expr->literal(Perfil::SG_OPERADOR)))
+            ->getQuery()
+            ->getResult();
     }
 }

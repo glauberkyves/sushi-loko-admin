@@ -4,11 +4,19 @@ namespace Super\FranquiaBundle\Controller;
 
 use Base\CrudBundle\Controller\CrudController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Base\BaseBundle\Service\Dominio;
 
 class DefaultController extends CrudController
 {
     protected $serviceName = 'service.franquia';
+
+    public function indexAction(Request $request, $idFranqueador = null)
+    {
+        $this->vars['idFranqueador'] = $idFranqueador;
+        $this->vars['cmbStatus']     = Dominio::getStAtivo();
+
+        return parent::indexAction($request);
+    }
 
     public function createAction(Request $request)
     {
@@ -37,39 +45,13 @@ class DefaultController extends CrudController
         return $this->renderJson($franquia);
     }
 
-    private function getComboDefault($idFranquia = null)
+    public function resolveRouteIndex()
     {
-        $arrCardapio = $arrPromocao = array();
-
-        $cmbCardapio = $this->getService('service.cardapio')->getComboDefault(
-            array('stAtivo' => 1),
-            array('noCardapio' => 'ASC')
-        );
-        $cmbPromocao = $this->getService('service.promocao')->getComboDefault(
-            array('stAtivo' => 1),
-            array('noPromocao' => 'ASC')
-        );
-        array_shift($cmbPromocao);
-
-        $cmbEstado = $this->getService('service.estado')->getComboDefault(
-            array(),
-            array('noEstado' => 'asc')
-        );
-
-//        $idFranquia = $this->getService()->find(
-//            $this->getRequest()->get('id')
-//        );
-
-        $this->vars = array(
-            'cmbCardapio' => $cmbCardapio,
-            'cmbPromocao' => $cmbPromocao,
-            'cmbEstado'   => $cmbEstado,
-            'arrCardapio' => array(),
-            'arrPromocao' => array()
-        );
-
-        return $this->vars;
+        return $this->generateUrl('super_franquia_index', array(
+            'idFranqueador' => $this->getRequest()->get('idFranqueador')
+        ));
     }
+<<<<<<< HEAD
 
 //    /**
 //     * ALTERAR A ROTA PARA A PÁGINA INICIAL DO FRANQUEADOR
@@ -84,4 +66,6 @@ class DefaultController extends CrudController
 //        ));
 //    }
 
+=======
+>>>>>>> 130b6795521f3b88d3afa1277cfd6e4c9c272f13
 }

@@ -1,23 +1,24 @@
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="cadastrarUsuario" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" action="cadastrar" id="form-cadastrar-usuario" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
+            <form method="post" action="/super/usuario/cadastro.html" id="form-cadastrar-usuario" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
                 <div class="modal-header">
                     <h4 class="modal-title">Adicionar usuário</h4>
                 </div>
                 <div class="modal-body">
                     <p>Preencha todos os campos abaixo para adicionar um novo usuário.</p>
                     <label class="control-label" for="noPessoa">Nome Completo</label>
-                    <input type="text" name="noPessoa" placeholder="Nome Completo" autocomplete="off" class="form-control placeholder-no-fix nameLastName">
+                    <input type="text" name="noPessoa" placeholder="Nome Completo" autocomplete="off" class="form-control required placeholder-no-fix nameLastName">
                     <br/>
                     <label class="control-label" for="noEmail">Email</label>
-                    <input type="email" name="noEmail" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                    <input type="email" name="noEmail" placeholder="Email" autocomplete="off" class="form-control required placeholder-no-fix">
                     <br/>
                     <label class="control-label" for="nuCpf">CPF</label>
-                    <input type="text" name="nuCpf" placeholder="Número de CPF" data-mask="999.999.999-99" autocomplete="off" class="form-control placeholder-no-fix">
+                    <input type="text" name="nuCpf" placeholder="Número de CPF" data-mask="999.999.999-99" autocomplete="off" class="form-control required cpf placeholder-no-fix">
                     <br/>
+                    <!--
                     <label class="control-label" for="dtNascimento">Data de nascimento</label>
-                    <input type="text" name="dtNascimento" placeholder="DD/MM/AAAA" autocomplete="off" class="form-control placeholder-no-fix datepicker">
+                    <input type="text" name="dtNascimento" placeholder="DD/MM/AAAA" autocomplete="off" class="form-control required placeholder-no-fix datepicker">
                     <br/>
                     <label class="control-label" for="sgSexo">Sexo</label>
                     <br/>
@@ -30,7 +31,8 @@
                     </label>
                     <br/>
                     <label class="control-label" for="noSenha">Senha</label>
-                    <input type="password" name="noSenha" placeholder="Senha" autocomplete="off" class="form-control placeholder-no-fix">
+                    <input type ="password" name="noSenha" placeholder="Senha" autocomplete="off" class="form-control required placeholder-no-fix">
+                    -->
                 </div>
                 <div class="modal-footer">
                     <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>

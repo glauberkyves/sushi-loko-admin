@@ -46,6 +46,15 @@ class AbstractCrud extends AbstractController
     }
 
     /**
+     * @param string $message
+     * @param string $type
+     */
+    protected function getMessage($type = 'error')
+    {
+        return $this->container->get('session')->getFlashBag()->get($type);
+    }
+
+    /**
      * @return LoggingTranslator
      */
     public function getTranslator()

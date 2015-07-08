@@ -84,6 +84,10 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->idUsuario;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 130b6795521f3b88d3afa1277cfd6e4c9c272f13
     /**
      * Set noSenha
      *

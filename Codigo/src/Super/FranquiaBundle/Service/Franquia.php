@@ -2,8 +2,9 @@
 
 namespace Super\FranquiaBundle\Service;
 
-use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Entity\AbstractEntity;
+use Base\CrudBundle\Service\CrudService;
+use Base\BaseBundle\Service\Dominio;
 
 class Franquia extends CrudService
 {
@@ -29,7 +30,6 @@ class Franquia extends CrudService
     public function preInsert(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());
-        $this->entity->setStAtivo(true);
     }
 
     public function postSave(AbstractEntity $entity = null)
@@ -71,19 +71,37 @@ class Franquia extends CrudService
             )
         );
 
-        $noEmail         = $this->getRequest()->request->get('query', '');
-        $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
-
-        if($arrPessoaFisica)
+        if($this->getRequest()->get('q') == 'email')
         {
-            foreach($arrPessoaFisica as $key => $idPessoaFisica)
-            {
-                $suggestions[$key]['noPessoa'] = "Glauber";
-                $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
-                $suggestions[$key]['data']     = 1;
-            }
+            $noEmail         = $this->getRequest()->request->get('query', '');
+            $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
 
-            $response['suggestions'] = $suggestions;
+            if($arrPessoaFisica)
+            {
+                foreach($arrPessoaFisica as $key => $idPessoaFisica)
+                {
+                    $suggestions[$key]['noPessoa'] = $idPessoaFisica->getIdPessoa()->getNoPessoa();
+                    $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
+                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdPessoa();
+                }
+
+                $response['suggestions'] = $suggestions;
+            }
+        } else {
+            $noPessoa        = $this->getRequest()->request->get('query', '');
+            $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoPessoa($noPessoa);
+
+            if($arrPessoaFisica)
+            {
+                foreach($arrPessoaFisica as $key => $idPessoaFisica)
+                {
+                    $suggestions[$key]['noEmail']  = $idPessoaFisica->getNoEmail();
+                    $suggestions[$key]['value']    = $idPessoaFisica->getIdPessoa()->getNoPessoa();
+                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdPessoa();
+                }
+
+                $response['suggestions'] = $suggestions;
+            }
         }
 
         return $response;
@@ -93,6 +111,7 @@ class Franquia extends CrudService
     {
         return $this->getService('service.franqueador')->selectLocalidade();
     }
+<<<<<<< HEAD
     public function getCombos()
     {
         $this->vars = array(
@@ -103,6 +122,21 @@ class Franquia extends CrudService
             'arrEstado' => array(),
             'arrMunicipio' => array(),
             'arrBairro' => array(),
+=======
+
+    public function getCombos()
+    {
+        $this->vars = array(
+            'cmbSituacao'   => Dominio::getStAtivo(),
+            'cmbMunicipio'  => array('Selecione'),
+            'cmbBairro'     => array('Selecione'),
+            'arrCardapio'   => array(),
+            'arrPromocao'   => array(),
+            'arrEstado'     => array(),
+            'arrMunicipio'  => array(),
+            'arrBairro'     => array(),
+            'arrSituacao'   => array(),
+>>>>>>> 130b6795521f3b88d3afa1277cfd6e4c9c272f13
             'idFranqueador' => $this->getRequest()->get('idFranqueador')
         );
 
@@ -142,6 +176,7 @@ class Franquia extends CrudService
                 array_push($this->vars['arrMunicipio'], $idEndereco->getIdMunicipio()->getIdMunicipio());
                 array_push($this->vars['arrBairro'], $idEndereco->getIdBairro()->getIdBairro());
                 array_push($this->vars['arrCardapio'], $entity->getIdCardapio()->getIdCardapio());
+                array_push($this->vars['arrSituacao'], $entity->getStAtivo());
 
                 foreach ($entity->getIdFranquiaPromocao() as $idFranquiaPromocao) {
                     array_push($this->vars['arrPromocao'], $idFranquiaPromocao->getIdPromocao()->getIdPromocao());

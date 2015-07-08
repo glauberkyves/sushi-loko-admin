@@ -7,12 +7,6 @@
             </a>
         </li>
         <li class="sub-menu">
-            <a href="{{ path('super_franquia_index') }}">
-                <i class="fa fa-sitemap"></i>
-                <span>Gerenciar Franquia</span>
-            </a>
-        </li>
-        <li class="sub-menu">
             <a href="{{ path('manter_enquete_index') }}">
                 <i class="fa  fa-bullhorn"></i>
                 <span>Gerenciar Enquete</span>
@@ -24,20 +18,19 @@
                 <span>Gerenciar Promoção</span>
             </a>
         </li>
-
         <li class="sub-menu">
             <a href="{{ path('manter_cardapio_index') }}">
                 <i class="fa  fa-book"></i>
                 <span>Gerenciar Cardápio</span>
             </a>
         </li>
-
         <li class="sub-menu">
             <a href="{{ path('super_franqueador_mapa') }}">
                 <i class="fa   fa-external-link"></i>
                 <span>Localizar Franqueador</span>
             </a>
         </li>
+<<<<<<< HEAD
 
         <li class="sub-menu">
             <a href="{{ path('super_pesquisa') }}">
@@ -48,14 +41,16 @@
 
 
 
+=======
+>>>>>>> 130b6795521f3b88d3afa1277cfd6e4c9c272f13
         <li class="sub-menu dcjq-parent-li">
             <a href="javascript:;" class="dcjq-parent">
                 <i class="fa fa-comment"></i>
                 <span>Gerenciar FeedBack</span>
                 <span class="dcjq-icon"></span></a>
             <ul class="sub" style="display: none;">
-                <li><a href="{{ path('super_feedback_index') }}">Manter FeedBack</a></li>
-                <li><a href="{{ path('super_feedback_email') }}">Personalizar Email</a></li>
+                {#<li><a href="{{ path('super_feedback_index') }}">Manter FeedBack</a></li>#}
+                {#<li><a href="{{ path('super_feedback_email') }}">Personalizar Email</a></li>#}
             </ul>
         </li>
     {% endif %}
@@ -104,7 +99,7 @@
                 <span>Gerenciar Feedback</span>
             </a>
             <ul class="sub">
-                <li><a href="{{ path('manter_enquete_index') }}">Gerenciar Enquete</a></li>
+                {#<li><a href="{{ path('manter_enquete_index') }}">Gerenciar Enquete</a></li>#}
             </ul>
         </li>
     {% endif %}

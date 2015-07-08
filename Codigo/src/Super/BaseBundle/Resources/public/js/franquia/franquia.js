@@ -6,7 +6,7 @@ $('.datepicker').datepicker({
 });
 
 $("#noEmailResponsavel").autocomplete({
-    serviceUrl: "/super/franquia/usuario/buscar",
+    serviceUrl: "/super/franquia/usuario/buscar?q=email",
     type: "POST",
     minChars: 3,
     maxHeight: 400,
@@ -29,17 +29,17 @@ $("#noEmailResponsavel").autocomplete({
     }
 });
 
-$("#noEmailOperador").autocomplete({
-    serviceUrl: "/super/franquia/usuario/buscar",
+$("#noOperador").autocomplete({
+    serviceUrl: "/super/franquia/usuario/buscar?q=nome",
     type: "POST",
     minChars: 3,
     maxHeight: 400,
     onSelect: function (suggestion) {
         if(suggestion.data) {
             $('#idOperador').val(suggestion.data);
-            $('#form-franquia input[id=noOperador]').val(suggestion.noPessoa);
+            $('#form-franquia input[id=noEmailOperador]').val(suggestion.noEmail);
         } else {
-            $("#noEmailOperador").val("");
+            $("#noOperador").val("");
         }
     },
     onSearchStart: function(){
@@ -67,7 +67,7 @@ $('#cadastrarResponsavel').click(function(e)
         $.post('/super/usuario/cadastro.html', $form.serialize())
             .done(function(data){
                 if(data.valido) {
-                    $('#idResponsavel').val(data.id_usuario);
+                    $('#idResponsavel').val(data.idUsuario);
                     $('#form-franquia input[id=noResponsavel]').val(data.noPessoa);
                     $('#form-franquia input[id=noEmailResponsavel]').val(data.noEmail);
 
@@ -75,7 +75,6 @@ $('#cadastrarResponsavel').click(function(e)
                 }
             })
             .fail(function(data) {
-                console.log(data);
             });
     }
 });
@@ -94,7 +93,7 @@ $('#cadastrarOperador').click(function(e)
         $.post('/super/usuario/cadastro.html', $form.serialize())
             .done(function(data){
                 if(data.valido) {
-                    $('#idResponsavel').val(data.id_usuario);
+                    $('#idOperador').val(data.idUsuario);
                     $('#form-franquia input[id=noOperador]').val(data.noPessoa);
                     $('#form-franquia input[id=noEmailOperador]').val(data.noEmail);
 
@@ -102,7 +101,6 @@ $('#cadastrarOperador').click(function(e)
                 }
             })
             .fail(function(data) {
-                console.log(data);
             });
     }
 });
