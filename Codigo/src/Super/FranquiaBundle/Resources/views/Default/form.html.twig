@@ -1,7 +1,6 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
     {{ formHidden('idFranqueador', idFranqueador) }}
     {{ formHidden('idFranquia', entity.getIdFranquia()) }}
-    {{ formHidden('idResponsavel', entity.getIdOperador().getIdUsuario()) }}
     {{ formHidden('idOperador', entity.getIdOperador().getIdUsuario()) }}
     {{ formHidden('idEndereco', entity.getIdEndereco().getIdEndereco()) }}
     <div class="form-group">

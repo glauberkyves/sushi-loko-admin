@@ -26,9 +26,10 @@ class DefaultController extends CrudController
         if ($request->isXmlHttpRequest() && $request->isMethod('post')) {
             if ($this->save()) {
                 return $this->renderJson(array(
-                    'valido'   => true,
-                    'noPessoa' => $request->request->get('noPessoa'),
-                    'noEmail'  => $request->request->get('noEmail')
+                    'valido'    => true,
+                    'idUsuario' => $request->request->get('idUsuario'),
+                    'noPessoa'  => $request->request->get('noPessoa'),
+                    'noEmail'   => $request->request->get('noEmail')
                 ));
             } else {
                 return $this->renderJson(array(

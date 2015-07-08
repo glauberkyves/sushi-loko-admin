@@ -67,7 +67,7 @@ $('#cadastrarResponsavel').click(function(e)
         $.post('/super/usuario/cadastro.html', $form.serialize())
             .done(function(data){
                 if(data.valido) {
-                    $('#idResponsavel').val(data.id_usuario);
+                    $('#idResponsavel').val(data.idUsuario);
                     $('#form-franquia input[id=noResponsavel]').val(data.noPessoa);
                     $('#form-franquia input[id=noEmailResponsavel]').val(data.noEmail);
 
@@ -75,7 +75,6 @@ $('#cadastrarResponsavel').click(function(e)
                 }
             })
             .fail(function(data) {
-                console.log(data);
             });
     }
 });
@@ -94,7 +93,7 @@ $('#cadastrarOperador').click(function(e)
         $.post('/super/usuario/cadastro.html', $form.serialize())
             .done(function(data){
                 if(data.valido) {
-                    $('#idResponsavel').val(data.id_usuario);
+                    $('#idOperador').val(data.idUsuario);
                     $('#form-franquia input[id=noOperador]').val(data.noPessoa);
                     $('#form-franquia input[id=noEmailOperador]').val(data.noEmail);
 
@@ -102,7 +101,6 @@ $('#cadastrarOperador').click(function(e)
                 }
             })
             .fail(function(data) {
-                console.log(data);
             });
     }
 });

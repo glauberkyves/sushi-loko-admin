@@ -37,6 +37,8 @@ class Usuario extends CrudService
         if ('super_usuario_create_operador' === $request->get('_route')) {
             $this->postSaveOperador();
         }
+
+        $this->getRequest()->request->set('idUsuario', $this->entity->getIdUsuario());
     }
 
     public function postSaveOperador()
@@ -73,7 +75,7 @@ class Usuario extends CrudService
     }
 
     /**
-     * Random hash de transação
+     * Gerador de hash
      */
     public function getRandomHash($length = 8, $prefix = "", $onlyNumbers = false, $especialChars = false)
     {
