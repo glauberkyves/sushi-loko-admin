@@ -1,5 +1,5 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
-    {{ formHidden('idFranqueador', idFranqueador) }}
+    {{ formHidden('idFranqueador', idFranqueador ?: entity.getIdFranqueador().getIdFranqueador()) }}
     {{ formHidden('idFranquia', entity.getIdFranquia()) }}
     {{ formHidden('idOperador', entity.getIdOperador().getIdUsuario()) }}
     {{ formHidden('idEndereco', entity.getIdEndereco().getIdEndereco()) }}
@@ -138,7 +138,7 @@
             <i class="fa fa-plus"></i>
             Salvar
         </button>
-        <a type="button" href = "{{ path('super_franquia_index', {idFranqueador: idFranqueador}) }}" class="btn btn-danger">
+        <a type="button" href = "{{ path('super_franquia_index', {idFranqueador: idFranqueador ?: entity.getIdFranqueador().getIdFranqueador()}) }}" class="btn btn-danger">
             Cancelar
         </a>
     </div>

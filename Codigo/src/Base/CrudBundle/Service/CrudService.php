@@ -35,7 +35,7 @@ class CrudService extends AbstractService
         return (array)$data;
     }
 
-    public function parserItens(array $itens = array())
+    public function parserItens(array $itens = array(), $addOptions = true)
     {
         foreach ($itens as $key => $value) {
             foreach ($value as $keyIten => $iten) {
@@ -47,9 +47,30 @@ class CrudService extends AbstractService
                         $itens[$key][$keyIten] = $iten == 1 ? 'Ativo' : 'Inativo';
                         break;
                 }
+                if ($addOptions) {
+                    $itens[$key]['opcoes'] = $this->container->get('templating')->render(
+                        $this->optionsRouteName(),
+                        array('data' => (object)$value)
+                    );
+                }
             }
         }
+
         return $itens;
+    }
+
+    /**
+     * Retorna o nome do arquivo twig para renderizar
+     *
+     * @return mixed
+     */
+    public function optionsRouteName($templating = 'gridOptions.html.twig')
+    {
+        $explode    = explode('Controller', $this->getRequest()->attributes->get('_controller'));
+        $bundle     = str_replace('\\', '', current($explode));
+        $controller = str_replace('\\', '', next($explode));
+
+        return "{$bundle}:{$controller}:{$templating}";
     }
 
     public function uploadFile($folder, $fileInput = null, $imageOnly = true)

@@ -9,6 +9,7 @@
         </header>
         <div class="panel-body">
             <form method="post" action=" " id="form-franquia" class="form-horizontal tasi-form">
+                {{ formHidden('idFranqueador', idFranqueador) }}
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Franqueado</label>
                     <div class="col-lg-10">
@@ -48,7 +49,7 @@
                 <table class="table table-bordered table-striped table-condensed" data-grid="form-franquia">
                     <thead>
                         <tr>
-                            <th data-column="noPessoa">Nome do franqueado</th>
+                            <th data-column="noFranquia">Nome do franqueado</th>
                             <th data-column="noResponsavel">Nome do responsável</th>
                             <th data-column="noEmailResponsavel">E-mail do responsável</th>
                             <th data-column="stAtivo">Status</th>
@@ -57,7 +58,7 @@
                     </thead>
                     <tbody>
                         <tr class="odd">
-                            <td valign="top" colspan="4">Acione a pesquisa</td>
+                            <td valign="top" colspan="5">Acione a pesquisa</td>
                         </tr>
                     </tbody>
                 </table>

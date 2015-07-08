@@ -2,10 +2,9 @@
 
 namespace Super\FranquiaBundle\Service;
 
-use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Entity\AbstractEntity;
 
-class Franquia extends CrudService
+class Franquia extends AbstractFranquia
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbFranquia';
 

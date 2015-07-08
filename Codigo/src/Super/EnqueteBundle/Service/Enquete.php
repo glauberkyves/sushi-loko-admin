@@ -10,7 +10,7 @@ class Enquete extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbEnquete';
 
-    public function parserItens(array $itens = array())
+    public function parserItens(array $itens = array(), $addOptions = false)
     {
         foreach ($itens as $key => $value) {
             foreach ($value as $keyIten => $iten) {
@@ -42,7 +42,7 @@ class Enquete extends CrudService
 </div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal'.$id.'"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/enquete/manter-enquete/edit/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
             }
         }
-        return $itens;
+        return parent::parserItens($itens, $addOptions);
     }
 
 

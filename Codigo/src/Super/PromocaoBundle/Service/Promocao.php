@@ -11,7 +11,7 @@ class Promocao extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbPromocao';
 
-    public function parserItens(array $itens = array())
+    public function parserItens(array $itens = array(), $addOptions = false)
     {
         foreach ($itens as $key => $value) {
             foreach ($value as $keyIten => $iten) {
@@ -43,7 +43,7 @@ class Promocao extends CrudService
 </div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal' . $id . '"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/promocao/manter-promocao/edit/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
             }
         }
-        return $itens;
+        return parent::parserItens($itens, $addOptions);
     }
 
     public function preUpdate(AbstractEntity $entity = null)

@@ -48,7 +48,7 @@ class DefaultController extends CrudController
 
     public function resolveRouteIndex()
     {
-        return $this->generateUrl('super_franquia_create', array(
+        return $this->generateUrl('super_franquia_index', array(
             'idFranqueador' => $this->getRequest()->get('idFranqueador')
         ));
     }
