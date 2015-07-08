@@ -63,6 +63,20 @@ class TbEnquete
      */
     private $dtCadastro;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_pontos", type="string", length=250, nullable=true)
+     */
+    private $nuPontos;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_bonus", type="string", length=250, nullable=true)
+     */
+    private $nuBonus;
+
 
 }
 

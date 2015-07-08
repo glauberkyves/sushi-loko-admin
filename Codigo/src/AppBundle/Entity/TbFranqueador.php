@@ -24,13 +24,6 @@ class TbFranqueador
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_configuracao_franquia", type="integer", nullable=false)
-     */
-    private $idConfiguracaoFranquia;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="st_niveis", type="integer", nullable=false)
      */
     private $stNiveis;
@@ -62,6 +55,16 @@ class TbFranqueador
      * @ORM\Column(name="no_email", type="string", length=255, nullable=false)
      */
     private $noEmail;
+
+    /**
+     * @var \TbConfiguracaoFranquia
+     *
+     * @ORM\ManyToOne(targetEntity="TbConfiguracaoFranquia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_configuracao_franquia", referencedColumnName="idtb_configuracao_franquia")
+     * })
+     */
+    private $idConfiguracaoFranquia;
 
     /**
      * @var \TbEndereco

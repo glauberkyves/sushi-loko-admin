@@ -1,6 +1,5 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block body %}
-
     <div class="row">
         <div class="col-md-12">
             <section class="panel">
@@ -12,15 +11,20 @@
                               </span>
                 </header>
                 <div class="panel-body">
-                    <form action="#" class="form-horizontal tasi-form">
+                    <form action="{{ path('super_feedback_set_email') }}" method="post" class="form-horizontal tasi-form">
+
                         <div class="form-group">
                             <div class="col-md-12">
-                                <textarea class="wysihtml5 form-control" rows="10"></textarea>
+                                <textarea name="emailFaadback" class="wysihtml5 form-control" rows="10">{{ franqueador.dsMensagem }}</textarea>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-primary" >
+                            Salvar
+                        </button>
                     </form>
                 </div>
             </section>
         </div>
     </div>
+
 {% endblock body %}

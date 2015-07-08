@@ -17,3 +17,7 @@ super_feedback_delete:
 super_feedback_email:
     path:     /manter-feedback/email
     defaults: { _controller: SuperFeedbackBundle:Feedback:email }
+
+super_feedback_set_email:
+    path:     /manter-feedback/email/set
+    defaults: { _controller: SuperFeedbackBundle:Feedback:setEmailFeedBack }

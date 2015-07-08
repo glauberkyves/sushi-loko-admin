@@ -1,12 +1,9 @@
 <?php
-
 namespace Base\BaseBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * TbUsuario
  *
@@ -23,35 +20,30 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idUsuario;
-
     /**
      * @var string
      *
      * @ORM\Column(name="no_senha", type="string", length=32, nullable=false)
      */
     private $noSenha;
-
     /**
      * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
     private $stAtivo = '0';
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_atualizacao", type="datetime", nullable=true)
      */
     private $dtAtualizacao;
-
     /**
      * @var \TbPessoa
      *
@@ -61,16 +53,13 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      * })
      */
     private $idPessoa;
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\RlUsuarioPerfil", mappedBy="idUsuario")
      */
     private $rlUsuarioPerfil;
-
     private $salt;
-
     /**
      * Constructor
      */
@@ -79,7 +68,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
         $this->rlUsuarioPerfil = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt            = md5(uniqid(null, true));
     }
-
     /**
      * @param int $idUsuario
      */
@@ -87,7 +75,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         $this->idUsuario = $idUsuario;
     }
-
     /**
      * Get idUsuario
      *
@@ -97,30 +84,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->idUsuario;
     }
-
-    /**
-     * Set noEmail
-     *
-     * @param string $noEmail
-     * @return TbUsuario
-     */
-    public function setNoEmail($noEmail)
-    {
-        $this->noEmail = $noEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get noEmail
-     *
-     * @return string
-     */
-    public function getNoEmail()
-    {
-        return $this->noEmail;
-    }
-
     /**
      * Set noSenha
      *
@@ -130,10 +93,8 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function setNoSenha($noSenha)
     {
         $this->noSenha = $noSenha;
-
         return $this;
     }
-
     /**
      * Get noSenha
      *
@@ -143,7 +104,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->noSenha;
     }
-
     /**
      * Set stAtivo
      *
@@ -153,10 +113,8 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function setStAtivo($stAtivo)
     {
         $this->stAtivo = $stAtivo;
-
         return $this;
     }
-
     /**
      * Get stAtivo
      *
@@ -166,7 +124,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->stAtivo;
     }
-
     /**
      * Set dtCadastro
      *
@@ -176,10 +133,8 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function setDtCadastro($dtCadastro)
     {
         $this->dtCadastro = $dtCadastro;
-
         return $this;
     }
-
     /**
      * Get dtCadastro
      *
@@ -189,7 +144,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->dtCadastro;
     }
-
     /**
      * Set dtAtualizacao
      *
@@ -199,11 +153,8 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function setDtAtualizacao($dtAtualizacao)
     {
         $this->dtAtualizacao = $dtAtualizacao;
-
         return $this;
     }
-
-
     /**
      * Get dtAtualizacao
      *
@@ -213,7 +164,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->dtAtualizacao;
     }
-
     /**
      * Set idPessoa
      *
@@ -223,10 +173,8 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function setIdPessoa(\Base\BaseBundle\Entity\TbPessoa $idPessoa)
     {
         $this->idPessoa = $idPessoa;
-
         return $this;
     }
-
     /**
      * Get idPessoa
      *
@@ -236,7 +184,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->idPessoa ? $this->idPessoa : new TbPessoa();
     }
-
     /**
      * Get rlUsuarioPerfil
      *
@@ -246,7 +193,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->rlUsuarioPerfil;
     }
-
     /**
      * Returns the roles granted to the user.
      *
@@ -266,14 +212,11 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function getRoles()
     {
         $arrRoles = array();
-
         foreach ($this->getRlUsuarioPerfil() as $rlUsuarioPerfil) {
             array_push($arrRoles, $rlUsuarioPerfil->getIdPerfil()->getSgPerfil());
         }
-
         return $arrRoles;
     }
-
     /**
      * Returns the password used to authenticate the user.
      *
@@ -286,7 +229,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->noSenha;
     }
-
     /**
      * Returns the salt that was originally used to encode the password.
      *
@@ -298,7 +240,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->salt;
     }
-
     /**
      * @param string $salt
      */
@@ -306,7 +247,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         $this->salt = $salt;
     }
-
     /**
      * Returns the username used to authenticate the user.
      *
@@ -316,7 +256,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->getIdPessoa()->getNoPessoa(true);
     }
-
     /**
      * Removes sensitive data from the user.
      *
@@ -327,7 +266,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         // TODO: Implement eraseCredentials() method.
     }
-
     /**
      * @see \Serializable::serialize()
      */
@@ -346,7 +284,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
             serialize($this->getRoles()),
         ));
     }
-
     /**
      * @see \Serializable::unserialize()
      */
@@ -361,7 +298,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
             $this->salt,
             $roles,
             ) = \unserialize($serialized);
-
         $this->roles = unserialize($roles);
     }
 }

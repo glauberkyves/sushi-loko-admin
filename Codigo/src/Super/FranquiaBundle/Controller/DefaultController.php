@@ -31,14 +31,10 @@ class DefaultController extends CrudController
         return $this->renderJson($response);
     }
 
-<<<<<<< HEAD
     public function localidadeAction()
     {
         $franquia = $this->getService('service.franquia')->jsonLocalidade();
-
         return $this->renderJson($franquia);
-
-
     }
 
     private function getComboDefault($idFranquia = null)
@@ -74,7 +70,7 @@ class DefaultController extends CrudController
 
         return $this->vars;
     }
-=======
+
 //    /**
 //     * ALTERAR A ROTA PARA A PÁGINA INICIAL DO FRANQUEADOR
 //     */
@@ -87,5 +83,5 @@ class DefaultController extends CrudController
 //            'idFranqueador' => $idFranqueador
 //        ));
 //    }
->>>>>>> e615df9147227f2b844ecffcc2e207567f55f92a
+
 }

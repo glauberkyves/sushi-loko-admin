@@ -89,21 +89,20 @@ class Franquia extends CrudService
         return $response;
     }
 
-<<<<<<< HEAD
     public function jsonLocalidade()
     {
-       return $this->getService('service.franqueador')->selectLocalidade();
-=======
+        return $this->getService('service.franqueador')->selectLocalidade();
+    }
     public function getCombos()
     {
         $this->vars = array(
-            'cmbMunicipio'  => array('Selecione'),
-            'cmbBairro'     => array('Selecione'),
-            'arrCardapio'   => array(),
-            'arrPromocao'   => array(),
-            'arrEstado'     => array(),
-            'arrMunicipio'  => array(),
-            'arrBairro'     => array(),
+            'cmbMunicipio' => array('Selecione'),
+            'cmbBairro' => array('Selecione'),
+            'arrCardapio' => array(),
+            'arrPromocao' => array(),
+            'arrEstado' => array(),
+            'arrMunicipio' => array(),
+            'arrBairro' => array(),
             'idFranqueador' => $this->getRequest()->get('idFranqueador')
         );
 
@@ -127,10 +126,8 @@ class Franquia extends CrudService
         );
 
         //combos formulario de edição
-        if($id = $this->getRequest()->get('id'))
-        {
-            if($entity = $this->getRepository()->find($id))
-            {
+        if ($id = $this->getRequest()->get('id')) {
+            if ($entity = $this->getRepository()->find($id)) {
                 $idEndereco = $entity->getIdEndereco();
 
                 $this->vars['cmbMunicipio'] = $this->getService('service.municipio')->getComboDefault(
@@ -146,14 +143,13 @@ class Franquia extends CrudService
                 array_push($this->vars['arrBairro'], $idEndereco->getIdBairro()->getIdBairro());
                 array_push($this->vars['arrCardapio'], $entity->getIdCardapio()->getIdCardapio());
 
-                foreach($entity->getIdFranquiaPromocao() as $idFranquiaPromocao)
-                {
+                foreach ($entity->getIdFranquiaPromocao() as $idFranquiaPromocao) {
                     array_push($this->vars['arrPromocao'], $idFranquiaPromocao->getIdPromocao()->getIdPromocao());
                 }
             }
         }
 
         return $this->vars;
->>>>>>> e615df9147227f2b844ecffcc2e207567f55f92a
     }
+
 }
