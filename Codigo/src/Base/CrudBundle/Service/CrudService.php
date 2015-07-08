@@ -11,6 +11,7 @@ namespace Base\CrudBundle\Service;
 use Base\BaseBundle\Service\AbstractService;
 use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\Request;
+use Base\BaseBundle\Service\Dominio;
 
 class CrudService extends AbstractService
 {
@@ -44,7 +45,18 @@ class CrudService extends AbstractService
                         $itens[$key][$keyIten] = $iten->format('d/m/Y');
                         break;
                     case $keyIten == 'stAtivo':
-                        $itens[$key][$keyIten] = $iten == 1 ? 'Ativo' : 'Inativo';
+                        switch($iten){
+                            case Dominio::ATIVO:
+                                $iten = 'Ativo';
+                                break;
+                            case Dominio::INATIVO:
+                                $iten = 'Inativo';
+                                break;
+                            case Dominio::SUSPENSO:
+                                $iten = 'Suspenso';
+                                break;
+                        }
+                        $itens[$key][$keyIten] = $iten;
                         break;
                 }
                 if ($addOptions) {

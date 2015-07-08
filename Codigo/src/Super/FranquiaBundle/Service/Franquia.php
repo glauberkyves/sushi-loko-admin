@@ -3,8 +3,10 @@
 namespace Super\FranquiaBundle\Service;
 
 use Base\BaseBundle\Entity\AbstractEntity;
+use Base\CrudBundle\Service\CrudService;
+use Base\BaseBundle\Service\Dominio;
 
-class Franquia extends AbstractFranquia
+class Franquia extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbFranquia';
 
@@ -28,7 +30,6 @@ class Franquia extends AbstractFranquia
     public function preInsert(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());
-        $this->entity->setStAtivo(true);
     }
 
     public function postSave(AbstractEntity $entity = null)
@@ -110,9 +111,11 @@ class Franquia extends AbstractFranquia
     {
         return $this->getService('service.franqueador')->selectLocalidade();
     }
+
     public function getCombos()
     {
         $this->vars = array(
+            'cmbSituacao'   => Dominio::getStAtivo(),
             'cmbMunicipio'  => array('Selecione'),
             'cmbBairro'     => array('Selecione'),
             'arrCardapio'   => array(),
@@ -120,6 +123,7 @@ class Franquia extends AbstractFranquia
             'arrEstado'     => array(),
             'arrMunicipio'  => array(),
             'arrBairro'     => array(),
+            'arrSituacao'   => array(),
             'idFranqueador' => $this->getRequest()->get('idFranqueador')
         );
 
@@ -161,6 +165,7 @@ class Franquia extends AbstractFranquia
                 array_push($this->vars['arrMunicipio'], $idEndereco->getIdMunicipio()->getIdMunicipio());
                 array_push($this->vars['arrBairro'], $idEndereco->getIdBairro()->getIdBairro());
                 array_push($this->vars['arrCardapio'], $entity->getIdCardapio()->getIdCardapio());
+                array_push($this->vars['arrSituacao'], $entity->getStAtivo());
 
                 foreach($entity->getIdFranquiaPromocao() as $idFranquiaPromocao)
                 {
