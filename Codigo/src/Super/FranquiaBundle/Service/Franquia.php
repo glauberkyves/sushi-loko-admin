@@ -62,12 +62,10 @@ class Franquia extends CrudService
     public function buscarUsuario()
     {
         $suggestions = array();
-        $response    = array(
-            'suggestions' => array(
-                array(
-                    'value' => 'Nenhum resultado encontrado.',
-                    'data'  => 0
-                )
+        $response['suggestions'] = array(
+            array(
+                'value' => 'Nenhum resultado encontrado.',
+                'data'  => 0
             )
         );
 
@@ -159,11 +157,11 @@ class Franquia extends CrudService
                     array('idMunicipio' => $idEndereco->getIdMunicipio()->getIdMunicipio())
                 );
 
-                array_push($this->vars['arrEstado'], $idEndereco->getIdMunicipio()->getIdEstado()->getIdEstado());
+                array_push($this->vars['arrEstado']   , $idEndereco->getIdMunicipio()->getIdEstado()->getIdEstado());
                 array_push($this->vars['arrMunicipio'], $idEndereco->getIdMunicipio()->getIdMunicipio());
-                array_push($this->vars['arrBairro'], $idEndereco->getIdBairro()->getIdBairro());
-                array_push($this->vars['arrCardapio'], $entity->getIdCardapio()->getIdCardapio());
-                array_push($this->vars['arrSituacao'], $entity->getStAtivo());
+                array_push($this->vars['arrBairro']   , $idEndereco->getIdBairro()->getIdBairro());
+                array_push($this->vars['arrCardapio'] , $entity->getIdCardapio()->getIdCardapio());
+                array_push($this->vars['arrSituacao'] , $entity->getStAtivo());
 
                 foreach ($entity->getIdFranquiaPromocao() as $idFranquiaPromocao) {
                     array_push($this->vars['arrPromocao'], $idFranquiaPromocao->getIdPromocao()->getIdPromocao());
