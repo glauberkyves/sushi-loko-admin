@@ -6,7 +6,7 @@ $('.datepicker').datepicker({
 });
 
 $("#noEmailResponsavel").autocomplete({
-    serviceUrl: "/super/franquia/usuario/buscar?q=email",
+    serviceUrl: "/super/franqueador/franquia/usuario/buscar?q=email",
     type: "POST",
     minChars: 3,
     maxHeight: 400,
@@ -30,7 +30,7 @@ $("#noEmailResponsavel").autocomplete({
 });
 
 $("#noOperador").autocomplete({
-    serviceUrl: "/super/franquia/usuario/buscar?q=nome",
+    serviceUrl: "/super/franqueador/franquia/usuario/buscar?q=nome",
     type: "POST",
     minChars: 3,
     maxHeight: 400,

@@ -18,7 +18,21 @@ class DefaultController extends CrudController
      */
     public function indexAction(Request $request, $idFranqueador = null)
     {
-        $this->vars['idFranqueador'] = $this->getUser() ? 1 : $idFranqueador;
+        $security = $this->get('security.authorization_checker');
+
+        switch(true) {
+            case $security->isGranted('ROLE_FRANQUEADOR'):
+                /**
+                 * TODO
+                 * Puxar o ID do Franqueador a partir da sessão
+                 */
+                $this->vars['idFranqueador'] = 1;
+                break;
+            case $security->isGranted('ROLE_SUPER'):
+                $this->vars['idFranqueador'] = $idFranqueador;
+                break;
+        }
+
         $this->vars['cmbStatus']     = Dominio::getStAtivo();
 
         return parent::indexAction($request);
@@ -29,9 +43,9 @@ class DefaultController extends CrudController
      * @param Request $request
      * @return Response
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $idFranqueador = null)
     {
-        $this->vars = $this->getService()->getCombos();
+        $this->vars = $this->getService()->getCombos($idFranqueador);
 
         return parent::createAction($request);
     }
@@ -44,20 +58,6 @@ class DefaultController extends CrudController
     public function editAction(Request $request)
     {
         $this->vars = $this->getService()->getCombos();
-
-        return parent::editAction($request);
-    }
-
-    /**
-     * Formulário de edição do Franqueador
-     * @param Request $request
-     * @return Response
-     */
-    public function franqueadorEdit(Request $request)
-    {
-        $idFranqueador = $this->getUser() ? 1 : null;
-
-        $this->vars = $this->getService()->getCombos($idFranqueador);
 
         return parent::editAction($request);
     }
@@ -89,8 +89,20 @@ class DefaultController extends CrudController
      */
     public function resolveRouteIndex()
     {
-        return $this->generateUrl('super_franquia_index', array(
-            'idFranqueador' => $this->getRequest()->get('idFranqueador')
-        ));
+        $security = $this->get('security.authorization_checker');
+
+        switch(true)
+        {
+            case $security->isGranted('ROLE_FRANQUEADOR'):
+                $url = $this->generateUrl('super_franqueador_franquia_index', array());
+                break;
+            case $security->isGranted('ROLE_SUPER'):
+                $url = $this->generateUrl('super_franquia_index', array(
+                    'idFranqueador' => $this->getRequest()->get('idFranqueador')
+                ));
+                break;
+        }
+
+        return $url;
     }
 }
