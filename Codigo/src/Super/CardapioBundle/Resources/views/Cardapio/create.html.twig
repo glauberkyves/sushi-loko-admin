@@ -35,11 +35,14 @@
         </section>
         <div class="produtosAll">
             <input type="hidden" class="TotalProdutos" name="TotalProdutos" value="1"/>
+            <div class="col-lg-12 ">
             <div class="alert alert-info" role="alert" style="margin-top: 10px">
                 <strong>Atenção!:</strong> A imagem do produto tem tamanho: 1200px X 500px
             </div>
+            </div>
             <div id="primeiroelemeto">
-                <section class="panel newPro col-lg-6" >
+                <div class="col-lg-6">
+                <section class="panel newPro col-lg-12">
                     <header class="panel-heading">
                         1° Produto
                     </header>
@@ -51,7 +54,7 @@
                                 <label class="col-sm-5 control-label col-lg-3" for="inputSuccess">Nome</label>
 
                                 <div class="col-lg-9 ">
-                                    <input type="text"  class="form-control required" id="noProduto1" name="noProduto1"
+                                    <input type="text" class="form-control required" id="noProduto1" name="noProduto1"
                                            placeholder="Nome">
                                 </div>
                             </div>
@@ -67,113 +70,113 @@
                         </div>
 
                         <div class="col-lg-4">
-                        <div class="form-group last">
+                            <div class="form-group last">
 
-                            <div class="col-md-9">
+                                <div class="col-md-9">
 
 
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
 
-                                    <div class="fileupload-preview fileupload-exists thumbnail"
-                                         style="max-width: 70px;  line-height: 20px;"></div>
-                                    <div>
+                                        <div class="fileupload-preview fileupload-exists thumbnail"
+                                             style="max-width: 70px;  line-height: 20px;"></div>
+                                        <div>
                                             <span class="btn btn-white btn-file">
                                                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>
                                                 <span class="fileupload-exists"><i
                                                             class="fa fa-undo"></i> Alterar</span>
                                                 <input type="file" name="noImagem1" id="noImagem1" accept="image/*">
                                             </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        </div>
+                        </div>  </div>
                     </div>
                 </section>
             </div>
         </div>
 
 
-        <section class="panel">
-            <div class="panel-body">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
-                    <div class="col-lg-9">
-                        <select class="form-control required" id="stAtivo" name="stAtivo">
-                            <option value="">Selecione...</option>
-                            <option value="0">Inativo</option>
-                            <option value="1">Ativo</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-save"></i>
-                    Salvar
-                </button>
-                <a href="{{ path('manter_cardapio_index') }}" class="btn btn-default">
-                    <i class="fa fa-times"></i>
-                    Cancelar
-                </a>
+        <div class="panel-body col-lg-12" style="background: #fff;  ">
+            <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
+
+            <div class="col-lg-9">
+                <select class="form-control required" id="stAtivo" name="stAtivo">
+                    <option value="">Selecione...</option>
+                    <option value="0">Inativo</option>
+                    <option value="1">Ativo</option>
+                </select>
             </div>
-        </section>
+        </div>
+        <div class="col-lg-12"  style="background: #fff; border-radius: 0px 0px 5px 5px; padding: 10px;">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i>
+                Salvar
+            </button>
+            <a href="{{ path('manter_cardapio_index') }}" class="btn btn-default">
+                <i class="fa fa-times"></i>
+                Cancelar
+            </a>
+        </div>
+        </div>
     </form>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
 
-            $("#datepicker").datepicker( "option", "dateFormat", "dd/mm/yy" );
+            $("#datepicker").datepicker("option", "dateFormat", "dd/mm/yy");
 
-            $("#addProduto").click(function(){
+            $("#addProduto").click(function () {
                 var totalProdutos = $(".TotalProdutos").val();
-                totalProdutos = parseInt(totalProdutos)+1;
-                $(".TotalProdutos").attr("value",totalProdutos);
-                $(".produtosAll").append(' <section class="panel newPro  col-lg-6  deletar'+totalProdutos+'">'+
-                '<header class="panel-heading">'+
-                totalProdutos+
-                '° Produto <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro'+totalProdutos+'"><span class="fa fa-times"></span></button>'+
-                '</header>'+
-                '<div class="panel-body">'+' <div class="col-lg-6">'+
-                '<div class="form-group">'+
-                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>'+
-                '<div class="col-lg-9">'+
-                '<input type="text" class="form-control required"  id="noProduto1" name="noProduto'+totalProdutos+'" placeholder="Nome">'+
-                '</div>'+
-                '</div>'+
-                '<div class="form-group">'+
-                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>'+
-                '<div class="col-lg-9">'+
-                '<input type="text" class="form-control required" id="noPreco1"  data-mask="999.999.999.999,99"  name="noPreco'+totalProdutos+'" placeholder="R$ Preço">'+
-                '</div>'+
-                '</div>'+
-                '</div>'+'<div class="col-lg-4">'+
-                '<div class="form-group last">'+
-                '<div class="col-md-9">'+
-                '<div class="fileupload fileupload-new" data-provides="fileupload">'+
-                '<div class="fileupload-preview fileupload-exists thumbnail"'+
-                'style="max-width: 70px; line-height: 20px;"></div>'+
-                '<div>'+
-                '<span class="btn btn-white btn-file">'+
-                '<span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>'+
-                '<span class="fileupload-exists"><i'+
-                'class="fa fa-undo"></i> Alterar</span>'+
-                '<input type="file" name="noImagem'+totalProdutos+'" id="noImagem" accept="image/*">'+
-                '</span>'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
+                totalProdutos = parseInt(totalProdutos) + 1;
+                $(".TotalProdutos").attr("value", totalProdutos);
+                $(".produtosAll").append(' <div class="col-lg-6"> <section class="panel newPro  col-lg-12  deletar' + totalProdutos + '">' +
+                '<header class="panel-heading">' +
+                totalProdutos +
+                '° Produto <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro' + totalProdutos + '"><span class="fa fa-times"></span></button>' +
+                '</header>' +
+                '<div class="panel-body">' + ' <div class="col-lg-6">' +
+                '<div class="form-group">' +
+                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>' +
+                '<div class="col-lg-9">' +
+                '<input type="text" class="form-control required"  id="noProduto1" name="noProduto' + totalProdutos + '" placeholder="Nome">' +
+                '</div>' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>' +
+                '<div class="col-lg-9">' +
+                '<input type="text" class="form-control required" id="noPreco1"  data-mask="999.999.999.999,99"  name="noPreco' + totalProdutos + '" placeholder="R$ Preço">' +
+                '</div>' +
+                '</div>' +
+                '</div>' + '<div class="col-lg-4">' +
+                '<div class="form-group last">' +
+                '<div class="col-md-9">' +
+                '<div class="fileupload fileupload-new" data-provides="fileupload">' +
+                '<div class="fileupload-preview fileupload-exists thumbnail"' +
+                'style="max-width: 70px; line-height: 20px;"></div>' +
+                '<div>' +
+                '<span class="btn btn-white btn-file">' +
+                '<span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>' +
+                '<span class="fileupload-exists"><i' +
+                'class="fa fa-undo"></i> Alterar</span>' +
+                '<input type="file" name="noImagem' + totalProdutos + '" id="noImagem" accept="image/*">' +
+                '</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' + '</div>' +
+                '</div>' +
+                '</div>' +
                 '</section>');
-                $(".excluirPro"+totalProdutos).click(function(){
-                    $(".deletar"+totalProdutos).remove();
+                $(".excluirPro" + totalProdutos).click(function () {
+                    $(".deletar" + totalProdutos).remove();
                 });
                 $('input[data-mask]').each(function () {
                     var input = $(this);
                     input.setMask(input.attr('data-mask'));
                 });
             });
-            $(".excluiPainel").click(function(){
+            $(".excluiPainel").click(function () {
                 $(this).parent().parent().remove();
             });
         });

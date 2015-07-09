@@ -28,10 +28,27 @@ class Usuario extends CrudService
         $this->entity->setNoSenha(md5($this->entity->getNoSenha()));
         $this->entity->setDtCadastro(new \DateTime());
         $this->entity->setStAtivo(true);
+
+
     }
 
     public function postSave(AbstractEntity $entity = null)
     {
+
+        $view = 'SuperUsuarioBundle:Default:emailCadastro.html.twig';
+        $body = $this
+            ->getContainer()
+            ->get('templating')
+            ->render($view, array(
+                'entity' => $this->entity,
+            ));
+
+        if($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail())
+        {
+           $this->sendMail($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Confirmação de cadastro', $body);
+        }
+
+
         $request = $this->getRequest();
 
         if ('super_usuario_create_operador' === $request->get('_route')) {
