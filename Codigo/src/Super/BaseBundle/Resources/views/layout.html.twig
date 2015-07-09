@@ -18,6 +18,8 @@
     <link href="{{ asset('bundles/superbase/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
     <link href="{{ asset('bundles/superbase/assets/bootstrap-datepicker/css/datepicker.css') }}" rel="stylesheet"/>
     <link href="{{ asset('bundles/superbase/assets/bootstrap-colorpicker/css/colorpicker.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/superbase/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('bundles/superbase/css/owl.carousel.css') }}" rel="stylesheet"/>
     <link href="{{ asset('bundles/superbase/assets/bootstrap-daterangepicker/daterangepicker.css') }}"
           rel="stylesheet"/>
 
@@ -94,9 +96,7 @@
                     </a>
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
-                        <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i> Sair</a></li>
                         {#<li><a href="{{ path('usuario_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>#}
                     </ul>
                 </li>
@@ -155,7 +155,9 @@
 </section>
 
 <script src="{{ asset('bundles/superbase/js/common-scripts.js') }}"></script>
-
+<script src="{{ asset('bundles/superbase/js/sparkline-chart.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/easy-pie-chart.js') }}"></script>
+<script src="{{ asset('bundles/superbase/js/count.js') }}"></script>
 {% block javascripts %}
 {% endblock %}
 
