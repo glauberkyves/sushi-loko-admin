@@ -54,6 +54,7 @@ class Enquete extends CrudService
 
         $dtFim = str_replace('/', '-', $this->getRequest()->request->get('dtFim'));
         $this->entity->setDtFim(Data::dateBr("$dtFim 00:00"));
+
     }
 
     public function postSave(AbstractEntity $entity = null)
