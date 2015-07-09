@@ -35,11 +35,11 @@ class FeedBack extends CrudService
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <a href="/super/feedback/manter-feedback/delete/' . $id . '" class="btn btn-primary">Remover</a>
+        <a href="/super/franqueador/feedback/delete/' . $id . '" class="btn btn-primary">Remover</a>
       </div>
     </div>
   </div>
-</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal' . $id . '"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/feedback/manter-feedback/edit/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
+</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal' . $id . '"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/franqueador/feedback/edit/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
             }
         }
         return parent::parserItens($itens,$addOptions);

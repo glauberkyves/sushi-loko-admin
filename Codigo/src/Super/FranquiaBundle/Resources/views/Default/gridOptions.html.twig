@@ -1,12 +1,5 @@
 <div class="btn-group  btn-group-sm">
-    {% if is_granted('ROLE_SUPER') %}
-        <a href="{{ path('super_franquia_edit', {id: data.idFranquia}) }}" class="btn btn-success btn-xs">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </a>
-    {% endif %}
-    {% if is_granted('ROLE_FRANQUEADOR') %}
-        <a href="{{ path('super_franqueador_franquia_edit') }}" class="btn btn-success btn-xs">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </a>
-    {% endif %}
+    <a href="{{ path('super_franquia_edit', {id: data.idFranquia}) }}" class="btn btn-success btn-xs">
+        <span class="glyphicon glyphicon-pencil"></span>
+    </a>
 </div>

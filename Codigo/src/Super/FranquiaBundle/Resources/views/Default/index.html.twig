@@ -28,10 +28,12 @@
                             <i class="fa fa-search"></i>
                             Pesquisar
                         </button>
-                        <a href="{{ path('super_franquia_create', {idFranqueador: idFranqueador}) }}" class="btn btn-default">
-                            <i class="fa fa-plus"></i>
-                            Cadastrar
-                        </a>
+                        {% if is_granted('ROLE_SUPER') %}
+                            <a href="{{ path('super_franquia_create', {idFranqueador: idFranqueador}) }}" class="btn btn-default">
+                                <i class="fa fa-plus"></i>
+                                Cadastrar
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </form>
