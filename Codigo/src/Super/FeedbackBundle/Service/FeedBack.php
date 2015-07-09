@@ -31,7 +31,7 @@ class FeedBack extends CrudService
         <h4 class="modal-title" id="myModalLabel">Remover</h4>
       </div>
       <div class="modal-body">
-        Deseja Realmente remover esse Feed-back ?
+        Deseja Realmente remover esse Feed-back?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

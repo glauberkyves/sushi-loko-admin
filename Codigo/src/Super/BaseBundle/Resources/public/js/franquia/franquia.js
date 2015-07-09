@@ -64,7 +64,7 @@ $('#cadastrarResponsavel').click(function(e)
     {
         $button.hide();
 
-        $.post('/super/usuario/cadastro.html', $form.serialize())
+        $.post('/super/franqueador/usuario/cadastro.html', $form.serialize())
             .done(function(data){
                 if(data.valido) {
                     $('#idResponsavel').val(data.idUsuario);
@@ -90,7 +90,7 @@ $('#cadastrarOperador').click(function(e)
     {
         $button.hide();
 
-        $.post('/super/usuario/cadastro.html', $form.serialize())
+        $.post('/super/franqueador/usuario/cadastro.html', $form.serialize())
             .done(function(data){
                 if(data.valido) {
                     $('#idOperador').val(data.idUsuario);

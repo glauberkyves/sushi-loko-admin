@@ -59,6 +59,10 @@ class Franquia extends CrudService
         }
     }
 
+    /**
+     * Autocomplete, busca usuário por email/nome
+     * @return array
+     */
     public function buscarUsuario()
     {
         $suggestions = array();
@@ -105,12 +109,12 @@ class Franquia extends CrudService
         return $response;
     }
 
-    public function jsonLocalidade()
-    {
-        return $this->getService('service.franqueador')->selectLocalidade();
-    }
-
-    public function getCombos()
+    /**
+     * Gerar combos para formulário do franqueado
+     * @param null $idFranqueador
+     * @return array
+     */
+    public function getCombos($idFranqueador = null)
     {
         $this->vars = array(
             'cmbSituacao'   => Dominio::getStAtivo(),
@@ -122,16 +126,16 @@ class Franquia extends CrudService
             'arrMunicipio'  => array(),
             'arrBairro'     => array(),
             'arrSituacao'   => array(),
-            'idFranqueador' => $this->getRequest()->get('idFranqueador')
+            'idFranqueador' => $idFranqueador
         );
 
         $this->vars['cmbCardapio'] = $this->getService('service.cardapio')->getComboDefault(
-            array('stAtivo' => 1),
+            array('stAtivo'    => true),
             array('noCardapio' => 'ASC')
         );
 
         $this->vars['cmbPromocao'] = $this->getService('service.promocao')->getComboDefault(
-            array('stAtivo' => 1),
+            array('stAtivo'    => true),
             array('noPromocao' => 'ASC')
         );
 
@@ -145,20 +149,23 @@ class Franquia extends CrudService
         );
 
         //combos formulario de edição
-        if ($id = $this->getRequest()->get('id')) {
-            if ($entity = $this->getRepository()->find($id)) {
-                $idEndereco = $entity->getIdEndereco();
+        if ($id = $this->getRequest()->get('id'))
+        {
+            if ($entity = $this->getRepository()->find($id))
+            {
+                $idEndereco  = $entity->getIdEndereco();
+                $idMunicipio = $idEndereco->getIdMunicipio();
 
                 $this->vars['cmbMunicipio'] = $this->getService('service.municipio')->getComboDefault(
-                    array('idEstado' => $idEndereco->getIdMunicipio()->getIdEstado()->getIdEstado())
+                    array('idEstado' => $idMunicipio->getIdEstado()->getIdEstado())
                 );
 
                 $this->vars['cmbBairro'] = $this->getService('service.bairro')->getComboDefault(
-                    array('idMunicipio' => $idEndereco->getIdMunicipio()->getIdMunicipio())
+                    array('idMunicipio' => $idMunicipio->getIdMunicipio())
                 );
 
-                array_push($this->vars['arrEstado']   , $idEndereco->getIdMunicipio()->getIdEstado()->getIdEstado());
-                array_push($this->vars['arrMunicipio'], $idEndereco->getIdMunicipio()->getIdMunicipio());
+                array_push($this->vars['arrEstado']   , $idMunicipio->getIdEstado()->getIdEstado());
+                array_push($this->vars['arrMunicipio'], $idMunicipio->getIdMunicipio());
                 array_push($this->vars['arrBairro']   , $idEndereco->getIdBairro()->getIdBairro());
                 array_push($this->vars['arrCardapio'] , $entity->getIdCardapio()->getIdCardapio());
                 array_push($this->vars['arrSituacao'] , $entity->getStAtivo());
@@ -171,5 +178,4 @@ class Franquia extends CrudService
 
         return $this->vars;
     }
-
 }

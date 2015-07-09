@@ -1,0 +1,9 @@
+super_franqueador_franquia_index:
+    path:     /
+    defaults: { _controller: SuperFranquiaBundle:Default:index }
+
+super_franqueador_franquia_edit:
+    path:     /editar
+    defaults: { _controller: SuperFranquiaBundle:Default:franqueadorEdit }
+    requirements:
+        id: \d+

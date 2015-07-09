@@ -1,10 +1,8 @@
+### SUPER ###
+
 super_home:
     path:     /
     defaults: { _controller: SuperBaseBundle:Default:index }
-
-super_enquete:
-    resource: "@SuperEnqueteBundle/Resources/config/routing.yml"
-    prefix:   /enquete
 
 super_promocao:
     resource: "@SuperPromocaoBundle/Resources/config/routing.yml"
@@ -14,26 +12,37 @@ super_cardapio:
     resource: "@SuperCardapioBundle/Resources/config/routing.yml"
     prefix:   /cardapio
 
+super_franquia:
+    resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
+    prefix:   /franqueador/franquia
+
+
+### FRANQUEADOR ###
+
 super_franqueador:
     resource: "@SuperFranqueadorBundle/Resources/config/routing.yml"
     prefix:   /franqueador
 
+super_feedback:
+    resource: "@SuperFeedbackBundle/Resources/config/routing.yml"
+    prefix:   /franqueador/feedback
+
+super_pesquisa:
+    path:     /franqueador/pesquisa.html
+    defaults: { _controller: SuperBaseBundle:Default:pesquisa }
+
+super_enquete:
+    resource: "@SuperEnqueteBundle/Resources/config/routing.yml"
+    prefix:   /franqueador/enquete
+
 super_operador:
     resource: "@SuperOperadorBundle/Resources/config/routing.yml"
-    prefix:   /operador
+    prefix:   /franqueador/operador
 
 super_usuario:
     resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
-    prefix:   /usuario
+    prefix:   /franqueador/usuario
 
-super_franquia:
-    resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
-    prefix:   /franquia
-
-super_pesquisa:
-    path:     /pesquisa.html
-    defaults: { _controller: SuperBaseBundle:Default:pesquisa }
-
-super_feedback:
-    resource: "@SuperFeedbackBundle/Resources/config/routing.yml"
-    prefix:   /feedback
+super_franqueador_franquia:
+    resource: "@SuperFranquiaBundle/Resources/config/franqueador_routing.yml"
+    prefix:   /franqueador/franquia

@@ -1,15 +1,15 @@
 manter_enquete_index:
-    path:     /manter-enquete
+    path:     /
     defaults: { _controller: SuperEnqueteBundle:Enquete:index }
 
 manter_enquete_create:
-    path:     /manter-enquete/create
+    path:     /cadastrar
     defaults: { _controller: SuperEnqueteBundle:Enquete:create }
 
 manter_enquete_edit:
-    path:     /manter-enquete/edit/{id}
+    path:     /editar/{id}
     defaults: { _controller: SuperEnqueteBundle:Enquete:edit }
 
 manter_enquete_delete:
-    path:     /manter-enquete/delete/{id}
+    path:     /excluir/{id}
     defaults: { _controller: SuperEnqueteBundle:Enquete:delete }
