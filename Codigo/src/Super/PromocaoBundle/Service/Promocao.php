@@ -41,16 +41,12 @@ class Promocao extends CrudService
         }
         return parent::parserItens($itens, $addOptions);
     }
-    public function preUpdate(AbstractEntity $entity = null)
-    {
-        $dtValidade = str_replace('/', '-', $this->getRequest()->request->get('dtValidade'));
-        $this->entity->setDtValidade(Data::dateBr("$dtValidade 00:00"));
-    }
+
     public function preSave(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());
-        $dtValidade = str_replace('/', '-', $this->getRequest()->request->get('dtValidade'));
-        $this->entity->setDtValidade(Data::dateBr("$dtValidade 00:00"));
+        $dtValidade =  $this->getRequest()->request->get('dtValidade');
+        $this->entity->setDtValidade(Data::dateBr($dtValidade));
     }
     public function postSave(AbstractEntity $entity = null)
     {

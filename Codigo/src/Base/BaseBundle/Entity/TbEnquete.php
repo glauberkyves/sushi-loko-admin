@@ -148,7 +148,7 @@ class TbEnquete extends AbstractEntity
      */
     public function getDtInicio()
     {
-        return $this->dtInicio;
+        return $this->dtInicio ?: new \DateTime();
     }
 
     /**
@@ -180,7 +180,7 @@ class TbEnquete extends AbstractEntity
      */
     public function getDtFim()
     {
-        return $this->dtFim;
+        return $this->dtFim ?: new \DateTime();
     }
 
     /**
@@ -212,7 +212,7 @@ class TbEnquete extends AbstractEntity
      */
     public function getDtCadastro()
     {
-        return $this->dtCadastro;
+        return $this->dtCadastro ?: new \DateTime();
     }
 
     /**
