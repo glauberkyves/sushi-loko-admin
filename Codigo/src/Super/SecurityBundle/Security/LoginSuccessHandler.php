@@ -30,6 +30,10 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
                 $response = new RedirectResponse($this->router->generate('super_home'));
                 break;
 
+            case $this->security->isGranted('ROLE_FRANQUEADOR'):
+                $response = new RedirectResponse($this->router->generate('super_franqueador'));
+                break;
+
             case $this->security->isGranted('ROLE_USER'):
                 $response = new RedirectResponse($this->router->generate('site_homepage'));
                 break;
@@ -37,5 +41,4 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
         return $response;
     }
-
 }

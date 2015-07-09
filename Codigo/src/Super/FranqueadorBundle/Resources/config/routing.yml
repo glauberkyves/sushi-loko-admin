@@ -1,5 +1,9 @@
-super_franqueador_index:
+super_franqueador:
     path:     /
+    defaults: { _controller: SuperBaseBundle:Default:index }
+
+super_franqueador_index:
+    path:     /index.html
     defaults: { _controller: SuperFranqueadorBundle:Default:index }
 
 super_franqueador_create:
