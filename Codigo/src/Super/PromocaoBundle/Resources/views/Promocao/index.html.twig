@@ -67,6 +67,15 @@
             </section>
         </div>
     </section>
-
-
 {% endblock body %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $("#form-promocao").submit();
+            $("#datepicker").datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR'
+            });
+        });
+    </script>
+{% endblock %}

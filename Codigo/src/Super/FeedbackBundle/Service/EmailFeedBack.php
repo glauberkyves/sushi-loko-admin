@@ -11,13 +11,11 @@ class EmailFeedBack extends CrudService
     protected $entityName = 'Base\BaseBundle\Entity\TbEmailFeedback';
 
 
-    public function registerEmailFaadBack($mensagem,$idFranqueador)
+    public function registerEmailFaadBack($mensagem)
     {
-
-        $entidade = $this->getService('service.feedback_email')->findOneByIdFranqueador($idFranqueador);
+        $entidade = $this->getService('service.feedback_email')->findOneByIdFranqueador($this->getUser());
         $entidade->setDsMensagem($mensagem);
         $this->persist($entidade);
-
     }
 
 }

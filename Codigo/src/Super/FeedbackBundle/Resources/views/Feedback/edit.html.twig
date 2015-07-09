@@ -74,3 +74,13 @@
     </section>
 
 {% endblock body %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR'
+            });
+        });
+    </script>
+{% endblock %}

@@ -28,7 +28,7 @@ function abrirInfoBox(id, marker) {
 
 function carregarPontos() {
 
-    $.getJSON('/super/enquete/localidade', function(pontos) {
+    $.getJSON('/super/franqueador/localidade', function(pontos) {
 
         var latlngbounds = new google.maps.LatLngBounds();
 
