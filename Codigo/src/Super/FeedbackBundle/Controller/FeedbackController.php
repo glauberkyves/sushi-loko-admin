@@ -12,8 +12,7 @@ class FeedbackController extends CrudController
 
     public function emailAction()
     {
-        $idFranqueador = 1;
-        $email = $this->getService('service.feedback_email')->findOneByIdFranqueador($idFranqueador);
+        $email = $this->getService('service.feedback_email')->findOneByIdFranqueador($this->getUser());
         $data = array("franqueador" => $email);
         return $this->render('SuperFeedbackBundle:Feedback:email.html.twig', $data);
     }
@@ -21,8 +20,7 @@ class FeedbackController extends CrudController
     public function setEmailFeedBackAction(Request $request)
     {
         $mensagem = $request->request->get("emailFaadback");
-        $idFranqueador = 1;
-        $this->getService('service.feedback_email')->registerEmailFaadBack($mensagem, $idFranqueador);
+        $this->getService('service.feedback_email')->registerEmailFaadBack($mensagem);
         $this->addMessage("Operação realizada com sucesso");
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }

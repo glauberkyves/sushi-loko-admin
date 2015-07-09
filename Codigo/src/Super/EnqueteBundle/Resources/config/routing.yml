@@ -13,11 +13,3 @@ manter_enquete_edit:
 manter_enquete_delete:
     path:     /manter-enquete/delete/{id}
     defaults: { _controller: SuperEnqueteBundle:Enquete:delete }
-
-super_franqueador_mapa:
-    path:     /mapa.html
-    defaults: { _controller: SuperFranqueadorBundle:Default:mapa }
-
-super_franquia_localidade:
-    path:     /localidade
-    defaults: { _controller: SuperFranquiaBundle:Default:localidade }
