@@ -90,14 +90,13 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <img alt="" src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}">
                         <span class="username">
-                            {#{{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}#}
+                            {{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}
                         </span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
                         <div class="log-arrow-up"></div>
-                        <li><a href="#"><i class="fa fa-cog"></i> Sair</a></li>
-                        {#<li><a href="{{ path('usuario_logout') }}"><i class="fa fa-key"></i> Log Out</a></li>#}
+                        <li><a href="{{ path('logout') }}"><i class="fa fa-cog"></i> Sair</a></li>
                     </ul>
                 </li>
             </ul>
