@@ -87,6 +87,10 @@ class CrudController extends AbstractCrud
 
         $entity->populate($this->getRequest()->request->all(), false);
 
+        if($files = $this->getRequest()->files->all()){
+            $entity->populate($files, false);
+        }
+
         $validator = $this->getValidator();
         $errors    = $validator->validate($entity);
 
