@@ -85,6 +85,11 @@ class CrudService extends AbstractService
         return "{$bundle}:{$controller}:{$templating}";
     }
 
+    public function getComboDefault(array $criteria = array(), array $orderBy = null, $limit = null, $offset = null)
+    {
+        return array('' => 'Selecione') + $this->getRepository()->getComboDefault($criteria, $orderBy, $limit, $offset);
+    }
+
     public function uploadFile($folder, $fileInput = null, $imageOnly = true)
     {
         $arrFilesNames = array();
@@ -120,11 +125,5 @@ class CrudService extends AbstractService
             }
         }
         return $arrFilesNames;
-    }
-
-
-    public function getComboDefault(array $criteria = array(), array $orderBy = null, $limit = null, $offset = null)
-    {
-        return array('' => 'Selecione') + $this->getRepository()->getComboDefault($criteria, $orderBy, $limit, $offset);
     }
 }
