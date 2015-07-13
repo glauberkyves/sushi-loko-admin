@@ -15,11 +15,11 @@ class TbEmailFeedback
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_email_ffedback", type="integer", nullable=false)
+     * @ORM\Column(name="id_email_fedback", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idEmailFfedback;
+    private $idEmailFedback;
 
     /**
      * @var string

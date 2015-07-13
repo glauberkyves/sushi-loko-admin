@@ -27,6 +27,13 @@ class TbPessoaJuridica extends AbstractEntity
     private $noFantasia;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_razao_social", type="string", length=100, nullable=true)
+     */
+    private $noRazaoSocial;
+
+    /**
      * @var \TbPessoa
      *
      * @ORM\Id
@@ -84,6 +91,22 @@ class TbPessoaJuridica extends AbstractEntity
     public function setIdPessoa($idPessoa)
     {
         $this->idPessoa = $idPessoa;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoRazaoSocial()
+    {
+        return $this->noRazaoSocial;
+    }
+
+    /**
+     * @param string $noRazaoSocial
+     */
+    public function setNoRazaoSocial($noRazaoSocial)
+    {
+        $this->noRazaoSocial = $noRazaoSocial;
     }
 }
 

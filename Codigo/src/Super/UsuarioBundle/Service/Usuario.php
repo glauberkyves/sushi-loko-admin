@@ -2,12 +2,8 @@
 
 namespace Super\UsuarioBundle\Service;
 
-use Base\BaseBundle\Entity\RlUsuarioPerfil;
-use Base\BaseBundle\Entity\TbUsuario;
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Entity\AbstractEntity;
-use Base\CrudBundle\Service\Exception\CrudServiceException;
-use Symfony\Component\HttpFoundation\Request;
 
 class Usuario extends CrudService
 {
@@ -15,26 +11,16 @@ class Usuario extends CrudService
 
     public function preInsert(AbstractEntity $entity = null)
     {
-        $request    = $this->getRequest();
-        $repository = $this->getRepository();
-
-        if ('super_usuario_create_operador' === $request->get('_route') && $repository->findOperador($request)) {
-            throw new CrudServiceException('Usuário já cadastrado');
-        }
-
         $idPessoaFisica = $this->getService('service.pessoa_fisica')->save();
 
         $this->entity->setIdPessoa($idPessoaFisica->getIdPessoa());
         $this->entity->setNoSenha(md5($this->entity->getNoSenha()));
         $this->entity->setDtCadastro(new \DateTime());
         $this->entity->setStAtivo(true);
-
-
     }
 
-    public function postSave(AbstractEntity $entity = null)
+    public function postInsert(AbstractEntity $entity = null)
     {
-
         $view = 'SuperUsuarioBundle:Default:emailCadastro.html.twig';
         $body = $this
             ->getContainer()
@@ -43,52 +29,11 @@ class Usuario extends CrudService
                 'entity' => $this->entity,
             ));
 
-        if($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail())
-        {
-           $this->sendMail($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Confirmação de cadastro', $body);
-        }
-
-
-        $request = $this->getRequest();
-
-        if ('super_usuario_create_operador' === $request->get('_route')) {
-            $this->postSaveOperador();
+        if ($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
+            $this->sendMail($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Confirmação de cadastro', $body);
         }
 
         $this->getRequest()->request->set('idUsuario', $this->entity->getIdUsuario());
-    }
-
-    public function postSaveOperador()
-    {
-        $password = $this->getRandomHash();
-        $this->entity->setNoSenha(md5($password));
-
-        $this->persist();
-        $this->savePerfil(null, Perfil::SG_OPERADOR);
-        $this->sendMailCadastro(null, Perfil::SG_OPERADOR);
-    }
-
-    public function sendMailCadastro(TbUsuario $entity = null)
-    {
-        if (null === $entity) {
-            $entity = $this->entity;
-        }
-    }
-
-    public function savePerfil(TbUsuario $entity = null, $sgPerfil)
-    {
-        if (null === $entity) {
-            $entity = $this->entity;
-        }
-
-        $entityUsuarioPerfil = new RlUsuarioPerfil();
-        $entityUsuarioPerfil->setIdUsuario($entity);
-        $entityUsuarioPerfil->setDtCadastro(new \DateTime());
-
-        $entityPerfil = $this->getService('service.perfil')->findOneBySgPerfil($sgPerfil);
-        $entityUsuarioPerfil->setIdPerfil($entityPerfil);
-
-        return $this->persist($entityUsuarioPerfil);
     }
 
     /**

@@ -31,13 +31,6 @@ class TbEndereco extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="no_endereco_amigavel", type="string", length=150, nullable=true)
-     */
-    private $noEnderecoAmigavel;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="no_complemento", type="string", length=100, nullable=true)
      */
     private $noComplemento;
@@ -232,22 +225,6 @@ class TbEndereco extends AbstractEntity
     public function setIdMunicipio($idMunicipio)
     {
         $this->idMunicipio = $idMunicipio;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNoEnderecoAmigavel()
-    {
-        return $this->noEnderecoAmigavel;
-    }
-
-    /**
-     * @param string $noEnderecoAmigavel
-     */
-    public function setNoEnderecoAmigavel($noEnderecoAmigavel)
-    {
-        $this->noEnderecoAmigavel = $noEnderecoAmigavel;
     }
 }
 

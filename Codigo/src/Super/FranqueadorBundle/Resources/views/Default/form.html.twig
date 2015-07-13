@@ -1,0 +1,469 @@
+<form method="post" action=" " id="form-franqueador" class="form-horizontal tasi-form">
+    <section class="panel">
+        <header class="panel-heading">
+            Dados do Franqueador
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Responsável</label>
+
+                <div class="col-lg-10">
+                    {{ formText('noPessoa', entity.getIdUsuario().getIdPessoa().getNoPessoa(), {
+                        class: 'form-control required'
+                    }) }}
+                    {{ formHidden('idFranqueador', entity.getIdFranqueador()) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CPF Responsável</label>
+
+                <div class="col-lg-10">
+                    {{ formText('nuCpf', entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf(), {
+                        class: 'form-control required cpf',
+                        'data-mask': 'cpf'
+                    }) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Responsável</label>
+
+                <div class="col-lg-10">
+                    {{ formText('noEmail', entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNoEmail(), {
+                        class: 'form-control required email'
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Operador</label>
+
+                <div class="col-lg-10">
+                    <div class="input-group m-bot15">
+                        {{ formText('noOperador', entity.getIdOperador().getIdPessoa().getNoPessoa(), {
+                            class: 'form-control required'
+                        }) }}
+                        {{ formHidden('idOperador', entity.getIdOperador().getIdPessoa().getIdPessoa()) }}
+                        <span class="input-group-addon" data-toggle="modal" href="#cadastrarUsuario"><i
+                                    class="fa fa-plus"></i></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Operador</label>
+
+                <div class="col-lg-10">
+                    {{ formText('noPessoa', '', {
+                        class: 'form-control required email',
+                        readonly: 'readonly'
+                    }) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Razão Social</label>
+
+                <div class="col-lg-10">
+                    {{ formText('noRazaoSocial', entity.getIdUsuario().getIdPessoa().getNoPessoa(), {
+                        class: 'form-control required'
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Fantansia</label>
+
+                <div class="col-lg-10">
+                    {{ formText('noFantasia', entity.getNoFantasia(), {
+                        class: 'form-control required'
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CNPJ</label>
+
+                <div class="col-lg-10">
+                    {{ formText('nuCnpj', entity.getNuCnpj(), {
+                        class: 'form-control cnpj required',
+                        'data-mask': 'cnpj',
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <header class="panel-heading">
+            Endereço
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CEP</label>
+
+                <div class="col-lg-4">
+                    <div class="input-group m-bot15">
+                        {{ formText('nuCep', entity.getIdEndereco().getNuCep(), {
+                            class: 'form-control cep required',
+                            'data-mask': 'cep',
+                        }) }}
+                        <span class="input-group-addon buscar-cep"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Estado</label>
+
+                <div class="col-lg-10">
+                    {{ formSelect('idEstado', entity.getIdEndereco().getIdMunicipio().getIdEstado().getIdEstado(), {
+                        class: 'form-control required'
+                    }, cmbEstado) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Município</label>
+
+                <div class="col-lg-10">
+                    {{ formSelect('idMunicipio', entity.getIdEndereco().getIdMunicipio().getIdMunicipio(), {
+                        class: 'form-control required'
+                    }, cmbMunicipio) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Bairro</label>
+
+                <div class="col-lg-10">
+                    {{ formSelect('idBairro', entity.getIdEndereco().getIdBairro().getIdBairro(), {
+                        class: 'form-control required'
+                    }, cmbBairro) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Endereço</label>
+
+                <div class="col-lg-10">
+                    {{ formText('noLogradouro', entity.getIdEndereco().getNoLogradouro(), {
+                        class: 'form-control required'
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Número</label>
+
+                <div class="col-lg-10">
+                    {{ formText('nuEndereco', entity.getIdEndereco().getNuEndereco(), {
+                        class: 'form-control required'
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Complemento</label>
+
+                <div class="col-lg-10">
+                    {{ formText('noComplemento', entity.getIdEndereco().getNoComplemento(), {
+                        class: 'form-control'
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <header class="panel-heading">
+            Configuração Franquias
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Utilizar Níves?</label>
+
+                <div class="col-lg-1">
+                    {{ formCheckbox('stNiveis', entity.getStNiveis(), {
+                        class: ''
+                    }) }}
+                </div>
+                <div class="col-lg-1">
+                    <button class="btn btn-primary" id="add-niveis" type="button">Adicionar Níveis</button>
+                </div>
+            </div>
+
+            <div class="alert alert-info fade in" id="div-niveis">
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                            {{ formText('niveis[noNivel][]', '', {
+                                class: 'form-control',
+                                placeholder: 'Nome do nível',
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                            {{ formText('niveis[nuPontosBonusCadastro][]', '', {
+                                class: 'form-control required',
+                                placeholder: 'Pontos bônus por cadastro',
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon">R$</span>
+                            {{ formText('niveis[nuValorBonusCadastro][]', '', {
+                                class: 'form-control required',
+                                placeholder: 'Bônus em reais por cadastro',
+                            }) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-4">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon">%</span>
+                            {{ formText('niveis[nuPorcentagemPontosExtra][]', '', {
+                                class: 'form-control required',
+                                placeholder: 'Porcentagem pontos extra',
+                                'data-mask': '99'
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        {{ formText('niveis[nuQuantidadePontosNecessaio][]', '', {
+                            class: 'form-control required',
+                            placeholder: 'Quantidade pontos necessária',
+                            'data-mask': 'numeric'
+                        }) }}
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn btn-danger remover-niveis pull-right" type="button">Remover</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <div class="input-group m-bot15">
+                        <span class="input-group-addon">R$</span>
+                        {{ formText('nuValorMinimoResgate', entity.getNuValorMinimoResgate(), {
+                            class: 'form-control',
+                            placeholder: 'Valor mínimo para resgate'
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group m-bot15">
+                        <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                        {{ formText('nuPontosTransacao', entity.getNuPontosTransacao(), {
+                            class: 'form-control',
+                            placeholder: 'Pontos por transação',
+                            'data-mask': 'numeric'
+                        }) }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <div class="input-group m-bot15">
+                        <span class="input-group-addon">%</span>
+                        {{ formText('nuPorcentagemBonusTransacao', entity.getNuPorcentagemBonusTransacao(), {
+                            class: 'form-control required ',
+                            placeholder: 'Porcentagem bônus por transação',
+                            'data-mask': '99'
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="input-group m-bot15">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        {{ formText('dtValidadeBonus', entity.getDtValidadeBonus().format('d/m/Y'), {
+                            class: 'form-control required dateBr',
+                            placeholder: 'Validade dos bônus',
+                            'data-mask': '99/99/9999'
+                        }) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                    <a class="btn btn-danger" href="{{ path('super_franqueador_index') }}">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+{% include 'SuperOperadorBundle:Default:createModal.html.twig' %}
+
+<script>
+    $(document).ready(function () {
+        $('#stNiveis').click(function () {
+            if ($(this).is(':checked')) {
+                $('#div-niveis, #add-niveis').show()
+            } else {
+                $('#div-niveis div').each(function (i, v) {
+                    if (i > 11) {
+                        $(this).remove()
+                    }
+                })
+
+                $('#div-niveis').find('input').val('')
+                $('#div-niveis, #add-niveis').hide()
+            }
+        })
+
+        $('#add-niveis').click(function () {
+            var div = '<div class="form-group">'
+            div = div + '<div class="col-lg-4">'
+            div = div + '<div class="input-group m-bot15">'
+            div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
+            div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="" class="form-control" placeholder="Nome do nível">'
+            div = div + '</div>'
+            div = div + '</div>'
+            div = div + '<div class="col-lg-4">'
+            div = div + '<div class="input-group m-bot15">'
+            div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
+            div = div + '<input type="text" name="niveis[nuPontosBonusCadastro][]" id="niveis-nuPontosBonusCadastro" value="" class="form-control required" placeholder="Pontos bônus por cadastro">'
+            div = div + '</div>'
+            div = div + '</div>'
+            div = div + '<div class="col-lg-4">'
+            div = div + '<div class="input-group m-bot15">'
+            div = div + '<span class="input-group-addon">R$</span>'
+            div = div + '<input type="text" name="niveis[nuValorBonusCadastro][]" id="niveis-nuValorBonusCadastro" value="" class="form-control required" placeholder="Bônus em reais por cadastro">'
+            div = div + '</div>'
+            div = div + '</div>'
+            div = div + '</div>'
+            div = div + '<div class="form-group">'
+            div = div + '<div class="col-lg-4">'
+            div = div + '<div class="input-group m-bot15">'
+            div = div + '<span class="input-group-addon">%</span>'
+            div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="" class="form-control required" placeholder="Porcentagem pontos extra" data-mask="99">'
+            div = div + '</div>'
+            div = div + '</div>'
+            div = div + '<div class="col-lg-4">'
+            div = div + '<input type="text" name="niveis[nuQuantidadePontosNecessaio][]" id="niveis-nuQuantidadePontosNecessaio" value="" class="form-control required" placeholder="Quantidade pontos necessária" data-mask="numeric">'
+            div = div + '</div>'
+            div = div + '<div class="col-lg-4">'
+            div = div + '<button class="btn btn-danger remover-niveis pull-right" type="button">Remover</button>'
+            div = div + '</div>'
+            div = div + '</div>'
+
+            $('#div-niveis').append(div)
+
+            $('#nuValorMinimoResgate, input[name="niveis[nuValorBonusCadastro][]"]').focus(function () {
+                $(this).setMask('decimal');
+            })
+
+            $('input[data-mask]').each(function () {
+                var input = $(this);
+                input.setMask(input.attr('data-mask'));
+            });
+        })
+
+        $('#div-niveis').on('click', '.remover-niveis', function () {
+            if ($('#div-niveis div').size() > 12) {
+                $(this).parents('div.form-group').prev().remove()
+                $(this).parents('div.form-group').remove()
+            } else {
+                $(this).parents('div.form-group').prev().find('input').val('')
+                $(this).parents('div.form-group').find('input').val('')
+            }
+        })
+
+        $('#nuValorMinimoResgate, input[name="niveis[nuValorBonusCadastro][]"]').focus(function () {
+            $(this).setMask('decimal');
+        })
+
+        {% if entity.getStNiveis() %}
+        $('#div-niveis, #add-niveis').show()
+        $('#div-niveis div.form-group:nth-child(1)').remove()
+        $('#div-niveis div.form-group:nth-child(1)').remove()
+        $('#stNiveis').attr('checked', true)
+
+        {% for key, configuracao in entity.getIdConfiguracaoFranquiaNivel() %}
+        var div = '<div class="form-group">'
+        div = div + '<div class="col-lg-4">'
+        div = div + '<div class="input-group m-bot15">'
+        div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
+        div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="{{ configuracao.getNoNivel() }}" class="form-control" placeholder="Nome do nível">'
+        div = div + '</div>'
+        div = div + '</div>'
+        div = div + '<div class="col-lg-4">'
+        div = div + '<div class="input-group m-bot15">'
+        div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
+        div = div + '<input type="text" name="niveis[nuPontosBonusCadastro][]" id="niveis-nuPontosBonusCadastro" value="{{ configuracao.getNuPontosBonusCadastro() }}" class="form-control required" placeholder="Pontos bônus por cadastro">'
+        div = div + '</div>'
+        div = div + '</div>'
+        div = div + '<div class="col-lg-4">'
+        div = div + '<div class="input-group m-bot15">'
+        div = div + '<span class="input-group-addon">R$</span>'
+        div = div + '<input type="text" name="niveis[nuValorBonusCadastro][]" id="niveis-nuValorBonusCadastro" value="{{ configuracao.getNuValorBonusCadastro() }}" class="form-control required" placeholder="Bônus em reais por cadastro">'
+        div = div + '</div>'
+        div = div + '</div>'
+        div = div + '</div>'
+        div = div + '<div class="form-group">'
+        div = div + '<div class="col-lg-4">'
+        div = div + '<div class="input-group m-bot15">'
+        div = div + '<span class="input-group-addon">%</span>'
+        div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="{{ configuracao.getNuPorcentagemPontosExtra() }}" class="form-control required" placeholder="Porcentagem pontos extra" data-mask="99">'
+        div = div + '</div>'
+        div = div + '</div>'
+        div = div + '<div class="col-lg-4">'
+        div = div + '<input type="text" name="niveis[nuQuantidadePontosNecessaio][]" id="niveis-nuQuantidadePontosNecessaio" value="{{ configuracao.getNuQuantidadePontosNecessaio() }}" class="form-control required" placeholder="Quantidade pontos necessária" data-mask="numeric">'
+        div = div + '</div>'
+        div = div + '<div class="col-lg-4">'
+        div = div + '<button class="btn btn-danger remover-niveis pull-right" type="button">Remover</button>'
+        div = div + '</div>'
+        div = div + '</div>'
+
+        $('#div-niveis').append(div)
+        {% endfor %}
+        {% endif %}
+
+        {% if entity.getIdFranqueador() %}
+        $('#nuCpf').attr('readonly', 'readonly')
+        getMunicipio({{ entity.getIdEndereco().getIdMunicipio().getIdEstado().getIdEstado() }}, {{ entity.getIdEndereco().getIdMunicipio().getIdMunicipio() }})
+        getBairro({{ entity.getIdEndereco().getIdMunicipio().getIdMunicipio() }}, {{ entity.getIdEndereco().getIdBairro().getIdBairro() }})
+        {% endif %}
+
+        $("#noOperador").autocomplete({
+            serviceUrl:       "/super/franqueador/franquia/usuario/buscar?q=nome",
+            type:             "POST",
+            minChars:         3,
+            maxHeight:        400,
+            onSelect:         function (suggestion) {
+                if (suggestion.data) {
+                    $('#idOperador').val(suggestion.data);
+                    $('#form-franquia input[id=noEmailOperador]').val(suggestion.noEmail);
+                } else {
+                    $("#noOperador").val("");
+                }
+            },
+            onSearchStart:    function () {
+                $(this).addClass("spinner");
+            },
+            onSearchComplete: function () {
+                $(this).removeClass("spinner");
+            },
+            onSearchError:    function () {
+                $(this).removeClass("spinner");
+            }
+        });
+    })
+</script>
+<script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>

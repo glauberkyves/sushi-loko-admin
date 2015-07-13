@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbFranqueador
  *
- * @ORM\Table(name="tb_franqueador", indexes={@ORM\Index(name="fk_franqueador_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_franqueador_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="fk_franqueador_configuracaofranquia_idx", columns={"id_configuracao_franquia"})})
+ * @ORM\Table(name="tb_franqueador", indexes={@ORM\Index(name="fk_franqueador_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_franqueador_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="fk_franqueador_operador_idx", columns={"id_operador"})})
  * @ORM\Entity
  */
 class TbFranqueador
@@ -22,11 +22,60 @@ class TbFranqueador
     private $idFranqueador;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_cnpj", type="string", length=14, nullable=false)
+     */
+    private $nuCnpj;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_razao_social", type="string", length=100, nullable=false)
+     */
+    private $noRazaoSocial;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_fantasia", type="string", length=100, nullable=false)
+     */
+    private $noFantasia;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="st_niveis", type="integer", nullable=false)
      */
     private $stNiveis;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_valor_minimo_resgate", type="integer", nullable=false)
+     */
+    private $nuValorMinimoResgate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_pontos_transacao", type="integer", nullable=false)
+     */
+    private $nuPontosTransacao;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_porcentagem_bonus_transacao", type="integer", nullable=false)
+     */
+    private $nuPorcentagemBonusTransacao;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dt_validade_bonus", type="datetime", nullable=false)
+     */
+    private $dtValidadeBonus;
 
     /**
      * @var integer
@@ -43,28 +92,14 @@ class TbFranqueador
     private $dtCadastro;
 
     /**
-     * @var string
+     * @var \TbUsuario
      *
-     * @ORM\Column(name="no_responsavel", type="string", length=255, nullable=false)
-     */
-    private $noResponsavel;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="no_email", type="string", length=255, nullable=false)
-     */
-    private $noEmail;
-
-    /**
-     * @var \TbConfiguracaoFranquia
-     *
-     * @ORM\ManyToOne(targetEntity="TbConfiguracaoFranquia")
+     * @ORM\ManyToOne(targetEntity="TbUsuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_configuracao_franquia", referencedColumnName="idtb_configuracao_franquia")
+     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
      * })
      */
-    private $idConfiguracaoFranquia;
+    private $idOperador;
 
     /**
      * @var \TbEndereco
