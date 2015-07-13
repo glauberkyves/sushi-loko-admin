@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbFranquia
  *
- * @ORM\Table(name="tb_franquia", indexes={@ORM\Index(name="fk_franquia_franqueador_idx", columns={"id_franqueador"}), @ORM\Index(name="fk_franquia_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="id_responsavel", columns={"id_responsavel"}), @ORM\Index(name="id_operador", columns={"id_operador"})})
+ * @ORM\Table(name="tb_franquia", indexes={@ORM\Index(name="fk_franquia_franqueador_idx", columns={"id_franqueador"}), @ORM\Index(name="fk_franquia_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="id_operador", columns={"id_operador"}), @ORM\Index(name="id_cardapio", columns={"id_cardapio"})})
  * @ORM\Entity
  */
 class TbFranquia
@@ -20,6 +20,20 @@ class TbFranquia
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idFranquia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_responsavel", type="string", length=150, nullable=false)
+     */
+    private $noResponsavel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_email_responsavel", type="string", length=150, nullable=false)
+     */
+    private $noEmailResponsavel;
 
     /**
      * @var string
@@ -67,20 +81,20 @@ class TbFranquia
      *
      * @ORM\ManyToOne(targetEntity="TbUsuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_responsavel", referencedColumnName="id_usuario")
-     * })
-     */
-    private $idResponsavel;
-
-    /**
-     * @var \TbUsuario
-     *
-     * @ORM\ManyToOne(targetEntity="TbUsuario")
-     * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
      * })
      */
     private $idOperador;
+
+    /**
+     * @var \TbCardapio
+     *
+     * @ORM\ManyToOne(targetEntity="TbCardapio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_cardapio", referencedColumnName="id_cardapio")
+     * })
+     */
+    private $idCardapio;
 
 
 }

@@ -29,9 +29,7 @@ class CrudController extends AbstractCrud
 
     public function createAction(Request $request)
     {
-
         if ($request->isMethod('post') && $this->validate() && $this->save()) {
-
             return $this->redirect($this->resolveRouteIndex());
         }
 
@@ -73,6 +71,7 @@ class CrudController extends AbstractCrud
         if ($this->getService()->remove($entity)) {
             return $this->redirect($this->resolveRouteIndex());
         }
+
         return $this->redirect($this->resolveRouteIndex());
     }
 
@@ -86,6 +85,10 @@ class CrudController extends AbstractCrud
         }
 
         $entity->populate($this->getRequest()->request->all(), false);
+
+        if ($files = $this->getRequest()->files->all()) {
+            $entity->populate($files, false);
+        }
 
         $validator = $this->getValidator();
         $errors    = $validator->validate($entity);

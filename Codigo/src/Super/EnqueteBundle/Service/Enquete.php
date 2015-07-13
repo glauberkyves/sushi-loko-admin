@@ -10,6 +10,12 @@ class Enquete extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbEnquete';
 
+    /**
+     * @todo refatorar metodo que renderiza html
+     * @param array $itens
+     * @param bool $addOptions
+     * @return array
+     */
     public function parserItens(array $itens = array(), $addOptions = false)
     {
         foreach ($itens as $key => $value) {
@@ -22,8 +28,8 @@ class Enquete extends CrudService
                         $itens[$key][$keyIten] = $iten == 1 ? 'Ativo' : 'Inativo';
                         break;
                 }
-                $id = $itens[$key]['idEnquete'];
-                $itens[$key]['opcoes'] = '<div class="modal fade" id="myModal'.$id.'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                $id                    = $itens[$key]['idEnquete'];
+                $itens[$key]['opcoes'] = '<div class="modal fade" id="myModal' . $id . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -39,9 +45,10 @@ class Enquete extends CrudService
       </div>
     </div>
   </div>
-</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal'.$id.'"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/franqueador/enquete/editar/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
+</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal' . $id . '"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/franqueador/enquete/editar/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
             }
         }
+
         return parent::parserItens($itens, $addOptions);
     }
 
@@ -49,11 +56,13 @@ class Enquete extends CrudService
     public function preSave(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());
-        $dtInicio = str_replace('/', '-', $this->getRequest()->request->get('dtInicio'));
-        $this->entity->setDtInicio(Data::dateBr("$dtInicio 00:00"));
 
-        $dtFim = str_replace('/', '-', $this->getRequest()->request->get('dtFim'));
-        $this->entity->setDtFim(Data::dateBr("$dtFim 00:00"));
+        if ($this->getRequest()->request->get('dtInicio')) {
+            $this->entity->setDtInicio(Data::dateBr($this->getRequest()->request->get('dtInicio')));
+        }
+
+        $this->entity->setDtFim(Data::dateBr($this->getRequest()->request->get('dtFim')));
+
     }
 
     public function postSave(AbstractEntity $entity = null)
@@ -62,9 +71,9 @@ class Enquete extends CrudService
         if ($ActionUpdate) {
             $total = $this->getRequest()->request->get("total");
             for ($i = 1; $i <= $total; $i++) {
-                $id = $this->getRequest()->request->get("idResposta".$i);
-                $resposta = $this->getRequest()->request->get("resposta".$i);
-                $entidade   = $this->getService('service.enquete_resposta')->find($id);
+                $id       = $this->getRequest()->request->get("idResposta" . $i);
+                $resposta = $this->getRequest()->request->get("resposta" . $i);
+                $entidade = $this->getService('service.enquete_resposta')->find($id);
 
                 if ($entidade) {
                     $entidade->setNoResposta($resposta);
@@ -77,7 +86,6 @@ class Enquete extends CrudService
                 $entidade->setIdEnquete($this->entity);
 
                 $resposta = $this->getRequest()->request->get("resposta" . $i);
-//                echo($resposta);die;
                 if ($resposta) {
                     $entidade->setNoResposta($resposta);
                     $this->persist($entidade);
@@ -90,7 +98,6 @@ class Enquete extends CrudService
     {
         $this->addMessage($this->container->get('translator')->trans('base_bundle.messages.success'));
     }
-
 
 
 }

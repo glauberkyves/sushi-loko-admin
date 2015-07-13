@@ -2,3 +2,7 @@ services:
     service.franqueador:
         class: Super\FranqueadorBundle\Service\Franqueador
         arguments:  ["@service_container"]
+
+    service.configuracao_franquia_nivel:
+        class: Super\FranqueadorBundle\Service\ConfiguracaoFranquaiNivel
+        arguments:  ["@service_container"]

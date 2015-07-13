@@ -34,9 +34,13 @@
                 <div class="form-group">
                     <label for="txtData" class="control-label col-md-3">Bonus $R:</label>
 
-                    <div class="col-md-2">
-                        <input type="text" class="form-control required" mask="decimal" value="{{ entity.nuBonus }}" id="nuBonus" name="nuBonus"/>
+                    <div class="col-lg-2">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon">R$</span>
+                            <input type="text" mask="decimal"  id="nuBonus" value="{{ entity.nuBonus }}" name="nuBonus" class="form-control required">
+                        </div>
                     </div>
+
                 </div>
 
  
@@ -44,10 +48,12 @@
                 <div class="form-group">
                     <label for="txtData" class="control-label col-md-3">Data Final</label>
 
-                    <div class="col-md-3">
-                        <input type="text" value="{{ entity.getDtFim()|date("d/m/Y") }}" class="form-control required" id="datepicker"
-                               placeholder="Data final" name="dtFim"/>
-                        <span class="help-block">DD/MM/AAAA</span>
+                    <div class="col-lg-3">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><span class="fa  fa-calendar"></span> </span>
+                            <input type="text"  value="{{ entity.getDtFim()|date("d/m/Y") }}"  class="form-control required" id="datepicker"
+                                   placeholder="Data final" name="dtFim"/>
+                        </div>
                     </div>
                 </div>
 

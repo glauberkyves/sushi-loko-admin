@@ -19,18 +19,35 @@ class DefaultController extends CrudController
 
     public function createAction(Request $request)
     {
+        $this->getCombos();
+
+        return parent::createAction($request);
+    }
+
+    public function editAction(Request $request)
+    {
+        $this->getCombos();
+
+        return parent::editAction($request);
+    }
+
+    public function getCombos()
+    {
         $this->vars['cmbEstado']    = $this->getService('service.estado')->getComboDefault(
             array(),
             array('noEstado' => 'asc')
         );
         $this->vars['cmbMunicipio'] = array('' => 'Selecione');
         $this->vars['cmbBairro']    = array('' => 'Selecione');
-
-        return parent::createAction($request);
     }
 
     public function mapaAction()
     {
         return $this->render('SuperFranqueadorBundle:Default:mapa.html.twig');
+    }
+
+    public function resolveRouteIndex()
+    {
+        return $this->generateUrl('super_franqueador_index');
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbFranqueador
  *
- * @ORM\Table(name="tb_franqueador", indexes={@ORM\Index(name="fk_franqueador_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_franqueador_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="fk_franqueador_configuracaofranquia_idx", columns={"id_configuracao_franquia"})})
+ * @ORM\Table(name="tb_franqueador", indexes={@ORM\Index(name="fk_franqueador_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_franqueador_endereco_idx", columns={"id_endereco"}), @ORM\Index(name="fk_franqueador_operador_idx", columns={"id_operador"})})
  * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\FranqueadorRepository")
  */
 class TbFranqueador extends AbstractEntity
@@ -22,11 +22,60 @@ class TbFranqueador extends AbstractEntity
     private $idFranqueador;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_cnpj", type="string", length=14, nullable=false)
+     */
+    private $nuCnpj;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_razao_social", type="string", length=100, nullable=false)
+     */
+    private $noRazaoSocial;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_fantasia", type="string", length=100, nullable=false)
+     */
+    private $noFantasia;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="st_niveis", type="integer", nullable=false)
      */
     private $stNiveis;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_valor_minimo_resgate", type="integer", nullable=false)
+     */
+    private $nuValorMinimoResgate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_pontos_transacao", type="integer", nullable=false)
+     */
+    private $nuPontosTransacao;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_porcentagem_bonus_transacao", type="integer", nullable=false)
+     */
+    private $nuPorcentagemBonusTransacao;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dt_validade_bonus", type="datetime", nullable=false)
+     */
+    private $dtValidadeBonus;
 
     /**
      * @var integer
@@ -43,28 +92,14 @@ class TbFranqueador extends AbstractEntity
     private $dtCadastro;
 
     /**
-     * @var string
+     * @var \TbUsuario
      *
-     * @ORM\Column(name="no_responsavel", type="string", length=255, nullable=false)
-     */
-    private $noResponsavel;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="no_email", type="string", length=255, nullable=false)
-     */
-    private $noEmail;
-
-    /**
-     * @var \TbConfiguracaoFranquia
-     *
-     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbConfiguracaoFranquia")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_configuracao_franquia", referencedColumnName="idtb_configuracao_franquia")
+     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
      * })
      */
-    private $idConfiguracaoFranquia;
+    private $idOperador;
 
     /**
      * @var \TbEndereco
@@ -85,6 +120,18 @@ class TbFranqueador extends AbstractEntity
      * })
      */
     private $idUsuario;
+
+    /**
+     * @var TbPessoaJuridica
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbConfiguracaoFranquiaNivel", mappedBy="idFranqueador")
+     */
+    protected $idConfiguracaoFranquiaNivel;
+
+    public function __construct()
+    {
+        $this->dtValidadeBonus = new \DateTime();
+    }
 
     /**
      * @return int
@@ -183,27 +230,11 @@ class TbFranqueador extends AbstractEntity
     }
 
     /**
-     * @return \TbConfiguracaoFranquia
-     */
-    public function getIdConfiguracaoFranquia()
-    {
-        return $this->idConfiguracaoFranquia;
-    }
-
-    /**
-     * @param \TbConfiguracaoFranquia $idConfiguracaoFranquia
-     */
-    public function setIdConfiguracaoFranquia($idConfiguracaoFranquia)
-    {
-        $this->idConfiguracaoFranquia = $idConfiguracaoFranquia;
-    }
-
-    /**
      * @return \TbEndereco
      */
     public function getIdEndereco()
     {
-        return $this->idEndereco? $this->idEndereco: new TbEndereco();
+        return $this->idEndereco ? $this->idEndereco : new TbEndereco();
     }
 
     /**
@@ -219,7 +250,7 @@ class TbFranqueador extends AbstractEntity
      */
     public function getIdUsuario()
     {
-        return $this->idUsuario? $this->idUsuario: new TbUsuario();
+        return $this->idUsuario ? $this->idUsuario : new TbUsuario();
     }
 
     /**
@@ -229,5 +260,148 @@ class TbFranqueador extends AbstractEntity
     {
         $this->idUsuario = $idUsuario;
     }
-}
 
+    /**
+     * @return string
+     */
+    public function getNuCnpj()
+    {
+        return $this->nuCnpj;
+    }
+
+    /**
+     * @param string $nuCnpj
+     */
+    public function setNuCnpj($nuCnpj)
+    {
+        $this->nuCnpj = $nuCnpj;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoRazaoSocial()
+    {
+        return $this->noRazaoSocial;
+    }
+
+    /**
+     * @param string $noRazaoSocial
+     */
+    public function setNoRazaoSocial($noRazaoSocial)
+    {
+        $this->noRazaoSocial = $noRazaoSocial;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoFantasia()
+    {
+        return $this->noFantasia;
+    }
+
+    /**
+     * @param string $noFantasia
+     */
+    public function setNoFantasia($noFantasia)
+    {
+        $this->noFantasia = $noFantasia;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNuValorMinimoResgate()
+    {
+        return $this->nuValorMinimoResgate;
+    }
+
+    /**
+     * @param int $nuValorMinimoResgate
+     */
+    public function setNuValorMinimoResgate($nuValorMinimoResgate)
+    {
+        $this->nuValorMinimoResgate = $nuValorMinimoResgate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNuPontosTransacao()
+    {
+        return $this->nuPontosTransacao;
+    }
+
+    /**
+     * @param int $nuPontosTransacao
+     */
+    public function setNuPontosTransacao($nuPontosTransacao)
+    {
+        $this->nuPontosTransacao = $nuPontosTransacao;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNuPorcentagemBonusTransacao()
+    {
+        return $this->nuPorcentagemBonusTransacao;
+    }
+
+    /**
+     * @param int $nuPorcentagemBonusTransacao
+     */
+    public function setNuPorcentagemBonusTransacao($nuPorcentagemBonusTransacao)
+    {
+        $this->nuPorcentagemBonusTransacao = $nuPorcentagemBonusTransacao;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtValidadeBonus()
+    {
+        return $this->dtValidadeBonus;
+    }
+
+    /**
+     * @param \DateTime $dtValidadeBonus
+     */
+    public function setDtValidadeBonus($dtValidadeBonus)
+    {
+        $this->dtValidadeBonus = $dtValidadeBonus;
+    }
+
+    /**
+     * @return TbPessoaJuridica
+     */
+    public function getIdConfiguracaoFranquiaNivel()
+    {
+        return $this->idConfiguracaoFranquiaNivel;
+    }
+
+    /**
+     * @param TbPessoaJuridica $idConfiguracaoFranquiaNivel
+     */
+    public function setIdConfiguracaoFranquiaNivel($idConfiguracaoFranquiaNivel)
+    {
+        $this->idConfiguracaoFranquiaNivel = $idConfiguracaoFranquiaNivel;
+    }
+
+    /**
+     * @return \TbUsuario
+     */
+    public function getIdOperador()
+    {
+        return $this->idOperador ? $this->idOperador : new TbUsuario();
+    }
+
+    /**
+     * @param \TbUsuario $idOperador
+     */
+    public function setIdOperador($idOperador)
+    {
+        $this->idOperador = $idOperador;
+    }
+}

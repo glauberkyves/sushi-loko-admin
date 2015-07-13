@@ -35,7 +35,7 @@ class BaseService
         }
 
         $this->entityManager = $container->get("doctrine.orm.entity_manager");
-        $this->container     = $container;
+        $this->container = $container;
     }
 
     /**
@@ -148,7 +148,7 @@ class BaseService
         $message = \Swift_Message::newInstance()
             ->setContentType("text/html")
             ->setSubject($subject)
-            ->setFrom('no-reply@beeimoveis.com')
+            ->setFrom($this->getContainer()->getParameter('email_no_reply'))
             ->setTo($toSend)
             ->setBody($body);
 
@@ -209,30 +209,11 @@ class BaseService
         return $this->getContainer()->get('router');
     }
 
-    /**
-     * Get a user from the Security Token Storage.
-     *
-     * @return mixed
-     *
-     * @throws \LogicException If SecurityBundle is not available
-     *
-     * @see TokenInterface::getUser()
-     */
     public function getUser()
     {
-        if (!$this->getContainer()->has('security.token_storage')) {
-            throw new \LogicException('The SecurityBundle is not registered in your application.');
+        $token = $this->getContainer()->get('security.context')->getToken();
+        if($token){
+            return $token->getUser();
         }
-
-        if (null === $token = $this->getContainer()->get('security.token_storage')->getToken()) {
-            return;
-        }
-
-        if (!is_object($user = $token->getUser())) {
-            // e.g. anonymous authentication
-            return;
-        }
-
-        return $user;
     }
 }

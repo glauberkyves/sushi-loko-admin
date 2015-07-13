@@ -65,14 +65,17 @@ class AbstractCrud extends AbstractController
     /**
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function save()
+    public function save($showMessage = true)
     {
         try {
             $params = $this->getRequest()->request->all();
             $entity = $this->getService()->newEntity()->populate($params, false);
 
             call_user_func_array(array($this->getService(), 'save'), array($entity));
-            $this->addMessage($this->resolveMessageSuccess(), 'success');
+
+            if ($showMessage) {
+                $this->addMessage($this->resolveMessageSuccess(), 'success');
+            }
 
             return true;
         } catch (CrudServiceException $exc) {
@@ -80,7 +83,9 @@ class AbstractCrud extends AbstractController
                 ->get('logger')
                 ->error($exc->getTraceAsString());
 
-            $this->addMessage($exc->getMessage(), 'error');
+            if ($showMessage) {
+                $this->addMessage($exc->getMessage(), 'error');
+            }
 
             return false;
         }
