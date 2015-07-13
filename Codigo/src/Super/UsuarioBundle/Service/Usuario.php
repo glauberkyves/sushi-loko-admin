@@ -28,13 +28,10 @@ class Usuario extends CrudService
         $this->entity->setNoSenha(md5($this->entity->getNoSenha()));
         $this->entity->setDtCadastro(new \DateTime());
         $this->entity->setStAtivo(true);
-
-
     }
 
     public function postSave(AbstractEntity $entity = null)
     {
-
         $view = 'SuperUsuarioBundle:Default:emailCadastro.html.twig';
         $body = $this
             ->getContainer()

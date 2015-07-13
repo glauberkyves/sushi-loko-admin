@@ -164,8 +164,8 @@ class Franquia extends CrudService
                     array('idMunicipio' => $idMunicipio->getIdMunicipio())
                 );
 
-                array_push($this->vars['arrEstado']   , $idMunicipio->getIdEstado()->getIdEstado());
                 array_push($this->vars['arrMunicipio'], $idMunicipio->getIdMunicipio());
+                array_push($this->vars['arrEstado']   , $idMunicipio->getIdEstado()->getIdEstado());
                 array_push($this->vars['arrBairro']   , $idEndereco->getIdBairro()->getIdBairro());
                 array_push($this->vars['arrCardapio'] , $entity->getIdCardapio()->getIdCardapio());
                 array_push($this->vars['arrSituacao'] , $entity->getStAtivo());
