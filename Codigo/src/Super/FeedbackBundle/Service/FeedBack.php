@@ -50,7 +50,7 @@ class FeedBack extends CrudService
         $this->entity->setDtCadastro(new \DateTime());
         $dtInicio = $this->getRequest()->request->get('dtInicio');
         $this->entity->setDtInicio(Data::dateBr($dtInicio));
-        $idFranqueador = $this->getService('service.franqueador')->find($this->getUser());
+        $idFranqueador = $this->getService('service.franqueador')->findOneByIdUsuario($this->getUser());
         $this->entity->setIdFranqueador($idFranqueador);
     }
 }

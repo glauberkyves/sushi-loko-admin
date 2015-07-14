@@ -24,6 +24,28 @@ class DefaultController extends CrudController
         return parent::createAction($request);
     }
 
+    public function franquiadorDashboardAction(Request $request)
+    {
+
+        $usuariosCadastrados =  $this->getService("service.usuario")->usuariosCadastradosSemana();
+
+        $lista = array();
+        foreach($usuariosCadastrados  as $value)
+        {
+            $total = $value["total"];
+            $dia    = $value["dtCadastro"]->format("d-m-y");
+
+            $data = array("device"=>$dia,"geekbench"=>$total);
+            array_push($lista, $data);
+
+        }
+
+        $jsonUser = json_encode($lista);
+
+
+        return $this->render('SuperFranqueadorBundle:Default:dashboard.html.twig',array("jsonUser"=>$jsonUser));
+    }
+
     public function editAction(Request $request)
     {
         $this->getCombos();
@@ -50,4 +72,6 @@ class DefaultController extends CrudController
     {
         return $this->generateUrl('super_franqueador_index');
     }
+
+
 }

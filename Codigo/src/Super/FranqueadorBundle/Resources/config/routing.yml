@@ -23,3 +23,7 @@ super_franqueador_localidade:
 super_franqueador_mapa:
     path:     /mapa.html
     defaults: { _controller: SuperFranqueadorBundle:Default:mapa }
+
+super_dashboard:
+    path:     /dashboard
+    defaults: { _controller: SuperFranqueadorBundle:Default:franquiadorDashboard }

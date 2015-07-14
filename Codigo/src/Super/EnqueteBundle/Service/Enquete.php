@@ -52,9 +52,9 @@ class Enquete extends CrudService
         return parent::parserItens($itens, $addOptions);
     }
 
-
     public function preSave(AbstractEntity $entity = null)
     {
+
         $this->entity->setDtCadastro(new \DateTime());
 
         if ($this->getRequest()->request->get('dtInicio')) {
