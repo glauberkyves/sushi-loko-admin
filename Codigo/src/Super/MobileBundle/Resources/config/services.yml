@@ -1,0 +1,4 @@
+services:
+    service.mobile:
+        class: Super\MobileBundle\Service\Mobile
+        arguments:  ["@service_container"]
