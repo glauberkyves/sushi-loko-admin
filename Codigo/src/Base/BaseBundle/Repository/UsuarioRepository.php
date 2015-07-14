@@ -19,9 +19,6 @@ class UsuarioRepository extends AbstractRepository
 
     public function usuariosCadastradosSemana()
     {
-
-
-
         $data = new \DateTime();
         return $this
             ->getEntityManager()
@@ -32,7 +29,6 @@ class UsuarioRepository extends AbstractRepository
             ->groupBy("u.dtCadastro")
             ->setParameter('dtcadastro',$data->modify('-7 day')->format("Y-m-d"))
             ->getQuery()->getResult();
-
     }
 
     public function findOneBy(array $criteria, array $orderBy = null)
