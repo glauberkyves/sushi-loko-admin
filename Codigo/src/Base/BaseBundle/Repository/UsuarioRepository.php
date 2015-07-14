@@ -12,9 +12,29 @@ namespace Base\BaseBundle\Repository;
 use Doctrine\ORM\Query\Expr;
 use Super\UsuarioBundle\Service\Perfil;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class UsuarioRepository extends AbstractRepository
 {
+
+    public function usuariosCadastradosSemana()
+    {
+
+
+
+        $data = new \DateTime();
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('count(u.idUsuario) as total, u.dtCadastro')
+            ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
+            ->where('u.dtCadastro >= :dtcadastro')
+            ->groupBy("u.dtCadastro")
+            ->setParameter('dtcadastro',$data->modify('-7 day')->format("Y-m-d"))
+            ->getQuery()->getResult();
+
+    }
+
     public function findOneBy(array $criteria, array $orderBy = null)
     {
         if (isset($criteria['nuCpf']) && $criteria['nuCpf']) {
