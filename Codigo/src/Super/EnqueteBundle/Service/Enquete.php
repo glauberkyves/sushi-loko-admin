@@ -16,7 +16,7 @@ class Enquete extends CrudService
      * @param bool $addOptions
      * @return array
      */
-    public function parserItens(array $itens = array(), $addOptions = false)
+    public function parserItens(array $itens = array(), $addOptions = true)
     {
         foreach ($itens as $key => $value) {
             foreach ($value as $keyIten => $iten) {
