@@ -116,7 +116,7 @@ class TbFranqueador extends AbstractEntity
      *
      * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
+     *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario",unique=true)
      * })
      */
     private $idUsuario;
@@ -127,6 +127,7 @@ class TbFranqueador extends AbstractEntity
      * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbConfiguracaoFranquiaNivel", mappedBy="idFranqueador")
      */
     protected $idConfiguracaoFranquiaNivel;
+
 
     public function __construct()
     {

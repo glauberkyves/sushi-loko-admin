@@ -60,6 +60,8 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      */
     private $rlUsuarioPerfil;
 
+
+
     private $salt;
     /**
      * Constructor
@@ -68,6 +70,7 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         $this->rlUsuarioPerfil = new \Doctrine\Common\Collections\ArrayCollection();
         $this->salt            = md5(uniqid(null, true));
+
     }
     /**
      * @param int $idUsuario
@@ -85,6 +88,23 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->idUsuario;
     }
+
+    /**
+     * @return \TbFranqueador
+     */
+    public function getIdFranqueador()
+    {
+        return $this->idFranqueador;
+    }
+
+    /**
+     * @param \TbFranqueador $idFranqueador
+     */
+    public function setIdFranqueador($idFranqueador)
+    {
+        $this->idFranqueador = $idFranqueador;
+    }
+
 
     /**
      * Set noSenha

@@ -20,6 +20,18 @@
                                placeholder="Nome">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
+
+                    <div class="col-lg-9">
+                        <select class="form-control required" id="stAtivo" name="stAtivo">
+                            <option value="">Selecione...</option>
+                            <option value="0">Inativo</option>
+                            <option value="1">Ativo</option>
+                        </select>
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     <label for="txtData" class="control-label col-md-3">Produtos</label>
@@ -60,11 +72,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>
+                                <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço </label>
 
                                 <div class="col-lg-9">
-                                    <input type="text" class="form-control required" id="noPreco1"  data-mask="999.999.999.999,99"
-                                           name="noPreco1" placeholder="R$ Preço">
+
+
+                                    <div class="input-group m-bot15">
+                                        <span class="input-group-addon">R$</span>
+                                        <input type="text" class="form-control required" id="noPreco1"  data-mask="999.999.999.999,99"
+                                               name="noPreco1" placeholder="  Preço">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -89,25 +106,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>  </div>
+
+                        </div>
+                        </div>
                     </div>
                 </section>
             </div>
+
         </div>
 
 
-        <div class="panel-body col-lg-12" style="background: #fff;  ">
-            <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
 
-            <div class="col-lg-9">
-                <select class="form-control required" id="stAtivo" name="stAtivo">
-                    <option value="">Selecione...</option>
-                    <option value="0">Inativo</option>
-                    <option value="1">Ativo</option>
-                </select>
-            </div>
-        </div>
         <div class="col-lg-12"  style="background: #fff; border-radius: 0px 0px 5px 5px; padding: 10px;">
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-save"></i>
@@ -130,10 +139,10 @@
                 var totalProdutos = $(".TotalProdutos").val();
                 totalProdutos = parseInt(totalProdutos) + 1;
                 $(".TotalProdutos").attr("value", totalProdutos);
-                $(".produtosAll").append(' <div class="col-lg-6"> <section class="panel newPro  col-lg-12  deletar' + totalProdutos + '">' +
-                '<header class="panel-heading">' +
+                $("#primeiroelemeto").append(' <div class="col-lg-6"> <section class="panel newPro  col-lg-12  deletar' + totalProdutos + '">' +
+                '<header class="panel-heading"><span>' +
                 totalProdutos +
-                '° Produto <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro' + totalProdutos + '"><span class="fa fa-times"></span></button>' +
+                '° Produto </span> <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro' + totalProdutos + '"><span class="fa fa-times"></span></button>' +
                 '</header>' +
                 '<div class="panel-body">' + ' <div class="col-lg-6">' +
                 '<div class="form-group">' +
@@ -143,9 +152,9 @@
                 '</div>' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço R$</label>' +
+                '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço</label>' +
                 '<div class="col-lg-9">' +
-                '<input type="text" class="form-control required" id="noPreco1"  data-mask="999.999.999.999,99"  name="noPreco' + totalProdutos + '" placeholder="R$ Preço">' +
+                '  <div class="input-group m-bot15"> <span class="input-group-addon">R$</span> <input type="text" class="form-control required" id="noPreco1"  data-mask="999.999.999.999,99"name="noPreco' + totalProdutos + '"  placeholder="Preço"> </div>' +
                 '</div>' +
                 '</div>' +
                 '</div>' + '<div class="col-lg-4">' +
@@ -168,7 +177,11 @@
                 '</div>' +
                 '</div>' +
                 '</section>');
+
                 $(".excluirPro" + totalProdutos).click(function () {
+                   var elementoDelete =  $(this).parent().children("span").html();
+                    $(this).parent().parent().parent().next().children().children().children("span").html(elementoDelete);
+
                     $(".deletar" + totalProdutos).remove();
                 });
                 $('input[data-mask]').each(function () {
