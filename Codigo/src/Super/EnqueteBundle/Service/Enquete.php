@@ -10,7 +10,47 @@ class Enquete extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbEnquete';
 
- 
+    /**
+     * @todo refatorar metodo que renderiza html
+     * @param array $itens
+     * @param bool $addOptions
+     * @return array
+     */
+    public function parserItens(array $itens = array(), $addOptions = true)
+    {
+        foreach ($itens as $key => $value) {
+            foreach ($value as $keyIten => $iten) {
+                switch (true) {
+                    case $iten instanceof \DateTime:
+                        $itens[$key][$keyIten] = $iten->format('d/m/Y');
+                        break;
+                    case $keyIten == 'stAtivo':
+                        $itens[$key][$keyIten] = $iten == 1 ? 'Ativo' : 'Inativo';
+                        break;
+                }
+                $id                    = $itens[$key]['idEnquete'];
+                $itens[$key]['opcoes'] = '<div class="modal fade" id="myModal' . $id . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Remover</h4>
+      </div>
+      <div class="modal-body">
+        Deseja Realmente remover essa enquete ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <a href="/super/franqueador/enquete/excluir/' . $id . '" class="btn btn-primary">Remover</a>
+      </div>
+    </div>
+  </div>
+</div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal' . $id . '"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/franqueador/enquete/editar/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
+            }
+        }
+
+        return parent::parserItens($itens, $addOptions);
+    }
 
     public function preSave(AbstractEntity $entity = null)
     {
