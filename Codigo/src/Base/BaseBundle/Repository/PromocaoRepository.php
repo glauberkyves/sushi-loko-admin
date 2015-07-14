@@ -26,7 +26,6 @@ class PromocaoRepository extends AbstractRepository
             ->from('Base\BaseBundle\Entity\TbPromocao', 's');
     }
 
-
     public function addWhere(QueryBuilder $query, Request $request)
     {
         $expr = new Expr();
