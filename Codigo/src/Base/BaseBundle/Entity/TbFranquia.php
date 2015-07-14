@@ -73,30 +73,6 @@ class TbFranquia extends AbstractEntity
     private $idFranqueador;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="no_responsavel", type="string", length=150, nullable=false)
-     */
-    private $noResponsavel;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="no_email_responsavel", type="string", length=150, nullable=false)
-     */
-    private $noEmailResponsavel;
-
-    /**
-     * @var \TbUsuario
-     *
-     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
-     * })
-     */
-    private $idOperador;
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFranquiaPromocao", mappedBy="idFranquia")
@@ -104,11 +80,19 @@ class TbFranquia extends AbstractEntity
     private $idFranquiaPromocao;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFranquiaOperador", mappedBy="idFranquia")
+     */
+    private $idFranquiaOperador;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->idFranquiaPromocao = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idFranquiaOperador = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -224,22 +208,6 @@ class TbFranquia extends AbstractEntity
     }
 
     /**
-     * @return \TbUsuario
-     */
-    public function getIdOperador()
-    {
-        return $this->idOperador ?: new \Base\BaseBundle\Entity\TbUsuario;
-    }
-
-    /**
-     * @param \TbUsuario $idOperador
-     */
-    public function setIdOperador($idOperador)
-    {
-        $this->idOperador = $idOperador;
-    }
-
-    /**
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getIdFranquiaPromocao()
@@ -256,35 +224,19 @@ class TbFranquia extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getNoResponsavel()
+    public function getIdFranquiaOperador()
     {
-        return $this->noResponsavel;
+        return $this->idFranquiaOperador;
     }
 
     /**
-     * @param string $noResponsavel
+     * @param \Doctrine\Common\Collections\Collection $idFranquiaOperador
      */
-    public function setNoResponsavel($noResponsavel)
+    public function setIdFranquiaOperador($idFranquiaOperador)
     {
-        $this->noResponsavel = $noResponsavel;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNoEmailResponsavel()
-    {
-        return $this->noEmailResponsavel;
-    }
-
-    /**
-     * @param string $noEmailResponsavel
-     */
-    public function setNoEmailResponsavel($noEmailResponsavel)
-    {
-        $this->noEmailResponsavel = $noEmailResponsavel;
+        $this->idFranquiaOperador = $idFranquiaOperador;
     }
 }
 

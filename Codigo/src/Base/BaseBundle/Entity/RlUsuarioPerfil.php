@@ -41,7 +41,7 @@ class RlUsuarioPerfil extends AbstractEntity
     /**
      * @var \TbUsuario
      *
-     * @ORM\OneToOne(targetEntity="TbUsuario")
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario", inversedBy="rlUsuarioPerfil")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
      * })

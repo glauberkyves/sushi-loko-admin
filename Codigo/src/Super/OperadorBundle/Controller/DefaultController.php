@@ -25,6 +25,7 @@ class DefaultController extends CrudController
             if ($request->isXmlHttpRequest()) {
                 return new JsonResponse(array(
                     'valido' => true,
+                    'idUsuario' => $request->request->get('idUsuario'),
                 ));
             } else {
                 return $this->redirect($this->resolveRouteIndex());

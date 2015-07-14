@@ -50,20 +50,21 @@
             if ($('#form-operador').valid()) {
                 $.post('{{ path('super_operador_create') }}', $('#form-operador').serializeArray(), function (data) {
                     if (data.valido == false) {
-                        $('#error-operador').removeClass('hide')
-                        $('#operador-message').html(data.mensagem)
+                        $('#error-operador').removeClass('hide');
+                        $('#operador-message').html(data.mensagem);
                     } else {
-                        $('#error-operador').addClass('hide')
-                        $('#noOperador').val($('#form-operador #noPessoa').val())
+                        $('#error-operador').addClass('hide');
+                        $('#noOperador').val($('#form-operador #noPessoa').val());
+                        $('#idOperador').val(data.idUsuario);
                         $('#btn-close').click();
                     }
                 })
             }
-        })
+        });
 
         $('#btn-close').click(function () {
-            $('#form-operador').find('input').val('')
-            $('#form-operador').validate().resetForm()
-        })
+            $('#form-operador').find('input').val('');
+            $('#form-operador').validate().resetForm();
+        });
     })
 </script>

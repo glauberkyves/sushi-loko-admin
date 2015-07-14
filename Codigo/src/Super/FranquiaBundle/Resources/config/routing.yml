@@ -24,3 +24,23 @@ super_franquia_buscar_usuario:
     path:     /usuario/buscar
     defaults: { _controller: SuperFranquiaBundle:Default:buscarUsuario }
 
+
+### OPERADOR ###
+
+super_franquia_operador_index:
+    path:     /operador/{idFranquia}
+    defaults: { _controller: SuperFranquiaBundle:Operador:index }
+    requirements:
+        idFranquia: \d+
+
+super_franquia_operador_create:
+    path:     /operador/cadastrar/{idFranquia}
+    defaults: { _controller: SuperFranquiaBundle:Operador:create }
+    requirements:
+        idFranquia: \d+
+
+super_franquia_operador_edit:
+    path:     /operador/editar/{id}
+    defaults: { _controller: SuperFranquiaBundle:Operador:edit }
+    requirements:
+        id: \d+
