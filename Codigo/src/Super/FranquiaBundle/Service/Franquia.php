@@ -12,18 +12,15 @@ class Franquia extends CrudService
 
     public function preSave(AbstractEntity $entity = null)
     {
-        $idOperador    = $this->getRequest()->request->getInt('idOperador');
         $idFranqueador = $this->getRequest()->request->getInt('idFranqueador');
         $idCardapio    = $this->getRequest()->request->getInt('idCardapio');
 
         $idEndereco    = $this->getService('service.endereco')->save();
         $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
-        $idOperador    = $this->getService('service.usuario')->find($idOperador);
         $idCardapio    = $this->getService('service.cardapio')->find($idCardapio);
 
         $this->entity->setIdEndereco($idEndereco);
         $this->entity->setIdFranqueador($idFranqueador);
-        $this->entity->setIdOperador($idOperador);
         $this->entity->setIdCardapio($idCardapio);
     }
 
@@ -33,6 +30,14 @@ class Franquia extends CrudService
     }
 
     public function postSave(AbstractEntity $entity = null)
+    {
+        $this->savePromocao();
+    }
+
+    /**
+     * Salvar promoção
+     */
+    public function savePromocao()
     {
         $arrPromocao         = $this->getRequest()->request->get('idPromocao');
         $srvFranquiaPromocao = $this->getService('service.franquia_promocao');
@@ -73,7 +78,7 @@ class Franquia extends CrudService
             )
         );
 
-        if($this->getRequest()->get('q') == 'email')
+        if($this->getRequest()->get('q') === 'email')
         {
             $noEmail         = $this->getRequest()->request->get('query', '');
             $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
@@ -84,7 +89,7 @@ class Franquia extends CrudService
                 {
                     $suggestions[$key]['noPessoa'] = $idPessoaFisica->getIdPessoa()->getNoPessoa();
                     $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
-                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdPessoa();
+                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
                 }
 
                 $response['suggestions'] = $suggestions;
@@ -99,7 +104,7 @@ class Franquia extends CrudService
                 {
                     $suggestions[$key]['noEmail']  = $idPessoaFisica->getNoEmail();
                     $suggestions[$key]['value']    = $idPessoaFisica->getIdPessoa()->getNoPessoa();
-                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdPessoa();
+                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
                 }
 
                 $response['suggestions'] = $suggestions;
@@ -164,8 +169,8 @@ class Franquia extends CrudService
                     array('idMunicipio' => $idMunicipio->getIdMunicipio())
                 );
 
-                array_push($this->vars['arrEstado']   , $idMunicipio->getIdEstado()->getIdEstado());
                 array_push($this->vars['arrMunicipio'], $idMunicipio->getIdMunicipio());
+                array_push($this->vars['arrEstado']   , $idMunicipio->getIdEstado()->getIdEstado());
                 array_push($this->vars['arrBairro']   , $idEndereco->getIdBairro()->getIdBairro());
                 array_push($this->vars['arrCardapio'] , $entity->getIdCardapio()->getIdCardapio());
                 array_push($this->vars['arrSituacao'] , $entity->getStAtivo());

@@ -90,25 +90,10 @@ class CrudService extends AbstractService
         return array('' => 'Selecione') + $this->getRepository()->getComboDefault($criteria, $orderBy, $limit, $offset);
     }
 
-    public function uploadFile($folder, $fileInput = null, $imageOnly = true)
+    public function uploadFile($folder, $fileInput = null)
     {
         $arrFilesNames = array();
-//        if ($imageOnly) {
-//            //verifica todos os arquivos antes de subir para o servidor
-//            //para evitar inconsistencias no meio do processo
-//            foreach ($this->getRequest()->files->all() as $key => $file) {
-//                if ($file) {
-//                    if ($fileInput && $fileInput == $key) {
-//                        // Verifica se o mime-type do arquivo é de uma imagem
-//                        if (!preg_match("/(bmp|gif|jpg|jpeg|png)/i", $file->guessExtension())) {
-//                            $this->addMessage(sprintf('O arquivo %s não é uma imagem válida.', $file->getClientOriginalName()), 'error');
-//
-//                            return null;
-//                        }
-//                    }
-//                }
-//            }
-//        }
+
         foreach ($this->getRequest()->files->all() as $key => $file) {
             if ($file) {
                 $fileName = md5(uniqid() . microtime()) . '.' . $file->getClientOriginalExtension();

@@ -1,7 +1,6 @@
 <form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
     {{ formHidden('idFranqueador', idFranqueador ?: entity.getIdFranqueador().getIdFranqueador()) }}
     {{ formHidden('idFranquia', entity.getIdFranquia()) }}
-    {{ formHidden('idOperador', entity.getIdOperador().getIdUsuario()) }}
     {{ formHidden('idEndereco', entity.getIdEndereco().getIdEndereco()) }}
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
@@ -11,36 +10,18 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Email responsável</label>
+        <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CPF Responsável</label>
+
         <div class="col-lg-10">
-            <input type="email" class="form-control required" id="noEmailResponsavel" placeholder="Email responsável"
-                   name="noEmailResponsavel" value="{{ entity.getNoEmailResponsavel() }}">
+            <input type="text" class="form-control required cpf" id="nuCpf" placeholder="CPF Responsável" data-mask="cpf"
+                   name="nuCpf" value="">
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noResponsavel">Nome responsável</label>
+        <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Responsável</label>
         <div class="col-lg-10">
-            <input type="text" class="form-control required nameLastName" id="noResponsavel" placeholder="Nome responsável"
-                   name="noResponsavel" value="{{ entity.getNoResponsavel() }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noOperador">Nome operador</label>
-        <div class="col-lg-10">
-            <input type="text" class="form-control required nameLastName" id="noOperador" placeholder="Nome operador"
-                   name="noOperador" value="{{ entity.getIdOperador().getIdPessoa().getNoPessoa() }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noEmailOperador">Email operador</label>
-        <div class="col-lg-9">
-            <input type="email" class="form-control required" id="noEmailOperador" placeholder="Email operador"
-                   name="noEmailOperador" value="{{ entity.getIdOperador().getIdPessoa().getIdPessoaFisica().getNoEmail() }}">
-        </div>
-        <div class="col-lg-1">
-            <a type="button" data-toggle="modal" href="#cadastrarUsuario" class="btn btn-primary cadastrarOperador">
-                +
-            </a>
+            <input type="email" class="form-control required" id="noEmail" placeholder="E-mail Responsável"
+            name="noEmail" value="">
         </div>
     </div>
     <div class="form-group">
@@ -149,8 +130,6 @@
         </a>
     </div>
 </form>
-{% include 'SuperFranquiaBundle:Default:cadastrarUsuarioModal.html.twig' %}
-{% include 'SuperFranquiaBundle:Default:modals.html.twig' %}
 
 <script>
     var LATITUDE  = {{ entity.getIdEndereco().getNoLatitude() ?: -15.7940 }};

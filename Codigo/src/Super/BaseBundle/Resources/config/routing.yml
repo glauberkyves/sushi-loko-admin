@@ -12,9 +12,9 @@ super_cardapio:
     resource: "@SuperCardapioBundle/Resources/config/routing.yml"
     prefix:   /cardapio
 
-super_franquia:
-    resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
-    prefix:   /franqueador/franquia
+super_usuario:
+    resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
+    prefix:   /usuario
 
 
 ### FRANQUEADOR ###
@@ -39,10 +39,14 @@ super_operador:
     resource: "@SuperOperadorBundle/Resources/config/routing.yml"
     prefix:   /franqueador/operador
 
-super_usuario:
-    resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
-    prefix:   /franqueador/usuario
-
 super_franqueador_franquia:
     resource: "@SuperFranquiaBundle/Resources/config/franqueador_routing.yml"
+    prefix:   /franqueador/franquia
+
+#super_franqueador_usuario:
+#    resource: "@SuperOperadorBundle/Resources/config/routing.yml"
+#    prefix:   /franqueador/usuario
+
+super_franquia:
+    resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
     prefix:   /franqueador/franquia

@@ -2,6 +2,9 @@ services:
     service.franquia:
         class: Super\FranquiaBundle\Service\Franquia
         arguments:  ["@service_container"]
+    service.franquia_operador:
+        class: Super\FranquiaBundle\Service\FranquiaOperador
+        arguments:  ["@service_container"]
     service.franquia_promocao:
         class: Super\FranquiaBundle\Service\FranquiaPromocao
         arguments:  ["@service_container"]
