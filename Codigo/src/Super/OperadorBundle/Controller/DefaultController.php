@@ -49,10 +49,14 @@ class DefaultController extends CrudController
      */
     public function validate(AbstractEntity $entity = null)
     {
+        $valid = true;
         $request = $this->getRequest();
 
         if ($request->isXmlHttpRequest() && $this->getService()->findOperador($request)) {
             $this->addMessage('Usuário já cadastrado', 'error');
+            $valid = false;
         }
+
+        return $valid;
     }
 }

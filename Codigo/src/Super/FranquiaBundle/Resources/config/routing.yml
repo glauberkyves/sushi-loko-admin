@@ -1,3 +1,7 @@
+super_franquia_dashboard:
+    path:     /dashboard.html
+    defaults: { _controller: SuperFranquiaBundle:Default:index }
+
 super_franquia_index:
     path:     /{idFranqueador}
     defaults: { _controller: SuperFranquiaBundle:Default:index }
