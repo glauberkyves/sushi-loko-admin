@@ -123,19 +123,6 @@ class TbPessoa extends AbstractEntity
     }
 
     /**
-     * Set stAtivo
-     *
-     * @param integer $stAtivo
-     * @return TbPessoa
-     */
-    public function setStAtivo($stAtivo)
-    {
-        $this->stAtivo = $stAtivo;
-
-        return $this;
-    }
-
-    /**
      * Set noPessoa
      *
      * @param string $noPessoa
@@ -160,16 +147,6 @@ class TbPessoa extends AbstractEntity
         }
 
         return $this->noPessoa;
-    }
-
-    /**
-     * Get stAtivo
-     *
-     * @return integer
-     */
-    public function getStAtivo()
-    {
-        return $this->stAtivo;
     }
 
     /**

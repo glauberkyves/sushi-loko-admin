@@ -14,8 +14,9 @@
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Franqueador</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control " id="noPessoa" placeholder=""
-                               name="noPessoa" value="">
+                        {{ formText('noRazaoSocial', '', {
+                            class: 'form-control '
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,10 +52,10 @@
                 <table class="table table-bordered table-striped table-condensed" data-grid="form-franqueador">
                     <thead>
                     <tr>
-                        <th data-column="noPessoa">Nome da rede</th>
-                        <th data-column="dtValidade">Qts franqueados</th>
-                        <th data-column="dtValidade">Status</th>
-                        <th data-column="dtValidade">Ações</th>
+                        <th data-column="noRazaoSocial">Nome da rede</th>
+                        <th data-column="totalFranquia">Qts franqueados</th>
+                        <th data-column="stAtivo">Status</th>
+                        <th data-column="opcoes">Ações</th>
                     </tr>
                     </thead>
                     <tbody>

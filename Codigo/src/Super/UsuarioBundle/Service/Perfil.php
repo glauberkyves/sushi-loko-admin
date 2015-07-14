@@ -8,6 +8,8 @@
 
 namespace Super\UsuarioBundle\Service;
 
+use Base\BaseBundle\Entity\RlUsuarioPerfil;
+use Base\BaseBundle\Entity\TbUsuario;
 use Base\CrudBundle\Service\CrudService;
 
 class Perfil extends CrudService
@@ -19,4 +21,16 @@ class Perfil extends CrudService
     CONST SG_USER = 'ROLE_USER';
 
     protected $entityName = 'Base\BaseBundle\Entity\TbPerfil';
+
+    public function savePerfil(TbUsuario $entity = null, $sgPerfil)
+    {
+        $entityUsuarioPerfil = new RlUsuarioPerfil();
+        $entityUsuarioPerfil->setIdUsuario($entity);
+        $entityUsuarioPerfil->setDtCadastro(new \DateTime());
+
+        $entityPerfil = $this->findOneBySgPerfil($sgPerfil);
+        $entityUsuarioPerfil->setIdPerfil($entityPerfil);
+
+        return $this->persist($entityUsuarioPerfil);
+    }
 }

@@ -10,6 +10,12 @@ super_franqueador_create:
     path:     /cadastro.html
     defaults: { _controller: SuperFranqueadorBundle:Default:create }
 
+super_franqueador_edit:
+    path:     /editar/{id}
+    defaults: { _controller: SuperFranqueadorBundle:Default:edit }
+    requirements:
+        id: \d+
+
 super_franqueador_localidade:
     path:     /localidade
     defaults: { _controller: SuperFranquiaBundle:Default:localidade }

@@ -27,6 +27,13 @@ class TbPessoaJuridica
     private $noFantasia;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_razao_social", type="string", length=100, nullable=true)
+     */
+    private $noRazaoSocial;
+
+    /**
      * @var \TbPessoa
      *
      * @ORM\Id

@@ -74,7 +74,7 @@ class AbstractCrud extends AbstractController
             call_user_func_array(array($this->getService(), 'save'), array($entity));
 
             if ($showMessage) {
-            $this->addMessage($this->resolveMessageSuccess(), 'success');
+                $this->addMessage($this->resolveMessageSuccess(), 'success');
             }
 
             return true;
@@ -84,7 +84,7 @@ class AbstractCrud extends AbstractController
                 ->error($exc->getTraceAsString());
 
             if ($showMessage) {
-            $this->addMessage($exc->getMessage(), 'error');
+                $this->addMessage($exc->getMessage(), 'error');
             }
 
             return false;
