@@ -92,16 +92,6 @@ class TbFranqueador
     private $dtCadastro;
 
     /**
-     * @var \TbUsuario
-     *
-     * @ORM\ManyToOne(targetEntity="TbUsuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
-     * })
-     */
-    private $idOperador;
-
-    /**
      * @var \TbEndereco
      *
      * @ORM\ManyToOne(targetEntity="TbEndereco")
@@ -110,6 +100,16 @@ class TbFranqueador
      * })
      */
     private $idEndereco;
+
+    /**
+     * @var \TbUsuario
+     *
+     * @ORM\ManyToOne(targetEntity="TbUsuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
+     * })
+     */
+    private $idOperador;
 
     /**
      * @var \TbUsuario

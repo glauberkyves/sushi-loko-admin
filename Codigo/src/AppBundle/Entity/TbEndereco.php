@@ -38,6 +38,13 @@ class TbEndereco
     /**
      * @var string
      *
+     * @ORM\Column(name="no_endereco_amigavel", type="string", length=150, nullable=false)
+     */
+    private $noEnderecoAmigavel;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="nu_endereco", type="string", length=10, nullable=true)
      */
     private $nuEndereco;

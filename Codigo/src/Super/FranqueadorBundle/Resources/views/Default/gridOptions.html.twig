@@ -1,5 +1,8 @@
-<div class="btn-group  btn-group-sm">
-    <a href="{{ path('super_franqueador_edit', {id: data.idFranqueador}) }}" class="btn btn-success btn-xs">
+<div class="btn-group btn-group-sm">
+    <a href="{{ path('super_franqueador_edit', {id: data.idFranqueador}) }}" class="btn btn-xs">
         <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+    <a href="{{ path('super_franquia_index', {idFranqueador: data.idFranqueador}) }}" class="btn btn-xs">
+        <span class="glyphicon glyphicon-user"></span>
     </a>
 </div>

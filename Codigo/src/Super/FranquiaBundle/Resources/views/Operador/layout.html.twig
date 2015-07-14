@@ -9,19 +9,16 @@
             </span>
         </header>
         <div class="panel-body">
-            {% include 'SuperFranquiaBundle:Default:form.html.twig' %}
+            {% block form %}{% endblock %}
         </div>
     </section>
-    {% include 'SuperFranquiaBundle:Default:cadastrarUsuarioModal.html.twig' %}
-    {% include 'SuperFranquiaBundle:Default:modals.html.twig' %}
+    {% include 'SuperOperadorBundle:Default:createModal.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     {% javascripts
         '@SuperBaseBundle/Resources/public/js/jquery.autocomplete.js'
-        '@SuperBaseBundle/Resources/public/js/franquia/*'
-        output='js/super/franquia/main.js' %}
+        '@SuperBaseBundle/Resources/public/js/operador/*' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

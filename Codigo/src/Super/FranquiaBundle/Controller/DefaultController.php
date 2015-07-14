@@ -22,18 +22,15 @@ class DefaultController extends CrudController
 
         switch(true) {
             case $security->isGranted('ROLE_FRANQUEADOR'):
-                /**
-                 * TODO
-                 * Puxar o ID do Franqueador a partir da sessão
-                 */
-                $this->vars['idFranqueador'] = 1;
+                $idFranqueador = $this->getService('service.franqueador')->findOneByIdUsuario($this->getUser());
+                $this->vars['idFranqueador'] = $idFranqueador->getIdFranqueador();
                 break;
             case $security->isGranted('ROLE_SUPER'):
                 $this->vars['idFranqueador'] = $idFranqueador;
                 break;
         }
 
-        $this->vars['cmbStatus']     = Dominio::getStAtivo();
+        $this->vars['cmbStatus'] = Dominio::getStAtivo();
 
         return parent::indexAction($request);
     }
