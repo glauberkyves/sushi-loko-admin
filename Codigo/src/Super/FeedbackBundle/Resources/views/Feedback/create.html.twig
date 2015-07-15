@@ -2,7 +2,7 @@
 {% block body %}
     <section class="panel">
         <header class="panel-heading">
-            Cadastrar FeedBack
+            Cadastrar feedback
               <span class="tools pull-right">
                 <a class="fa fa-chevron-down" href="javascript:;"></a>
               </span>
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Descrição de Faad-Back</label>
+                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Descrição de feedback</label>
 
                     <div class="col-lg-9">
                         <textarea class="form-control required" placeholder="Descrição" id="dsFeedback"
@@ -32,9 +32,10 @@
                     <label for="txtData" class="control-label col-md-3">Data Inicial</label>
 
                     <div class="col-md-3">
-                        <input type="text" class="form-control required" id="datepicker"
-                               placeholder="Data Inicial" name="dtInicio"/>
-                        <span class="help-block">DD/MM/AAAA</span>
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <input type="text" class="form-control required" id="datepicker" name="dtInicio">
+                        </div>
                     </div>
                 </div>
 
