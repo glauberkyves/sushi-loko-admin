@@ -128,9 +128,19 @@ class TbFranqueador extends AbstractEntity
      */
     protected $idConfiguracaoFranquiaNivel;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFranquia", mappedBy="idFranqueador")
+     */
+    protected $idFranquia;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
+        $this->idFranquia = new \Doctrine\Common\Collections\ArrayCollection();
         $this->dtValidadeBonus = new \DateTime();
     }
 
@@ -404,5 +414,21 @@ class TbFranqueador extends AbstractEntity
     public function setIdOperador($idOperador)
     {
         $this->idOperador = $idOperador;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdFranquia()
+    {
+        return $this->idFranquia;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idFranquia
+     */
+    public function setIdFranquia($idFranquia)
+    {
+        $this->idFranquia = $idFranquia;
     }
 }

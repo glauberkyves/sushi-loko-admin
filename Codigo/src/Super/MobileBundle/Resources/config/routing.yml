@@ -32,3 +32,17 @@ super_mobile_bonus_listar:
     path:     /bonus/listar
     defaults: { _controller: SuperMobileBundle:Bonus:listar }
     methods:  [POST]
+
+
+######### FRANQUEADOR #########
+super_mobile_franqueador_listar_lojas:
+    path:     /franqueador/listar/lojas
+    defaults: { _controller: SuperMobileBundle:Franqueador:listarLojas }
+    methods:  [POST]
+
+
+######### FRANQUIA #########
+super_mobile_franquia_opinar:
+    path:     /franquia/opinar
+    defaults: { _controller: SuperMobileBundle:Franquia:opinar }
+    methods:  [POST]

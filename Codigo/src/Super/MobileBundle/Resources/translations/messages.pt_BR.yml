@@ -17,3 +17,11 @@ mobile_bundle:
     bonus:
         listar:
             error: Não foi possível listar os bônus deste usuário.
+    franqueador:
+        default:
+            error: Ocorreu um erro inesperado ao buscar por este franqueador, por favor tente novamente.
+    franquia:
+        default:
+            error: Ocorreu um erro inesperado ao buscar por esta franquia, por favor tente novamente.
+        opinar:
+            success: Enquete respondida com sucesso, agradecemos a sua participação!

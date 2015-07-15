@@ -61,7 +61,7 @@ class UsuarioController extends AbstractMobile
         $request = $this->getRequest();
 
         $user = $this->getService('service.usuario')->getByCpfSenha(
-            $request->nuCpf, $request->noSenha
+            $request->nuCpf, md5($request->noSenha)
         );
 
         if($user) {
