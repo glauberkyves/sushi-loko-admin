@@ -19,9 +19,10 @@ class FranquiaRepository extends AbstractRepository
         return $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('f.idFranquia, f.noFranquia, f.noResponsavel, f.noEmailResponsavel, f.stAtivo')
+            ->select('f.idFranquia, f.noFranquia, u.idUsuario, f.stAtivo')
             ->from('Base\BaseBundle\Entity\TbFranquia', 'f')
             ->where('f.idFranqueador = :idFranqueador')
+            ->innerJoin('f.idUsuario', 'u')
             ->setParameter('idFranqueador', $request->query->get('idFranqueador'));
     }
 

@@ -87,6 +87,16 @@ class TbFranquia extends AbstractEntity
     private $idFranquiaOperador;
 
     /**
+     * @var \TbUsuario
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario", unique=true)
+     * })
+     */
+    private $idUsuario;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -237,6 +247,22 @@ class TbFranquia extends AbstractEntity
     public function setIdFranquiaOperador($idFranquiaOperador)
     {
         $this->idFranquiaOperador = $idFranquiaOperador;
+    }
+
+    /**
+     * @return \TbUsuario
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * @param \TbUsuario $idUsuario
+     */
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
     }
 }
 

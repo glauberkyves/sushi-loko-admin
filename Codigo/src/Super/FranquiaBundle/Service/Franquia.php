@@ -183,4 +183,22 @@ class Franquia extends CrudService
 
         return $this->vars;
     }
+
+    public function parserItens(array $itens = array(), $addOptions = true)
+    {
+
+        foreach ($itens as $key => $value) {
+            foreach ($value as $keyIten => $iten) {
+                switch (true) {
+                    case $keyIten == 'idUsuario':
+                        $user = $this->getService('service.usuario')->find($iten);
+                        $itens[$key]['noResponsavel'] = $user->getIdPessoa()->getNoPessoa();
+                        $itens[$key]['noEmailResponsavel'] = $user->getIdPessoa()->getIdPessoaFisica()->getNoEmail();
+                        break;
+                }
+            }
+        }
+
+        return parent::parserItens($itens, $addOptions);
+    }
 }
