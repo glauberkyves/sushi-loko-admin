@@ -11,5 +11,5 @@ manter_enquete_edit:
     defaults: { _controller: SuperEnqueteBundle:Enquete:edit }
 
 manter_enquete_delete:
-    path:     /excluir/{id}
+    path:     /delete/{id}
     defaults: { _controller: SuperEnqueteBundle:Enquete:delete }

@@ -10,4 +10,10 @@ class PromocaoController extends CrudController
 {
     protected $serviceName = 'service.promocao';
 
+    public function deleteAction(Request $request, $id)
+    {
+        $this->getService()->inativarPromocao($id);
+        $this->addMessage("Operação realizada com sucesso.");
+        return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
 }

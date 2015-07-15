@@ -8,11 +8,10 @@
               </span>
         </header>
         <div class="panel-body">
-            <form method="post" action="{{ path('manter_promocao_create') }}" id="form-cadastro"
-                  class="form-horizontal tasi-form" enctype="multipart/form-data">
+            <form method="post" action="{{ path('manter_promocao_create') }}" id="form-cadastro" class="form-horizontal tasi-form" enctype="multipart/form-data">
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
-
                     <div class="col-lg-9">
                         <input type="text" class="form-control " id="noPromocao" name="noPromocao" value=" ">
                     </div>
@@ -20,21 +19,21 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Descrição</label>
-
                     <div class="col-lg-9">
-                        <textarea type="text" class="form-control required" id="dsPromocao" name="dsPromocao"
-                                  value=" "></textarea>
+                        <textarea type="text" class="form-control required" id="dsPromocao" name="dsPromocao" value=" "></textarea>
                     </div>
                 </div>
-
 
                 <div class="form-group">
                     <label for="txtData" class="control-label col-md-3">Data de Validade</label>
 
                     <div class="col-md-3">
-                        <input type="text" class="form-control required" id="datepicker" name="dtValidade"/>
-                        <span class="help-block">DD/MM/AAAA</span>
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            <input type="text" class="form-control required" id="datepicker" name="dtValidade">
+                        </div>
                     </div>
+
                 </div>
 
                 <div class="form-group last">
