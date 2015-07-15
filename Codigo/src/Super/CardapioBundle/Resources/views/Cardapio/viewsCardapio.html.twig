@@ -3,6 +3,12 @@
     <section class="panel">
         <header class="panel-heading">
             {{ cardapio.noCardapio|capitalize }}
+
+            <nav class="pull-right voltarPagina">
+                <ul class="pager">
+                    <li class="previous"><a href="{{ path('manter_cardapio_index') }}"><span aria-hidden="true">&larr;</span> Voltar</a></li>
+                </ul>
+            </nav>
         </header>
         <div class="panel-body">
             <table class="table table-bordered">

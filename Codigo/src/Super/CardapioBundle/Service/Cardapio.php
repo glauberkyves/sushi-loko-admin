@@ -10,7 +10,7 @@ class Cardapio extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbCardapio';
 
-    public function parserItens(array $itens = array(), $addOptions = false)
+    public function parserItens(array $itens = array(), $addOptions = true)
     {
         foreach ($itens as $key => $value) {
             foreach ($value as $keyIten => $iten) {
@@ -23,24 +23,7 @@ class Cardapio extends CrudService
                         break;
                 }
                 $id = $itens[$key]['idCardapio'];
-                $itens[$key]['verCardapio'] = '<a href="/super/cardapio/manter-cardapio/ver/'.$id.'" class="btn btn-default">ver +</a>';
-                $itens[$key]['opcoes'] = '<div class="modal fade" id="myModal' . $id . '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Remover</h4>
-          </div>
-          <div class="modal-body">
-            Deseja Realmente remover esse Cardapio ?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <a href="/super/cardapio/manter-cardapio/delete/' . $id . '" class="btn btn-primary">Remover</a>
-          </div>
-        </div>
-      </div>
-    </div><button style="margin-right:5px;"data-toggle="modal" data-target="#myModal' . $id . '"  class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button><a href="/super/cardapio/manter-cardapio/edit/' . $id . '" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>';
+                $itens[$key]['verCardapio'] = '<a href="/super/cardapio/visualizar/' . $id . '" class="btn btn-default">ver +</a>';
             }
         }
         return parent::parserItens($itens, $addOptions);
