@@ -1,17 +1,34 @@
-super_mobile:
-    resource: "@SuperMobileBundle/Resources/config/routing.yml"
-    prefix:   /service/mobile
-
-site:
-    resource: "@SiteBundle/Resources/config/routing.yml"
-
+######## ADMINSITRADOR #########
 super_base:
     resource: "@SuperBaseBundle/Resources/config/routing.yml"
     prefix:   /super
 
+
+######## FRANQUEADOR #########
+franqueador:
+    resource: "@SuperFranqueadorBundle/Resources/config/routing.yml"
+    prefix:   /franqueador
+
+
+######## FRANQUIA #########
+super_usuario:
+    resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
+    prefix:   /franquia
+
+
+######## MOBILE #########
+super_mobile:
+    resource: "@SuperMobileBundle/Resources/config/routing.yml"
+    prefix:   /mobile
+
+
+######## SECURITY #########
 super_security:
     resource: "@SuperSecurityBundle/Resources/config/routing.yml"
     prefix:   /
 
 base:
     resource: "@BaseBaseBundle/Resources/config/routing.yml"
+
+site:
+    resource: "@SiteBundle/Resources/config/routing.yml"

@@ -1,9 +1,9 @@
 manter_enquete_index:
-    path:     /
+    path:     /index.html
     defaults: { _controller: SuperEnqueteBundle:Enquete:index }
 
 manter_enquete_create:
-    path:     /cadastrar
+    path:     /cadastrar.html
     defaults: { _controller: SuperEnqueteBundle:Enquete:create }
 
 manter_enquete_edit:

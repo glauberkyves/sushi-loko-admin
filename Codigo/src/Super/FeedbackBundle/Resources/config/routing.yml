@@ -1,23 +1,23 @@
-super_feedback_index:
-    path:     /
+super_franqueador_feedback_index:
+    path:     /index.html
     defaults: { _controller: SuperFeedbackBundle:Feedback:index }
 
-super_feedback_create:
-    path:     /create
+super_franqueador_feedback_create:
+    path:     /cadastro.html
     defaults: { _controller: SuperFeedbackBundle:Feedback:create }
 
-super_feedback_edit:
-    path:     /edit/{id}
+super_franqueador_feedback_edit:
+    path:     /editar/{id}
     defaults: { _controller: SuperFeedbackBundle:Feedback:edit }
 
-super_feedback_delete:
+super_franqueador_feedback_delete:
     path:     /delete/{id}
     defaults: { _controller: SuperFeedbackBundle:Feedback:delete }
 
-super_feedback_email:
+super_franqueador_feedback_email:
     path:     /email
     defaults: { _controller: SuperFeedbackBundle:Feedback:email }
 
-super_feedback_set_email:
+super_franqueador_feedback_set_email:
     path:     /email/set
     defaults: { _controller: SuperFeedbackBundle:Feedback:setEmailFeedBack }

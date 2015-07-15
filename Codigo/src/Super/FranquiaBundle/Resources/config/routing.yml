@@ -2,45 +2,14 @@ super_franquia_dashboard:
     path:     /dashboard.html
     defaults: { _controller: SuperFranquiaBundle:Default:index }
 
-super_franquia_index:
-    path:     /{idFranqueador}
-    defaults: { _controller: SuperFranquiaBundle:Default:index }
-    requirements:
-        idFranqueador: \d+
-
-super_franquia_create:
-    path:     /cadastrar/{idFranqueador}
-    defaults: { _controller: SuperFranquiaBundle:Default:create }
-    requirements:
-        idFranqueador: \d+
-
-super_franquia_edit:
-    path:     /editar/{id}
-    defaults: { _controller: SuperFranquiaBundle:Default:edit }
-    requirements:
-        id: \d+
-
 super_franquia_buscar_usuario:
     path:     /usuario/buscar
     defaults: { _controller: SuperFranquiaBundle:Default:buscarUsuario }
 
+super_franquia_operador:
+    resource: "@SuperOperadorBundle/Resources/config/routing.yml"
+    prefix:   /operador
 
-### OPERADOR ###
-
-super_franquia_operador_index:
-    path:     /operador/{idFranquia}
-    defaults: { _controller: SuperFranquiaBundle:Operador:index }
-    requirements:
-        idFranquia: \d+
-
-super_franquia_operador_create:
-    path:     /operador/cadastrar/{idFranquia}
-    defaults: { _controller: SuperFranquiaBundle:Operador:create }
-    requirements:
-        idFranquia: \d+
-
-super_franquia_operador_edit:
-    path:     /operador/editar/{id}
-    defaults: { _controller: SuperFranquiaBundle:Operador:edit }
-    requirements:
-        id: \d+
+super_usuario:
+    resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
+    prefix:   /usuario

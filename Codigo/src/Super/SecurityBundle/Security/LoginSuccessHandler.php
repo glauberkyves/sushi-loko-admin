@@ -31,7 +31,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
                 break;
 
             case $this->security->isGranted('ROLE_FRANQUEADOR'):
-                $response = new RedirectResponse($this->router->generate('super_franqueador'));
+                $response = new RedirectResponse($this->router->generate('super_franqueador_dashboard'));
                 break;
 
             case $this->security->isGranted('ROLE_FRANQUIA'):

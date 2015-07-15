@@ -1,5 +1,4 @@
 ### SUPER ###
-
 super_home:
     path:     /
     defaults: { _controller: SuperBaseBundle:Default:index }
@@ -12,45 +11,25 @@ super_cardapio:
     resource: "@SuperCardapioBundle/Resources/config/routing.yml"
     prefix:   /cardapio
 
-super_usuario:
-    resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
-    prefix:   /usuario
 
+######## FRANQUEADOR #########
+super_franqueador_index:
+    path:     /franqueador/index.html
+    defaults: { _controller: SuperFranqueadorBundle:Default:index }
 
-### FRANQUEADOR ###
+super_franqueador_create:
+    path:     /franqueador/cadastro.html
+    defaults: { _controller: SuperFranqueadorBundle:Default:create }
 
-super_franqueador:
-    resource: "@SuperFranqueadorBundle/Resources/config/routing.yml"
-    prefix:   /franqueador
+super_franqueador_edit:
+    path:     /franqueador/editar/{id}
+    defaults: { _controller: SuperFranqueadorBundle:Default:edit }
+    requirements:
+        id: \d+
 
-super_feedback:
-    resource: "@SuperFeedbackBundle/Resources/config/routing.yml"
-    prefix:   /franqueador/feedback
-
-super_pesquisa:
-    path:     /franqueador/pesquisa.html
-    defaults: { _controller: SuperBaseBundle:Default:pesquisa }
-
-super_enquete:
-    resource: "@SuperEnqueteBundle/Resources/config/routing.yml"
-    prefix:   /franqueador/enquete
-
-super_operador:
-    resource: "@SuperOperadorBundle/Resources/config/routing.yml"
-    prefix:   /franqueador/operador
-
-super_usuario:
-    resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
-    prefix:   /franqueador/usuario
-
-super_franqueador_franquia:
-    resource: "@SuperFranquiaBundle/Resources/config/franqueador_routing.yml"
-    prefix:   /franqueador/franquia
-
-#super_franqueador_usuario:
-#    resource: "@SuperOperadorBundle/Resources/config/routing.yml"
-#    prefix:   /franqueador/usuario
-
-super_franquia:
-    resource: "@SuperFranquiaBundle/Resources/config/routing.yml"
-    prefix:   /franqueador/franquia
+######## FRANQUIA #########
+super_franquia_create:
+    path:     /franquia/cadastrar/{idFranqueador}
+    defaults: { _controller: SuperFranquiaBundle:Default:create }
+    requirements:
+        idFranqueador: \d+
