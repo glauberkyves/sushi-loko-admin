@@ -20,10 +20,9 @@ class AbstractMobile extends CrudController
      */
     public function getRequest()
     {
-        $token = $this->getService('service.token')->token(
-            parent::getRequest()->request->get('token'));
-
-        return (object)$token;
+        return $this->getService('service.token')->token(
+            parent::getRequest()->request->get('token')
+        );
     }
 
     /**
