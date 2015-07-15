@@ -72,4 +72,23 @@ class UsuarioRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getByCpfSenha($cpf = null, $senha = null)
+    {
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('u')
+            ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->where('pf.nuCpf = :nuCpf')
+            ->andWhere('u.noSenha = :noSenha')
+            ->andWhere('u.stAtivo = :stAtivo')
+            ->setParameter('nuCpf', preg_replace("/[^\d]/", "", $cpf))
+            ->setParameter('noSenha', $senha)
+            ->setParameter('stAtivo', true)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

@@ -1,0 +1,4 @@
+services:
+    service.site.usuario:
+          class: SiteBundle\Service\Usuario
+          arguments:  ["@service_container"]

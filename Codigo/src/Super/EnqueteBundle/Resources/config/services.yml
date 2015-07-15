@@ -6,3 +6,7 @@ services:
     service.enquete_resposta:
               class: Super\EnqueteBundle\Service\EnqueteResposta
               arguments:  ["@service_container"]
+
+    service.enquete_resposta_usuario:
+              class: Super\EnqueteBundle\Service\EnqueteRespostaUsuario
+              arguments:  ["@service_container"]

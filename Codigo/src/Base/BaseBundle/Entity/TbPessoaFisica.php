@@ -89,7 +89,7 @@ class TbPessoaFisica extends AbstractEntity
      */
     public function getDtNascimento()
     {
-        return $this->dtNascimento;
+        return $this->dtNascimento ?: new \DateTime();
     }
 
     /**

@@ -1,0 +1,19 @@
+mobile_bundle:
+    usuario:
+        autenticar:
+            error: Login/Senha não conferem!
+            exception: Não foi possível realizar o seu login, por favor tente novamente!
+        cadastrar:
+            error: CPF já cadastrado.
+            exception: Não foi possível cadastrar este usuário, por favor tente novamente.
+        recuperar_senha:
+            success: Sua senha foi enviada para o e-mail indicado.
+            error: E-mail não cadastrado em nosso sistema.
+            exception: Não foi possível enviar os dados para o e-mail indicado, por favor tente novamente.
+    enquete:
+        responder:
+            success: Enquete respondida com sucesso, agradecemos a sua participação!
+            error: Erro inesperado ao salvar a sua resposta, por favor tente novamente.
+    bonus:
+        listar:
+            error: Não foi possível listar os bônus deste usuário.

@@ -1,3 +1,34 @@
-super_mobile_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: SuperMobileBundle:Default:index }
+######### USUARIO #########
+super_mobile_usuario_autenticar:
+    path:     /usuario/autenticar
+    defaults: { _controller: SuperMobileBundle:Usuario:autenticar }
+    methods:  [POST]
+
+super_mobile_usuario_logout:
+    path:     /usuario/logout
+    defaults: { _controller: SuperMobileBundle:Usuario:logout }
+    methods:  [POST]
+
+super_mobile_usuario_cadastrar:
+    path:     /usuario/cadastrar
+    defaults: { _controller: SuperMobileBundle:Usuario:cadastrar }
+    methods:  [POST]
+
+super_mobile_usuario_recuperar_senha:
+    path:     /usuario/recuperar-senha
+    defaults: { _controller: SuperMobileBundle:Usuario:recuperarSenha }
+    methods:  [POST]
+
+
+######### ENQUETE #########
+super_mobile_enquete_responder:
+    path:     /enquete/responder
+    defaults: { _controller: SuperMobileBundle:Enquete:responder }
+    methods:  [POST]
+
+
+######### BONUS #########
+super_mobile_bonus_listar:
+    path:     /bonus/listar
+    defaults: { _controller: SuperMobileBundle:Bonus:listar }
+    methods:  [POST]
