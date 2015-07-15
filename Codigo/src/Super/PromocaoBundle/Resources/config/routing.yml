@@ -1,15 +1,15 @@
 manter_promocao_index:
-    path:     /manter-promocao
+    path:     /index.html
     defaults: { _controller: SuperPromocaoBundle:Promocao:index }
 
 manter_promocao_create:
-    path:     /manter-promocao/create
+    path:     /cadastro.html
     defaults: { _controller: SuperPromocaoBundle:Promocao:create }
 
 manter_promocao_edit:
-    path:     /manter-promocao/edit/{id}
+    path:     /editar/{id}
     defaults: { _controller: SuperPromocaoBundle:Promocao:edit }
 
 manter_promocao_delete:
-    path:     /manter-promocao/delete/{id}
+    path:     /delete/{id}
     defaults: { _controller: SuperPromocaoBundle:Promocao:delete }

@@ -1,5 +1,5 @@
 site_homepage:
-    path:     /
+    path:     /index.html
     defaults: { _controller: SiteBundle:Site:index }
 
 site_login:

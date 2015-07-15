@@ -10,18 +10,6 @@ class Enquete extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbEnquete';
 
-    public function preSave(AbstractEntity $entity = null)
-    {
-
-        $this->entity->setDtCadastro(new \DateTime());
-
-        if ($this->getRequest()->request->get('dtInicio')) {
-            $this->entity->setDtInicio(Data::dateBr($this->getRequest()->request->get('dtInicio')));
-        }
-
-        $this->entity->setDtFim(Data::dateBr($this->getRequest()->request->get('dtFim')));
-
-    }
 
     public function postSave(AbstractEntity $entity = null)
     {

@@ -9,37 +9,36 @@
         </header>
 
         <div class="panel-body">
-            <form method="post" action=" " id="form-operador" class="form-horizontal tasi-form">
+            <form method="post" action="{{ path('super_operador_create') }}" id="form-operador" class="form-horizontal tasi-form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control required" id="noPessoa" placeholder="Nome do operador"
-                               name="noPessoa" value="{{ entity.getIdPessoa().getNoPessoa() }}">
+                        {{ formText('noPessoa', entity.getIdPessoa().getNoPessoa(), {
+                            class: 'form-control required',
+                            placeholder: 'Nome do operador'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-2" for="noPessoa">E-mail</label>
+                    <label class="col-sm-2 control-label col-lg-2" for="noEmail">E-mail</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control required email " id="noEmail" placeholder="E-mail do operador"
-                               name="noEmail" value="{{ entity.getIdPessoa().getNoEmail() }}">
+                        {{ formText('noEmail', entity.getIdPessoa().getIdPessoaFisica().getNoEmail(), {
+                            class: 'form-control required email',
+                            placeholder: 'E-mail do operador'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-2" for="noSenha">Senha</label>
+                    <label class="col-sm-2 control-label col-lg-2" for="nuCpf">CPF</label>
 
                     <div class="col-lg-10">
-                        <input type="password" class="form-control required" id="noSenha"
-                               name="noSenha" value="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-2" for="noSenhaConfirmar">Confirmação de Senha</label>
-
-                    <div class="col-lg-10">
-                        <input type="password" class="form-control required" id="noSenhaConfirmar"
-                               name="noSenhaConfirmar" value="">
+                        {{ formText('nuCpf', entity.getIdPessoa().getIdPessoaFisica().getNuCpf(), {
+                            class: 'form-control required cpf',
+                            placeholder: 'Número de CPF',
+                            'data-mask': 'cpf'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -48,6 +47,7 @@
                             <i class="fa fa-plus"></i>
                             Salvar
                         </button>
+                        <a class="btn btn-danger" href="{{ path('super_operador_index') }}">Cancelar</a>
                     </div>
                 </div>
             </form>

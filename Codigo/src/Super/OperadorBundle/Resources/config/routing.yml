@@ -1,7 +1,7 @@
 super_operador_index:
-    path:     /
+    path:     /index.html
     defaults: { _controller: SuperOperadorBundle:Default:index }
 
 super_operador_create:
-    path:     /create
+    path:     /cadastro.html
     defaults: { _controller: SuperOperadorBundle:Default:create }
