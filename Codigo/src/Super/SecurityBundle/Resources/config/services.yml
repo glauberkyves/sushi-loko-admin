@@ -10,3 +10,7 @@ services:
           arguments:  ["@router", "@security.context", "@service_container"]
           tags:
               - { name: 'monolog.logger', channel: 'security' }
+
+    service.token:
+        class: Super\SecurityBundle\Security\Token
+        arguments:  ["@service_container"]
