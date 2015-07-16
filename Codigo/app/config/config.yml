@@ -69,7 +69,11 @@ doctrine:
                   dql:
                       string_functions:
                           concat_ws: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlConcatWs
-
+                          month: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlMonth
+                      datetime_functions:
+                          day: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlDate
+                          year: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlDay
+                          date: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlYear
 
 # Swiftmailer Configuration
 swiftmailer:

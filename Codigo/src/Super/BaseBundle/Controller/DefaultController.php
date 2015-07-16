@@ -16,7 +16,7 @@ class DefaultController extends CrudController
         $lista               = array();
         foreach ($usuariosCadastrados as $value) {
             $total = $value["total"];
-            $dia   = $value["dtCadastro"]->format("d-m-y");
+            $dia   = $value["dtCadastro"];
 
             $data = array("device" => $dia, "geekbench" => $total);
             array_push($lista, $data);
