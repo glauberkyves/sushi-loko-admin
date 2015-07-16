@@ -25,3 +25,7 @@ mobile_bundle:
             error: Ocorreu um erro inesperado ao buscar por esta franquia, por favor tente novamente.
         opinar:
             success: Agradecemos por contribuir com a sua opinião.
+        listar_promocao:
+            error: Nenhuma promoção encontrada.
+        listar_cardapio:
+            error: Nenhum cardápio encontrado.

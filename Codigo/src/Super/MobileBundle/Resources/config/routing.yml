@@ -46,3 +46,13 @@ super_mobile_franquia_opinar:
     path:     /franquia/opinar
     defaults: { _controller: SuperMobileBundle:Franquia:opinar }
     methods:  [POST]
+
+super_mobile_franquia_listar_promocao:
+    path:     /franquia/listar/promocao
+    defaults: { _controller: SuperMobileBundle:Franquia:listarPromocao }
+    methods:  [POST]
+
+super_mobile_franquia_listar_cardapio:
+    path:     /franquia/listar/cardapio
+    defaults: { _controller: SuperMobileBundle:Franquia:listarCardapio }
+    methods:  [POST]
