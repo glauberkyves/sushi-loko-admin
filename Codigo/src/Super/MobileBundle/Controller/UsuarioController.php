@@ -67,7 +67,6 @@ class UsuarioController extends AbstractMobile
         if($user) {
             if($user = $this->getService()->login($user)) {
 
-                $imagem = $this->getService()->getInfoFile($user->getIdPessoa()->getNoImagem());
                 $pessoaFisica = $user->getIdPessoa()->getIdPessoaFisica();
 
                 $data = array(
@@ -76,9 +75,7 @@ class UsuarioController extends AbstractMobile
                     'nuCpf'          => $pessoaFisica->getNuCpf(),
                     'noEmail'        => $pessoaFisica->getNoEmail(),
                     'dtNascimento'   => $pessoaFisica->getDtNascimento()->format('d/m/Y'),
-                    'sgSexo'         => $pessoaFisica->getSgSexo(),
-                    'avatarExtensao' => $imagem['extensao'],
-                    'avatarImagem'   => $imagem['imagem']
+                    'sgSexo'         => $pessoaFisica->getSgSexo()
                 );
 
                 $this->add('valido', true);

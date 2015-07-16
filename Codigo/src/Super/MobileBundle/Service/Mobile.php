@@ -63,7 +63,7 @@ class Mobile extends CrudService
         if($filename) {
             $path = $this->getRequest()->server->get('DOCUMENT_ROOT') . DIRECTORY_SEPARATOR;
 
-            if (file_exists($path . $filename)) {
+            if(file_exists($path . $filename)) {
                 $file["extensao"] = current(array_reverse(explode('.', $filename)));
                 $file["imagem"] = base64_encode(file_get_contents($path . $filename));
             }

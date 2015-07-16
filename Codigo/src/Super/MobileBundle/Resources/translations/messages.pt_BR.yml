@@ -24,4 +24,4 @@ mobile_bundle:
         default:
             error: Ocorreu um erro inesperado ao buscar por esta franquia, por favor tente novamente.
         opinar:
-            success: Enquete respondida com sucesso, agradecemos a sua participação!
+            success: Agradecemos por contribuir com a sua opinião.
