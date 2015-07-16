@@ -14,6 +14,10 @@ super_franqueador_feedback:
     resource: "@SuperFeedbackBundle/Resources/config/routing.yml"
     prefix:   /feedback
 
+super_franqueador_pesquisa:
+    path:     /pesquisa.html
+    defaults: { _controller: SuperBaseBundle:Default:pesquisa }
+
 
 ########## FRANQUIA ###############
 super_franquia_index:

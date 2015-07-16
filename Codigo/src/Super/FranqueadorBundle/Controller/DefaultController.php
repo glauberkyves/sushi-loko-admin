@@ -27,19 +27,21 @@ class DefaultController extends CrudController
     public function dashboardAction(Request $request)
     {
         $usuariosCadastrados = $this->getService("service.usuario")->usuariosCadastradosSemana();
-
         $lista = array();
-        foreach ($usuariosCadastrados as $value) {
-            $total = $value["total"];
-            $dia   = $value["dtCadastro"]->format("d-m-y");
 
-            $data = array("device" => $dia, "geekbench" => $total);
-            array_push($lista, $data);
+        foreach($usuariosCadastrados as $value)
+        {
+            $dia = new \DateTime($value["dtCadastro"]);
+
+            array_push($lista, array(
+                "device" => $dia->format('d/m'),
+                "geekbench" => $value["total"]
+            ));
         }
 
-        $jsonUser = json_encode($lista);
+        $this->vars['jsonUser'] = json_encode($lista);
 
-        return $this->render('SuperFranqueadorBundle:Default:dashboard.html.twig', array("jsonUser" => $jsonUser));
+        return parent::indexAction($request);
     }
 
     public function editAction(Request $request)
