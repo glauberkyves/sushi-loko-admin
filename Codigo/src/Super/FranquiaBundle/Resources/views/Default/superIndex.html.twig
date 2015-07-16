@@ -2,14 +2,13 @@
 {% block body %}
     <section class="panel">
         <header class="panel-heading">
-            Pesquisar Franquia
+            Pesquisar por Franquia
               <span class="tools pull-right">
                 <a class="fa fa-chevron-down" href="javascript:;"></a>
               </span>
         </header>
         <div class="panel-body">
             <form method="post" action=" " id="form-franquia" class="form-horizontal tasi-form">
-                {{ formHidden('idFranqueador', idFranqueador) }}
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Franqueado</label>
                     <div class="col-lg-10">
@@ -28,12 +27,6 @@
                             <i class="fa fa-search"></i>
                             Pesquisar
                         </button>
-                        {% if is_granted('ROLE_SUPER') %}
-                            <a href="{{ path('super_franquia_create', {idFranqueador: idFranqueador}) }}" class="btn btn-default">
-                                <i class="fa fa-plus"></i>
-                                Cadastrar
-                            </a>
-                        {% endif %}
                     </div>
                 </div>
             </form>

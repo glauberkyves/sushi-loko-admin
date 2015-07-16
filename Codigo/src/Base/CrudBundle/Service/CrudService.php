@@ -45,18 +45,8 @@ class CrudService extends AbstractService
                         $itens[$key][$keyIten] = $iten->format('d/m/Y');
                         break;
                     case $keyIten == 'stAtivo':
-                        switch($iten){
-                            case Dominio::ATIVO:
-                                $iten = 'Ativo';
-                                break;
-                            case Dominio::INATIVO:
-                                $iten = 'Inativo';
-                                break;
-                            case Dominio::SUSPENSO:
-                                $iten = 'Suspenso';
-                                break;
-                        }
-                        $itens[$key][$keyIten] = $iten;
+                        $arrStatus = Dominio::getStAtivo();
+                        $itens[$key][$keyIten] = isset($arrStatus[$iten]) ? $arrStatus[$iten] : '';
                         break;
                 }
                 if ($addOptions) {

@@ -28,6 +28,12 @@ super_franqueador_edit:
         id: \d+
 
 ######## FRANQUIA #########
+super_franquia_index_super:
+    path:     /franquia/index.html
+    defaults: { _controller: SuperFranquiaBundle:Default:superIndex }
+    requirements:
+        idFranqueador: \d+
+
 super_franquia_create:
     path:     /franquia/cadastrar/{idFranqueador}
     defaults: { _controller: SuperFranquiaBundle:Default:create }

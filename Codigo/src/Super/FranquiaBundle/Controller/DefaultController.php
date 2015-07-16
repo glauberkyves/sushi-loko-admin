@@ -11,7 +11,7 @@ class DefaultController extends CrudController
     protected $serviceName = 'service.franquia';
 
     /**
-     * Página inicial do franqueado
+     * Página inicial do franqueado (FRANQUEADOR)
      * @param Request $request
      * @param null $idFranqueador
      * @return Response
@@ -30,6 +30,18 @@ class DefaultController extends CrudController
                 break;
         }
 
+        $this->vars['cmbStatus'] = Dominio::getStAtivo();
+
+        return parent::indexAction($request);
+    }
+
+    /**
+     * Página inicial do franqueado (SUPER)
+     * @param Request $request
+     * @return Response
+     */
+    public function superIndexAction(Request $request)
+    {
         $this->vars['cmbStatus'] = Dominio::getStAtivo();
 
         return parent::indexAction($request);

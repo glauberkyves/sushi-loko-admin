@@ -16,14 +16,20 @@ class FranquiaRepository extends AbstractRepository
 {
     public function fetchGrid(Request $request)
     {
-        return $this
-            ->getEntityManager()
-            ->createQueryBuilder()
+        $query = $this->createQueryBuilder('f');
+
+        $query
             ->select('f.idFranquia, f.noFranquia, u.idUsuario, f.stAtivo')
-            ->from('Base\BaseBundle\Entity\TbFranquia', 'f')
-            ->where('f.idFranqueador = :idFranqueador')
-            ->innerJoin('f.idUsuario', 'u')
-            ->setParameter('idFranqueador', $request->query->get('idFranqueador'));
+            ->innerJoin('f.idUsuario', 'u');
+
+            if($idFranqueador = $request->query->get('idFranqueador'))
+            {
+                $query
+                    ->where('f.idFranqueador = :idFranqueador')
+                    ->setParameter('idFranqueador', $idFranqueador);
+            }
+
+        return $query;
     }
 
     public function addWhere(QueryBuilder $query, Request $request)
