@@ -20,11 +20,12 @@ class UsuarioController extends AbstractMobile
     {
         $request = $this->getRequest();
 
-        $user = $this->getService('service.usuario')->findOneBy(array(
+        $idFranqueador = $this->getService('service.franqueador')->find($request->idFranqueador);
+        $idUsuario     = $this->getService('service.usuario')->findOneBy(array(
             'nuCpf' => $request->nuCpf
         ));
 
-        if (!$user) {
+        if (!$idUsuario) {
 
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 2, 0);
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 5, 0);
@@ -39,6 +40,8 @@ class UsuarioController extends AbstractMobile
             $idUsuario = $this->getService('service.usuario')->save();
 
             if ($idUsuario) {
+                $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
+
                 $this->add('valido' ,   true);
                 $this->add('idUsuario', $idUsuario->getIdUsuario());
             } else {

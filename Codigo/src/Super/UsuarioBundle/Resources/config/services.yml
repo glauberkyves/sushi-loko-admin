@@ -18,3 +18,7 @@ services:
     service.pessoa_juridica:
           class: Super\UsuarioBundle\Service\PessoaJuridica
           arguments:  ["@service_container"]
+
+    service.franqueador_usuario:
+          class: Super\UsuarioBundle\Service\FranqueadorUsuario
+          arguments:  ["@service_container"]

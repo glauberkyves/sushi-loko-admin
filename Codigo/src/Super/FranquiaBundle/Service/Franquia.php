@@ -28,10 +28,14 @@ class Franquia extends CrudService
         $this->entity->setIdCardapio($idCardapio);
     }
 
+    public function preInsert(AbstractEntity $entity = null)
+    {
+        $this->entity->setDtCadastro(new \DateTime());
+    }
+
     public function postInsert(AbstractEntity $entity = null)
     {
         $this->editUsuario($this->entity->getIdUsuario());
-        $this->entity->setDtCadastro(new \DateTime());
     }
 
     public function postSave(AbstractEntity $entity = null)

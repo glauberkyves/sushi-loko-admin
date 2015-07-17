@@ -59,8 +59,12 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\RlUsuarioPerfil", mappedBy="idUsuario")
      */
     private $rlUsuarioPerfil;
-
-
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueadorUsuario", mappedBy="idUsuario")
+     */
+    private $idFranqueadorUsuario;
 
     private $salt;
     /**
@@ -88,7 +92,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->idUsuario;
     }
-
     /**
      * @return \TbFranqueador
      */
@@ -96,7 +99,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->idFranqueador;
     }
-
     /**
      * @param \TbFranqueador $idFranqueador
      */
@@ -104,8 +106,6 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         $this->idFranqueador = $idFranqueador;
     }
-
-
     /**
      * Set noSenha
      *
@@ -214,6 +214,20 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function getRlUsuarioPerfil()
     {
         return $this->rlUsuarioPerfil;
+    }
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdFranqueadorUsuario()
+    {
+        return $this->idFranqueadorUsuario;
+    }
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idFranqueadorUsuario
+     */
+    public function setIdFranqueadorUsuario($idFranqueadorUsuario)
+    {
+        $this->idFranqueadorUsuario = $idFranqueadorUsuario;
     }
     /**
      * Returns the roles granted to the user.

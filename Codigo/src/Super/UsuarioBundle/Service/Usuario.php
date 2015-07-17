@@ -47,15 +47,10 @@ class Usuario extends CrudService
                 $numbers{$i} = mt_rand(2, 9);
             }
         }
-        if (!$onlyNumbers) {
-            $letters = 'abcdefghkmnpqrstuvxwyz';
-            $letters .= (string)$numbers;
-        } else {
-            $letters = (string)$numbers;
-        }
-        if ($especialChars) {
-            $letters .= '/#$%&*()^´[]';
-        }
+        $letters = (!$onlyNumbers)   ? 'abcdefghkmnpqrstuvxwyz' : '';
+        $letters .= ($especialChars) ? '/#$%&*()^´[]' : $letters;
+        $letters .= (string)$numbers;
+
         $final = str_split($letters);
         shuffle($final);
         $return = "";
