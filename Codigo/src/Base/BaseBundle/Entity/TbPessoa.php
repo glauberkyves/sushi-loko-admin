@@ -31,13 +31,6 @@ class TbPessoa extends AbstractEntity
     private $noPessoa;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="no_imagem", type="string", length=100, nullable=true)
-     */
-    private $noImagem;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
@@ -79,22 +72,6 @@ class TbPessoa extends AbstractEntity
     public function setIdUsuario($idUsuario)
     {
         $this->idUsuario = $idUsuario;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNoImagem()
-    {
-        return $this->noImagem;
-    }
-
-    /**
-     * @param string $noImagem
-     */
-    public function setNoImagem($noImagem)
-    {
-        $this->noImagem = $noImagem;
     }
 
     /**

@@ -2,11 +2,19 @@
     {{ formHidden('idFranqueador', idFranqueador ?: entity.getIdFranqueador().getIdFranqueador()) }}
     {{ formHidden('idFranquia', entity.getIdFranquia()) }}
     {{ formHidden('idEndereco', entity.getIdEndereco().getIdEndereco()) }}
+    {{ formHidden('idUsuario', entity.getIdUsuario().getIdUsuario()) }}
     <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
+        <label class="col-sm-2 control-label col-lg-2" for="noFranquia">Nome Franqueado</label>
         <div class="col-lg-10">
             <input type="text" class="form-control required" id="noFranquia" placeholder="Nome Franqueado"
                    name="noFranquia" value="{{ entity.getNoFranquia() }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome Franqueado</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control required" id="noPessoa" placeholder="Nome Responsável"
+                   name="noPessoa" value="{{ entity.getIdUsuario().getIdPessoa().getNoPessoa() }}">
         </div>
     </div>
     <div class="form-group">
@@ -14,14 +22,14 @@
 
         <div class="col-lg-10">
             <input type="text" class="form-control required cpf" id="nuCpf" placeholder="CPF Responsável" data-mask="cpf"
-                   name="nuCpf" value="">
+                   name="nuCpf" value="{{ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf() }}">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Responsável</label>
         <div class="col-lg-10">
             <input type="email" class="form-control required" id="noEmail" placeholder="E-mail Responsável"
-            name="noEmail" value="">
+            name="noEmail" value="{{ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNoEmail() }}">
         </div>
     </div>
     <div class="form-group">

@@ -254,7 +254,7 @@ class TbFranquia extends AbstractEntity
      */
     public function getIdUsuario()
     {
-        return $this->idUsuario;
+        return $this->idUsuario ?: new \Base\BaseBundle\Entity\TbUsuario;
     }
 
     /**

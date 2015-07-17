@@ -3,8 +3,10 @@
 namespace Super\FranquiaBundle\Service;
 
 use Base\BaseBundle\Entity\AbstractEntity;
+use Base\BaseBundle\Entity\TbUsuario;
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Service\Dominio;
+use Super\UsuarioBundle\Service\Perfil;
 
 class Franquia extends CrudService
 {
@@ -15,23 +17,57 @@ class Franquia extends CrudService
         $idFranqueador = $this->getRequest()->request->getInt('idFranqueador');
         $idCardapio    = $this->getRequest()->request->getInt('idCardapio');
 
+        $idUsuario     = $this->getService('service.usuario')->save();
         $idEndereco    = $this->getService('service.endereco')->save();
         $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
         $idCardapio    = $this->getService('service.cardapio')->find($idCardapio);
 
+        $this->entity->setIdUsuario($idUsuario);
         $this->entity->setIdEndereco($idEndereco);
         $this->entity->setIdFranqueador($idFranqueador);
         $this->entity->setIdCardapio($idCardapio);
     }
 
-    public function preInsert(AbstractEntity $entity = null)
+    public function postInsert(AbstractEntity $entity = null)
     {
+        $this->editUsuario($this->entity->getIdUsuario());
         $this->entity->setDtCadastro(new \DateTime());
     }
 
     public function postSave(AbstractEntity $entity = null)
     {
         $this->savePromocao();
+    }
+
+    /**
+     * Alterar senha do usuário e enviar por email
+     */
+    public function editUsuario(TbUsuario $usuario = null)
+    {
+        $password = $this->getService('service.usuario')->getRandomHash();
+        $view     = 'SuperFranqueadorBundle:Default:envioSenha.html.twig';
+
+        $usuario->setNoSenha(md5($password));
+
+        $this->persist($usuario);
+
+        $body = $this
+            ->getContainer()
+            ->get('templating')
+            ->render($view, array(
+                'senha'  => $password,
+                'entity' => $usuario,
+            ));
+
+        if ($email = $usuario->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
+            $this->sendMail(
+                $email,
+                'Senha de acesso',
+                $body
+            );
+        }
+
+        $this->getService('service.perfil')->savePerfil($this->entity->getIdUsuario(), Perfil::SG_FRANQUIA);
     }
 
     /**
