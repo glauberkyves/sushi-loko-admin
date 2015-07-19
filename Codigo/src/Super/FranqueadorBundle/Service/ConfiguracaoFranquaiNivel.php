@@ -25,6 +25,7 @@ class ConfiguracaoFranquaiNivel extends CrudService
             $entity->setNuValorBonusCadastro($nives['nuValorBonusCadastro'][$i]);
             $entity->setNuPorcentagemPontosExtra($nives['nuPorcentagemPontosExtra'][$i]);
             $entity->setNuQuantidadePontosNecessaio($nives['nuQuantidadePontosNecessaio'][$i]);
+            $entity->setNuPontosBonusCadastro($nives['nuPontosBonusCadastro'][$i]);
             $entity->setDtCadastro(new \DateTime());
             $entity->setIdFranqueador($franqueador);
 

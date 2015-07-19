@@ -3,14 +3,6 @@ super_home:
     path:     /
     defaults: { _controller: SuperBaseBundle:Default:index }
 
-super_promocao:
-    resource: "@SuperPromocaoBundle/Resources/config/routing.yml"
-    prefix:   /promocao
-
-super_cardapio:
-    resource: "@SuperCardapioBundle/Resources/config/routing.yml"
-    prefix:   /cardapio
-
 
 ######## FRANQUEADOR #########
 super_franqueador_index:

@@ -1,53 +1,12 @@
 <li class="sub-menu">
-    <a href="javascript:;">
+    <a href="{{ path('super_franquia_dashboard') }}">
+        <i class="fa fa-dashboard"></i>
+        <span>Dashboard</span>
+    </a>
+</li>
+<li class="sub-menu">
+    <a href="{{ path('super_operador_index') }}">
         <i class="fa fa-user"></i>
-        <span>Gerenciar Franquias</span>
+        <span>Gerenciar Operadores</span>
     </a>
-    <ul class="sub">
-        <li><a href="{{ path('super_usuario_index') }}">Usuários</a></li>
-    </ul>
-    <ul class="sub">
-        <li><a href="{{ path('super_operador_index') }}">Operadores</a></li>
-    </ul>
-    <ul class="sub">
-        <li><a href="{{ path('super_franqueador_franquia_index') }}">Franqueados</a></li>
-    </ul>
-</li>
-<li class="sub-menu">
-    <a href="{{ path('super_franqueador_mapa') }}">
-        <i class="fa fa-map-marker"></i>
-        <span>Geolocalização</span>
-    </a>
-</li>
-<li class="sub-menu">
-    <a href="javascript:;">
-        <i class="fa fa-user"></i>
-        <span>Gerenciar Enquete</span>
-    </a>
-    <ul class="sub">
-        <li><a href="{{ path('manter_enquete_index') }}">Gerenciar Enquete</a></li>
-        <li><a href="{{ path('manter_enquete_index') }}">Relatórios enquete</a></li>
-    </ul>
-</li>
-<li class="sub-menu">
-    <a href="{{ path('super_pesquisa') }}">
-        <i class="fa fa-search"></i>
-        <span>Pesquisa inteligente</span>
-    </a>
-</li>
-<li class="sub-menu">
-    <a href="#">
-        <i class="fa fa-bar-chart-o"></i>
-        <span>Gerenciar transações</span>
-    </a>
-</li>
-<li class="sub-menu dcjq-parent-li">
-    <a href="javascript:;" class="dcjq-parent">
-        <i class="fa fa-comment"></i>
-        <span>Gerenciar FeedBack</span>
-        <span class="dcjq-icon"></span></a>
-    <ul class="sub" style="display: none;">
-        <li><a href="{{ path('super_feedback_index') }}">Manter FeedBack</a></li>
-        <li><a href="{{ path('super_feedback_email') }}">Personalizar Email</a></li>
-    </ul>
 </li>

@@ -8,10 +8,6 @@
     {% endif %}
 
     {% if is_granted('ROLE_FRANQUIA') %}
-        {% include 'SuperBaseBundle::menu_franqueador.html.twig' %}
-    {% endif %}
-
-    {% if is_granted('ROLE_OPERADOR') %}
-        {% include 'SuperBaseBundle::menu_franqueador.html.twig' %}
+        {% include 'SuperBaseBundle::menu_franquia.html.twig' %}
     {% endif %}
 </ul>

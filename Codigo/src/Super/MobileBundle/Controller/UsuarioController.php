@@ -8,12 +8,13 @@
 namespace Super\MobileBundle\Controller;
 
 use Base\BaseBundle\Service\Data;
+use Symfony\Component\HttpFoundation\Request;
 
 class UsuarioController extends AbstractMobile
 {
     /**
      * Cadastrar usuário
-     * @param nuCpf, dtNascimento, noSenha, noPessoa, noEmail, sgSexo
+     * @param nuCpf , dtNascimento, noSenha, noPessoa, noEmail, sgSexo
      * @return Response
      */
     public function cadastrarAction()
@@ -30,11 +31,11 @@ class UsuarioController extends AbstractMobile
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 2, 0);
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 5, 0);
 
-            $this->getRequest()->request->set('nuCpf',    $request->nuCpf);
-            $this->getRequest()->request->set('noSenha',  $request->noSenha);
+            $this->getRequest()->request->set('nuCpf', $request->nuCpf);
+            $this->getRequest()->request->set('noSenha', $request->noSenha);
             $this->getRequest()->request->set('noPessoa', $request->noPessoa);
-            $this->getRequest()->request->set('noEmail',  $request->noEmail);
-            $this->getRequest()->request->set('sgSexo',   $request->sgSexo);
+            $this->getRequest()->request->set('noEmail', $request->noEmail);
+            $this->getRequest()->request->set('sgSexo', $request->sgSexo);
             $this->getRequest()->request->set('dtNascimento', Data::dateBr($request->dtNascimento));
 
             $idUsuario = $this->getService('service.usuario')->save();
@@ -42,7 +43,7 @@ class UsuarioController extends AbstractMobile
             if ($idUsuario) {
                 $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
 
-                $this->add('valido' ,   true);
+                $this->add('valido', true);
                 $this->add('idUsuario', $idUsuario->getIdUsuario());
             } else {
                 $this->add('mensagem', 'mobile_bundle.usuario.cadastrar.exception');
@@ -56,7 +57,7 @@ class UsuarioController extends AbstractMobile
 
     /**
      * Login
-     * @param nuCpf, noSenha
+     * @param nuCpf , noSenha
      * @return Response
      */
     public function autenticarAction()
@@ -67,22 +68,22 @@ class UsuarioController extends AbstractMobile
             $request->nuCpf, md5($request->noSenha)
         );
 
-        if($user) {
-            if($user = $this->getService()->login($user)) {
+        if ($user) {
+            if ($user = $this->getService()->login($user)) {
 
                 $pessoaFisica = $user->getIdPessoa()->getIdPessoaFisica();
 
                 $data = array(
-                    'idUsuario'      => $user->getIdUsuario(),
-                    'noPessoa'       => $user->getIdPessoa()->getNoPessoa(),
-                    'nuCpf'          => $pessoaFisica->getNuCpf(),
-                    'noEmail'        => $pessoaFisica->getNoEmail(),
-                    'dtNascimento'   => $pessoaFisica->getDtNascimento()->format('d/m/Y'),
-                    'sgSexo'         => $pessoaFisica->getSgSexo()
+                    'idUsuario'    => $user->getIdUsuario(),
+                    'noPessoa'     => $user->getIdPessoa()->getNoPessoa(),
+                    'nuCpf'        => $pessoaFisica->getNuCpf(),
+                    'noEmail'      => $pessoaFisica->getNoEmail(),
+                    'dtNascimento' => $pessoaFisica->getDtNascimento()->format('d/m/Y'),
+                    'sgSexo'       => $pessoaFisica->getSgSexo()
                 );
 
                 $this->add('valido', true);
-                $this->add('dados',  $data);
+                $this->add('dados', $data);
 
             } else {
                 $this->add('mensagem', 'mobile_bundle.usuario.autenticar.exception');
@@ -109,9 +110,9 @@ class UsuarioController extends AbstractMobile
         );
 
         if ($user) {
-            if($srvUsuario->recuperarSenha($user->getIdPessoa()->getIdUsuario())) {
+            if ($srvUsuario->recuperarSenha($user->getIdPessoa()->getIdUsuario())) {
 
-                $this->add('valido',   true);
+                $this->add('valido', true);
                 $this->add('mensagem', 'mobile_bundle.usuario.recuperar_senha.success');
 
             } else {

@@ -16,15 +16,22 @@ class DefaultController extends CrudController
     {
         $this->vars['cmbStatus'] = Dominio::getStAtivo();
 
+        $idFranquia = $this->getService('service.franquia')->findOneByIdUsuario($this->getUser());
+        $this->getRequest()->query->set('idFranquia', $idFranquia->getIdFranquia());
+
         return parent::indexAction($request);
     }
 
     public function createAction(Request $request)
     {
+        $this->vars['cmbStatus'] = Dominio::getStAtivo();
+
         if ($request->isMethod('post') && $this->validate() && $this->save()) {
             if ($request->isXmlHttpRequest()) {
+                $this->container->get('session')->getFlashBag()->clear();
+
                 return new JsonResponse(array(
-                    'valido' => true,
+                    'valido'    => true,
                     'idUsuario' => $request->request->get('idUsuario'),
                 ));
             } else {
@@ -44,20 +51,27 @@ class DefaultController extends CrudController
         return $this->render($this->resolveRouteName(), $this->vars);
     }
 
+    public function editAction(Request $request)
+    {
+        $this->vars['cmbStatus'] = Dominio::getStAtivo();
+
+        return parent::editAction($request);
+    }
+
 
     /**
      * @param AbstractEntity $entity
      */
     public function validate(AbstractEntity $entity = null)
     {
-        $valid = true;
         $request = $this->getRequest();
 
-        if ($request->isXmlHttpRequest() && $this->getService()->findOperador($request)) {
+        if ($request->request->get('nuCpf') && $this->getService()->findOperador($request)) {
             $this->addMessage('Usuário já cadastrado', 'error');
-            $valid = false;
+
+            return false;
         }
 
-        return $valid;
+        return parent::validate($entity);
     }
 }

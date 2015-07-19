@@ -6,3 +6,7 @@ super_usuario_create:
     pattern: /cadastro.html
     defaults: { _controller: SuperUsuarioBundle:Default:create }
     methods:  [POST]
+
+super_usuario_verificar_cpf:
+    pattern: /consulta-cpf
+    defaults: { _controller: SuperUsuarioBundle:Default:findCpf }

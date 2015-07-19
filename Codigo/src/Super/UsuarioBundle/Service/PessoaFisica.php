@@ -26,6 +26,8 @@ class PessoaFisica extends CrudService
 
     public function preSave(AbstractEntity $entity = null)
     {
-        $this->entity->setNuCpf($this->getRequest()->request->getDigits('nuCpf'));
+        if($this->getRequest()->request->getDigits('nuCpf')){
+            $this->entity->setNuCpf($this->getRequest()->request->getDigits('nuCpf'));
+        }
     }
 }

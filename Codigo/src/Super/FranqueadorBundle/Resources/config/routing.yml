@@ -18,6 +18,14 @@ super_franqueador_pesquisa:
     path:     /pesquisa.html
     defaults: { _controller: SuperBaseBundle:Default:pesquisa }
 
+super_promocao:
+    resource: "@SuperPromocaoBundle/Resources/config/routing.yml"
+    prefix:   /promocao
+
+super_cardapio:
+    resource: "@SuperCardapioBundle/Resources/config/routing.yml"
+    prefix:   /cardapio
+
 
 ########## FRANQUIA ###############
 super_franquia_index:

@@ -60,15 +60,30 @@ class UsuarioRepository extends AbstractRepository
             ->createQueryBuilder()
             ->select('u')
             ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
-            ->innerJoin('u.rlUsuarioPerfil', 'up')
-            ->innerJoin('up.idPerfil', 'per')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
-            ->where($expr->eq('pf.nuCpf', $request->request->getDigits('nuCpf')))
-            ->andWhere($expr->eq('u.stAtivo', true))
-            ->andWhere($expr->eq('per.sgPerfil', $expr->literal(Perfil::SG_OPERADOR)))
+            ->where($expr->eq('pf.nuCpf', $expr->literal($request->request->getDigits('nuCpf'))))
+            ->orWhere($expr->eq('pf.noEmail', $expr->literal($request->request->get('noEmail'))))
             ->getQuery()
             ->getResult();
+    }
+
+    public function findCpf(Request $request)
+    {
+        $expr = new Expr();
+
+        $result = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('u')
+            ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->where($expr->eq('pf.nuCpf', $expr->literal($request->query->getDigits('nuCpf'))))
+            ->getQuery()
+            ->getResult();
+
+        return $result ? false : true;
     }
 
     public function getByCpfSenha($cpf = null, $senha = null)
@@ -88,5 +103,25 @@ class UsuarioRepository extends AbstractRepository
             ->setParameter('stAtivo', true)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function fetchGrid(Request $request)
+    {
+        $expr = new Expr();
+
+        if($request->get('_route') == 'super_operador_index'){
+            return $this
+                ->getEntityManager()
+                ->createQueryBuilder()
+                ->select('p.noPessoa, pf.noEmail, u.idUsuario, u.stAtivo ')
+                ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
+                ->innerJoin('u.idPessoa', 'p')
+                ->innerJoin('p.idPessoaFisica', 'pf')
+                ->innerJoin('Base\BaseBundle\Entity\TbFranquiaOperador', 'fo', 'WITH', 'fo.idOperador = u.idUsuario')
+                ->where($expr->eq('fo.idFranquia', $request->get('idFranquia')));
+        }
+
+        return $this
+            ->createQueryBuilder('e');
     }
 }

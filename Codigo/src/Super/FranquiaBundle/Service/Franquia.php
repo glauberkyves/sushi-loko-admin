@@ -4,6 +4,7 @@ namespace Super\FranquiaBundle\Service;
 
 use Base\BaseBundle\Entity\AbstractEntity;
 use Base\BaseBundle\Entity\TbUsuario;
+use Base\BaseBundle\Service\Mask;
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Service\Dominio;
 use Super\UsuarioBundle\Service\Perfil;
@@ -89,10 +90,8 @@ class Franquia extends CrudService
             $this->remove($idFranquiaPromocao);
         }
 
-        if($arrPromocao)
-        {
-            foreach($arrPromocao as $key => $idPromocao)
-            {
+        if ($arrPromocao) {
+            foreach ($arrPromocao as $key => $idPromocao) {
                 $entityPromocao = $this->getService('service.promocao')->find($idPromocao);
 
                 $idFranquiaPromocao = $this->getService('service.franquia_promocao')->newEntity();
@@ -110,7 +109,7 @@ class Franquia extends CrudService
      */
     public function buscarUsuario()
     {
-        $suggestions = array();
+        $suggestions             = array();
         $response['suggestions'] = array(
             array(
                 'value' => 'Nenhum resultado encontrado.',
@@ -118,15 +117,12 @@ class Franquia extends CrudService
             )
         );
 
-        if($this->getRequest()->get('q') === 'email')
-        {
+        if ($this->getRequest()->get('q') === 'email') {
             $noEmail         = $this->getRequest()->request->get('query', '');
             $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
 
-            if($arrPessoaFisica)
-            {
-                foreach($arrPessoaFisica as $key => $idPessoaFisica)
-                {
+            if ($arrPessoaFisica) {
+                foreach ($arrPessoaFisica as $key => $idPessoaFisica) {
                     $suggestions[$key]['noPessoa'] = $idPessoaFisica->getIdPessoa()->getNoPessoa();
                     $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
                     $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
@@ -138,13 +134,15 @@ class Franquia extends CrudService
             $noPessoa        = $this->getRequest()->request->get('query', '');
             $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoPessoa($noPessoa);
 
-            if($arrPessoaFisica)
-            {
-                foreach($arrPessoaFisica as $key => $idPessoaFisica)
-                {
-                    $suggestions[$key]['noEmail']  = $idPessoaFisica->getNoEmail();
-                    $suggestions[$key]['value']    = $idPessoaFisica->getIdPessoa()->getNoPessoa();
-                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
+            if ($arrPessoaFisica) {
+                foreach ($arrPessoaFisica as $key => $idPessoaFisica) {
+                    $suggestions[$key]['noEmail'] = $idPessoaFisica->getNoEmail();
+
+                    $nomeCpf = $idPessoaFisica->getIdPessoa()->getNoPessoa() . ' - ';
+                    $nomeCpf .= Mask::mask($idPessoaFisica->getIdPessoa()->getIdPessoaFisica()->getNuCpf(), '###.###.###-##');
+
+                    $suggestions[$key]['value'] = $nomeCpf;
+                    $suggestions[$key]['data']  = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
                 }
 
                 $response['suggestions'] = $suggestions;
@@ -175,12 +173,12 @@ class Franquia extends CrudService
         );
 
         $this->vars['cmbCardapio'] = $this->getService('service.cardapio')->getComboDefault(
-            array('stAtivo'    => true),
+            array('stAtivo' => true),
             array('noCardapio' => 'ASC')
         );
 
         $this->vars['cmbPromocao'] = $this->getService('service.promocao')->getComboDefault(
-            array('stAtivo'    => true),
+            array('stAtivo' => true),
             array('noPromocao' => 'ASC')
         );
 
@@ -194,10 +192,8 @@ class Franquia extends CrudService
         );
 
         //combos formulario de edição
-        if ($id = $this->getRequest()->get('id'))
-        {
-            if ($entity = $this->getRepository()->find($id))
-            {
+        if ($id = $this->getRequest()->get('id')) {
+            if ($entity = $this->getRepository()->find($id)) {
                 $idEndereco  = $entity->getIdEndereco();
                 $idMunicipio = $idEndereco->getIdMunicipio();
 
@@ -210,10 +206,10 @@ class Franquia extends CrudService
                 );
 
                 array_push($this->vars['arrMunicipio'], $idMunicipio->getIdMunicipio());
-                array_push($this->vars['arrEstado']   , $idMunicipio->getIdEstado()->getIdEstado());
-                array_push($this->vars['arrBairro']   , $idEndereco->getIdBairro()->getIdBairro());
-                array_push($this->vars['arrCardapio'] , $entity->getIdCardapio()->getIdCardapio());
-                array_push($this->vars['arrSituacao'] , $entity->getStAtivo());
+                array_push($this->vars['arrEstado'], $idMunicipio->getIdEstado()->getIdEstado());
+                array_push($this->vars['arrBairro'], $idEndereco->getIdBairro()->getIdBairro());
+                array_push($this->vars['arrCardapio'], $entity->getIdCardapio()->getIdCardapio());
+                array_push($this->vars['arrSituacao'], $entity->getStAtivo());
 
                 foreach ($entity->getIdFranquiaPromocao() as $idFranquiaPromocao) {
                     array_push($this->vars['arrPromocao'], $idFranquiaPromocao->getIdPromocao()->getIdPromocao());
@@ -228,9 +224,9 @@ class Franquia extends CrudService
     {
         foreach ($itens as $key => $value) {
             foreach ($value as $keyIten => $iten) {
-                if($keyIten == 'idUsuario') {
-                    $user = $this->getService('service.usuario')->find($iten);
-                    $itens[$key]['noResponsavel'] = $user->getIdPessoa()->getNoPessoa();
+                if ($keyIten == 'idUsuario') {
+                    $user                              = $this->getService('service.usuario')->find($iten);
+                    $itens[$key]['noResponsavel']      = $user->getIdPessoa()->getNoPessoa();
                     $itens[$key]['noEmailResponsavel'] = $user->getIdPessoa()->getIdPessoaFisica()->getNoEmail();
                 }
             }

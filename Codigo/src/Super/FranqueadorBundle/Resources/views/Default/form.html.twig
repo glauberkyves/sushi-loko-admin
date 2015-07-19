@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Responsável</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formText('noPessoa', entity.getIdUsuario().getIdPessoa().getNoPessoa(), {
                         class: 'form-control required'
                     }) }}
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CPF Responsável</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-2">
                     {{ formText('nuCpf', entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf(), {
                         class: 'form-control required cpf',
                         'data-mask': 'cpf'
@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Responsável</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formText('noEmail', entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNoEmail(), {
                         class: 'form-control required email'
                     }) }}
@@ -42,12 +42,12 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Operador</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     <div class="input-group m-bot15">
                         {{ formText('noOperador', entity.getIdOperador().getIdPessoa().getNoPessoa(), {
                             class: 'form-control required'
                         }) }}
-                        {{ formHidden('idOperador', entity.getIdOperador().getIdPessoa().getIdPessoa()) }}
+                        {{ formHidden('idOperador', entity.getIdOperador().getIdUsuario()) }}
                         <span class="input-group-addon" data-toggle="modal" href="#cadastrarUsuario"><i
                                     class="fa fa-plus"></i></span>
                     </div>
@@ -58,8 +58,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Operador</label>
 
-                <div class="col-lg-10">
-                    {{ formText('noPessoa', '', {
+                <div class="col-lg-4">
+                    {{ formText('noEmailOperador', entity.getIdOperador().getIdPessoa().getIdPessoaFisica().getNoEmail(), {
                         class: 'form-control required email',
                         readonly: 'readonly'
                     }) }}
@@ -69,7 +69,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Razão Social</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formText('noRazaoSocial', entity.getIdUsuario().getIdPessoa().getNoPessoa(), {
                         class: 'form-control required'
                     }) }}
@@ -78,7 +78,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Fantansia</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formText('noFantasia', entity.getNoFantasia(), {
                         class: 'form-control required'
                     }) }}
@@ -87,7 +87,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CNPJ</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-2">
                     {{ formText('nuCnpj', entity.getNuCnpj(), {
                         class: 'form-control cnpj required',
                         'data-mask': 'cnpj',
@@ -109,7 +109,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CEP</label>
 
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="input-group m-bot15">
                         {{ formText('nuCep', entity.getIdEndereco().getNuCep(), {
                             class: 'form-control cep required',
@@ -122,7 +122,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Estado</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formSelect('idEstado', entity.getIdEndereco().getIdMunicipio().getIdEstado().getIdEstado(), {
                         class: 'form-control required'
                     }, cmbEstado) }}
@@ -131,7 +131,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Município</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formSelect('idMunicipio', entity.getIdEndereco().getIdMunicipio().getIdMunicipio(), {
                         class: 'form-control required'
                     }, cmbMunicipio) }}
@@ -140,7 +140,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Bairro</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formSelect('idBairro', entity.getIdEndereco().getIdBairro().getIdBairro(), {
                         class: 'form-control required'
                     }, cmbBairro) }}
@@ -149,7 +149,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Endereço</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formText('noLogradouro', entity.getIdEndereco().getNoLogradouro(), {
                         class: 'form-control required'
                     }) }}
@@ -158,7 +158,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Número</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-2">
                     {{ formText('nuEndereco', entity.getIdEndereco().getNuEndereco(), {
                         class: 'form-control required'
                     }) }}
@@ -167,7 +167,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Complemento</label>
 
-                <div class="col-lg-10">
+                <div class="col-lg-4">
                     {{ formText('noComplemento', entity.getIdEndereco().getNoComplemento(), {
                         class: 'form-control'
                     }) }}
@@ -289,10 +289,10 @@
                 <div class="col-lg-4">
                     <div class="input-group m-bot15">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        {{ formText('dtValidadeBonus', entity.getDtValidadeBonus().format('d/m/Y'), {
-                            class: 'form-control required dateBr',
+                        {{ formText('nuValidadeBonus', entity.getNuValidadeBonus(), {
+                            class: 'form-control required',
                             placeholder: 'Validade dos bônus',
-                            'data-mask': '99/99/9999'
+                            'data-mask': '99'
                         }) }}
                     </div>
                 </div>
@@ -309,13 +309,17 @@
 </form>
 
 {% include 'SuperOperadorBundle:Default:createModal.html.twig' %}
-
+<script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>
 <script>
     $(document).ready(function () {
+        $('#div-niveis, #add-niveis').hide()
+
         $('#stNiveis').click(function () {
             if ($(this).is(':checked')) {
+                $(this).val(1)
                 $('#div-niveis, #add-niveis').show()
             } else {
+                $(this).val(0)
                 $('#div-niveis div').each(function (i, v) {
                     if (i > 11) {
                         $(this).remove()
@@ -389,7 +393,7 @@
             $(this).setMask('decimal');
         })
 
-        {% if entity.getStNiveis() %}
+        {% if entity.getIdFranqueador() and entity.getStNiveis() %}
         $('#div-niveis, #add-niveis').show()
         $('#div-niveis div.form-group:nth-child(1)').remove()
         $('#div-niveis div.form-group:nth-child(1)').remove()
@@ -442,16 +446,18 @@
         {% endif %}
 
         $("#noOperador").autocomplete({
-            serviceUrl:       "/super/franqueador/franquia/usuario/buscar?q=nome",
+            serviceUrl:       "{{ path('super_franquia_buscar_usuario') }}?q=nome",
             type:             "POST",
             minChars:         3,
             maxHeight:        400,
             onSelect:         function (suggestion) {
                 if (suggestion.data) {
                     $('#idOperador').val(suggestion.data);
-                    $('#form-franquia input[id=noEmailOperador]').val(suggestion.noEmail);
+                    $('#noEmailOperador').val(suggestion.noEmail);
                 } else {
+                    $("#idOperador").val("");
                     $("#noOperador").val("");
+                    $("#noEmailOperador").val("");
                 }
             },
             onSearchStart:    function () {
@@ -464,6 +470,14 @@
                 $(this).removeClass("spinner");
             }
         });
+
+        {% if not entity.getIdFranqueador() %}
+        $("#nuCpf").rules('add', {
+            remote:   '{{ path('super_usuario_verificar_cpf') }}',
+            messages: {
+                remote: "CPF já cadastrado"
+            }
+        });
+        {% endif %}
     })
 </script>
-<script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>

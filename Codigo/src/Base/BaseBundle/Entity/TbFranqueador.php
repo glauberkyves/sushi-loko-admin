@@ -73,9 +73,9 @@ class TbFranqueador extends AbstractEntity
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dt_validade_bonus", type="datetime", nullable=false)
+     * @ORM\Column(name="nu_validade_bonus", type="integer", nullable=false)
      */
-    private $dtValidadeBonus;
+    private $nuValidadeBonus;
 
     /**
      * @var integer
@@ -141,7 +141,6 @@ class TbFranqueador extends AbstractEntity
     public function __construct()
     {
         $this->idFranquia = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->dtValidadeBonus = new \DateTime();
     }
 
     /**
@@ -369,19 +368,18 @@ class TbFranqueador extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
      */
-    public function getDtValidadeBonus()
+    public function getNuValidadeBonus()
     {
-        return $this->dtValidadeBonus;
+        return $this->nuValidadeBonus;
     }
 
     /**
-     * @param \DateTime $dtValidadeBonus
+     * @param $nuValidadeBonus
      */
-    public function setDtValidadeBonus($dtValidadeBonus)
+    public function setNuValidadeBonus($nuValidadeBonus)
     {
-        $this->dtValidadeBonus = $dtValidadeBonus;
+        $this->nuValidadeBonus = $nuValidadeBonus;
     }
 
     /**

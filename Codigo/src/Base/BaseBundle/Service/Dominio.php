@@ -10,7 +10,6 @@ namespace Base\BaseBundle\Service;
 
 class Dominio
 {
-    CONST SUSPENSO = 2;
     CONST ATIVO = 1;
     CONST INATIVO = 0;
 
@@ -23,14 +22,13 @@ class Dominio
             ''             => 'Selecione',
             self::ATIVO    => 'Ativo',
             self::INATIVO  => 'Inativo',
-            self::SUSPENSO => 'Suspenso'
         );
     }
 
     public static function getStSexo()
     {
         return array(
-            ''              => 'Selecione',
+             ''              => 'Selecione',
             self::MASCULINO => 'Masculino',
             self::FEMININO  => 'Feminino'
         );

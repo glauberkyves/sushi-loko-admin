@@ -23,6 +23,7 @@ class Operador extends CrudService
     public function postSave(AbstractEntity $entity = null)
     {
         $this->getService('service.perfil')->savePerfil($this->entity, Perfil::SG_OPERADOR);
+        $this->getService('service.franquia_operador')->saveFranquiaOperador($entity);
     }
 
     public function preUpdate(AbstractEntity $entity = null)

@@ -87,7 +87,7 @@ $.extend($.componentGrid, {
             this.grid = element;
             this.form = $('[id=' + element.attr('data-grid') + ']');
 
-            element.find('[data-column]').each(function(i, v){
+            element.find('[data-column]').each(function (i, v) {
                 var column = $(this).attr('data-column')
                 $.componentGrid.options.columns.push({data: column});
             });
@@ -101,19 +101,25 @@ $.extend($.componentGrid, {
 
                     $.componentGrid.options.fnServerParams = function (aoData) {
                         $.each(params, function (index, value) {
-                            aoData.push({ 'name': value.name, 'value': value.value });
+                            aoData.push({'name': value.name, 'value': value.value});
                         });
                     };
 
+                    initialize()
+
+                    return false;
+                });
+
+                function initialize() {
                     if (null == $.componentGrid.grid) {
                         $.componentGrid.grid = element.dataTable($.componentGrid.options);
                     } else {
                         $.componentGrid.grid.api().destroy();
                         $.componentGrid.grid = element.dataTable($.componentGrid.options);
                     }
+                }
 
-                    return false;
-                });
+                initialize()
             } else {
                 $.componentGrid.grid = $(element).dataTable($.componentGrid.options);
             }

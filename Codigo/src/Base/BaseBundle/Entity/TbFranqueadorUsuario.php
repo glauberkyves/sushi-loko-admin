@@ -31,7 +31,7 @@ class TbFranqueadorUsuario extends AbstractEntity
     /**
      * @var \TbFranqueador
      *
-     * @ORM\ManyToOne(targetEntity="TbFranqueador")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueador")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_franqueador", referencedColumnName="id_franqueador")
      * })
@@ -41,7 +41,7 @@ class TbFranqueadorUsuario extends AbstractEntity
     /**
      * @var \TbUsuario
      *
-     * @ORM\ManyToOne(targetEntity="TbUsuario")
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_usuario", referencedColumnName="id_usuario")
      * })

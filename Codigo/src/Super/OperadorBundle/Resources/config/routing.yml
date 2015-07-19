@@ -5,3 +5,7 @@ super_operador_index:
 super_operador_create:
     path:     /cadastro.html
     defaults: { _controller: SuperOperadorBundle:Default:create }
+
+super_operador_edit:
+    path:     /editar
+    defaults: { _controller: SuperOperadorBundle:Default:edit }

@@ -4,6 +4,7 @@ namespace Super\UsuarioBundle\Controller;
 
 use Base\BaseBundle\Service\Dominio;
 use Base\CrudBundle\Controller\CrudController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends CrudController
@@ -38,5 +39,10 @@ class DefaultController extends CrudController
                 ));
             }
         }
+    }
+
+    public function findCpfAction(Request $request)
+    {
+        return new JsonResponse($this->getService()->findCpf($request));
     }
 }

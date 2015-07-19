@@ -3,7 +3,6 @@
 namespace Super\FranqueadorBundle\Service;
 
 use Base\BaseBundle\Entity\AbstractEntity;
-use Base\BaseBundle\Service\Data;
 use Base\CrudBundle\Service\CrudService;
 use Super\UsuarioBundle\Service\Perfil;
 
@@ -19,12 +18,13 @@ class Franqueador extends CrudService
         $this->entity->setNuValorMinimoResgate($request->getDigits('nuValorMinimoResgate'));
         $this->entity->setNuPontosTransacao($request->getDigits('nuPontosTransacao'));
         $this->entity->setNuPorcentagemBonusTransacao($request->getDigits('nuPorcentagemBonusTransacao'));
-        $this->entity->setDtValidadeBonus(Data::dateBr($request->get('dtValidadeBonus')));
+        $this->entity->setNuValidadeBonus($request->getDigits('nuValidadeBonus'));
+        $this->entity->setStNiveis($request->getInt('stNiveis'));
 
-        if($request->get('idOperador')){
+        if ($request->get('idOperador')) {
             $idOperador = $this->getService('service.usuario')->find($request->get('idOperador'));
             $this->entity->setIdOperador($idOperador);
-        }else{
+        } else {
             $this->setIdOperador(null);
         }
     }
