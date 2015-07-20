@@ -17,6 +17,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     {% javascripts
         '@SuperBaseBundle/Resources/public/js/jquery.autocomplete.js'
