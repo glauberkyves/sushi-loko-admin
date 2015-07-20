@@ -31,12 +31,12 @@ class UsuarioController extends AbstractMobile
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 2, 0);
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 5, 0);
 
-            $this->getRequest()->request->set('nuCpf', $request->nuCpf);
-            $this->getRequest()->request->set('noSenha', $request->noSenha);
-            $this->getRequest()->request->set('noPessoa', $request->noPessoa);
-            $this->getRequest()->request->set('noEmail', $request->noEmail);
-            $this->getRequest()->request->set('sgSexo', $request->sgSexo);
-            $this->getRequest()->request->set('dtNascimento', Data::dateBr($request->dtNascimento));
+            $this->getParentRequest()->request->set('nuCpf', $request->nuCpf);
+            $this->getParentRequest()->request->set('noSenha', $request->noSenha);
+            $this->getParentRequest()->request->set('noPessoa', $request->noPessoa);
+            $this->getParentRequest()->request->set('noEmail', $request->noEmail);
+            $this->getParentRequest()->request->set('sgSexo', $request->sgSexo);
+            $this->getParentRequest()->request->set('dtNascimento', Data::dateBr($request->dtNascimento));
 
             $idUsuario = $this->getService('service.usuario')->save();
 

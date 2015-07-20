@@ -1,38 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="Mosaddek">
-        <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+        <meta name="description" content="Fidelidade">
+        <meta name="author" content="2Creative">
+        <meta name="keyword" content="Fidelidade">
         {#<link rel="shortcut icon" href="{{ asset('bundles/superbase/img/favicon.png') }}">#}
 
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}Fidelidade{% endblock %}</title>
 
-        {% stylesheets
-            '@SuperBaseBundle/Resources/public/css/bootstrap.min.css'
-            '@SuperBaseBundle/Resources/public/css/bootstrap-reset.css'
-            '@SuperBaseBundle/Resources/public/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css'
-            '@SuperBaseBundle/Resources/public/assets/font-awesome/css/font-awesome.css'
-            '@SuperBaseBundle/Resources/public/assets/bootstrap-datepicker/css/datepicker.css'
-            '@SuperBaseBundle/Resources/public/assets/bootstrap-colorpicker/css/colorpicker.css'
-            '@SuperBaseBundle/Resources/public/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css'
-            '@SuperBaseBundle/Resources/public/css/owl.carousel.css'
-            '@SuperBaseBundle/Resources/public/assets/bootstrap-daterangepicker/daterangepicker.css'
-            '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css'
-            '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/css/jquery.dataTables.min.css'
-            '@SuperBaseBundle/Resources/public/css/slidebars.css'
-            '@SuperBaseBundle/Resources/public/css/style.css'
-            '@SuperBaseBundle/Resources/public/css/style-responsive.css'
-            '@SuperBaseBundle/Resources/public/assets/fancybox/source/jquery.fancybox.css'
-            '@SuperBaseBundle/Resources/public/css/bootstrap-fileupload.css'
-            '@SuperBaseBundle/Resources/public/assets/jquery-multi-select/css/multi-select.css'
-            '@SuperBaseBundle/Resources/public/assets/morris.js-0.4.3/morris.css'
-            filter='cssrewrite'
-            output='css/super/main.css' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
+        {% block stylesheets %}
+            {% stylesheets
+                '@SuperBaseBundle/Resources/public/css/bootstrap.min.css'
+                '@SuperBaseBundle/Resources/public/css/bootstrap-reset.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css'
+                '@SuperBaseBundle/Resources/public/assets/font-awesome/css/font-awesome.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-datepicker/css/datepicker.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-colorpicker/css/colorpicker.css'
+                '@SuperBaseBundle/Resources/public/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css'
+                '@SuperBaseBundle/Resources/public/css/owl.carousel.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-daterangepicker/daterangepicker.css'
+                '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css'
+                '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/css/jquery.dataTables.min.css'
+                '@SuperBaseBundle/Resources/public/css/slidebars.css'
+                '@SuperBaseBundle/Resources/public/css/style.css'
+                '@SuperBaseBundle/Resources/public/css/style-responsive.css'
+                '@SuperBaseBundle/Resources/public/assets/fancybox/source/jquery.fancybox.css'
+                '@SuperBaseBundle/Resources/public/css/bootstrap-fileupload.css'
+                '@SuperBaseBundle/Resources/public/assets/jquery-multi-select/css/multi-select.css'
+                '@SuperBaseBundle/Resources/public/assets/morris.js-0.4.3/morris.css'
+                filter='cssrewrite'
+                output='css/super/main.css' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
 
         {% javascripts
             '@SuperBaseBundle/Resources/public/js/html5shiv.js'
@@ -68,7 +70,6 @@
                     <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
                 </div>
                 <a href="{{ path('super_home') }}" class="logo">
-                    {#<img src = "{{ asset('/bundles/site/assets/images/logo/logo.png') }}" width="100" />#}
                     FIDELIDADE
                 </a>
                 <div class="nav notify-row" id="top_menu">
