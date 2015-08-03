@@ -53,7 +53,8 @@ if ($checkPassed) {
     }
 }
 
-if (!empty($messages['warning'])) {
+if (!empty($messages['warning']))
+{
     echo_title('Optional recommendations to improve your setup', 'yellow');
 
     foreach ($messages['warning'] as $helpText) {
