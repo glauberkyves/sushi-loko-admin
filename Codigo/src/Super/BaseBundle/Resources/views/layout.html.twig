@@ -1,164 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Mosaddek">
-    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="{{ asset('bundles/superbase/img/favicon.png') }}">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Fidelidade">
+        <meta name="author" content="2Creative">
+        <meta name="keyword" content="Fidelidade">
+        {#<link rel="shortcut icon" href="{{ asset('bundles/superbase/img/favicon.png') }}">#}
 
-    <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}Fidelidade{% endblock %}</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('bundles/superbase/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/superbase/css/bootstrap-reset.css') }}" rel="stylesheet">
+        {% block stylesheets %}
+            {% stylesheets
+                '@SuperBaseBundle/Resources/public/css/bootstrap.min.css'
+                '@SuperBaseBundle/Resources/public/css/bootstrap-reset.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css'
+                '@SuperBaseBundle/Resources/public/assets/font-awesome/css/font-awesome.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-datepicker/css/datepicker.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-colorpicker/css/colorpicker.css'
+                '@SuperBaseBundle/Resources/public/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css'
+                '@SuperBaseBundle/Resources/public/css/owl.carousel.css'
+                '@SuperBaseBundle/Resources/public/assets/bootstrap-daterangepicker/daterangepicker.css'
+                '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css'
+                '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/css/jquery.dataTables.min.css'
+                '@SuperBaseBundle/Resources/public/css/slidebars.css'
+                '@SuperBaseBundle/Resources/public/css/style.css'
+                '@SuperBaseBundle/Resources/public/css/style-responsive.css'
+                '@SuperBaseBundle/Resources/public/assets/fancybox/source/jquery.fancybox.css'
+                '@SuperBaseBundle/Resources/public/css/bootstrap-fileupload.css'
+                '@SuperBaseBundle/Resources/public/assets/jquery-multi-select/css/multi-select.css'
+                '@SuperBaseBundle/Resources/public/assets/morris.js-0.4.3/morris.css'
+                filter='cssrewrite'
+                output='css/super/main.css' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
 
-    <link href="{{ asset('bundles/superbase/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/superbase/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/bootstrap-datepicker/css/datepicker.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/bootstrap-colorpicker/css/colorpicker.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/css/owl.carousel.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/bootstrap-daterangepicker/daterangepicker.css') }}"
-          rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/DataTables-1.10.5/media/css/dataTables.responsive.nightly.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/DataTables-1.10.5/media/css/jquery.dataTables.min.css') }}" rel="stylesheet"/>
-
-    <!-- Custom styles for this template -->
-    <link href="{{ asset('bundles/superbase/css/slidebars.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/superbase/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/superbase/css/style-responsive.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/superbase/css/bootstrap-fileupload.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/jquery-multi-select/css/multi-select.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('bundles/superbase/assets/morris.js-0.4.3/morris.css') }}" rel="stylesheet"/>
-
-    <script src="{{ asset('bundles/superbase/js/html5shiv.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/js/jquery.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/js/bootstrap.min.js') }}"></script>
-    <script class="include" type="text/javascript"
-            src="{{ asset('bundles/superbase/js/jquery.dcjqaccordion.2.7.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/assets/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/assets/fancybox/source/jquery.fancybox.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/js/jquery.scrollTo.min.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-
-    <script src="{{ asset('bundles/superbase/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/js/respond.min.js') }}"></script>
-
-    <script src="{{ asset('bundles/superbase/assets/DataTables-1.10.5/media/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/assets/DataTables-1.10.5/media/js/dataTables.responsive.nightly.min.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/assets/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/js/grid.js') }}"></script>
-
-    <!--right slidebar-->
-    <script src="{{ asset('bundles/superbase/js/slidebars.min.js') }}"></script>
-    <script src="{{ asset('bundles/superbase/js/bootstrap-fileupload.js') }}"></script>
-
-    <script src="{{ asset('bundles/superbase/js/advanced-form-components.js') }}"></script>
-    {#<script src="{{ asset('bundles/superbase/js/sparkline-chart.js') }}"></script>#}
-    {#<script src="{{ asset('bundles/superbase/js/easy-pie-chart.js') }}"></script>#}
-    {#<script src="{{ asset('bundles/superbase/js/count.js') }}"></script>#}
-
-    <!-- SCRIPT BASE -->
-    <script type="text/javascript" src={{ asset("/bundles/site/assets/js/bootstrap-inputmask/bootstrap-inputmask.js") }}></script>
-    <script type="text/javascript" src={{ asset("/bundles/site/app/js/mask.js") }}></script>
-    <script type="text/javascript" src={{ asset("/bundles/site/app/js/validate.js") }}></script>
-    <script type="text/javascript" src={{ asset("/bundles/site/app/js/address.js") }}></script>
-
-
-</head>
-
-<body>
-<section id="container" class="">
-    <!--header start-->
-    <header class="header white-bg">
-        <div class="sidebar-toggle-box">
-            <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
-        </div>
-        <!--logo start-->
-        <a href="{{ path('super_home') }}" class="logo">
-            {#<img src = "{{ asset('/bundles/site/assets/images/logo/logo.png') }}" width="100" />#}
-            FIDELIDADE
-        </a>
-        <!--logo end-->
-        <div class="nav notify-row" id="top_menu">
-            <!--  notification start -->
-        </div>
-        <div class="top-nav ">
-            <ul class="nav pull-right top-menu">
-                <!-- user login dropdown start-->
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <img alt="" src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}">
-                        <span class="username">
-                            {{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}
-                        </span>
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu extended logout">
-                        <div class="log-arrow-up"></div>
-                        <li><a href="{{ path('logout') }}"><i class="fa fa-cog"></i> Sair</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </header>
-    <!--header end-->
-    <!--sidebar start-->
-    <aside>
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            {% include "SuperBaseBundle::menu.html.twig" %}
-            <!-- sidebar menu end-->
-        </div>
-    </aside>
-    <!--sidebar end-->
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-            {% if(app.session.flashbag.peekAll|length) %}
-                {% for label, flashes in app.session.flashbag.all %}
-                    <div class="alert alert-block alert-{{ label|replace({'error': 'danger'}) }} fade in">
-                        <button type="button" class="close close-sm" data-dismiss="alert">
-                            <i class="fa fa-times"></i>
-                        </button>
-
-                        {% for flash in flashes %}
-                            {{ flash }}<br/>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-            <!-- page start-->
-            <div class="row">
-                <div class="col-lg-12">
-                    {% block body %}
-                    {% endblock %}
+        {% javascripts
+            '@SuperBaseBundle/Resources/public/js/html5shiv.js'
+            '@SuperBaseBundle/Resources/public/js/jquery.js'
+            '@SuperBaseBundle/Resources/public/js/bootstrap.min.js'
+            '@SuperBaseBundle/Resources/public/js/jquery.dcjqaccordion.2.7.js'
+            '@SuperBaseBundle/Resources/public/assets/bootstrap-datepicker/js/bootstrap-datepicker.js'
+            '@SuperBaseBundle/Resources/public/js/jquery.scrollTo.min.js'
+            '@SuperBaseBundle/Resources/public/js/jquery.nicescroll.js'
+            '@SuperBaseBundle/Resources/public/js/jquery.validate.min.js'
+            '@SuperBaseBundle/Resources/public/js/respond.min.js'
+            '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/js/jquery.dataTables.min.js'
+            '@SuperBaseBundle/Resources/public/assets/DataTables-1.10.5/media/js/dataTables.responsive.nightly.min.js'
+            '@SuperBaseBundle/Resources/public/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js'
+            '@SuperBaseBundle/Resources/public/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js'
+            '@SuperBaseBundle/Resources/public/assets/jquery-multi-select/js/jquery.multi-select.js'
+            '@SuperBaseBundle/Resources/public/js/grid.js'
+            '@SuperBaseBundle/Resources/public/js/slidebars.min.js'
+            '@SuperBaseBundle/Resources/public/js/bootstrap-fileupload.js'
+            '@SuperBaseBundle/Resources/public/js/advanced-form-components.js'
+            '@SiteBundle/Resources/public/assets/js/bootstrap-inputmask/bootstrap-inputmask.js'
+            '@SiteBundle/Resources/public/app/js/mask.js'
+            '@SiteBundle/Resources/public/app/js/validate.js'
+            '@SiteBundle/Resources/public/app/js/address.js'
+            output='js/super/main.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    </head>
+    <body>
+        <section id="container" class="">
+            <header class="header white-bg">
+                <div class="sidebar-toggle-box">
+                    <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
                 </div>
-            </div>
-            <!-- page end-->
+                <a href="{{ path('super_home') }}" class="logo">
+                    FIDELIDADE
+                </a>
+                <div class="nav notify-row" id="top_menu">
+                </div>
+                <div class="top-nav ">
+                    <ul class="nav pull-right top-menu">
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img alt="" src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}">
+                                <span class="username">
+                                    {{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu extended logout">
+                                <div class="log-arrow-up"></div>
+                                <li><a href="{{ path('logout') }}"><i class="fa fa-cog"></i> Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <aside>
+                <div id="sidebar" class="nav-collapse ">
+                    {% include "SuperBaseBundle::menu.html.twig" %}
+                </div>
+            </aside>
+            <section id="main-content">
+                <section class="wrapper">
+                    {% if(app.session.flashbag.peekAll|length) %}
+                        {% for label, flashes in app.session.flashbag.all %}
+                            <div class="alert alert-block alert-{{ label|replace({'error': 'danger'}) }} fade in">
+                                <button type="button" class="close close-sm" data-dismiss="alert">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                {% for flash in flashes %}
+                                    {{ flash }}<br/>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% block body %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <footer class="site-footer">
+                <div class="text-center">
+                    2015 &copy; Fidelidade
+                    <a href="#" class="go-top">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+            </footer>
         </section>
-    </section>
-    <!--main content end-->
-    <!--footer start-->
-
-    <footer class="site-footer">
-        <div class="text-center">
-            2015 &copy; Fidelidade
-            <a href="#" class="go-top">
-                <i class="fa fa-angle-up"></i>
-            </a>
-        </div>
-    </footer>
-    <!--footer end-->
-</section>
-<script src="{{ asset('bundles/superbase/js/common-scripts.js') }}"></script>
-{% block javascripts %}
-{% endblock %}
-</body>
+        {% block javascripts %}
+            {% javascripts
+                '@SuperBaseBundle/Resources/public/js/common-scripts.js'
+                output='js/super/common.js' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
 </html>

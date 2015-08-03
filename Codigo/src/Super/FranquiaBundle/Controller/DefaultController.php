@@ -98,20 +98,8 @@ class DefaultController extends CrudController
      */
     public function resolveRouteIndex()
     {
-        $security = $this->get('security.authorization_checker');
-
-        switch(true)
-        {
-            case $security->isGranted('ROLE_FRANQUEADOR'):
-                $url = $this->generateUrl('super_franqueador_franquia_index', array());
-                break;
-            case $security->isGranted('ROLE_SUPER'):
-                $url = $this->generateUrl('super_franquia_index', array(
-                    'idFranqueador' => $this->getRequest()->get('idFranqueador')
-                ));
-                break;
-        }
-
-        return $url;
+        return $this->generateUrl('super_franquia_index', array(
+            'idFranqueador' => $this->getRequest()->get('idFranqueador')
+        ));
     }
 }
