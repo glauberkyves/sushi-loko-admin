@@ -1,0 +1,168 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Utilizar Créditos
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" method="post">
+                <div class="col-md-4">
+                    <label class="control-label col-md-3">CPF</label>
+
+                    <div class="input-group date form_datetime-component">
+                        {{ formText('nuCpf', app.request.get('nuCpf'), {
+                            class: 'form-control required cpf',
+                            placeholder: 'CPF do Cliente',
+                            'data-mask': 'cpf'
+                        }) }}
+                        <span class="input-group-btn">
+                                <button type="submit" class="btn btn-danger date-set" id="btn-cpf">
+                                    <i class="fa  fa-search"></i>
+                                </button>
+                            </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% if entity is defined and nuValor is defined %}
+        <section class="panel col-md-12">
+            <div class="panel-body">
+                <div class="alert alert-block alert-danger fade in hide">
+                    <span id="error-msg"></span>
+                </div>
+                <aside class="profile-nav col-lg-3">
+                    <section class="panel">
+                        <div class="user-heading round">
+                            <a href="#">
+                                <img src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}" alt="">
+                            </a>
+
+                            <h1>{{ entity.getIdPessoa().getNoPessoa() }}</h1>
+
+                            <p>{{ entity.getIdPessoa().getIdPessoaFisica().getNoEmail() }}</p>
+
+                            <p>CPF: {{ app.request.get('nuCpf') }}</p>
+
+                            <p></p>
+
+                            <p></p>
+                        </div>
+
+                    </section>
+                </aside>
+                <aside class="profile-info col-lg-9">
+                    <section class="panel">
+                        <div class="panel-body bio-graph-info">
+                            <form class="form-horizontal tasi-form" method="post" novalidate="novalidate">
+                                <div class="activity blue">
+                                  <span>
+                                      <i class="fa  fa-cutlery"></i>
+                                  </span>
+
+                                    <div class="activity-desk">
+                                        <div class="panel col-md-12">
+                                            <div class="panel-body">
+                                                <div class="arrow"></div>
+                                                <i class=" fa fa-money"></i>
+                                                <h4>Total em Créditos</h4>
+
+                                                <h1 id="total-credito">R$ {{ nuValor|number_format(2, ',', '.') }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity green">
+                                  <span>
+                                      <i class="fa fa-shopping-cart"></i>
+                                  </span>
+
+                                    <div class="activity-desk">
+                                        <div class="panel col-md-12">
+                                            <div class="panel-body col-md-6">
+                                                <div class="arrow"></div>
+                                                <i class=" fa fa-usd"></i>
+                                                <h4>Valor à Utilizar</h4>
+
+                                                <div class="col-lg-10">
+                                                    {{ formText('nuValor', '', {
+                                                        class: 'form-control input-lg m-bot15',
+                                                        'data-mask': 'money'
+                                                    }) }}
+                                                </div>
+                                            </div>
+                                            <div class="panel-body col-md-6">
+                                                <div class="arrow"></div>
+                                                <i class=" fa fa-user"></i>
+                                                <h4>Senha Cliente</h4>
+
+                                                <div class="col-lg-10">
+                                                    {{ formText('noSenha', '', {
+                                                        class: 'form-control input-lg m-bot15'
+                                                    }) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3"></label>
+
+                                    <div class="col-md-9">
+                                        <button type="button" class="btn btn-lg btn-success" id="btn-salvar">Salvar</button>
+                                        <a href="#" class="btn btn-default  btn-lg" id="btn-cancelar">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </section>
+
+        <script>
+            $(document).ready(function () {
+                var nuValor = '{{ nuValor }}'
+
+                $('#btn-salvar').click(function () {
+                    if ($('#nuValor').val() && $('#noSenha').val()) {
+                        if ($('#nuValor').val().replace('.', '').replace(',', '.') > Number(nuValor)) {
+                            $('.alert').removeClass('hide')
+                            $('#error-msg').html('Valor a ser utilizado é maior do que total de créditos.')
+                        } else {
+                            $('#btn-salvar').hide()
+                            $.post('{{ path('super_transacao_saque') }}', {
+                                nuCpf:   '{{ entity.getIdPessoa().getIdPessoaFisica().getNuCpf() }}',
+                                nuValor: $('#nuValor').val().replace('.', '').replace(',', '.'),
+                                noSenha: $('#noSenha').val()
+                            }, function (response) {
+                                if (response.status) {
+                                    $('.alert').removeClass('hide').removeClass('alert-danger').addClass('alert-success')
+                                    $('#error-msg').html(response.message)
+
+                                    $('#total-credito').html('R$ ' +response.totalCredito)
+                                    $('#nuValor, #noSenha').val('')
+                                } else {
+                                    $('.alert').removeClass('hide')
+                                    $('#error-msg').html(response.message)
+                                }
+
+                                $('#btn-salvar').show()
+                            })
+                        }
+                    } else {
+                        $('.alert').removeClass('hide')
+                        $('#error-msg').html('Preenchimento obrigatório de todos os campos.')
+                    }
+                })
+
+                $('#btn-cancelar').click(function () {
+                    window.location = '{{ path('super_operador_home') }}'
+                })
+
+            })
+        </script>
+    {% endif %}
+{% endblock %}

@@ -43,6 +43,13 @@ class TbFranquia extends AbstractEntity
     private $stAtivo;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_codigo_loja", type="integer", nullable=false)
+     */
+    private $nuCodigoLoja;
+
+    /**
      * @var \TbCardapio
      *
      * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbCardapio")
@@ -264,5 +271,23 @@ class TbFranquia extends AbstractEntity
     {
         $this->idUsuario = $idUsuario;
     }
+
+    /**
+     * @return int
+     */
+    public function getNuCodigoLoja()
+    {
+        return $this->nuCodigoLoja;
+    }
+
+    /**
+     * @param int $nuCodigoLoja
+     */
+    public function setNuCodigoLoja($nuCodigoLoja)
+    {
+        $this->nuCodigoLoja = $nuCodigoLoja;
+    }
+
+
 }
 

@@ -22,6 +22,20 @@ super_mobile:
     prefix:   /mobile
 
 
+######## TRANSACAO #########
+super_transacao:
+    resource: "@SuperTransacaoBundle/Resources/config/routing.yml"
+    prefix:   /transacao
+
+
+
+######## FRNETE CAIXA OPERADOR #########
+super_operador_home:
+    path:     /utilizar-creditos
+    defaults: { _controller: SuperOperadorBundle:Default:utilizarCredito }
+
+
+
 ######## SECURITY #########
 super_security:
     resource: "@SuperSecurityBundle/Resources/config/routing.yml"

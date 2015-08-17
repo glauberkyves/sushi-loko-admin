@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbFranqueadorUsuario
  *
- * @ORM\Table(name="tb_franqueador_usuario", indexes={@ORM\Index(name="id_franqueador", columns={"id_franqueador"}), @ORM\Index(name="id_usuario", columns={"id_usuario"})})
+ * @ORM\Table(name="tb_franqueador_usuario", indexes={@ORM\Index(name="fk_franqueadorusuario_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_franqueadorusuario_franqueador_idx", columns={"id_franqueador"})})
  * @ORM\Entity
  */
 class TbFranqueadorUsuario

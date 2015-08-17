@@ -1,0 +1,12 @@
+services:
+    service.arquivo:
+        class: Super\TransacaoBundle\Service\Arquivo
+        arguments:  ["@service_container"]
+
+    service.tipo_transacao:
+        class: Super\TransacaoBundle\Service\TipoTransacao
+        arguments:  ["@service_container"]
+
+    service.transacao:
+        class: Super\TransacaoBundle\Service\Transacao
+        arguments:  ["@service_container"]

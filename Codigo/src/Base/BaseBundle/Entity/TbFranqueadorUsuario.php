@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TbFranqueadorUsuario
  *
  * @ORM\Table(name="tb_franqueador_usuario", indexes={@ORM\Index(name="id_franqueador", columns={"id_franqueador"}), @ORM\Index(name="id_usuario", columns={"id_usuario"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\FranqueadorUsuarioRepository")
  */
 class TbFranqueadorUsuario extends AbstractEntity
 {

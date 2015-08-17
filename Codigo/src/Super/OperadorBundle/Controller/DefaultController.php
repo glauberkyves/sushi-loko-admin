@@ -74,4 +74,23 @@ class DefaultController extends CrudController
 
         return parent::validate($entity);
     }
+
+    public function utilizarCreditoAction(Request $request)
+    {
+        $params = array();
+
+        if ($request->request->get('nuCpf')) {
+            $params['nuValor'] = $this->getService('service.transacao')->getCreditosUsuario(
+                $request->request->getDigits('nuCpf'),
+                $this->getUser()->getIdFranquiaOperador()->getIdFranquia()->getIdFranqueador()->getIdFranqueador()
+            );
+
+            $params['entity'] = $this->getService('service.franqueador_usuario')->findUsuarioPorFranquia(
+                $request->request->getDigits('nuCpf'),
+                $this->getUser()->getIdFranquiaOperador()->getIdFranquia()->getNuCodigoLoja()
+            );
+        }
+
+        return $this->render($this->resolveRouteName(), $params);
+    }
 }

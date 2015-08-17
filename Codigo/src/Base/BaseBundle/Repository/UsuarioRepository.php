@@ -109,7 +109,7 @@ class UsuarioRepository extends AbstractRepository
     {
         $expr = new Expr();
 
-        if($request->get('_route') == 'super_operador_index'){
+        if ($request->get('_route') == 'super_operador_index') {
             return $this
                 ->getEntityManager()
                 ->createQueryBuilder()

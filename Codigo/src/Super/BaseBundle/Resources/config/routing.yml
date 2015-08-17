@@ -32,3 +32,10 @@ super_franquia_create:
     defaults: { _controller: SuperFranquiaBundle:Default:create }
     requirements:
         idFranqueador: \d+
+
+######## FRANQUIA #########
+super_franquia_index_super:
+    path:     /franquia/index.html
+    defaults: { _controller: SuperFranquiaBundle:Default:superIndex }
+    requirements:
+        idFranqueador: \d+

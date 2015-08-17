@@ -71,11 +71,11 @@ class TbFranqueador
     private $nuPorcentagemBonusTransacao;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="dt_validade_bonus", type="datetime", nullable=false)
+     * @ORM\Column(name="nu_validade_bonus", type="integer", nullable=false)
      */
-    private $dtValidadeBonus;
+    private $nuValidadeBonus;
 
     /**
      * @var integer

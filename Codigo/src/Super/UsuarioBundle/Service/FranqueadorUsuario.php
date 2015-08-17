@@ -11,6 +11,7 @@ namespace Super\UsuarioBundle\Service;
 use Base\BaseBundle\Entity\TbFranqueador;
 use Base\BaseBundle\Entity\TbUsuario;
 use Base\CrudBundle\Service\CrudService;
+use Doctrine\ORM\Query\Expr;
 
 class FranqueadorUsuario extends CrudService
 {
@@ -24,5 +25,10 @@ class FranqueadorUsuario extends CrudService
         $idFranqueadorUsuario->setDtCadastro(new \DateTime());
 
         return $this->persist($idFranqueadorUsuario);
+    }
+
+    public function findUsuarioPorFranquia($nuCpf, $nuCodigoLoja)
+    {
+        return $this->getRepository()->findUsuarioPorFranquia($nuCpf, $nuCodigoLoja);
     }
 }

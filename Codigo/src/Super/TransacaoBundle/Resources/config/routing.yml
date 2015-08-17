@@ -1,0 +1,7 @@
+super_transacao_processar_arquivo_retorno:
+    path:     /processar-arquivo-retorno
+    defaults: { _controller: SuperTransacaoBundle:Default:processarArquivoRetorno }
+
+super_transacao_saque:
+    path:     /saque
+    defaults: { _controller: SuperTransacaoBundle:Default:saque }

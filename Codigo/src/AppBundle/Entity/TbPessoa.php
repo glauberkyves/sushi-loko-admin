@@ -29,6 +29,13 @@ class TbPessoa
     private $noPessoa;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_imagem", type="string", length=100, nullable=true)
+     */
+    private $noImagem;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)

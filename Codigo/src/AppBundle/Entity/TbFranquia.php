@@ -22,23 +22,30 @@ class TbFranquia
     private $idFranquia;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_codigo_loja", type="integer", nullable=false)
+     */
+    private $nuCodigoLoja;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="no_franquia", type="string", length=100, nullable=true)
+     * @ORM\Column(name="no_franquia", type="string", length=100, nullable=false)
      */
     private $noFranquia;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dt_cadastro", type="datetime", nullable=true)
+     * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="st_ativo", type="integer", nullable=true)
+     * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
     private $stAtivo;
 

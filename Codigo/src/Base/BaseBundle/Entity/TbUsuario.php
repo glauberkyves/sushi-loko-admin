@@ -65,6 +65,12 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueadorUsuario", mappedBy="idUsuario")
      */
     private $idFranqueadorUsuario;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranquiaOperador", mappedBy="idOperador")
+     */
+    private $idFranquiaOperador;
 
     private $salt;
     /**
@@ -335,5 +341,13 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
             $roles,
             ) = \unserialize($serialized);
         $this->roles = unserialize($roles);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdFranquiaOperador()
+    {
+        return $this->idFranquiaOperador;
     }
 }
