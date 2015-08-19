@@ -4,6 +4,7 @@ mobile_bundle:
             error: Login/Senha não conferem!
             exception: Não foi possível realizar o seu login, por favor tente novamente!
         cadastrar:
+            success: Cadastro realizado com sucesso!
             error: CPF já cadastrado.
             exception: Não foi possível cadastrar este usuário, por favor tente novamente.
         recuperar_senha:
