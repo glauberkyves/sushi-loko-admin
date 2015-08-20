@@ -43,6 +43,7 @@ class Enquete extends CrudService
 
                 $resposta = $this->getRequest()->request->get("resposta" . $i);
                 if ($resposta) {
+                    $entidade->setNuPosicao($i);
                     $entidade->setNoResposta($resposta);
                     $this->persist($entidade);
                 }

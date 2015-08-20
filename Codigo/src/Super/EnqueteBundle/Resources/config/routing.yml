@@ -13,3 +13,7 @@ manter_enquete_edit:
 manter_enquete_delete:
     path:     /delete/{id}
     defaults: { _controller: SuperEnqueteBundle:Enquete:delete }
+
+manter_enquete_relatorio:
+    path:     /relatorio.html
+    defaults: { _controller: SuperEnqueteBundle:Enquete:relatorio }

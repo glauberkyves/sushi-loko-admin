@@ -10,3 +10,7 @@ services:
     service.enquete_resposta_usuario:
               class: Super\EnqueteBundle\Service\EnqueteRespostaUsuario
               arguments:  ["@service_container"]
+
+    service.relatorio_enquete:
+                  class: Super\EnqueteBundle\Service\RelatorioEnquete
+                  arguments:  ["@service_container"]
