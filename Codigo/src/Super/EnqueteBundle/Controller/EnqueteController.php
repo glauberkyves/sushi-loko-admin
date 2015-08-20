@@ -14,6 +14,5 @@ class EnqueteController extends CrudController
     {
         $this->serviceName = "service.relatorio_enquete";
         return parent::indexAction($request);
-
     }
 }

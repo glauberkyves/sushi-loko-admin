@@ -54,7 +54,7 @@ class EnqueteRepository extends AbstractRepository
             ->innerJoin('p.idEnquete', 'e')
             ->where('e.idEnquete = :idEnquete')
             ->groupBy('p.idResposta')
-            ->orderBy('p.nuPosicao','asc')
+            ->orderBy('p.nuPosicao', 'asc')
             ->setParameter('idEnquete', $idEnquete)
             ->getQuery()
             ->getArrayResult();
