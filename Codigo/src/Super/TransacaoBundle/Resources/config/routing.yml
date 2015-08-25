@@ -5,3 +5,7 @@ super_transacao_processar_arquivo_retorno:
 super_transacao_saque:
     path:     /saque
     defaults: { _controller: SuperTransacaoBundle:Default:saque }
+
+super_requisicao_transacao_usuario:
+    path:     /requisicao-transacao-usuario
+    defaults: { _controller: SuperTransacaoBundle:Default:requisicaoTransacaoUsuario }

@@ -1,6 +1,6 @@
 site_homepage:
-    path:     /index.html
-    defaults: { _controller: SiteBundle:Site:index }
+    pattern: /
+    defaults: { _controller: SiteBundle:Usuario:login }
 
 site_login:
     pattern: /entrar.html

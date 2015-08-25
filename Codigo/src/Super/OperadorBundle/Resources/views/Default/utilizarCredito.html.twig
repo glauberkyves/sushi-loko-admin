@@ -1,5 +1,18 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block body %}
+    {% if(app.session.flashbag.peekAll|length) %}
+        {% for label, flashes in app.session.flashbag.all %}
+            <div class="alert alert-block alert-{{ label|replace({'error': 'danger'}) }} fade in">
+                <button type="button" class="close close-sm" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                {% for flash in flashes %}
+                    {{ flash }}<br/>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <section class="panel">
         <header class="panel-heading">
             Utilizar Créditos
@@ -7,26 +20,45 @@
         <div class="panel-body">
             <form class="form-horizontal tasi-form" role="form" method="post">
                 <div class="col-md-4">
-                    <label class="control-label col-md-3">CPF</label>
+                    <label class="">CPF do Cliente</label>
 
-                    <div class="input-group date form_datetime-component">
-                        {{ formText('nuCpf', app.request.get('nuCpf'), {
+                    <div class="iconic-input">
+                        <i class="fa fa-user"></i>
+                        {{ formText('nuCpf', '', {
                             class: 'form-control required cpf',
                             placeholder: 'CPF do Cliente',
                             'data-mask': 'cpf'
                         }) }}
-                        <span class="input-group-btn">
-                                <button type="submit" class="btn btn-danger date-set" id="btn-cpf">
-                                    <i class="fa  fa-search"></i>
-                                </button>
-                            </span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="">Senha App</label>
+
+                    <div class="iconic-input">
+                        <i class="fa fa-key"></i>
+                        {{ formText('noSenha', '', {
+                            class: 'form-control required',
+                            placeholder: 'Senha app fornecido pelo cliente'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="">&nbsp;</label>
+
+                    <div class="iconic-input">
+                        <button type="submit" class="btn btn-danger date-set" id="btn-buscar">
+                            <span class="fa fa-beer"></span>
+                            Utilizar
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </section>
 
-    {% if entity is defined and nuValor is defined %}
+    {% if entity is defined %}
         <section class="panel col-md-12">
             <div class="panel-body">
                 <div class="alert alert-block alert-danger fade in hide">
@@ -73,35 +105,20 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="activity green">
                                   <span>
-                                      <i class="fa fa-shopping-cart"></i>
+                                      <i class="fa  fa-cutlery"></i>
                                   </span>
 
                                     <div class="activity-desk">
                                         <div class="panel col-md-12">
-                                            <div class="panel-body col-md-6">
+                                            <div class="panel-body">
                                                 <div class="arrow"></div>
-                                                <i class=" fa fa-usd"></i>
-                                                <h4>Valor à Utilizar</h4>
+                                                <i class=" fa fa-beer"></i>
+                                                <h4>Total Utilizado</h4>
 
-                                                <div class="col-lg-10">
-                                                    {{ formText('nuValor', '', {
-                                                        class: 'form-control input-lg m-bot15',
-                                                        'data-mask': 'money'
-                                                    }) }}
-                                                </div>
-                                            </div>
-                                            <div class="panel-body col-md-6">
-                                                <div class="arrow"></div>
-                                                <i class=" fa fa-user"></i>
-                                                <h4>Senha Cliente</h4>
-
-                                                <div class="col-lg-10">
-                                                    {{ formText('noSenha', '', {
-                                                        class: 'form-control input-lg m-bot15'
-                                                    }) }}
-                                                </div>
+                                                <h1 id="total-credito">R$ {{ nuValorUtilizado|number_format(2, ',', '.') }}</h1>
                                             </div>
                                         </div>
                                     </div>
@@ -109,11 +126,6 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3"></label>
-
-                                    <div class="col-md-9">
-                                        <button type="button" class="btn btn-lg btn-success" id="btn-salvar">Salvar</button>
-                                        <a href="#" class="btn btn-default  btn-lg" id="btn-cancelar">Cancelar</a>
-                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -124,41 +136,7 @@
 
         <script>
             $(document).ready(function () {
-                var nuValor = '{{ nuValor }}'
-
-                $('#btn-salvar').click(function () {
-                    if ($('#nuValor').val() && $('#noSenha').val()) {
-                        if ($('#nuValor').val().replace('.', '').replace(',', '.') > Number(nuValor)) {
-                            $('.alert').removeClass('hide')
-                            $('#error-msg').html('Valor a ser utilizado é maior do que total de créditos.')
-                        } else {
-                            $('#btn-salvar').hide()
-                            $.post('{{ path('super_transacao_saque') }}', {
-                                nuCpf:   '{{ entity.getIdPessoa().getIdPessoaFisica().getNuCpf() }}',
-                                nuValor: $('#nuValor').val().replace('.', '').replace(',', '.'),
-                                noSenha: $('#noSenha').val()
-                            }, function (response) {
-                                if (response.status) {
-                                    $('.alert').removeClass('hide').removeClass('alert-danger').addClass('alert-success')
-                                    $('#error-msg').html(response.message)
-
-                                    $('#total-credito').html('R$ ' +response.totalCredito)
-                                    $('#nuValor, #noSenha').val('')
-                                } else {
-                                    $('.alert').removeClass('hide')
-                                    $('#error-msg').html(response.message)
-                                }
-
-                                $('#btn-salvar').show()
-                            })
-                        }
-                    } else {
-                        $('.alert').removeClass('hide')
-                        $('#error-msg').html('Preenchimento obrigatório de todos os campos.')
-                    }
-                })
-
-                $('#btn-cancelar').click(function () {
+                $('#btn-voltar').click(function () {
                     window.location = '{{ path('super_operador_home') }}'
                 })
 

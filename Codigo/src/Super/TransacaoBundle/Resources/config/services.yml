@@ -10,3 +10,7 @@ services:
     service.transacao:
         class: Super\TransacaoBundle\Service\Transacao
         arguments:  ["@service_container"]
+
+    service.requisicao_transacao:
+        class: Super\TransacaoBundle\Service\RequisicaoTransacao
+        arguments:  ["@service_container"]

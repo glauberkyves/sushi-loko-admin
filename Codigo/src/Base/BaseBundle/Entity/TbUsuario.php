@@ -350,4 +350,13 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         return $this->idFranquiaOperador;
     }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idFranquiaOperador
+     */
+    public function setIdFranquiaOperador($idFranquiaOperador)
+    {
+        $this->idFranquiaOperador = $idFranquiaOperador;
+    }
+
 }

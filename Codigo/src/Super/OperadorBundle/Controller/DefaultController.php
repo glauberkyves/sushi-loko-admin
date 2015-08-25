@@ -78,17 +78,55 @@ class DefaultController extends CrudController
     public function utilizarCreditoAction(Request $request)
     {
         $params = array();
+        if ($request->isMethod('post')) {
+            if ($request->request->get('nuCpf') && $request->request->get('noSenha')) {
+                $nuCpf         = $request->request->getDigits('nuCpf');
+                $noSenha       = $request->request->get('noSenha');
+                $idFranquia    = $this->getUser()->getIdFranquiaOperador()->getIdFranquia();
+                $idFranqueador = $idFranquia->getIdFranqueador()->getIdFranqueador();
 
-        if ($request->request->get('nuCpf')) {
-            $params['nuValor'] = $this->getService('service.transacao')->getCreditosUsuario(
-                $request->request->getDigits('nuCpf'),
-                $this->getUser()->getIdFranquiaOperador()->getIdFranquia()->getIdFranqueador()->getIdFranqueador()
-            );
+                $user = $this->getService('service.franqueador_usuario')->findUsuarioPorFranqueador(
+                    $nuCpf,
+                    $idFranqueador
+                );
 
-            $params['entity'] = $this->getService('service.franqueador_usuario')->findUsuarioPorFranquia(
-                $request->request->getDigits('nuCpf'),
-                $this->getUser()->getIdFranquiaOperador()->getIdFranquia()->getNuCodigoLoja()
-            );
+                if ($user) {
+                    $srvTransacao           = $this->getService('service.transacao');
+                    $srvRequisicaoTransacao = $this->getService('service.requisicao_transacao');
+
+                    $criteria = array(
+                        'idUsuario'     => $user,
+                        'idFranqueador' => $idFranqueador,
+                        'noSenha'       => $noSenha,
+                        'stAtivo'       => true,
+                        'stUtilizado'   => false
+                    );
+
+                    if ($solicitacaoTransacao = $srvRequisicaoTransacao->findOneBy($criteria)) {
+
+                        try {
+                            $srvTransacao->saque($user, $idFranquia, $solicitacaoTransacao->getNuValor());
+
+                            $params['entity']           = $user;
+                            $params['nuValor']          = $srvTransacao->getCreditosUsuario($user->getIdUsuario(), $idFranqueador);
+                            $params['nuValorUtilizado'] = $solicitacaoTransacao->getNuValor();
+
+                            $solicitacaoTransacao->setStUtilizado(true);
+                            $srvRequisicaoTransacao->persist($solicitacaoTransacao);
+
+                            $this->addMessage('Crédito utilizado com sucesso.');
+                        } catch (\Exception $exp) {
+                            $this->addMessage('Erro, por favor contate o suporte.', 'error');
+                        }
+                    } else {
+                        $this->addMessage('Solicitação não encontrada.', 'error');
+                    }
+                } else {
+                    $this->addMessage('Cliente não encontrado.', 'error');
+                }
+            } else {
+                $this->addMessage('CPF / Senha obrigatórios.', 'error');
+            }
         }
 
         return $this->render($this->resolveRouteName(), $params);

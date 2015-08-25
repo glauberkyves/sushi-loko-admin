@@ -41,7 +41,7 @@ security:
 
     access_control:
          - { path: ^/super,               roles: [ROLE_SUPER] }
-         - { path: ^/franqueador,         roles: [ROLE_SUPER, ROLE_FRANQUEADOR] }
-         - { path: ^/franquia,            roles: [ROLE_SUPER, ROLE_FRANQUIA] }
-         - { path: ^/,                    roles: [ROLE_SUPER, ROLE_OPERADOR, IS_AUTHENTICATED_FULLY,IS_AUTHENTICATED_ANONYMOUSLY ] }
+         - { path: ^/franqueador,         roles: [ROLE_FRANQUEADOR] }
+         - { path: ^/franquia,            roles: [ROLE_FRANQUIA] }
+         - { path: ^/operador,            roles: [ROLE_OPERADOR] }
          - { path: ^/entrar.html,         role: IS_AUTHENTICATED_ANONYMOUSLY }

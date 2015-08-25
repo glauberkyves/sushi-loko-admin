@@ -15,7 +15,7 @@ use Super\TransacaoBundle\Service\TipoTransacao;
 class TransacaoRepository extends AbstractRepository
 {
 
-    public function getCreditosUsuario($nuCpf, $idFranqueador)
+    public function getCreditosUsuario($idUsuario, $idFranqueador)
     {
         $expr = new Expr();
 
@@ -26,11 +26,9 @@ class TransacaoRepository extends AbstractRepository
             ->from('Base\BaseBundle\Entity\TbTransacao', 't')
             ->innerJoin('t.idTipoTransacao', 'tt')
             ->innerJoin('t.idUsuario', 'u')
-            ->innerJoin('u.idPessoa', 'p')
-            ->innerJoin('p.idPessoaFisica', 'pf')
             ->innerJoin('t.idFranquia', 'ff')
             ->innerJoin('ff.idFranqueador', 'f')
-            ->where($expr->eq('pf.nuCpf', $nuCpf))
+            ->where($expr->eq('u.idUsuario', $idUsuario))
             ->andWhere($expr->eq('ff.idFranqueador', $idFranqueador))
             ->andWhere($expr->eq('t.stAtivo', true))
             ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::CREDITO))
@@ -44,11 +42,9 @@ class TransacaoRepository extends AbstractRepository
             ->from('Base\BaseBundle\Entity\TbTransacao', 't')
             ->innerJoin('t.idTipoTransacao', 'tt')
             ->innerJoin('t.idUsuario', 'u')
-            ->innerJoin('u.idPessoa', 'p')
-            ->innerJoin('p.idPessoaFisica', 'pf')
             ->innerJoin('t.idFranquia', 'ff')
             ->innerJoin('ff.idFranqueador', 'f')
-            ->where($expr->eq('pf.nuCpf', $nuCpf))
+            ->where($expr->eq('u.idUsuario', $idUsuario))
             ->andWhere($expr->eq('ff.idFranqueador', $idFranqueador))
             ->andWhere($expr->eq('t.stAtivo', true))
             ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::DEBITO))

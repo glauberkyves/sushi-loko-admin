@@ -60,7 +60,10 @@ class Arquivo extends CrudService
         $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO);
         $entity->setIdTipoTransacao($idTipoTransacao);
 
-        $entity->setNuValor(substr_replace($dadosArquivo['nuValor'], '.', strlen($dadosArquivo['nuValor']) - 3, 1));
+        $nuValor = str_replace(".", "", $dadosArquivo['nuValor']);
+        $nuValor = str_replace(",", ".", $nuValor);
+
+        $entity->setNuValor($nuValor);
         $entity->setDtCadastro(new \DateTime());
         $entity->setStAtivo(true);
 
@@ -72,10 +75,26 @@ class Arquivo extends CrudService
         $pathArquivos = $this->getContainer()->getParameter('path_arquivo_retorno');
         $filename     = str_replace('.txt', '', strtolower($filename));
 
-        $file           = file($pathArquivos . DIRECTORY_SEPARATOR . $filename . '.txt');
-        $nuCodigoLoja   = explode('|', $file[1]);
+        ob_start();
+        echo file_get_contents($pathArquivos . DIRECTORY_SEPARATOR . $filename . '.txt');
+        $file = ob_get_contents();
+        ob_end_clean();
+
+        $stringPagamento = trim(str_replace(
+            array('[INICIO PAGAMENTO]', '[FIM PAGAMENTO]'),
+            array('', ''),
+            substr($file, strpos($file, '[INICIO PAGAMENTO]'), strpos($file, '[FIM PAGAMENTO]'))
+        ));
+
+        $stringCodigoLoja = trim(str_replace(
+            array('[DATA HORA]', '[FIM DATA HORA]'),
+            array('', ''),
+            substr($file, strpos($file, '[DATA HORA]'), strpos($file, '[FIM DATA HORA]'))
+        ));
+
+        $nuCodigoLoja   = explode('|', $stringCodigoLoja);
         $nuCodigoLoja   = (int)end($nuCodigoLoja);
-        $dadosPagamento = explode('|', $file[7]);
+        $dadosPagamento = explode('|', $stringPagamento);
 
         return array(
             'nuCpf'        => substr($filename, 0, 11),
