@@ -8,7 +8,6 @@
 namespace Super\MobileBundle\Controller;
 
 use Base\BaseBundle\Service\Data;
-use Symfony\Component\HttpFoundation\Request;
 
 class UsuarioController extends AbstractMobile
 {
@@ -43,7 +42,8 @@ class UsuarioController extends AbstractMobile
             if ($idUsuario) {
                 $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
 
-                $this->add('valido', true);
+                $this->add('valido',    true);
+                $this->add('mensagem',  'mobile_bundle.usuario.cadastrar.success');
                 $this->add('idUsuario', $idUsuario->getIdUsuario());
             } else {
                 $this->add('mensagem', 'mobile_bundle.usuario.cadastrar.exception');
@@ -78,7 +78,8 @@ class UsuarioController extends AbstractMobile
                     'noPessoa'     => $user->getIdPessoa()->getNoPessoa(),
                     'nuCpf'        => $pessoaFisica->getNuCpf(),
                     'noEmail'      => $pessoaFisica->getNoEmail(),
-                    'dtNascimento' => $pessoaFisica->getDtNascimento()->format('d/m/Y'),
+                    'dtNascimento' => $pessoaFisica->getDtNascimento()->format('dmY'),
+                    'nuTelefone'   => '6182843161',
                     'sgSexo'       => $pessoaFisica->getSgSexo()
                 );
 

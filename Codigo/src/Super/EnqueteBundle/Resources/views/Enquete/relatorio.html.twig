@@ -1,0 +1,83 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Relatório
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <form method="post" action=" " id="form-enquete" class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Enquete</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control " id="noEnquete" placeholder="Enquete"
+                               name="noEnquete" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Encerrada</label>
+
+                    <div class="col-lg-10">
+                        <select name="stAtivo" id="stAtivo" class="form-control">
+                            <option value="" selected="selected">Selecione</option>
+                            <option value="0">SIM</option>
+                            <option value="1">NÃO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                            Pesquisar
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="panel">
+        <header class="panel-heading">
+            Resultado da pesquisa
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body">
+            <section id="unseen">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-enquete">
+                    <thead>
+                    <tr>
+                        <th data-column="noEnquete">Nome</th>
+                        <th data-column="stAtivo">Encerrada</th>
+                        <th data-column="participantes">Participantes</th>
+                        <th data-column="respostas1">Resposta 1</th>
+                        <th data-column="respostas2">Resposta 2</th>
+                        <th data-column="respostas3">Resposta 3</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td valign="top" colspan="4">Acione a pesquisa</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>
+{% endblock body %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $("#form-enquete").submit();
+        });
+    </script>
+{% endblock %}

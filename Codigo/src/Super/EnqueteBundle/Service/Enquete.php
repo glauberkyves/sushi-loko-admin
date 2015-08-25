@@ -13,8 +13,8 @@ class Enquete extends CrudService
     public function preSave(AbstractEntity $entity = null)
     {
         $this->entity->setDtCadastro(new \DateTime());
-        $dtFim =  $this->getRequest()->request->get('dtFim');
-        $dtInicio =  $this->getRequest()->request->get('dtInicial');
+        $dtFim = $this->getRequest()->request->get('dtFim');
+        $dtInicio = $this->getRequest()->request->get('dtInicial');
 
         $this->entity->setDtInicio(Data::dateBr($dtInicio));
         $this->entity->setDtFim(Data::dateBr($dtFim));
@@ -26,7 +26,7 @@ class Enquete extends CrudService
         if ($ActionUpdate) {
             $total = $this->getRequest()->request->get("total");
             for ($i = 1; $i <= $total; $i++) {
-                $id       = $this->getRequest()->request->get("idResposta" . $i);
+                $id = $this->getRequest()->request->get("idResposta" . $i);
                 $resposta = $this->getRequest()->request->get("resposta" . $i);
                 $entidade = $this->getService('service.enquete_resposta')->find($id);
 
@@ -43,6 +43,7 @@ class Enquete extends CrudService
 
                 $resposta = $this->getRequest()->request->get("resposta" . $i);
                 if ($resposta) {
+                    $entidade->setNuPosicao($i);
                     $entidade->setNoResposta($resposta);
                     $this->persist($entidade);
                 }
@@ -54,6 +55,5 @@ class Enquete extends CrudService
     {
         $this->addMessage($this->container->get('translator')->trans('base_bundle.messages.success'));
     }
-
 
 }

@@ -39,6 +39,13 @@ class  TbEnqueteResposta extends AbstractEntity
      */
     private $idEnquete;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_posicao", type="integer", nullable=false)
+     */
+    private $nuPosicao;
+
 
     /**
      * @return int
@@ -86,6 +93,22 @@ class  TbEnqueteResposta extends AbstractEntity
     public function setNoResposta($noResposta)
     {
         $this->noResposta = $noResposta;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNuPosicao()
+    {
+        return $this->nuPosicao;
+    }
+
+    /**
+     * @param int $nuPosicao
+     */
+    public function setNuPosicao($nuPosicao)
+    {
+        $this->nuPosicao = $nuPosicao;
     }
 
 

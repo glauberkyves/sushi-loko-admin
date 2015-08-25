@@ -10,4 +10,9 @@ class EnqueteController extends CrudController
 {
     protected $serviceName = 'service.enquete';
 
+    public function relatorioAction(Request $request)
+    {
+        $this->serviceName = "service.relatorio_enquete";
+        return parent::indexAction($request);
+    }
 }
