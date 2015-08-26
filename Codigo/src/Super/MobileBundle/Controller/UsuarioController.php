@@ -42,8 +42,8 @@ class UsuarioController extends AbstractMobile
             if ($idUsuario) {
                 $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
 
-                $this->add('valido',    true);
-                $this->add('mensagem',  'mobile_bundle.usuario.cadastrar.success');
+                $this->add('valido', true);
+                $this->add('mensagem', 'mobile_bundle.usuario.cadastrar.success');
                 $this->add('idUsuario', $idUsuario->getIdUsuario());
             } else {
                 $this->add('mensagem', 'mobile_bundle.usuario.cadastrar.exception');
@@ -122,6 +122,25 @@ class UsuarioController extends AbstractMobile
         } else {
             $this->add('mensagem', 'mobile_bundle.usuario.recuperar_senha.error');
         }
+
+        return $this->response();
+    }
+
+    /**
+     * Total de créditos do usuário
+     * @param idUsuario, idFranqueador
+     * @return Response
+     */
+    public function creditoAction()
+    {
+        $request = $this->getRequest();
+
+        $credito = $this->getService('service.transacao')->getCreditosUsuario(
+            $request->idUsuario, $request->idFranqueador
+        );
+
+        $this->add('valido', true);
+        $this->add('credito', $credito);
 
         return $this->response();
     }

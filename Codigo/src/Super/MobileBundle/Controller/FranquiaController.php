@@ -25,7 +25,7 @@ class FranquiaController extends AbstractMobile
 
             $this->getService('service.franquia_opiniao')->adicionar($idFranquia, $idUsuario, $request->dsMensagem);
 
-            $this->add('valido',   true);
+            $this->add('valido', true);
             $this->add('mensagem', 'mobile_bundle.franquia.opinar.success');
         } else {
             $this->add('mensagem', 'mobile_bundle.franquia.default.error');
@@ -63,7 +63,7 @@ class FranquiaController extends AbstractMobile
             }
 
             if($arrPromocao) {
-                $this->add('valido',    true);
+                $this->add('valido', true);
                 $this->add('promocoes', $arrPromocao);
             } else {
                 $this->add('mensagem', 'mobile_bundle.franquia.listar_promocao.error');
@@ -104,7 +104,7 @@ class FranquiaController extends AbstractMobile
             }
 
             if($arrProduto) {
-                $this->add('valido',   true);
+                $this->add('valido', true);
                 $this->add('cardapio', array(
                     'noCardapio' => $idCardapio->getNoCardapio(),
                     'produtos' => $arrProduto

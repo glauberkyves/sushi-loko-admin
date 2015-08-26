@@ -18,24 +18,29 @@ class FranqueadorController extends AbstractMobile
     {
         $request = $this->getRequest();
 
+        $arrCidades    = $this->getService('service.franqueador')->findCidades($request->idFranqueador);
         $idFranqueador = $this->getService('service.franqueador')->find($request->idFranqueador);
 
         if($idFranqueador) {
 
-            $arrFranquia = array();
+            $arrResponse = array();
 
-            foreach($idFranqueador->getIdFranquia() as $key => $idFranquia) {
-                $arrFranquia[$key] = array(
-                    'idFranquia' => $idFranquia->getIdFranquia(),
-                    'noFranquia' => $idFranquia->getNoFranquia(),
-                    'noEnderecoAmigavel' => $idFranquia->getIdEndereco()->getNoEnderecoAmigavel(),
-                    'noLongitude' => $idFranquia->getIdEndereco()->getNoLongitude(),
-                    'noLatitude' => $idFranquia->getIdEndereco()->getNoLatitude(),
+            foreach($arrCidades as $key => $cidade)
+            {
+                $arrFranquia = $this->getService('service.franqueador')->findFranquiasByMunicipio(
+                    $request->idFranqueador,
+                    $cidade['idMunicipio']
+                );
+
+                $arrResponse[$key] = array(
+                    'idMunicipio'  => $cidade['idMunicipio'],
+                    'noMunicipio'  => $cidade['noMunicipio'],
+                    'arrFranquias' => $arrFranquia
                 );
             }
 
-            $this->add('valido',    true);
-            $this->add('franquias', $arrFranquia);
+            $this->add('valido', true);
+            $this->add('franquias', $arrResponse);
         } else {
             $this->add('mensagem', 'mobile_bundle.franqueador.default.error');
         }
