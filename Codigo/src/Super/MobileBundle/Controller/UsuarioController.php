@@ -127,25 +127,6 @@ class UsuarioController extends AbstractMobile
     }
 
     /**
-     * Total de créditos do usuário
-     * @param idUsuario, idFranqueador
-     * @return Response
-     */
-    public function creditoAction()
-    {
-        $request = $this->getRequest();
-
-        $credito = $this->getService('service.transacao')->getCreditosUsuario(
-            $request->idUsuario, $request->idFranqueador
-        );
-
-        $this->add('valido', true);
-        $this->add('credito', $credito);
-
-        return $this->response();
-    }
-
-    /**
      * Logout
      * @return Response
      */
