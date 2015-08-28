@@ -42,8 +42,8 @@ class UsuarioController extends AbstractMobile
             if ($idUsuario) {
                 $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
 
-                $this->add('valido',    true);
-                $this->add('mensagem',  'mobile_bundle.usuario.cadastrar.success');
+                $this->add('valido', true);
+                $this->add('mensagem', 'mobile_bundle.usuario.cadastrar.success');
                 $this->add('idUsuario', $idUsuario->getIdUsuario());
             } else {
                 $this->add('mensagem', 'mobile_bundle.usuario.cadastrar.exception');

@@ -27,10 +27,10 @@ super_mobile_enquete_responder:
     methods:  [POST]
 
 
-######### BONUS #########
-super_mobile_bonus_listar:
-    path:     /bonus/listar
-    defaults: { _controller: SuperMobileBundle:Bonus:listar }
+######### CREDITO #########
+super_mobile_credito_usuario:
+    path:     /credito/usuario
+    defaults: { _controller: SuperMobileBundle:Credito:credito }
     methods:  [POST]
 
 

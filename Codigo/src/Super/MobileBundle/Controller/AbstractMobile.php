@@ -33,6 +33,7 @@ class AbstractMobile extends CrudController
     }
 
     /**
+     * Retorna o Request padrão do Symfony
      * @return \Symfony\Component\HttpFoundation\Request
      */
     public function getParentRequest()
