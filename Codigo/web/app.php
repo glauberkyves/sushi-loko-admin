@@ -4,9 +4,8 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
 
-
-//register_shutdown_function(function(){echo("\n\n!!!shutdown!!!\n\n");});
-//set_error_handler(function($errno, $errstr, $errfile, $errline){throw new Exception("Foo");});
+register_shutdown_function(function(){});
+set_error_handler(function($errno, $errstr, $errfile, $errline){});
 
 
 use Symfony\Component\ClassLoader\ApcClassLoader;
@@ -27,7 +26,7 @@ $apcLoader->register(true);
 require_once __DIR__.'/../app/AppKernel.php';
 //require_once __DIR__.'/../app/AppCache.php';
 
-$kernel = new AppKernel('prod', false);
+$kernel = new AppKernel('prod', true);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 

@@ -1,0 +1,87 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Cadastrar Operador
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <form method="post" action="{{ path('super_ftp_create', {id: app.request.get('id')}) }}" id="form-operador"
+                  class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Franqueador</label>
+
+                    <div class="col-lg-6">
+                        {{ formHidden('idFranqueador', app.request.get('id')) }}
+                        {{ formText('noFranqueador', noFranqueador, {
+                            class: 'form-control',
+                            disabled: 'disabled'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="noHost">Host</label>
+
+                    <div class="col-lg-6">
+                        {{ formText('noHost', entity.getNoHost(), {
+                            class: 'form-control required',
+                            placeholder: 'IP / Host do servidor FTP'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="noUsuario">Usuário FTP</label>
+
+                    <div class="col-lg-6">
+                        {{ formText('noUsuario', entity.getNoUsuario(), {
+                            class: 'form-control required',
+                            placeholder: 'Usuário do servidor FTP'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="noSenha">Senha FTP</label>
+
+                    <div class="col-lg-6">
+                        {{ formText('noSenha', entity.getNoSenha(), {
+                            class: 'form-control required',
+                            placeholder: 'Senha do servidor FTP'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="noPasta">Pasta FTP</label>
+
+                    <div class="col-lg-6">
+                        {{ formText('noPasta', entity.getNoSenha(), {
+                            class: 'form-control required',
+                            placeholder: 'Pasta física do servidor FTP'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="stAtivo">Situação</label>
+
+                    <div class="col-lg-2">
+                        {{ formSelect('stAtivo', entity.getStAtivo(), {class: 'form-control required'}, cmbStatus) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-plus"></i>
+                            Salvar
+                        </button>
+                        <a class="btn btn-danger" href="{{ path('super_ftp_index') }}">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock body %}

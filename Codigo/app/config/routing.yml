@@ -28,12 +28,10 @@ super_transacao:
     prefix:   /transacao
 
 
-
 ######## FRNETE CAIXA OPERADOR #########
 super_operador_home:
     path:     /utilizar-creditos
     defaults: { _controller: SuperOperadorBundle:Default:utilizarCredito }
-
 
 
 ######## SECURITY #########

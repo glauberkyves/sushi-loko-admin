@@ -82,25 +82,25 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
 
-monolog:
-    handlers:
-        mail:
-            type:         fingers_crossed
-            # 500 errors are logged at the critical level
-            action_level: error
-            # to also log 400 level errors (but not 404's):
-            # action_level: error
-            # excluded_404s:
-            #     - ^/
-            handler:      buffered
-        buffered:
-            type:    buffer
-            handler: swift
-        swift:
-            type:       swift_mailer
-            from_email: no-reply@beeimoveis.com
-            to_email:   [contato@2creativegames.com.br, glauberkyves@gmail.com]
-            # or list of recipients
-            # to_email:   [dev1@example.com, dev2@example.com, ...]
-            subject:    Erro Bee
-            level:      debug
+#monolog:
+#    handlers:
+#        mail:
+#            type:         fingers_crossed
+#            # 500 errors are logged at the critical level
+#            action_level: error
+#            # to also log 400 level errors (but not 404's):
+#            # action_level: error
+#            # excluded_404s:
+#            #     - ^/
+#            handler:      buffered
+#        buffered:
+#            type:    buffer
+#            handler: swift
+#        swift:
+#            type:       swift_mailer
+#            from_email: no-reply@beeimoveis.com
+#            to_email:   [contato@2creativegames.com.br, glauberkyves@gmail.com]
+#            # or list of recipients
+#            # to_email:   [dev1@example.com, dev2@example.com, ...]
+#            subject:    Erro Bee
+#            level:      debug
