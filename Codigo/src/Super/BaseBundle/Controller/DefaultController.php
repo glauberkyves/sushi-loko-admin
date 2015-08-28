@@ -30,8 +30,19 @@ class DefaultController extends CrudController
         return parent::indexAction($request);
     }
 
-    public function pesquisaAction()
+    public function pesquisaAction(Request $request)
     {
-        return $this->render('SuperBaseBundle:Default:pesquisa.html.twig');
+        $this->serviceName = 'service.pesquisa';
+        $arrUsuarios       = array();
+
+        if ($request->query->has('sgSexo')) {
+            $arrUsuarios = $this->getService()->getRepository()->getResultGrid($request);
+            print_r($arrUsuarios);die;
+        }
+
+        $this->vars['entity']      = $this->getService()->newEntity()->populate($request->query->all());
+        $this->vars['arrUsuarios'] = $arrUsuarios;
+
+        return $this->render($this->resolveRouteName(), $this->vars);
     }
 }

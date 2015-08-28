@@ -26,3 +26,7 @@ services:
     service.newsletter:
         class: Base\BaseBundle\Service\Newsletter
         arguments:  ["@service_container"]
+
+    service.pesquisa:
+        class: Base\BaseBundle\Service\Pesquisa
+        arguments:  ["@service_container"]

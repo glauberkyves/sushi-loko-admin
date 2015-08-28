@@ -10,6 +10,17 @@ namespace Super\MobileBundle\Controller;
 class EnqueteController extends AbstractMobile
 {
     /**
+     * Listar enquetes de um franqueador
+     * @return Response
+     */
+    public function listarAction()
+    {
+        $request = $this->getRequest();
+
+        return $this->response();
+    }
+
+    /**
      * Responder enquete
      * @param idEnqueteResposta, idUsuario
      * @return Response

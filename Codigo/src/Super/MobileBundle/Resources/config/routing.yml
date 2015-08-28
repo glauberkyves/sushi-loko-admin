@@ -21,6 +21,11 @@ super_mobile_usuario_recuperar_senha:
 
 
 ######### ENQUETE #########
+super_mobile_enquete_listar:
+    path:     /enquete/listar
+    defaults: { _controller: SuperMobileBundle:Enquete:listar }
+    methods:  [POST]
+
 super_mobile_enquete_responder:
     path:     /enquete/responder
     defaults: { _controller: SuperMobileBundle:Enquete:responder }
