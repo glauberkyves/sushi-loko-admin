@@ -6,7 +6,6 @@ use Base\BaseBundle\Entity\TbFranquia;
 use Base\BaseBundle\Entity\TbRequisacaoTransacao;
 use Base\BaseBundle\Entity\TbTransacao;
 use Base\BaseBundle\Entity\TbUsuario;
-use Base\BaseBundle\Service\Data;
 use Base\CrudBundle\Service\CrudService;
 
 class Transacao extends CrudService

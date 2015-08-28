@@ -136,6 +136,12 @@ class TbFranqueador extends AbstractEntity
     protected $idFranquia;
 
     /**
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbConfiguracaoFtp", mappedBy="idFranqueador")
+     */
+    protected $idConfiguracaoFtp;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -429,4 +435,22 @@ class TbFranqueador extends AbstractEntity
     {
         $this->idFranquia = $idFranquia;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdConfiguracaoFtp()
+    {
+        return $this->idConfiguracaoFtp ? $this->idConfiguracaoFtp : new TbConfiguracaoFtp();
+    }
+
+    /**
+     * @param mixed $idConfiguracaoFtp
+     */
+    public function setIdConfiguracaoFtp($idConfiguracaoFtp)
+    {
+        $this->idConfiguracaoFtp = $idConfiguracaoFtp;
+    }
+
+
 }

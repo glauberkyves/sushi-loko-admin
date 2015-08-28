@@ -16,8 +16,6 @@ parameters:
 
     email_fale_conosco: contato@2creativegames.com.br
 
-    path_arquivo_retorno:  C:\Users\Glauber\my-projects\fidelidade\arquivos
-
     locale:            pt-BR
 
     # A secret key that's used to generate certain security-related tokens

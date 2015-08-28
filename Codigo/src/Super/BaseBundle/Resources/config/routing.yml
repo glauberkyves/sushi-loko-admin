@@ -3,6 +3,15 @@ super_home:
     path:     /
     defaults: { _controller: SuperBaseBundle:Default:index }
 
+super_ftp_index:
+    path:     /configuracao-ftp/index.html
+    defaults: { _controller: SuperBaseBundle:ConfiguracaoFtp:index }
+
+super_ftp_create:
+    path:     /configuracao-ftp/{id}
+    defaults: { _controller: SuperBaseBundle:ConfiguracaoFtp:create }
+    requirements:
+            id: \d+
 
 ######## FRANQUEADOR #########
 super_franqueador_index:
