@@ -14,5 +14,4 @@ class Data
     {
         return new \DateTime(implode("-", array_reverse(explode("/", $data))));
     }
-
 }

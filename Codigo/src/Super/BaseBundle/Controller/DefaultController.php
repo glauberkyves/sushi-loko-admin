@@ -2,8 +2,8 @@
 
 namespace Super\BaseBundle\Controller;
 
+use Base\BaseBundle\Service\Pesquisa;
 use Base\CrudBundle\Controller\CrudController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends CrudController
@@ -42,6 +42,17 @@ class DefaultController extends CrudController
 
         $this->vars['entity']      = $this->getService()->newEntity()->populate($request->query->all());
         $this->vars['arrUsuarios'] = $arrUsuarios;
+        $this->vars['cmbSexo']     = Pesquisa::getComboSexo();
+        $this->vars['cmbPeriodo']  = Pesquisa::getComboPeriodo();
+        $this->vars['cmbOperador'] = Pesquisa::getComboOperador();
+        $this->vars['cmbFranquia'] = $this->getService('service.franquia')->getComboDefault(array(
+            'stAtivo' => true,
+            'idFranqueador' => 56
+        ));
+        $this->vars['arrFranquia'] = array();
+
+        reset($this->vars['cmbFranquia']);
+        unset($this->vars['cmbFranquia'][key($this->vars['cmbFranquia'])]);
 
         return $this->render($this->resolveRouteName(), $this->vars);
     }

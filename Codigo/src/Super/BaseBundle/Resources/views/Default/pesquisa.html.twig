@@ -9,25 +9,8 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Sexo</label>
-                    <div class="col-lg-10">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="sgSexo" id="masculino" value="m" {{ entity.getSgSexo() == 'm' ? 'checked' : '' }}>
-                                Masculino
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="sgSexo" id="feminino" value="f" {{ entity.getSgSexo() == 'f' ? 'checked' : '' }}>
-                                Feminino
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="sgSexo" id="todos" value="u" {{ entity.getSgSexo() == 'u' ? 'checked' : '' }}>
-                                Todos
-                            </label>
-                        </div>
+                    <div class="col-lg-2">
+                        {{ formSelect("sgSexo", entity.getSgSexo(), {'class': 'form-control valid'}, cmbSexo) }}
                     </div>
                 </div>
 
@@ -48,9 +31,10 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Atividade</label>
                     <div class="col-lg-2">
-                        <select name="nuAtividade" class="form-control m-bot15">
+                        <select name="nuAtividade" class="form-control">
                             <option value="1">Que foi</option>
-                            <option value="0">Que não foi</option>
+                            <option value="2">Que não foi</option>
+                            <option value="0">Todos</option>
                         </select>
                     </div>
                 </div>
@@ -58,61 +42,54 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Lista de franqueados</label>
                     <div class="col-lg-4">
-                        <select name="idFranqueado" class="form-control m-bot15">
-                            <option value="0">Todos</option>
-                            <option value="">Teste</option>
-                            <option value="">Teste</option>
-                        </select>
+                        {{ formSelect('', arrFranquia, {'class': 'multi-select', 'multiple': 'multiple', 'id': 'idFranqueado', 'name': 'idFranqueado[]', 'required': 'required'}, cmbFranquia) }}
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nos ultimos</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Nos últimos</label>
                     <div class="col-lg-2">
                         <input name="nuPeriodo" type="text" mask="99999" class="form-control">
                     </div>
                     <div class="col-lg-2">
-                        <select name="noPeriodo" class="form-control m-bot15">
-                            <option value="dia">Dias</option>
-                            <option value="mes">Meses</option>
-                        </select>
+                        {{ formSelect("noPeriodo", null, {'class': 'form-control valid'}, cmbPeriodo) }}
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Que obtiveram bônus nos ultimos</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Que obtiveram bônus nos últimos</label>
                     <div class="col-lg-2">
-                        <input name="nuBonusPeriodo" type="text" mask="99999" class="form-control" id="">
+                        <input name="nuCreditoPeriodo" type="text" mask="99999" class="form-control" id="">
                     </div>
                     <div class="col-lg-2">
-                        <select name="noBonusPeriodo" class="form-control m-bot15">
-                            <option value="dia">Dias</option>
-                            <option value="mes">Meses</option>
-                        </select>
+                        {{ formSelect("noCreditoPeriodo", null, {'class': 'form-control valid'}, cmbPeriodo) }}
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Que obtiveram e utilizaram bônus nos ultimos</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Que utilizaram bônus nos últimos</label>
+                    <div class="col-lg-2">
+                        <input name="nuDebitoPeriodo" type="text" mask="99999" class="form-control" id="">
+                    </div>
+                    <div class="col-lg-2">
+                        {{ formSelect("noDebitoPeriodo", null, {'class': 'form-control valid'}, cmbPeriodo) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Que obtiveram e utilizaram bônus nos últimos</label>
                     <div class="col-lg-2">
                         <input name="nuBonusTransacionado" type="text" mask="99999" class="form-control" id="">
                     </div>
                     <div class="col-lg-2">
-                        <select name="noBonusTransacionado" class="form-control m-bot15">
-                            <option value="dia">Dias</option>
-                            <option value="mes">Meses</option>
-                        </select>
+                        {{ formSelect("noBonusTransacionado", null, {'class': 'form-control valid'}, cmbPeriodo) }}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Que possuam saldo de bônus</label>
                     <div class="col-lg-2">
-                        <select name="noSaldoBonus" class="form-control m-bot15">
-                            <option value="igual">Igual</option>
-                            <option value="maior">Maior</option>
-                            <option value="menor">Menor</option>
-                        </select>
+                        {{ formSelect("noSaldoBonus", null, {'class': 'form-control valid'}, cmbOperador) }}
                     </div>
                     <div class="col-lg-2">
                         <div class="input-group m-bot15">
@@ -128,21 +105,14 @@
                         <input name="nuCadastro" type="text" mask="99999" class="form-control" id="">
                     </div>
                     <div class="col-lg-2">
-                        <select name="noCadastro" class="form-control m-bot15">
-                            <option value="dia">Dias</option>
-                            <option value="mes">Meses</option>
-                        </select>
+                        {{ formSelect("noCadastro", null, {'class': 'form-control valid'}, cmbPeriodo) }}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Que possuam média de consumo</label>
                     <div class="col-lg-2">
-                        <select name="noMediaConsumo" class="form-control m-bot15">
-                            <option value="igual">Igual</option>
-                            <option value="maior">Maior</option>
-                            <option value="menor">Menor</option>
-                        </select>
+                        {{ formSelect("noMediaConsumo", null, {'class': 'form-control valid'}, cmbOperador) }}
                     </div>
                     <div class="col-lg-2">
                         <div class="input-group m-bot15">
@@ -202,4 +172,7 @@
             </form>
         </div>
     </section>
+    <script>
+        $('#idFranqueado').multiSelect();
+    </script>
 {% endblock %}
