@@ -71,6 +71,16 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranquiaOperador", mappedBy="idOperador")
      */
     private $idFranquiaOperador;
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueador", mappedBy="idUsuario")
+     */
+    private $idFranqueador;
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranquia", mappedBy="idUsuario")
+     */
+    private $idFranquia;
 
     private $salt;
     /**
@@ -359,4 +369,27 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
         $this->idFranquiaOperador = $idFranquiaOperador;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdFranquia()
+    {
+        return $this->idFranquia;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $rlUsuarioPerfil
+     */
+    public function setRlUsuarioPerfil($rlUsuarioPerfil)
+    {
+        $this->rlUsuarioPerfil = $rlUsuarioPerfil;
+    }
+
+    /**
+     * @param mixed $idFranquia
+     */
+    public function setIdFranquia($idFranquia)
+    {
+        $this->idFranquia = $idFranquia;
+    }
 }

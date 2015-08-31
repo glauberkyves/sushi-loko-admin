@@ -19,20 +19,20 @@ class TransacaoRepository extends AbstractRepository
         $expr = new Expr();
 
         $queryCredito = $this
-        ->getEntityManager()
-        ->createQueryBuilder()
-        ->select('SUM(t.nuValor) credito')
-        ->from('Base\BaseBundle\Entity\TbTransacao', 't')
-        ->innerJoin('t.idTipoTransacao', 'tt')
-        ->innerJoin('t.idUsuario', 'u')
-        ->innerJoin('t.idFranquia', 'ff')
-        ->innerJoin('ff.idFranqueador', 'f')
-        ->where($expr->eq('u.idUsuario', $idUsuario))
-        ->andWhere($expr->eq('ff.idFranqueador', $idFranqueador))
-        ->andWhere($expr->eq('t.stAtivo', true))
-        ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::CREDITO))
-        ->getQuery()
-        ->getResult();
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('SUM(t.nuValor) credito')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idTipoTransacao', 'tt')
+            ->innerJoin('t.idUsuario', 'u')
+            ->innerJoin('t.idFranquia', 'ff')
+            ->innerJoin('ff.idFranqueador', 'f')
+            ->where($expr->eq('u.idUsuario', $idUsuario))
+            ->andWhere($expr->eq('ff.idFranqueador', $idFranqueador))
+            ->andWhere($expr->eq('t.stAtivo', true))
+            ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::CREDITO))
+            ->getQuery()
+            ->getResult();
 
         $queryDebito = $this
             ->getEntityManager()
@@ -54,5 +54,26 @@ class TransacaoRepository extends AbstractRepository
         $debito  = $queryDebito ? $queryDebito[0]['debito'] : 0;
 
         return $credito - $debito;
+    }
+
+    public function getTransacaoFranquia($idFranquia)
+    {
+        $expr = new Expr();
+
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('t.idTransacao, t.dtCadastro, t.stAtivo, p.noPessoa, pf.noEmail')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idTipoTransacao', 'tt')
+            ->innerJoin('t.idFranquia', 'f')
+            ->innerJoin('t.idUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->andWhere($expr->eq('f.idFranquia', $idFranquia))
+            ->andWhere($expr->eq('t.stAtivo', true))
+            ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::DEBITO))
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -3,8 +3,10 @@
 namespace Super\FranquiaBundle\Controller;
 
 use Base\CrudBundle\Controller\CrudController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Base\BaseBundle\Service\Dominio;
+use Knp\Component\Pager\Paginator;
 
 class DefaultController extends CrudController
 {
@@ -20,9 +22,9 @@ class DefaultController extends CrudController
     {
         $security = $this->get('security.authorization_checker');
 
-        switch(true) {
+        switch (true) {
             case $security->isGranted('ROLE_FRANQUEADOR'):
-                $idFranqueador = $this->getService('service.franqueador')->findOneByIdUsuario($this->getUser());
+                $idFranqueador               = $this->getService('service.franqueador')->findOneByIdUsuario($this->getUser());
                 $this->vars['idFranqueador'] = $idFranqueador->getIdFranqueador();
                 break;
             case $security->isGranted('ROLE_SUPER'):
@@ -89,6 +91,7 @@ class DefaultController extends CrudController
     public function localidadeAction()
     {
         $franquia = $this->getService('service.franqueador')->selectLocalidade();
+
         return $this->renderJson($franquia);
     }
 
@@ -101,5 +104,40 @@ class DefaultController extends CrudController
         return $this->generateUrl('super_franquia_index', array(
             'idFranqueador' => $this->getRequest()->get('idFranqueador')
         ));
+    }
+
+    public function transacaoAction(Request $request)
+    {
+        $idFranquia   = $this->getUser()->getIdFranquia()->getIdFranquia();
+        $arrTransacao = $this->getService('service.transacao')->getTransacaoFranquia($idFranquia);
+
+        if ($request->query->has('sEcho') && $request->query->has('sEcho')) {
+            $sEcho = $request->query->get('sEcho');
+            $page  = $request->query->get('iDisplayStart', 1);
+            $rows  = $request->query->get('iDisplayLength', 10);
+
+            $paginator  = new Paginator();
+            $pagination = $paginator->paginate($arrTransacao, $page, $rows);
+
+            $data                       = new \StdClass();
+            $data->sEcho                = $sEcho;
+            $data->iTotalRecords        = $page;
+            $data->iTotalDisplayRecords = ceil($pagination->getTotalItemCount() / $rows);
+            $data->records              = $pagination->getTotalItemCount();
+            $data->aaData               = $this->getService()->parserItens($pagination->getItems(), false);
+
+            foreach ($data->aaData as $key => $value) {
+                foreach ($value as $keyIten => $iten) {
+                    $data->aaData[$key]['opcoes'] = $this->container->get('templating')->render(
+                            'SuperFranquiaBundle:Default:gridOptionsTransacao.html.twig',
+                            array('data' => (object)$value)
+                        );
+                }
+            }
+
+            return new JsonResponse((array)$data);
+        }
+
+        return $this->render($this->resolveRouteName(), $arrTransacao);
     }
 }

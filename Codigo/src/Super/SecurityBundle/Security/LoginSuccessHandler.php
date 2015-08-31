@@ -38,9 +38,9 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
                 $response = new RedirectResponse($this->router->generate('super_franquia_dashboard'));
                 break;
 
-            case $this->security->isGranted('ROLE_USER'):
-                $response = new RedirectResponse($this->router->generate('site_homepage'));
-                break;
+//            case $this->security->isGranted('ROLE_USER'):
+//                $response = new RedirectResponse($this->router->generate('site_homepage'));
+//                break;
 
             case $this->security->isGranted('ROLE_OPERADOR'):
                 $response = new RedirectResponse($this->router->generate('super_operador_home'));

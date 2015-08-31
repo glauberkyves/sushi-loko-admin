@@ -120,7 +120,7 @@ class TbPessoa extends AbstractEntity
     public function getNoPessoa($firstName = false)
     {
         if ($firstName) {
-            return substr($this->noPessoa, 0, strpos($this->noPessoa, ' '));
+            return substr($this->noPessoa, 0, strpos($this->noPessoa, ' ')) ?: $this->noPessoa;
         }
 
         return $this->noPessoa;

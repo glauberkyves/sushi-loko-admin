@@ -1,7 +1,7 @@
 ######## ADMINSITRADOR #########
 super_base:
     resource: "@SuperBaseBundle/Resources/config/routing.yml"
-    prefix:   /super
+    prefix:   /administrador
 
 
 ######## FRANQUEADOR #########

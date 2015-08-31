@@ -1,0 +1,58 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Pesquisar Transação
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body">
+            <form method="post" action=" " id="form-franquia" class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Usuário</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control " id="noFranquia" placeholder="" name="noFranquia" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                            Pesquisar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="panel">
+        <header class="panel-heading">
+            Resultado da pesquisa
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body">
+            <section id="unseen">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-franquia">
+                    <thead>
+                    <tr>
+                        <th data-column="noPessoa">Usuário</th>
+                        <th data-column="noEmail">E-mail</th>
+                        <th data-column="dtCadastro">Data</th>
+                        <th data-column="stAtivo">Situação</th>
+                        <th data-column="opcoes">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td valign="top" colspan="5">Acione a pesquisa</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>
+{% endblock body %}

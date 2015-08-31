@@ -6,6 +6,10 @@ super_franquia_buscar_usuario:
     path:     /usuario/buscar
     defaults: { _controller: SuperFranquiaBundle:Default:buscarUsuario }
 
+super_franquia_transacao:
+    path:     /transacoes
+    defaults: { _controller: SuperFranquiaBundle:Default:transacao }
+
 super_franquia_operador:
     resource: "@SuperOperadorBundle/Resources/config/routing.yml"
     prefix:   /operador
