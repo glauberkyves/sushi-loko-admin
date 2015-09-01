@@ -143,6 +143,9 @@ class PesquisaRepository extends AbstractRepository
         }
     }
 
+    /**
+     * Credito total ou por periodo
+     */
     private function subQueryCredito(Request $request, $filtrarPeriodo = false, $i = 1)
     {
         $request = $request->query;
@@ -175,6 +178,9 @@ class PesquisaRepository extends AbstractRepository
         return $query->getQuery()->getDQL();
     }
 
+    /**
+     * Debito total ou por periodo
+     */
     private function subQueryDebito(Request $request, $filtrarPeriodo = false, $i = 2)
     {
         $request = $request->query;
@@ -207,6 +213,9 @@ class PesquisaRepository extends AbstractRepository
         return $query->getQuery()->getDQL();
     }
 
+    /**
+     * Quantidade de transacoes realizadas por usuario
+     */
     private function subQueryCountTransacao(Request $request)
     {
         $request = $request->query;
@@ -237,6 +246,9 @@ class PesquisaRepository extends AbstractRepository
         return $query->getQuery()->getDQL();
     }
 
+    /**
+     * Media de consumo por usuario
+     */
     private function subQueryMediaConsumo(Request $request)
     {
         $request = $request->query;
@@ -260,6 +272,12 @@ class PesquisaRepository extends AbstractRepository
         return $query->getQuery()->getDQL();
     }
 
+    /**
+     * Modificar data
+     * @param int $nuPeriodo
+     * @param string $noPeriodo
+     * @return \DateTime
+     */
     private function getDataModificada($nuPeriodo = 0, $noPeriodo = '')
     {
         if($nuPeriodo && $noPeriodo)
@@ -274,10 +292,15 @@ class PesquisaRepository extends AbstractRepository
         return new \DateTime();
     }
 
+    /**
+     * Padronizar variaveis da requisicao
+     * @param Request $request
+     * @return Request
+     */
     private function padronizarRequest(Request $request)
     {
         //caso seja uma busca por quem obteve e utilizou bonus
-        //sobrescrever as variaveis p/ continuar no fluxo normal
+        //sobrescrever as variaveis p/ continuar o fluxo da aplicacao
         $r = $request->query;
         if ($nuBonus = $r->get('nuBonusTransacionado')) {
             if (is_numeric($nuBonus) && $nuBonus > 0) {

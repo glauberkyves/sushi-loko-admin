@@ -34,7 +34,7 @@ class Pesquisa extends CrudService
         if ($nuPontos || $nuBonus) {
             if ($arrUsuarios) {
                 foreach ($arrUsuarios as $usuario) {
-                    #$entityUsuario = $srvUsuario->find($usuario['idUsuario']);
+                    $entityUsuario = $srvUsuario->find($usuario['idUsuario']);
                 }
                 $response['valido']   = true;
                 $response['mensagem'] = 'Operação realizada com sucesso!';
@@ -153,7 +153,7 @@ class Pesquisa extends CrudService
                         $itens[$key]['nuBonus'] = sprintf("R$ %s", number_format($nuBonus, 2, ',', '.'));
                         break;
                     case $keyIten == 'sgSexo':
-                        $itens[$key]['sgSexo'] = $iten == 'M' ? 'Masculino' : 'Feminino';
+                        $itens[$key]['sgSexo'] = $iten == 'M' ? 'Masculino' : $iten == 'F' ? 'Feminino' : 'Não informado';
                         break;
                 }
             }

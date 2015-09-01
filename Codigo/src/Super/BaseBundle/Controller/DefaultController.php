@@ -31,6 +31,7 @@ class DefaultController extends CrudController
     }
 
     /**
+     * Busca inteligente
      * @param Request $request
      * @return Response
      */
@@ -82,7 +83,7 @@ class DefaultController extends CrudController
      * @param $result
      * @return array
      */
-    public function getResultGrid(Request $request, $result)
+    public function getResultGrid(Request $request, array $result = array())
     {
         $sEcho = $request->query->get('sEcho', 1);
         $page  = $request->query->get('iDisplayStart', 0);
