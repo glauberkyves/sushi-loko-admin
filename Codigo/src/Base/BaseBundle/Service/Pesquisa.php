@@ -10,6 +10,8 @@ namespace Base\BaseBundle\Service;
 
 use Base\CrudBundle\Service\CrudService;
 use Symfony\Component\HttpFoundation\Response;
+use Super\TransacaoBundle\Service\TipoTransacao;
+use Base\BaseBundle\Entity\TbTransacao;
 
 class Pesquisa extends CrudService
 {
@@ -34,7 +36,19 @@ class Pesquisa extends CrudService
         if ($nuPontos || $nuBonus) {
             if ($arrUsuarios) {
                 foreach ($arrUsuarios as $usuario) {
+
                     $entityUsuario = $srvUsuario->find($usuario['idUsuario']);
+
+                    if ($nuBonus > 0) {
+                        $this->saveTransacao(
+                            $entityUsuario,
+                            $nuBonus
+                        );
+                    }
+
+                    if ($nuPontos > 0) {
+
+                    }
                 }
                 $response['valido']   = true;
                 $response['mensagem'] = 'Operação realizada com sucesso!';
@@ -67,6 +81,29 @@ class Pesquisa extends CrudService
         $response->headers->set('Expires', '0');
 
         return $response;
+    }
+
+    public function saveTransacao($idUsuario = null, $nuValor = 0)
+    {
+        $entity = new TbTransacao();
+
+        $idFranquia = $this->getService('service.franquia')->findOneByIdFranqueador(56);
+
+        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO_AVULSO);
+
+        $nuValor = str_replace(".", "", $nuValor);
+        $nuValor = str_replace(",", ".", $nuValor);
+
+        $entity->setIdOperador($this->getUser());
+        $entity->setIdArquivo(null);
+        $entity->setIdTipoTransacao($idTipoTransacao);
+        $entity->setIdUsuario($idUsuario);
+        $entity->setIdFranquia($idFranquia);
+        $entity->setNuValor($nuValor);
+        $entity->setDtCadastro(new \DateTime());
+        $entity->setStAtivo(true);
+
+        $this->persist($entity);
     }
 
     /**

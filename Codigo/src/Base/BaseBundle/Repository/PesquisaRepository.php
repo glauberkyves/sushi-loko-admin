@@ -41,10 +41,13 @@ class PesquisaRepository extends AbstractRepository
             ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
+            ->innerJoin('u.idFranqueadorUsuario', 'fu')
             ->where('u.stAtivo = :stAtivo')
-            ->setParameter('stAtivo', true)
+            ->andWhere('fu.idFranqueador = :idFranqueador')
             ->groupBy('u.idUsuario')
-            ->orderBy('p.noPessoa', 'ASC');
+            ->orderBy('p.noPessoa', 'ASC')
+            ->setParameter('stAtivo', true)
+            ->setParameter('idFranqueador', 56);
 
         return $query;
     }
@@ -164,7 +167,7 @@ class PesquisaRepository extends AbstractRepository
             ->andWhere($expr->in("ff{$i}.idFranquia", $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))
-            ->andWhere($expr->eq("tt{$i}.idTipoTransacao", TipoTransacao::CREDITO));
+            ->andWhere($expr->in("tt{$i}.idTipoTransacao", array(TipoTransacao::CREDITO, TipoTransacao::CREDITO_AVULSO)));
 
         if ($filtrarPeriodo) {
             #filtro por pessoas que obtiveram bônus no periodo informado
