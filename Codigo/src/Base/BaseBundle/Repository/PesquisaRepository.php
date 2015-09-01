@@ -43,6 +43,7 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin('p.idPessoaFisica', 'pf')
             ->where('u.stAtivo = :stAtivo')
             ->setParameter('stAtivo', true)
+            ->groupBy('u.idUsuario')
             ->orderBy('p.noPessoa', 'ASC');
 
         return $query;

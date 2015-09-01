@@ -50,19 +50,55 @@ class DefaultController extends CrudController
         reset($this->vars['cmbFranquia']);
         unset($this->vars['cmbFranquia'][key($this->vars['cmbFranquia'])]);
 
+        $result = $request->getSession()->get('arrUsuarios', array());
+
+        //parametros grid
+        if ($request->query->has('sEcho') && $request->query->has('sEcho')) {
+            $result     = $this->getService()->getRepository()->getResultGrid($request);
+            $resultGrid = $this->getResultGrid($request, $result);
+            $request->getSession()->set('arrUsuarios', $result);
+            return $this->renderJson($resultGrid);
+        }
+
+        //parametros exportacao
         if ($request->query->has('exportar')) {
-            $result   = $this->getService()->getRepository()->getResultGrid($request);
             $response = $this->render('SuperBaseBundle:Default:usuariosCSV.html.twig', array(
                 'arrUsuarios' => $result
             ));
-            return $this->getService()->exportar($response, $result);
+            return $this->getService()->exportar($response);
         }
 
+        // parametros filtro acrescentar pontos e bonus
         if ($request->query->has('addPontos') && $request->query->has('addBonus')) {
-            $result = $this->getService()->getRepository()->getResultGrid($request);
             return $this->renderJson($this->getService()->addPontosBonus($result));
         }
 
-        return parent::indexAction($request);
+        return $this->render($this->resolveRouteName(), $this->vars);
+    }
+
+    /**
+     * Alterar comportamento do getResultGrid()
+     * @param Request $request
+     * @param $result
+     * @return array
+     */
+    public function getResultGrid(Request $request, $result)
+    {
+        $sEcho = $request->query->get('sEcho', 1);
+        $page  = $request->query->get('iDisplayStart', 0);
+        $rows  = $request->query->get('iDisplayLength', 5);
+        $page  = ceil($page/$rows);
+
+        $paginator  = new \Knp\Component\Pager\Paginator();
+        $pagination = $paginator->paginate($result, $page, $rows);
+
+        $data                       = new \StdClass();
+        $data->sEcho                = $sEcho;
+        $data->iTotalRecords        = $pagination->getTotalItemCount();
+        $data->iTotalDisplayRecords = $pagination->getTotalItemCount();
+        $data->records              = $pagination->getTotalItemCount();
+        $data->aaData               = $this->getService()->parserItens($pagination->getItems());
+
+        return (array)$data;
     }
 }

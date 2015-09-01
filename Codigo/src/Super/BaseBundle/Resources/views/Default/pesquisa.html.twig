@@ -201,7 +201,7 @@
         $(function() {
             $('#idFranqueado').multiSelect();
             $('.export').click(function(){
-                window.location = "{{ path('super_franqueador_pesquisa') }}" + "?exportar=csv&" + $('#form-pesquisa').serialize();
+                window.location = "{{ path('super_franqueador_pesquisa') }}" + "?exportar=csv&";
             });
             $('#form-pesquisa').submit(function (e) {
                 if ($(this).valid()) {
@@ -218,7 +218,7 @@
                 button.hide();
                 loading.removeClass("hidden");
                 $.get("{{ path('super_franqueador_pesquisa') }}",
-                    $('#form-filtro').serialize() + "&" + $('#form-pesquisa').serialize(),
+                    $('#form-filtro').serialize(),
                     function (data) {
                         if (data.valido == true) {
                             toastr["success"](data.mensagem);
