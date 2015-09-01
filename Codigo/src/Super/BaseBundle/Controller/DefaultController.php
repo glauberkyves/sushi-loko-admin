@@ -30,18 +30,15 @@ class DefaultController extends CrudController
         return parent::indexAction($request);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function pesquisaAction(Request $request)
     {
         $this->serviceName = 'service.pesquisa';
-        $arrUsuarios       = array();
-
-        if ($request->query->has('sgSexo')) {
-            $arrUsuarios = $this->getService()->getRepository()->getResultGrid($request);
-            print_r($arrUsuarios);die;
-        }
 
         $this->vars['entity']      = $this->getService()->newEntity()->populate($request->query->all());
-        $this->vars['arrUsuarios'] = $arrUsuarios;
         $this->vars['cmbSexo']     = Pesquisa::getComboSexo();
         $this->vars['cmbPeriodo']  = Pesquisa::getComboPeriodo();
         $this->vars['cmbOperador'] = Pesquisa::getComboOperador();
@@ -49,11 +46,23 @@ class DefaultController extends CrudController
             'stAtivo' => true,
             'idFranqueador' => 56
         ));
-        $this->vars['arrFranquia'] = array();
 
         reset($this->vars['cmbFranquia']);
         unset($this->vars['cmbFranquia'][key($this->vars['cmbFranquia'])]);
 
-        return $this->render($this->resolveRouteName(), $this->vars);
+        if ($request->query->has('exportar')) {
+            $result   = $this->getService()->getRepository()->getResultGrid($request);
+            $response = $this->render('SuperBaseBundle:Default:usuariosCSV.html.twig', array(
+                'arrUsuarios' => $result
+            ));
+            return $this->getService()->exportar($response, $result);
+        }
+
+        if ($request->query->has('addPontos') && $request->query->has('addBonus')) {
+            $result = $this->getService()->getRepository()->getResultGrid($request);
+            return $this->renderJson($this->getService()->addPontosBonus($result));
+        }
+
+        return parent::indexAction($request);
     }
 }

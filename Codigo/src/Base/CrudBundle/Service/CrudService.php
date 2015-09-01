@@ -19,17 +19,18 @@ class CrudService extends AbstractService
     {
         $result = $this->getRepository()->getResultGrid($request);
 
-        $sEcho = $request->query->get('sEcho');
-        $page  = $request->query->get('iDisplayStart', 1);
-        $rows  = $request->query->get('iDisplayLength', 10);
+        $sEcho = $request->query->get('sEcho', 1);
+        $page  = $request->query->get('iDisplayStart', 0);
+        $rows  = $request->query->get('iDisplayLength', 5);
+        $page  = ceil($page/$rows);
 
         $paginator  = new Paginator();
         $pagination = $paginator->paginate($result, $page, $rows);
 
         $data                       = new \StdClass();
         $data->sEcho                = $sEcho;
-        $data->iTotalRecords        = $page;
-        $data->iTotalDisplayRecords = ceil($pagination->getTotalItemCount() / $rows);
+        $data->iTotalRecords        = $pagination->getTotalItemCount();
+        $data->iTotalDisplayRecords = $pagination->getTotalItemCount();
         $data->records              = $pagination->getTotalItemCount();
         $data->aaData               = $this->parserItens($pagination->getItems());
 

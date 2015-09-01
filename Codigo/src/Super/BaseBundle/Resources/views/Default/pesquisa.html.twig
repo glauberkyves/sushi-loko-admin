@@ -5,7 +5,7 @@
             Busca inteligente
         </header>
         <div class="panel-body">
-            <form class="form-horizontal tasi-form" method="get">
+            <form action=" " class="form-horizontal tasi-form" id="form-pesquisa" method="get">
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Sexo</label>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Lista de franqueados</label>
                     <div class="col-lg-4">
-                        {{ formSelect('', arrFranquia, {'class': 'multi-select', 'multiple': 'multiple', 'id': 'idFranqueado', 'name': 'idFranqueado[]', 'required': 'required'}, cmbFranquia) }}
+                        {{ formSelect('', {}, {'class': 'multi-select', 'multiple': 'multiple', 'id': 'idFranqueado', 'name': 'idFranqueado[]', 'required': 'required'}, cmbFranquia) }}
                     </div>
                 </div>
 
@@ -142,22 +142,26 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-save"></i>
+                    <i class="fa fa-search"></i>
                     Buscar
                 </button>
             </form>
         </div>
     </section>
-    <section class="panel">
+    <section class="panel" id="filtro-resultado">
         <header class="panel-heading">
             Filtro do resultado
+            <a href="javascript:;" class="btn btn-warning btn-xs export" style="float:right">
+                <i class="fa fa-download"></i>
+                Exportar em CSV
+            </a>
         </header>
         <div class="panel-body">
-            <form class="form-horizontal tasi-form" method="get">
+            <form id="form-filtro" class="form-horizontal tasi-form m-bot15" method="get">
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Acrescentar pontos</label>
                     <div class="col-lg-2">
-                        <input type="number" class="form-control" id="">
+                        <input name="addPontos" type="number" class="form-control" id="">
                     </div>
                 </div>
                 <div class="form-group">
@@ -165,14 +169,68 @@
                     <div class="col-lg-2">
                         <div class="input-group m-bot15">
                             <span class="input-group-addon">R$</span>
-                            <input type="text" mask="decimal" class="form-control">
+                            <input name="addBonus" type="text" mask="decimal" class="form-control">
                         </div>
                     </div>
                 </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-usd"></i>
+                    Acrescentar
+                </button>
+                <label id="loading" class="hidden control-label"><b>Aguarde..</b></label>
             </form>
+            <section id="unseen">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-pesquisa">
+                    <thead>
+                        <tr>
+                            <th data-column="noPessoa">Nome</th>
+                            <th data-column="nuBonus">Bônus</th>
+                            <th data-column="sgSexo">Sexo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="odd">
+                            <td valign="top" colspan="5">Acione a pesquisa</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
         </div>
     </section>
     <script>
-        $('#idFranqueado').multiSelect();
+        $(function() {
+            $('#idFranqueado').multiSelect();
+            $('.export').click(function(){
+                window.location = "{{ path('super_franqueador_pesquisa') }}" + "?exportar=csv&" + $('#form-pesquisa').serialize();
+            });
+            $('#form-pesquisa').submit(function (e) {
+                if ($(this).valid()) {
+                    $('html, body').animate({
+                        scrollTop: $("#filtro-resultado").offset().top
+                    }, 1500);
+                }
+            });
+            $('#form-filtro').submit(function (e) {
+                e.preventDefault();
+                var self = $(this);
+                var button = self.find("button");
+                var loading = $("#loading");
+                button.hide();
+                loading.removeClass("hidden");
+                $.get("{{ path('super_franqueador_pesquisa') }}",
+                    $('#form-filtro').serialize() + "&" + $('#form-pesquisa').serialize(),
+                    function (data) {
+                        if (data.valido == true) {
+                            toastr["success"](data.mensagem);
+                            $('#form-pesquisa').submit();
+                        } else {
+                            toastr["error"](data.mensagem);
+                        }
+                        loading.addClass("hidden");
+                        button.show();
+                    }
+                );
+            });
+        });
     </script>
 {% endblock %}

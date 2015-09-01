@@ -31,16 +31,19 @@ class PesquisaRepository extends AbstractRepository
         $query = $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('u.idUsuario')
-            ->addSelect('(' . $subQueryCreditoTotal    . ') nuCreditoTotal')
-            ->addSelect('(' . $subQueryDebitoTotal     . ') nuDebitoTotal')
-            ->addSelect('(' . $subQueryCreditoPeriodo  . ') nuCreditoPeriodo')
-            ->addSelect('(' . $subQueryDebitoPeriodo   . ') nuDebitoPeriodo')
-            ->addSelect('(' . $subQueryCount           . ') nuTransacao')
-            ->addSelect('(' . $subQueryMedia           . ') nuMediaConsumo')
+            ->select('u.stAtivo, u.idUsuario, p.noPessoa, pf.sgSexo, pf.noEmail')
+            ->addSelect('(' . $subQueryCreditoTotal   . ') nuCreditoTotal')
+            ->addSelect('(' . $subQueryDebitoTotal    . ') nuDebitoTotal')
+            ->addSelect('(' . $subQueryCreditoPeriodo . ') nuCreditoPeriodo')
+            ->addSelect('(' . $subQueryDebitoPeriodo  . ') nuDebitoPeriodo')
+            ->addSelect('(' . $subQueryCount          . ') nuTransacao')
+            ->addSelect('(' . $subQueryMedia          . ') nuMediaConsumo')
             ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
-            ->innerJoin('p.idPessoaFisica', 'pf');
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->where('u.stAtivo = :stAtivo')
+            ->setParameter('stAtivo', true)
+            ->orderBy('p.noPessoa', 'ASC');
 
         return $query;
     }
@@ -122,6 +125,19 @@ class PesquisaRepository extends AbstractRepository
                         $query->setParameter('dtCadastro', $dtCadastro);
                     }
                     break;
+                #filtro (consumo até hoje)
+                case 'nuConsumoTotal':
+                    $value = floatval(str_replace(',', '.', str_replace('.', '', $value)));
+                    if (is_numeric($value) && $value > 0) {
+                        $query->andHaving("nuDebitoTotal >= :debito");
+                        $query->setParameter('debito', $value, \PDO::PARAM_INT);
+                    }
+                    break;
+                #filtro aniversariante
+                case 'nuAniversariante':
+                    $query->andWhere('MONTH(pf.dtNascimento) = :dtNascimento');
+                    $query->setParameter('dtNascimento', date('m'));
+                    break;
             }
         }
     }
@@ -140,8 +156,8 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin("t{$i}.idUsuario", "u{$i}")
             ->innerJoin("t{$i}.idFranquia", "ff{$i}")
             ->innerJoin("ff{$i}.idFranqueador", "f{$i}")
-            ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor
-            ->andWhere($expr->in("ff{$i}.idFranquia", $request->get("idFranqueado")))
+            ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor fixo
+            ->andWhere($expr->in("ff{$i}.idFranquia", $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))
             ->andWhere($expr->eq("tt{$i}.idTipoTransacao", TipoTransacao::CREDITO));
@@ -172,8 +188,8 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin("t{$i}.idUsuario", "u{$i}")
             ->innerJoin("t{$i}.idFranquia", "ff{$i}")
             ->innerJoin("ff{$i}.idFranqueador", "f{$i}")
-            ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor
-            ->andWhere($expr->in("ff{$i}.idFranquia", $request->get("idFranqueado")))
+            ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor fixo
+            ->andWhere($expr->in("ff{$i}.idFranquia", $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))
             ->andWhere($expr->eq("tt{$i}.idTipoTransacao", TipoTransacao::DEBITO));
@@ -204,8 +220,8 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin('t5.idUsuario', 'u5')
             ->innerJoin('t5.idFranquia', 'ff5')
             ->innerJoin('ff5.idFranqueador', 'f5')
-            ->where($expr->eq('f5.idFranqueador', 56)) //alterar este valor
-            ->andWhere($expr->in('ff5.idFranquia', $request->get('idFranqueado')))
+            ->where($expr->eq('f5.idFranqueador', 56)) //alterar este valor fixo
+            ->andWhere($expr->in('ff5.idFranquia', $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq('u5.idUsuario', 'u.idUsuario'))
             ->andWhere($expr->eq('t5.stAtivo', true))
             ->andWhere($expr->in('tt5.idTipoTransacao', array(TipoTransacao::CREDITO, TipoTransacao::DEBITO)));
@@ -234,8 +250,8 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin('t6.idUsuario', 'u6')
             ->innerJoin('t6.idFranquia', 'ff6')
             ->innerJoin('ff6.idFranqueador', 'f6')
-            ->where($expr->eq('f6.idFranqueador', 56)) //alterar este valor
-            ->andWhere($expr->in('ff6.idFranquia', $request->get('idFranqueado')))
+            ->where($expr->eq('f6.idFranqueador', 56)) //alterar este valor fixo
+            ->andWhere($expr->in('ff6.idFranquia', $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq('u6.idUsuario', 'u.idUsuario'))
             ->andWhere($expr->eq('t6.stAtivo', true))
             ->andWhere($expr->eq('tt6.idTipoTransacao', TipoTransacao::DEBITO));

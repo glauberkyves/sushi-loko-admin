@@ -9,11 +9,71 @@
 namespace Base\BaseBundle\Service;
 
 use Base\CrudBundle\Service\CrudService;
+use Symfony\Component\HttpFoundation\Response;
 
 class Pesquisa extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\Pesquisa';
 
+    /**
+     * Adicionar pontos ou bonus a lista de usuarios
+     * @param array $arrUsuarios
+     * @return array
+     *
+     * @todo criar rotina p/ adicionar pontos ou creditos
+     */
+    public function addPontosBonus(array $arrUsuarios = array())
+    {
+        $response   = array('valido' => false);
+        $request    = $this->getRequest()->query;
+        $srvUsuario = $this->getService('service.usuario');
+
+        $nuPontos = $request->get('addPontos');
+        $nuBonus  = floatval(str_replace(',', '.', str_replace('.', '', $request->get('addBonus'))));
+
+        if ($nuPontos || $nuBonus) {
+            if ($arrUsuarios) {
+                foreach ($arrUsuarios as $usuario) {
+                    #$entityUsuario = $srvUsuario->find($usuario['idUsuario']);
+                }
+                $response['valido']   = true;
+                $response['mensagem'] = 'Operação realizada com sucesso!';
+            } else {
+                $response['mensagem'] = 'Nenhum registro encontrado!';
+            }
+        } else {
+            $response['mensagem'] = 'Informe a quantidade de pontos ou bônus para acrescentar!';
+        }
+
+        return $response;
+    }
+
+    /**
+     * Exportar lista de usuarios da pesquisa em formato csv
+     * @param array $arrUsuarios
+     * @return mixed
+     */
+    public function exportar(Response $response)
+    {
+        $date = date("d-m-Y_H-i-s");
+        $filename = "usuarios_".$date.".csv";
+
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Description', 'Submissions Export');
+        $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
+        $response->headers->set('Content-Transfer-Encoding', 'binary');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+
+        return $response;
+    }
+
+    /**
+     * Buscar operador aritimetico
+     * @param string $operador
+     * @return string
+     */
     public static function getOperador($operador = 'igual')
     {
         switch ($operador) {
@@ -24,6 +84,11 @@ class Pesquisa extends CrudService
         }
     }
 
+    /**
+     * Buscar periodo em string, usuado em $datetime->modify()
+     * @param string $periodo
+     * @return string
+     */
     public static function getPeriodo($periodo = 'd')
     {
         switch ($periodo) {
@@ -34,6 +99,10 @@ class Pesquisa extends CrudService
         }
     }
 
+    /**
+     * Combo de sexo
+     * @return array
+     */
     public static function getComboSexo()
     {
         return array(
@@ -43,6 +112,10 @@ class Pesquisa extends CrudService
         );
     }
 
+    /**
+     * Combo de periodo
+     * @return array
+     */
     public static function getComboPeriodo()
     {
         return array(
@@ -51,6 +124,10 @@ class Pesquisa extends CrudService
         );
     }
 
+    /**
+     * Combo de operadores aritimeticos
+     * @return array
+     */
     public static function getComboOperador()
     {
         return array(
@@ -58,5 +135,30 @@ class Pesquisa extends CrudService
             'maior' => 'Maior',
             'menor' => 'Menor'
         );
+    }
+
+    /**
+     * Sobrescrever retorno para grid
+     * @param array $itens
+     * @param bool|false $addOptions
+     * @return array
+     */
+    public function parserItens(array $itens = array(), $addOptions = false)
+    {
+        foreach ($itens as $key => $value) {
+            foreach ($value as $keyIten => $iten) {
+                switch (true) {
+                    case $keyIten == 'nuCreditoTotal':
+                        $nuBonus = $iten - $itens[$key]['nuDebitoTotal'];
+                        $itens[$key]['nuBonus'] = sprintf("R$ %s", number_format($nuBonus, 2, ',', '.'));
+                        break;
+                    case $keyIten == 'sgSexo':
+                        $itens[$key]['sgSexo'] = $iten == 'M' ? 'Masculino' : 'Feminino';
+                        break;
+                }
+            }
+        }
+
+        return parent::parserItens($itens, $addOptions);
     }
 }
