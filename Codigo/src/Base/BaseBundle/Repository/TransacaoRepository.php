@@ -30,7 +30,7 @@ class TransacaoRepository extends AbstractRepository
             ->where($expr->eq('u.idUsuario', $idUsuario))
             ->andWhere($expr->eq('ff.idFranqueador', $idFranqueador))
             ->andWhere($expr->eq('t.stAtivo', true))
-            ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::CREDITO))
+            ->andWhere($expr->in('tt.idTipoTransacao', array(TipoTransacao::CREDITO, TipoTransacao::CREDITO_AVULSO)))
             ->getQuery()
             ->getResult();
 
