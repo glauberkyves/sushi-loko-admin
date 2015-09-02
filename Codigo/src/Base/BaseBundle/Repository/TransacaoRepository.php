@@ -63,7 +63,7 @@ class TransacaoRepository extends AbstractRepository
         return $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('t.idTransacao, t.dtCadastro, t.stAtivo, p.noPessoa, pf.noEmail')
+            ->select('t.idTransacao, t.dtCadastro, tt.noTipoTransacao, t.stAtivo, p.noPessoa, pf.noEmail, pf.nuCpf, t.nuValor')
             ->from('Base\BaseBundle\Entity\TbTransacao', 't')
             ->innerJoin('t.idTipoTransacao', 'tt')
             ->innerJoin('t.idFranquia', 'f')
@@ -71,8 +71,6 @@ class TransacaoRepository extends AbstractRepository
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
             ->andWhere($expr->eq('f.idFranquia', $idFranquia))
-            ->andWhere($expr->eq('t.stAtivo', true))
-            ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::DEBITO))
             ->getQuery()
             ->getResult();
     }

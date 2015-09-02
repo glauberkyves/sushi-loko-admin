@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbTransacao
  *
- * @ORM\Table(name="tb_transacao", indexes={@ORM\Index(name="fk_transacao_franquia_idx", columns={"id_franquia"}), @ORM\Index(name="fk_transacao_operador_idx", columns={"id_operador"}), @ORM\Index(name="fk_transacao_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_transacao_tipotransacao_idx", columns={"id_tipo_transacao"}), @ORM\Index(name="fk_transacao_arquivo_idx", columns={"id_arquivo"})})
+ * @ORM\Table(name="tb_transacao", indexes={@ORM\Index(name="fk_transacao_franquia_idx", columns={"id_franquia"}), @ORM\Index(name="fk_transacao_operador_idx", columns={"id_operador"}), @ORM\Index(name="fk_transacao_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_transacao_tipotransacao_idx", columns={"id_tipo_transacao"}), @ORM\Index(name="fk_transacao_arquivo_idx", columns={"id_arquivo"}), @ORM\Index(name="fk_transacao_franqueador_idx", columns={"id_franqueador"})})
  * @ORM\Entity
  */
 class TbTransacao
@@ -51,6 +51,16 @@ class TbTransacao
      * })
      */
     private $idArquivo;
+
+    /**
+     * @var \TbFranqueador
+     *
+     * @ORM\ManyToOne(targetEntity="TbFranqueador")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_franqueador", referencedColumnName="id_franqueador")
+     * })
+     */
+    private $idFranqueador;
 
     /**
      * @var \TbFranquia
