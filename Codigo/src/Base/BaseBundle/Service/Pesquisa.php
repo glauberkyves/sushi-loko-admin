@@ -87,7 +87,7 @@ class Pesquisa extends CrudService
 
         $idFranqueador = $this->getService('service.franqueador')->find(56);
 
-        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO_AVULSO);
+        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::BONUS);
 
         $nuValor = str_replace(".", "", $nuValor);
         $nuValor = str_replace(",", ".", $nuValor);
