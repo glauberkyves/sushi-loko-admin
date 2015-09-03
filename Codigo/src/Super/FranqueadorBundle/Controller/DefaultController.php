@@ -70,4 +70,21 @@ class DefaultController extends CrudController
     {
         return $this->generateUrl('super_franqueador_index');
     }
+
+    public function listaUsuarioAction(Request $request)
+    {
+        $idFranqueador = $this->getUser()->getIdFranqueador();
+        $arrUsuarior = $this->getService('service.franqueador_usuario')->findByIdFranqueador($idFranqueador);
+
+
+        echo '<pre>'; \Doctrine\Common\Util\Debug::dump($arrUsuarior);die;
+
+
+
+        if($request->isMethod('post')){
+
+        }
+
+        return $this->render($this->resolveRouteName(), $this->vars);
+    }
 }
