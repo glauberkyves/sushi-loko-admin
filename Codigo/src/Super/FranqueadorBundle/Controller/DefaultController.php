@@ -30,11 +30,13 @@ class DefaultController extends CrudController
         $srvTransacao = $this->getService("service.transacao");
         $dataSemana   = new \DateTime();
 
-        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana(56);
-        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem(56);
-        $countTransacao    = $srvTransacao->getTransacoesOntem(56);
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+
+        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana($idFranqueador);
+        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
+        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
+        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem($idFranqueador);
+        $countTransacao    = $srvTransacao->getTransacoesOntem($idFranqueador);
 
         $arrUsuario = $arrTransacao = array();
 

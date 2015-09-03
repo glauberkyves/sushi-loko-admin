@@ -130,12 +130,11 @@
                 </div>
             </footer>
         </section>
-        {% block javascripts %}
-            {% javascripts
-                '@SuperBaseBundle/Resources/public/js/common-scripts.js'
-                output='js/super/common.js' %}
-                <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
+        {% javascripts
+            '@SuperBaseBundle/Resources/public/js/common-scripts.js' output='js/super/common.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
