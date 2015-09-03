@@ -161,7 +161,10 @@ class PesquisaRepository extends AbstractRepository
             ->from('Base\BaseBundle\Entity\TbTransacao', "t{$i}")
             ->innerJoin("t{$i}.idTipoTransacao", "tt{$i}")
             ->innerJoin("t{$i}.idUsuario", "u{$i}")
-            ->where($expr->in("t{$i}.idFranquia", $request->get('idFranqueado', array(0))))
+            ->innerJoin("t{$i}.idFranquia", "ff{$i}")
+            ->innerJoin("ff{$i}.idFranqueador", "f{$i}")
+            ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor fixo
+            ->andWhere($expr->in("ff{$i}.idFranquia", $request->get('idFranqueado', array(0))))
             ->orWhere($expr->eq("t{$i}.idFranqueador", 56))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))

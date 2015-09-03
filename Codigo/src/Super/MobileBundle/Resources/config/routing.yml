@@ -32,10 +32,15 @@ super_mobile_enquete_responder:
     methods:  [POST]
 
 
-######### CREDITO #########
-super_mobile_credito_usuario:
-    path:     /credito/usuario
-    defaults: { _controller: SuperMobileBundle:Credito:credito }
+######### TRANSACAO #########
+super_mobile_transacao_credito_usuario:
+    path:     /transacao/credito/usuario
+    defaults: { _controller: SuperMobileBundle:Transacao:credito }
+    methods:  [POST]
+
+super_mobile_transacao_obter_senha:
+    path:     /transacao/bonus/obter-senha
+    defaults: { _controller: SuperMobileBundle:Transacao:obterSenha }
     methods:  [POST]
 
 

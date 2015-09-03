@@ -2,7 +2,7 @@ mobile_bundle:
     usuario:
         autenticar:
             error: Login/Senha não conferem!
-            exception: Não foi possível realizar o seu login, por favor tente novamente!
+            exception: Não foi possível realizar o seu login, por favor tente novamente.
         cadastrar:
             success: Cadastro realizado com sucesso!
             error: CPF já cadastrado.
@@ -30,3 +30,10 @@ mobile_bundle:
             error: Nenhuma promoção encontrada.
         listar_cardapio:
             error: Nenhum cardápio encontrado.
+    transacao:
+        obter_senha:
+            success: Operação realizada com sucesso.
+            error_usuario: Usuário não encontrado para esta rede de franquias.
+            error_valor: Você não possui bônus suficientes para esta operação.
+            error_valor_zero: O valor informado deve ser maior que zero.
+            exception: Erro inesperado ao gerar a senha, por favor tente novamente.
