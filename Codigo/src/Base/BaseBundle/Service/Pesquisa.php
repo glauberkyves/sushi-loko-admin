@@ -21,8 +21,6 @@ class Pesquisa extends CrudService
      * Adicionar pontos ou bonus a lista de usuarios
      * @param array $arrUsuarios
      * @return array
-     *
-     * @todo criar rotina p/ adicionar pontos ou creditos
      */
     public function addPontosBonus(array $arrUsuarios = array())
     {
@@ -87,7 +85,7 @@ class Pesquisa extends CrudService
     {
         $entity = new TbTransacao();
 
-        $idFranquia = $this->getService('service.franquia')->findOneByIdFranqueador(56);
+        $idFranqueador = $this->getService('service.franqueador')->find(56);
 
         $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO_AVULSO);
 
@@ -98,7 +96,8 @@ class Pesquisa extends CrudService
         $entity->setIdArquivo(null);
         $entity->setIdTipoTransacao($idTipoTransacao);
         $entity->setIdUsuario($idUsuario);
-        $entity->setIdFranquia($idFranquia);
+        $entity->setIdFranquia(null);
+        $entity->setIdFranqueador($idFranqueador);
         $entity->setNuValor($nuValor);
         $entity->setDtCadastro(new \DateTime());
         $entity->setStAtivo(true);
