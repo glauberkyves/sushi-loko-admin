@@ -12,20 +12,43 @@ class DefaultController extends CrudController
 
     public function indexAction(Request $request)
     {
-        $usuariosCadastrados = $this->getService("service.usuario")->usuariosCadastradosSemana();
-        $lista = array();
+        $srvUsuario   = $this->getService("service.usuario");
+        $srvTransacao = $this->getService("service.transacao");
+        $dataSemana   = new \DateTime();
 
-        foreach($usuariosCadastrados as $value)
-        {
+        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana(56);
+        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo(56, $dataSemana->modify('-9 days'));
+        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo(56, $dataSemana->modify('-9 days'));
+        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem(56);
+        $countTransacao    = $srvTransacao->getTransacoesOntem(56);
+
+        $arrUsuario = $arrTransacao = array();
+
+        foreach ($arrCountCadastro as $value) {
             $dia = new \DateTime($value["dtCadastro"]);
-
-            array_push($lista, array(
-                "device" => $dia->format('d/m'),
-                "geekbench" => $value["total"]
+            array_push($arrUsuario, array(
+                "data"     => $dia->format('d/m'),
+                "usuarios" => $value["total"]
             ));
         }
 
-        $this->vars['jsonUser'] = json_encode($lista);
+        foreach ($countTransCredito as $key => $t) {
+            $debito = 0;
+            $c = $countTransDebito;
+            if (isset($c[$key]['dtCadastro'])) {
+                $debito = ($c[$key]['dtCadastro'] == $t['dtCadastro']) ? $c[$key]['transacaoDebito'] : 0;
+            }
+            $arrTransacao[] = array(
+                'credito' => $t['transacaoCredito'],
+                'debito' => $debito,
+                'data'  => $t['dtCadastro']
+            );
+        }
+
+        $this->vars['jsonUsuario']    = json_encode($arrUsuario);
+        $this->vars['jsonTransacao']  = json_encode($arrTransacao);
+        $this->vars['countCadastro']  = $countCadastro;
+        $this->vars['countTransacao'] = $countTransacao;
 
         return parent::indexAction($request);
     }

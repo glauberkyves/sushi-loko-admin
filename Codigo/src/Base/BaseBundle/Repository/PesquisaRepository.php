@@ -165,9 +165,10 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin("ff{$i}.idFranqueador", "f{$i}")
             ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor fixo
             ->andWhere($expr->in("ff{$i}.idFranquia", $request->get('idFranqueado', array(0))))
+            ->orWhere($expr->eq("t{$i}.idFranqueador", 56))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))
-            ->andWhere($expr->in("tt{$i}.idTipoTransacao", array(TipoTransacao::CREDITO, TipoTransacao::CREDITO_AVULSO)));
+            ->andWhere($expr->in("tt{$i}.idTipoTransacao", array(TipoTransacao::CREDITO, TipoTransacao::BONUS)));
 
         if ($filtrarPeriodo) {
             #filtro por pessoas que obtiveram bônus no periodo informado

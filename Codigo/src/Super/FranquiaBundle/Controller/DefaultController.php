@@ -32,6 +32,9 @@ class DefaultController extends CrudController
             case $security->isGranted('ROLE_SUPER'):
                 $this->vars['idFranqueador'] = $idFranqueador;
                 break;
+            case $security->isGranted('ROLE_FRANQUIA'):
+                return $this->render('SuperFranquiaBundle:Default:dashboard.html.twig', $this->getDashboardData());
+                break;
         }
 
         $this->vars['cmbStatus'] = Dominio::getStAtivo();
@@ -163,5 +166,35 @@ class DefaultController extends CrudController
         }
 
         return $this->render($this->resolveRouteName(), $arrTransacao);
+    }
+
+    private function getDashboardData()
+    {
+        $srvTransacao = $this->getService("service.transacao");
+        $dataSemana   = new \DateTime();
+
+        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo(56, $dataSemana->modify('-9 days'));
+        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo(56, $dataSemana->modify('-9 days'));
+        $countTransacao    = $srvTransacao->getTransacoesOntem(56);
+
+        $arrTransacao = array();
+
+        foreach ($countTransCredito as $key => $t) {
+            $debito = 0;
+            $c = $countTransDebito;
+            if (isset($c[$key]['dtCadastro'])) {
+                $debito = ($c[$key]['dtCadastro'] == $t['dtCadastro']) ? $c[$key]['transacaoDebito'] : 0;
+            }
+            $arrTransacao[] = array(
+                'credito' => $t['transacaoCredito'],
+                'debito' => $debito,
+                'data'  => $t['dtCadastro']
+            );
+        }
+
+        $this->vars['jsonTransacao']  = json_encode($arrTransacao);
+        $this->vars['countTransacao'] = $countTransacao;
+
+        return $this->vars;
     }
 }
