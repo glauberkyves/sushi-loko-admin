@@ -30,11 +30,12 @@ class DefaultController extends CrudController
         $srvTransacao = $this->getService("service.transacao");
         $dataSemana   = new \DateTime();
 
-        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana(56);
-        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem(56);
-        $countTransacao    = $srvTransacao->getTransacoesOntem(56);
+        $idFranqueador     = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana($idFranqueador);
+        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
+        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
+        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem($idFranqueador);
+        $countTransacao    = $srvTransacao->getTransacoesOntem($idFranqueador);
 
         $arrUsuario = $arrTransacao = array();
 
@@ -48,14 +49,14 @@ class DefaultController extends CrudController
 
         foreach ($countTransCredito as $key => $t) {
             $debito = 0;
-            $c = $countTransDebito;
+            $c      = $countTransDebito;
             if (isset($c[$key]['dtCadastro'])) {
                 $debito = ($c[$key]['dtCadastro'] == $t['dtCadastro']) ? $c[$key]['transacaoDebito'] : 0;
             }
             $arrTransacao[] = array(
                 'credito' => $t['transacaoCredito'],
-                'debito' => $debito,
-                'data'  => $t['dtCadastro']
+                'debito'  => $debito,
+                'data'    => $t['dtCadastro']
             );
         }
 
@@ -92,22 +93,5 @@ class DefaultController extends CrudController
     public function resolveRouteIndex()
     {
         return $this->generateUrl('super_franqueador_index');
-    }
-
-    public function listaUsuarioAction(Request $request)
-    {
-        $idFranqueador = $this->getUser()->getIdFranqueador();
-        $arrUsuarior = $this->getService('service.franqueador_usuario')->findByIdFranqueador($idFranqueador);
-
-
-        echo '<pre>'; \Doctrine\Common\Util\Debug::dump($arrUsuarior);die;
-
-
-
-        if($request->isMethod('post')){
-
-        }
-
-        return $this->render($this->resolveRouteName(), $this->vars);
     }
 }

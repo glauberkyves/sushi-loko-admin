@@ -10,6 +10,7 @@ namespace Base\BaseBundle\Repository;
 
 
 use Doctrine\ORM\Query\Expr;
+use Symfony\Component\HttpFoundation\Request;
 
 class FranqueadorUsuarioRepository extends AbstractRepository
 {
@@ -51,5 +52,21 @@ class FranqueadorUsuarioRepository extends AbstractRepository
             ->andWhere($expr->eq('ff.nuCodigoLoja', $idFranqueador))
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function fetchGrid(Request $request)
+    {
+        $expr = new Expr();
+
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('p.noPessoa, pf.noEmail, pf.nuCpf, u.idUsuario, f.idFranqueador')
+            ->from('Base\BaseBundle\Entity\TbFranqueadorUsuario', 'fu')
+            ->innerJoin('fu.idFranqueador', 'f')
+            ->innerJoin('fu.idUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->andWhere($expr->eq('f.idFranqueador', $request->request->get('idFranqueador')));
     }
 }

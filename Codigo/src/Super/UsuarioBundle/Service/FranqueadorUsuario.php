@@ -10,6 +10,7 @@ namespace Super\UsuarioBundle\Service;
 
 use Base\BaseBundle\Entity\TbFranqueador;
 use Base\BaseBundle\Entity\TbUsuario;
+use Base\BaseBundle\Service\Mask;
 use Base\CrudBundle\Service\CrudService;
 use Doctrine\ORM\Query\Expr;
 
@@ -30,5 +31,16 @@ class FranqueadorUsuario extends CrudService
     public function findUsuarioPorFranquia($nuCpf, $nuCodigoLoja)
     {
         return $this->getRepository()->findUsuarioPorFranquia($nuCpf, $nuCodigoLoja);
+    }
+
+    public function parserItens(array $itens = array(), $addOptions = true)
+    {
+        foreach ($itens as $key => $value) {
+            foreach ($value as $keyIten => $iten) {
+                $itens[$key]['nuCpf'] = Mask::mask($value['nuCpf'], '###.###.###-##');
+            }
+        }
+
+        return parent::parserItens($itens, true);
     }
 }

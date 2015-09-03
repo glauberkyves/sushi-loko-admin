@@ -1,0 +1,47 @@
+<div class="btn-group  btn-group-sm">
+    {% if data.stAtivo == 'Ativo' %}
+        <a href="#" class="btn btn-success btn-xs justificativa"
+           data-target="#justificativa"
+           data-id="{{ data.idTransacao }}"
+           data-noPessoa="{{ data.noPessoa }}"
+           data-nuCpf="{{ cpf }}"
+           data-nuValor="{{ data.nuValor|number_format(2, ',', '.') }}"
+           data-toggle="modal">
+            <span class="fa fa-check"></span>
+        </a>
+    {% else %}
+        <a href="#" class="btn btn-danger btn-xs cancelamento"
+           data-target="#justificativa"
+           data-id="{{ data.idTransacao }}"
+           data-noPessoa="{{ data.noPessoa }}"
+           data-nuCpf="{{ cpf }}"
+           data-nuValor="{{ data.nuValor|number_format(2, ',', '.') }}"
+           data-toggle="modal">
+            <span class="fa  fa-warning"></span>
+        </a>
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('a.justificativa').click(function () {
+            $('#justificativa h4.modal-title').html('Justificativa Cancelar Transação')
+            $('#stAtivo').val(0)
+        })
+
+        $('a.cancelamento').click(function () {
+            $('#justificativa h4.modal-title').html('Justificativa Ativar Transação')
+            $('#stAtivo').val(1)
+        })
+
+        $('a.justificativa, a.cancelamento').click(function () {
+            $('#noPessoa, #nuCpf, #nuValor, #dsJustifitiva, #idTransacao').val('')
+            $('#form-justificativa').get(0).reset();
+
+            $('#idTransacao').val($(this).attr('data-id'))
+            $('#noPessoa').val($(this).attr('data-noPessoa'))
+            $('#nuCpf').val($(this).attr('data-nuCpf'))
+            $('#nuValor').val($(this).attr('data-nuValor'))
+        })
+    })
+</script>

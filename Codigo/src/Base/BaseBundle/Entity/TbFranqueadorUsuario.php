@@ -49,6 +49,13 @@ class TbFranqueadorUsuario extends AbstractEntity
     private $idUsuario;
 
     /**
+     * @var \TbUsuario
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFranqueadorComentarioUsuario", mappedBy="idFranqueadorUsuario")
+     */
+    private $idFranqueadorComentario;
+
+    /**
      * @return int
      */
     public function getIdFranqueadorUsuario()
@@ -111,5 +118,23 @@ class TbFranqueadorUsuario extends AbstractEntity
     {
         $this->idUsuario = $idUsuario;
     }
+
+    /**
+     * @return \TbUsuario
+     */
+    public function getIdFranqueadorComentario()
+    {
+        return $this->idFranqueadorComentario;
+    }
+
+    /**
+     * @param \TbUsuario $idFranqueadorComentario
+     */
+    public function setIdFranqueadorComentario($idFranqueadorComentario)
+    {
+        $this->idFranqueadorComentario = $idFranqueadorComentario;
+    }
+
+
 }
 

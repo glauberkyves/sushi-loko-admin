@@ -56,6 +56,25 @@ class TransacaoRepository extends AbstractRepository
         return $credito - $debito;
     }
 
+    public function getTransacaoFranqueador($idFranqueador)
+    {
+        $expr = new Expr();
+
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('t.idTransacao, t.dtCadastro, tt.noTipoTransacao, t.stAtivo, p.noPessoa, pf.noEmail, pf.nuCpf, t.nuValor')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idTipoTransacao', 'tt')
+            ->innerJoin('t.idFranqueador', 'f')
+            ->innerJoin('t.idUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->andWhere($expr->eq('f.idFranqueador', $idFranqueador))
+            ->getQuery()
+            ->getResult();
+    }
+
     public function getTransacaoFranquia($idFranquia)
     {
         $expr = new Expr();
@@ -155,6 +174,6 @@ class TransacaoRepository extends AbstractRepository
         $queryCredito = ($queryCredito) ? $queryCredito[0] : 0;
         $queryDebito  = ($queryDebito) ? $queryDebito[0] : 0;
 
-        return $queryCredito+$queryDebito;
+        return $queryCredito + $queryDebito;
     }
 }

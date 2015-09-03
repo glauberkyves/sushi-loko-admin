@@ -9,12 +9,6 @@
         <i class="fa fa-user"></i>
         <span>Gerenciar Franquias</span>
     </a>
-    {#<ul class="sub">#}
-        {#<li><a href="{{ path('super_usuario_index') }}">Usuários</a></li>#}
-    {#</ul>#}
-    {#<ul class="sub">#}
-        {#<li><a href="{{ path('super_operador_index') }}">Operadores</a></li>#}
-    {#</ul>#}
     <ul class="sub">
         <li><a href="{{ path('super_franquia_index', {idFranqueador: app.user.getIdUsuario()}) }}">Franqueados</a></li>
     </ul>
@@ -42,7 +36,7 @@
     </a>
 </li>
 <li class="sub-menu">
-    <a href="#">
+    <a href="{{ path('super_franqueador_transacao') }}">
         <i class="fa fa-bar-chart-o"></i>
         <span>Gerenciar Transações</span>
     </a>
@@ -74,8 +68,8 @@
 </li>
 
 <li class="sub-menu">
-    <a href="{{ path('manter_promocao_index') }}">
-        <i class="fa  fa-flag"></i>
+    <a href="{{ path('super_franqueador_comentario_cliente') }}">
+        <i class="fa fa-comments"></i>
         <span>Comentário Clientes</span>
     </a>
 </li>
