@@ -2,7 +2,9 @@
 
 namespace Super\FranquiaBundle\Controller;
 
+use Base\BaseBundle\Service\Mask;
 use Base\CrudBundle\Controller\CrudController;
+use Super\TransacaoBundle\Service\TipoTransacao;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Base\BaseBundle\Service\Dominio;
@@ -128,14 +130,36 @@ class DefaultController extends CrudController
 
             foreach ($data->aaData as $key => $value) {
                 foreach ($value as $keyIten => $iten) {
+                    $data->aaData[$key]['nuCpf'] = Mask::mask($value['nuCpf'], '###.###.###-##');
+
                     $data->aaData[$key]['opcoes'] = $this->container->get('templating')->render(
-                            'SuperFranquiaBundle:Default:gridOptionsTransacao.html.twig',
-                            array('data' => (object)$value)
-                        );
+                        'SuperFranquiaBundle:Default:gridOptionsTransacao.html.twig',
+                        array(
+                            'data'       => (object)$value,
+                            'cpf'        => $data->aaData[$key]['nuCpf'],
+                            'canelado'   => TipoTransacao::CANCELADO,
+                            'reativado'  => TipoTransacao::REATIVADO,
+                        )
+                    );
+
                 }
             }
 
             return new JsonResponse((array)$data);
+        }
+
+        if ($request->isMethod('post')) {
+            $idTransacao     = $request->request->get('idTransacao');
+            $stAtivo = $request->request->get('stAtivo');
+            $dsJustificativa = $request->request->get('dsJustificativa');
+
+            try {
+                $this->getService('service.transacao')->saveTransacaoJustificativa($idTransacao, $stAtivo, $dsJustificativa);
+
+                $this->addMessage('Operação realizada com sucesso.');
+            } catch (\Exception $exp) {
+                $this->addMessage($exp->getMessage(), 'error');
+            }
         }
 
         return $this->render($this->resolveRouteName(), $arrTransacao);

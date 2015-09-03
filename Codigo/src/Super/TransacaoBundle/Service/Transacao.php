@@ -5,6 +5,7 @@ use Base\BaseBundle\Entity\TbFranqueador;
 use Base\BaseBundle\Entity\TbFranquia;
 use Base\BaseBundle\Entity\TbRequisacaoTransacao;
 use Base\BaseBundle\Entity\TbTransacao;
+use Base\BaseBundle\Entity\TbTransacaoJustificativa;
 use Base\BaseBundle\Entity\TbUsuario;
 use Base\CrudBundle\Service\CrudService;
 
@@ -79,5 +80,21 @@ class Transacao extends CrudService
         } catch (\Exception $exp) {
             throw new \Exception('Erro ao solicitar créditos.');
         }
+    }
+
+    public function saveTransacaoJustificativa($idTransacao, $stAtivo, $dsJustificativa = '')
+    {
+        $entityTransacao = $this->find($idTransacao);
+        $entityTransacao->setStAtivo($stAtivo);
+
+        $this->persist($entityTransacao);
+
+        $entityJustificativa = new TbTransacaoJustificativa();
+        $entityJustificativa->setIdTransacao($entityTransacao);
+        $entityJustificativa->setIdUsuario($this->getUser());
+        $entityJustificativa->setDsJustificativa($dsJustificativa);
+        $entityJustificativa->setDtCadastro(new \DateTime());
+
+        $this->persist($entityJustificativa);
     }
 }

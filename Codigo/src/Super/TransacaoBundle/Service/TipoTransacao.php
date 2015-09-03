@@ -9,7 +9,7 @@ class TipoTransacao extends CrudService
 {
     CONST CREDITO = 1;
     CONST DEBITO = 2;
-    CONST CREDITO_AVULSO = 3;
+    CONST BONUS = 3;
 
     protected $entityName = 'Base\BaseBundle\Entity\TbTipoTransacao';
 }
