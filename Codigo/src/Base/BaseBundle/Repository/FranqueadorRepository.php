@@ -98,4 +98,29 @@ class FranqueadorRepository extends AbstractRepository
 
         return $arrFranquia;
     }
+
+    public function findFranquiasByDistancia($idFranqueador = null, $noLatitude = 0, $noLongitude = 0)
+    {
+        $arrFranquia = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select("ff.idFranquia, ff.noFranquia, e.noLatitude, e.noLongitude, e.noEnderecoAmigavel,
+                GEO(:noLatitude, :noLongitude, e.noLatitude, e.noLongitude) AS nuDistancia")
+            ->from('BaseBaseBundle:TbFranquia', 'ff')
+            ->innerJoin('ff.idEndereco', 'e')
+            ->innerJoin('ff.idFranqueador', 'f')
+            ->where('f.idFranqueador = :idFranqueador')
+            ->andWhere('ff.stAtivo = :stAtivo')
+            ->andWhere('f.stAtivo = :stAtivo')
+            ->having('nuDistancia <= :nuDistancia')
+            ->setParameter('stAtivo', true)
+            ->setParameter('idFranqueador', $idFranqueador)
+            ->setParameter('noLatitude', $noLatitude)
+            ->setParameter('noLongitude', $noLongitude)
+            ->setParameter('nuDistancia', 50)
+            ->getQuery()
+            ->getArrayResult();
+
+        return $arrFranquia;
+    }
 }

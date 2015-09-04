@@ -47,4 +47,29 @@ class FranqueadorController extends AbstractMobile
 
         return $this->response();
     }
+
+    /**
+     * Listar lojas de um franqueador em um raio de 50km
+     * @param idFranqueador, noLatitude, noLongitude
+     * @return Response
+     */
+    public function listarLojasDistanciaAction()
+    {
+        $request = $this->getRequest();
+
+        $arrFranquia = $this->getService('service.franqueador')->findFranquiasByDistancia(
+            $request->idFranqueador,
+            $request->noLatitude,
+            $request->noLongitude
+        );
+
+        if ($arrFranquia) {
+            $this->add('valido', true);
+            $this->add('franquias', $arrFranquia);
+        } else {
+            $this->add('mensagem', 'mobile_bundle.franqueador.listar_lojas_distancia.error');
+        }
+
+        return $this->response();
+    }
 }

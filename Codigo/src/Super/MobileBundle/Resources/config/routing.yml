@@ -50,6 +50,11 @@ super_mobile_franqueador_listar_lojas:
     defaults: { _controller: SuperMobileBundle:Franqueador:listarLojas }
     methods:  [POST]
 
+super_mobile_franqueador_listar_lojas_distancia:
+    path:     /franqueador/listar/lojas/distancia
+    defaults: { _controller: SuperMobileBundle:Franqueador:listarLojasDistancia }
+    methods:  [POST]
+
 
 ######### FRANQUIA #########
 super_mobile_franquia_opinar:
