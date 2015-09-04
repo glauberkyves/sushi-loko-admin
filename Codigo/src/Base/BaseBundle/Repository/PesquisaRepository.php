@@ -47,7 +47,7 @@ class PesquisaRepository extends AbstractRepository
             ->groupBy('u.idUsuario')
             ->orderBy('p.noPessoa', 'ASC')
             ->setParameter('stAtivo', true)
-            ->setParameter('idFranqueador', 56);
+            ->setParameter('idFranqueador', $request->query->get('idFranqueador'));
 
         return $query;
     }
@@ -163,9 +163,9 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin("t{$i}.idUsuario", "u{$i}")
             ->innerJoin("t{$i}.idFranquia", "ff{$i}")
             ->innerJoin("ff{$i}.idFranqueador", "f{$i}")
-            ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor fixo
+            ->where($expr->eq("f{$i}.idFranqueador", $request->get('idFranqueador')))
             ->andWhere($expr->in("ff{$i}.idFranquia", $request->get('idFranqueado', array(0))))
-            ->orWhere($expr->eq("t{$i}.idFranqueador", 56))
+            ->orWhere($expr->eq("t{$i}.idFranqueador", $request->get('idFranqueador')))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))
             ->andWhere($expr->in("tt{$i}.idTipoTransacao", array(TipoTransacao::CREDITO, TipoTransacao::BONUS)));
@@ -199,7 +199,7 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin("t{$i}.idUsuario", "u{$i}")
             ->innerJoin("t{$i}.idFranquia", "ff{$i}")
             ->innerJoin("ff{$i}.idFranqueador", "f{$i}")
-            ->where($expr->eq("f{$i}.idFranqueador", 56)) //alterar este valor fixo
+            ->where($expr->eq("f{$i}.idFranqueador", $request->get('idFranqueador')))
             ->andWhere($expr->in("ff{$i}.idFranquia", $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))
@@ -234,7 +234,7 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin('t5.idUsuario', 'u5')
             ->innerJoin('t5.idFranquia', 'ff5')
             ->innerJoin('ff5.idFranqueador', 'f5')
-            ->where($expr->eq('f5.idFranqueador', 56)) //alterar este valor fixo
+            ->where($expr->eq('f5.idFranqueador', $request->get('idFranqueador')))
             ->andWhere($expr->in('ff5.idFranquia', $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq('u5.idUsuario', 'u.idUsuario'))
             ->andWhere($expr->eq('t5.stAtivo', true))
@@ -267,7 +267,7 @@ class PesquisaRepository extends AbstractRepository
             ->innerJoin('t6.idUsuario', 'u6')
             ->innerJoin('t6.idFranquia', 'ff6')
             ->innerJoin('ff6.idFranqueador', 'f6')
-            ->where($expr->eq('f6.idFranqueador', 56)) //alterar este valor fixo
+            ->where($expr->eq('f6.idFranqueador', $request->get('idFranqueador')))
             ->andWhere($expr->in('ff6.idFranquia', $request->get('idFranqueado', array(0))))
             ->andWhere($expr->eq('u6.idUsuario', 'u.idUsuario'))
             ->andWhere($expr->eq('t6.stAtivo', true))

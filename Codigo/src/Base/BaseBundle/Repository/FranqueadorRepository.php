@@ -113,6 +113,7 @@ class FranqueadorRepository extends AbstractRepository
             ->andWhere('ff.stAtivo = :stAtivo')
             ->andWhere('f.stAtivo = :stAtivo')
             ->having('nuDistancia <= :nuDistancia')
+            ->orderBy('nuDistancia', 'ASC')
             ->setParameter('stAtivo', true)
             ->setParameter('idFranqueador', $idFranqueador)
             ->setParameter('noLatitude', $noLatitude)

@@ -11,11 +11,31 @@ class EnqueteController extends AbstractMobile
 {
     /**
      * Listar enquetes de um franqueador
+     * @param idFranqueador, idUsuario
      * @return Response
+     * @todo implementar regras p/ buscar enquete (está fixo)!!
      */
     public function listarAction()
     {
-        $request = $this->getRequest();
+        $request     = $this->getRequest();
+        $arrResposta = array();
+
+        $idEnquete = $this->getService('service.enquete')->find(1);
+
+        foreach($idEnquete->getIdResposta() as $idResposta)
+        {
+            $arrResposta[] = array(
+                'idResposta' => $idResposta->getIdResposta(),
+                'noResposta' => $idResposta->getNoResposta()
+            );
+        }
+
+        $this->add('valido', true);
+        $this->add('responder', true);
+        $this->add('enquete', array(
+            'noPergunta'  => $idEnquete->getNoPergunta(),
+            'arrResposta' => $arrResposta
+        ));
 
         return $this->response();
     }
