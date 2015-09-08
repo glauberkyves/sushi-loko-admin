@@ -10,6 +10,7 @@
 
         <div class="panel-body">
             <form method="post" action=" " id="form-cardapio" class="form-horizontal tasi-form">
+                <input type="hidden" name="idFranqueador" value="{{ app.user.getIdFranqueador().getIdFranqueador() }}">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome do Cardápio</label>
 

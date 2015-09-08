@@ -18,7 +18,7 @@ class FranquiaController extends AbstractMobile
     {
         $request = $this->getRequest();
 
-        $idFranquia = $this->getService('service.franqueador')->find($request->idFranquia);
+        $idFranquia = $this->getService('service.franquia')->find($request->idFranquia);
         $idUsuario  = $this->getService('service.usuario')->find($request->idUsuario);
 
         if($idFranquia) {
