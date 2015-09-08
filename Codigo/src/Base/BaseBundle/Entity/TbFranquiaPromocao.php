@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TbFranquiaPromocao
  *
  * @ORM\Table(name="tb_franquia_promocao", indexes={@ORM\Index(name="fk_franquiapromocao_franquia_idx", columns={"id_franquia"}), @ORM\Index(name="fk_franquiapromocao_promocao_idx", columns={"id_promocao"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\FranquiaPromocaoRepository")
  */
 class TbFranquiaPromocao extends AbstractEntity
 {
