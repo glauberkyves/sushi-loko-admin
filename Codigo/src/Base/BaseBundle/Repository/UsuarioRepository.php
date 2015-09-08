@@ -55,8 +55,9 @@ class UsuarioRepository extends AbstractRepository
     {
         return $this
             ->createQueryBuilder('u')
-            ->select('u.noLatitude, u.noLongitude')
+            ->select('u.idUsuario, u.noLatitude, u.noLongitude, p.noPessoa')
             ->innerJoin('u.idFranqueadorUsuario', 'f')
+            ->innerJoin('u.idPessoa', 'p')
             ->where('f.idFranqueador = :idFranqueador')
             ->setParameter('idFranqueador', $idFranqueador)
             ->getQuery()

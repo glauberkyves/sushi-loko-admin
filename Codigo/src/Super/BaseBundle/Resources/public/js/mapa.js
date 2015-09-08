@@ -36,25 +36,33 @@ function carregarPontos() {
 
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(ponto.noLatitude, ponto.noLongitude),
-                title: "Meu ponto personalizado! :-D",
-                icon: 'img/marcador.png'
+                title: ponto.noPessoa
             });
 
             var myOptions = {
-                pixelOffset: new google.maps.Size(-150, 0)
+                content: ponto.noPessoa
+                ,disableAutoPan: false
+                ,maxWidth: 0
+                ,pixelOffset: new google.maps.Size(-140, 0)
+                ,zIndex: null
+                ,closeBoxMargin: "10px 2px 2px 2px"
+                ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+                ,infoBoxClearance: new google.maps.Size(1, 1)
+                ,isHidden: false
+                ,pane: "floatPane"
+                ,enableEventPropagation: false
             };
 
-            infoBox[ponto.idFranqueador] = new InfoBox(myOptions);
-            infoBox[ponto.idFranqueador].marker = marker;
+            infoBox[ponto.idUsuario] = new InfoBox(myOptions);
+            infoBox[ponto.idUsuario].marker = marker;
 
-            infoBox[ponto.idFranqueador].listener = google.maps.event.addListener(marker, 'click', function (e) {
-                abrirInfoBox(ponto.idFranqueador, marker);
+            infoBox[ponto.idUsuario].listener = google.maps.event.addListener(marker, 'click', function (e) {
+                abrirInfoBox(ponto.idUsuario, marker);
             });
 
             markers.push(marker);
 
             latlngbounds.extend(marker.position);
-
         });
 
         var markerCluster = new MarkerClusterer(map, markers);
@@ -62,7 +70,6 @@ function carregarPontos() {
         map.fitBounds(latlngbounds);
 
     });
-
 }
 
 carregarPontos();
