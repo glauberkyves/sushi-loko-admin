@@ -18,15 +18,19 @@ class UsuarioRepository extends AbstractRepository
     {
         $data = new \DateTime();
 
-        return $this
+        $query = $this
             ->createQueryBuilder('u')
             ->select('COUNT(u.idUsuario) as total, DAY(u.dtCadastro) as dtCadastro')
             ->innerJoin('u.idFranqueadorUsuario', 'f')
-            ->where('u.dtCadastro >= :dtCadastro')
-            ->andWhere('f.idFranqueador = :idFranqueador')
-            ->groupBy("dtCadastro")
+            ->where('u.dtCadastro >= :dtCadastro');
+
+        if ($idFranqueador) {
+            $query->andWhere('f.idFranqueador = :idFranqueador')
+                ->setParameter('idFranqueador', $idFranqueador);
+        }
+
+        $query->groupBy("dtCadastro")
             ->orderBy('dtCadastro', 'ASC')
-            ->setParameter('idFranqueador', $idFranqueador)
             ->setParameter('dtCadastro', $data->modify('-7 day')->format("Y-m-d"))
             ->getQuery()
             ->getResult();

@@ -1,0 +1,118 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Pesquisar Cliente
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body">
+            <form method="post" action=" " id="form-franquia" class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CPF</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control " id="noFranquia" placeholder="" name="cpf" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                            Pesquisar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="panel">
+        <header class="panel-heading">
+            Resultado da pesquisa
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body" id="grid">
+            <section id="unseen">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-franquia">
+                    <thead>
+                    <tr>
+                        <th data-column="noPessoa">Usuário</th>
+                        <th data-column="noEmail">E-mail</th>
+                        <th data-column="nuCpf">CPF</th>
+                        <th data-column="opcoes">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td valign="top" colspan="5">Acione a pesquisa</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>
+
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="justificativa" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ path('super_franqueador_comentario_cliente') }}" class="form-horizontal tasi-form"
+                          id="form-justificativa">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="noPessoa">Nome</label>
+
+                            <div class="col-md-6 col-xs-11">
+                                {{ formText('noPessoa', '', {
+                                    class: 'form-control form-control-inline input-medium',
+                                    disabled: 'disabled'
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="nuCpf">CPF</label>
+
+                            <div class="col-md-6 col-xs-11">
+                                {{ formText('nuCpf', '', {
+                                    class: 'form-control form-control-inline input-medium',
+                                    disabled: 'disabled'
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="nuValor">Valor</label>
+
+                            <div class="col-md-6 col-xs-11">
+                                {{ formText('nuValor', '', {
+                                    class: 'form-control form-control-inline input-medium',
+                                    disabled: 'disabled'
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="dsJustifitiva">Justificativa</label>
+
+                            <div class="col-md-6 col-xs-11">
+                                {{ formHidden('stAtivo', '') }}
+                                {{ formHidden('idTransacao', '') }}
+                                {{ formTextarea('dsJustificativa', '', {
+                                    class: 'required form-control form-control-inline input-medium',
+                                    rows: 4
+                                }) }}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Salvar</button>
+                            <button data-dismiss="modal" class="btn btn-default" type="button">Fechar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

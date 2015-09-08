@@ -1,0 +1,89 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <div class="row">
+        <aside class="profile-nav col-lg-3">
+            <section class="panel">
+                <div class="user-heading round">
+                    <a href="#">
+                        <img src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}" alt="">
+                    </a>
+
+                    <h1>{{ entity.getIdUsuario().getIdPessoa().getNoPessoa() }}</h1>
+
+                    <p>{{ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNoEmail() }}</p>
+
+                    {% set cpf = entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(0, 3) ~ '.' %}
+                    {% set cpf = cpf ~ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(3, 3) ~ '.' %}
+                    {% set cpf = cpf ~ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(6, 3) ~ '-' %}
+                    {% set cpf = cpf ~ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(9)  %}
+                    <p>CPF: {{ cpf }}</p>
+
+                    <p></p>
+
+                    <p></p>
+                </div>
+
+            </section>
+        </aside>
+
+        <aside class="profile-info col-lg-9">
+            <section class="panel">
+                <header class="panel-heading summary-head">
+                    <h4>Comentários</h4>
+                </header>
+                <div class="panel-body profile-activity">
+                    <h5 class="pull-right">{{ 'now'|date('d/m/Y') }}</h5>
+
+                    {% for comentario in entity.getIdFranqueadorComentario() %}
+                        {% if comentario.getIdFranqueadorComentarioUsuario()|round % 2 == 0 %}
+                            {% set class = 'alt purple' %}
+                        {% else %}
+                            {% set class = 'terques' %}
+                        {% endif %}
+                        <div class="activity {{ class }}">
+                                  <span>
+                                      <i class="fa fa-comment"></i>
+                                  </span>
+
+                            <div class="activity-desk">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="arrow"></div>
+                                        <i class=" fa fa-time"></i>
+                                        <h4>{{ comentario.getDtCadastro()|date('d/m/Y H:i:s') }}</h4>
+
+                                        <p>{{ comentario.getDsComentario() }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="panel">
+                <form action="{{ path('super_franqueador_comentario_cliente_view', {
+                    idFranqueador: entity.getIdFranqueador().getIdFranqueador(),
+                    idUsuario: entity.getIdUsuario().getIdUsuario(),
+                }) }}" method="post">
+                    {{ formTextarea('dsComentario', '', {
+                        class: 'form-control input-lg p-text-area',
+                        rows: 2,
+                        placeholder: 'Comente sobre esse usuário, digite aqui seu comentário'
+                    }) }}
+
+                    <footer class="panel-footer">
+                        <a href="{{ path('super_franqueador_comentario_cliente') }}" class="btn btn-primary pull-right"
+                           style="margin-left: 10px !important;">Voltar</a>
+                        <button class="btn btn-danger pull-right">Comentar</button>
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a href="#"></a>
+                            </li>
+                        </ul>
+                    </footer>
+                </form>
+            </section>
+        </aside>
+    </div>
+{% endblock body %}

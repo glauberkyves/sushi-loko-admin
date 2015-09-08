@@ -4,7 +4,6 @@ namespace Super\FranquiaBundle\Controller;
 
 use Base\BaseBundle\Service\Mask;
 use Base\CrudBundle\Controller\CrudController;
-use Super\TransacaoBundle\Service\TipoTransacao;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Base\BaseBundle\Service\Dominio;
@@ -140,11 +139,8 @@ class DefaultController extends CrudController
                         array(
                             'data'       => (object)$value,
                             'cpf'        => $data->aaData[$key]['nuCpf'],
-                            'canelado'   => TipoTransacao::CANCELADO,
-                            'reativado'  => TipoTransacao::REATIVADO,
                         )
                     );
-
                 }
             }
 

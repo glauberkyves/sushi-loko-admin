@@ -22,6 +22,21 @@ super_franqueador_pesquisa:
     path:     /pesquisa.html
     defaults: { _controller: SuperBaseBundle:Default:pesquisa }
 
+super_franqueador_comentario_cliente:
+    path:     /comentario/index.html
+    defaults: { _controller: SuperFranqueadorBundle:Comentario:index }
+
+super_franqueador_comentario_cliente_view:
+    path:     /comentario/view/{idFranqueador}/{idUsuario}
+    defaults: { _controller: SuperFranqueadorBundle:Comentario:viewComentario }
+    requirements:
+            idFranqueador: \d+
+            idUsuario: \d+
+
+super_franqueador_transacao:
+    path:     /transacoes
+    defaults: { _controller: SuperFranqueadorBundle:Transacao:index }
+
 super_promocao:
     resource: "@SuperPromocaoBundle/Resources/config/routing.yml"
     prefix:   /promocao

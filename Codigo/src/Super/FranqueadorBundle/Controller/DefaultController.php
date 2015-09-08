@@ -48,7 +48,7 @@ class DefaultController extends CrudController
 
         $arrUsuario = $arrTransacao = array();
 
-        foreach ($arrCountCadastro as $value) {
+        foreach ((array)$arrCountCadastro as $value) {
             $dia = new \DateTime($value["dtCadastro"]);
             array_push($arrUsuario, array(
                 "data"     => $dia->format('d/m'),

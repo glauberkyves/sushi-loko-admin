@@ -22,6 +22,13 @@ class TbEnqueteResposta
     private $idResposta;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_posicao", type="integer", nullable=false)
+     */
+    private $nuPosicao;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="no_resposta", type="text", length=65535, nullable=false)
