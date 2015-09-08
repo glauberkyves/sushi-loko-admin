@@ -51,6 +51,18 @@ class UsuarioRepository extends AbstractRepository
         return ($query) ? $query[0]['total'] : 0;
     }
 
+    public function getLocalidades($idFranqueador = 0)
+    {
+        return $this
+            ->createQueryBuilder('u')
+            ->select('u.noLatitude, u.noLongitude')
+            ->innerJoin('u.idFranqueadorUsuario', 'f')
+            ->where('f.idFranqueador = :idFranqueador')
+            ->setParameter('idFranqueador', $idFranqueador)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findOneBy(array $criteria, array $orderBy = null)
     {
         if (isset($criteria['nuCpf']) && $criteria['nuCpf']) {

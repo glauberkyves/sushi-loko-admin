@@ -24,6 +24,14 @@ class DefaultController extends CrudController
         return parent::createAction($request);
     }
 
+    public function localidadeAction()
+    {
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $arrUsuario    = $this->getService('service.usuario')->getLocalidades($idFranqueador);
+
+        return $this->renderJson($arrUsuario);
+    }
+
     public function dashboardAction(Request $request)
     {
         $srvUsuario   = $this->getService("service.usuario");
