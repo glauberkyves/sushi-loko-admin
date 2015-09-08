@@ -8,7 +8,7 @@
 
 namespace Base\BaseBundle\Repository;
 
-use Base\BaseBundle\Entity\AbstractEntity;
+use Doctrine\ORM\Query\Expr;
 
 class EnqueteRepository extends AbstractRepository
 {
@@ -59,5 +59,38 @@ class EnqueteRepository extends AbstractRepository
             ->getQuery()
             ->getArrayResult();
 
+    }
+
+    public function listarEnqueteByIdUsuario($idFranqueador = 0, $idUsuario = 0)
+    {
+        $expr = new Expr();
+
+        $query = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('e.idEnquete')
+            ->addSelect('(' .
+                $this
+                    ->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('COUNT(eru1.idUsuario)')
+                    ->from('Base\BaseBundle\Entity\TbEnqueteRespostaUsuario', 'eru1')
+                    ->innerJoin('eru1.idEnquete', 'e1')
+                    ->where('e1.idEnquete = e.idEnquete')
+                    ->andWhere('eru1.idUsuario = :idUsuario')
+                    ->getQuery()
+                    ->getDQL()
+                . ') countResposta'
+            )
+            ->from('Base\BaseBundle\Entity\TbEnqueteRespostaUsuario', 'eru')
+            ->innerJoin('eru.idEnquete', 'e')
+            ->where($expr->eq('e.stAtivo', true))
+            ->having('countResposta = 0')
+            ->groupBy('e.idEnquete')
+            ->setParameter('idUsuario', $idUsuario)
+            ->getQuery()
+            ->getResult();
+
+        return ($query) ? $query[0]['idEnquete'] : 0;
     }
 }

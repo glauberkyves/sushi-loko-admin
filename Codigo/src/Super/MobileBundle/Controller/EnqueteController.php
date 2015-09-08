@@ -13,30 +13,37 @@ class EnqueteController extends AbstractMobile
      * Listar enquetes de um franqueador
      * @param idFranqueador, idUsuario
      * @return Response
-     * @todo implementar regras p/ buscar enquete (está fixo)!!
+     * @todo implementar id do franqueador na enquete!!
      */
     public function listarAction()
     {
         $request     = $this->getRequest();
         $arrResposta = array();
 
-        $idEnquete = $this->getService('service.enquete')->find(1);
+        $idEnquete = $this->getService('service.enquete')->listarEnqueteByIdUsuario(
+            $request->idFranqueador,
+            $request->idUsuario
+        );
+        $idEnquete = $this->getService('service.enquete')->find($idEnquete);
 
-        foreach($idEnquete->getIdResposta() as $idResposta)
-        {
-            $arrResposta[] = array(
-                'idResposta' => $idResposta->getIdResposta(),
-                'noResposta' => $idResposta->getNoResposta()
-            );
+        if ($idEnquete) {
+            foreach ($idEnquete->getIdResposta() as $idResposta) {
+                $arrResposta[] = array(
+                    'idResposta' => $idResposta->getIdResposta(),
+                    'noResposta' => $idResposta->getNoResposta()
+                );
+            }
+            $this->add('responderEnquete', true);
+            $this->add('enquete', array(
+                'idEnquete' => $idEnquete->getIdEnquete(),
+                'noPergunta' => $idEnquete->getNoPergunta(),
+                'arrResposta' => $arrResposta
+            ));
+        } else {
+            $this->add('responderEnquete', false);
         }
 
         $this->add('valido', true);
-        $this->add('responder', true);
-        $this->add('enquete', array(
-            'idEnquete'   => $idEnquete->getIdEnquete(),
-            'noPergunta'  => $idEnquete->getNoPergunta(),
-            'arrResposta' => $arrResposta
-        ));
 
         return $this->response();
     }

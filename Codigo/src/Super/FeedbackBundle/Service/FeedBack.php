@@ -12,10 +12,19 @@ class FeedBack extends CrudService
 
     public function preInsert(AbstractEntity $entity = null)
     {
-        $this->entity->setDtCadastro(new \DateTime());
-        $dtInicio = $this->getRequest()->request->get('dtInicio');
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $idFranqueador = $this->getService('service.franqueador')->findOneByIdUsuario($idFranqueador);
+        $dtInicio      = $this->getRequest()->request->get('dtInicio');
+
         $this->entity->setDtInicio(Data::dateBr($dtInicio));
-        $idFranqueador = $this->getService('service.franqueador')->findOneByIdUsuario($this->getUser()->getIdUsuario());
         $this->entity->setIdFranqueador($idFranqueador);
+        $this->entity->setDtCadastro(new \DateTime());
+    }
+
+    public function preUpdate(AbstractEntity $entity = null)
+    {
+        $dtInicio = $this->getRequest()->request->get('dtInicio');
+
+        $this->entity->setDtInicio(Data::dateBr($dtInicio));
     }
 }

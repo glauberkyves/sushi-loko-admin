@@ -10,7 +10,7 @@ class EnqueteRespostaUsuario extends CrudService
 
     public function adicionar($idUsuario = null, $idEnquete = null, $idEnqueteResposta = null)
     {
-        if($idUsuario && $idEnqueteResposta)
+        if($idUsuario && $idEnquete)
         {
             $resposta = $this->newEntity();
             $resposta->setIdUsuario($idUsuario);
