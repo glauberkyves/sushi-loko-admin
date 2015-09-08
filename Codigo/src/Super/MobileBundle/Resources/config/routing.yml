@@ -19,6 +19,11 @@ super_mobile_usuario_recuperar_senha:
     defaults: { _controller: SuperMobileBundle:Usuario:recuperarSenha }
     methods:  [POST]
 
+super_mobile_usuario_atualizar_posicao:
+    path:     /usuario/posicao
+    defaults: { _controller: SuperMobileBundle:Usuario:atualizarPosicao }
+    methods:  [POST]
+
 
 ######### ENQUETE #########
 super_mobile_enquete_listar:

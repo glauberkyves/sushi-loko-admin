@@ -29,6 +29,16 @@ class TbEnqueteRespostaUsuario extends AbstractEntity
     private $dtCadastro;
 
     /**
+     * @var \TbEnquete
+     *
+     * @ORM\ManyToOne(targetEntity="TbEnquete")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_enquete", referencedColumnName="id_enquete")
+     * })
+     */
+    private $idEnquete;
+
+    /**
      * @var \TbEnqueteResposta
      *
      * @ORM\ManyToOne(targetEntity="TbEnqueteResposta")
@@ -110,6 +120,22 @@ class TbEnqueteRespostaUsuario extends AbstractEntity
     public function setIdUsuario($idUsuario)
     {
         $this->idUsuario = $idUsuario;
+    }
+
+    /**
+     * @return \TbEnquete
+     */
+    public function getIdEnquete()
+    {
+        return $this->idEnquete;
+    }
+
+    /**
+     * @param \TbEnquete $idEnquete
+     */
+    public function setIdEnquete($idEnquete)
+    {
+        $this->idEnquete = $idEnquete;
     }
 }
 

@@ -33,6 +33,7 @@ class EnqueteController extends AbstractMobile
         $this->add('valido', true);
         $this->add('responder', true);
         $this->add('enquete', array(
+            'idEnquete'   => $idEnquete->getIdEnquete(),
             'noPergunta'  => $idEnquete->getNoPergunta(),
             'arrResposta' => $arrResposta
         ));
@@ -42,7 +43,7 @@ class EnqueteController extends AbstractMobile
 
     /**
      * Responder enquete
-     * @param idEnqueteResposta, idUsuario
+     * @param idEnquete, idResposta, idUsuario
      * @return Response
      */
     public function responderAction()
@@ -50,12 +51,13 @@ class EnqueteController extends AbstractMobile
         $request = $this->getRequest();
 
         $idUsuario  = $this->getService('service.usuario')->find($request->idUsuario);
-        $idResposta = $this->getService('service.enquete_resposta')->find($request->idEnqueteResposta);
+        $idEnquete  = $this->getService('service.enquete')->find($request->idEnquete);
+        $idResposta = $this->getService('service.enquete_resposta')->find($request->idResposta);
 
-        if($idUsuario && $idResposta) {
+        if($idUsuario && $idEnquete) {
 
             $this->getService('service.enquete_resposta_usuario')->adicionar(
-                $idUsuario, $idResposta
+                $idUsuario, $idEnquete, $idResposta
             );
 
             $this->add('valido',   true);
