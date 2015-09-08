@@ -46,7 +46,20 @@ class  TbEnqueteResposta extends AbstractEntity
      */
     private $nuPosicao;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbEnqueteRespostaUsuario", mappedBy="idEnqueteResposta")
+     */
+    private $idRespostaUsuario;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idRespostaUsuario = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     /**
      * @return int
      */

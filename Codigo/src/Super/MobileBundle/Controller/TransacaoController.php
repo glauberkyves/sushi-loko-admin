@@ -22,8 +22,19 @@ class TransacaoController extends AbstractMobile
             $request->idUsuario, $request->idFranqueador
         );
 
+        $ultimoCodigo = $this->getService('service.requisicao_transacao')->findOneBy(
+            array(
+                'idUsuario' => $request->idUsuario,
+                'idFranqueador' => $request->idFranqueador,
+                'stAtivo' => true
+            ),
+            array('dtCadastro' => 'DESC'),
+            1
+        );
+
         $this->add('valido', true);
-        $this->add('credito', $credito);
+        $this->add('credito', number_format($credito, 2, ",", "."));
+        $this->add('codigo', $ultimoCodigo ? $ultimoCodigo->getNoSenha() : '');
 
         return $this->response();
     }
@@ -44,32 +55,37 @@ class TransacaoController extends AbstractMobile
 
         if ($franqueadorUsuario) {
 
-            $totalCredito = $this->getService('service.transacao')->getCreditosUsuario(
-                $request->idUsuario,
-                $request->idFranqueador
-            );
+            if ($franqueadorUsuario->getIdUsuario()->getNoSenha() == md5($request->noSenha)) {
 
-            if ($request->nuValor > 0) {
-                if ($request->nuValor <= $totalCredito) {
-                    try {
-                        $noSenha = $this->getService('service.transacao')->requisicaoTransacaoUsuario(
-                            $franqueadorUsuario->getIdUsuario(),
-                            $franqueadorUsuario->getIdFranqueador(),
-                            $request->nuValor
-                        );
+                $totalCredito = $this->getService('service.transacao')->getCreditosUsuario(
+                    $request->idUsuario,
+                    $request->idFranqueador
+                );
 
-                        $this->add('valido', true);
-                        $this->add('senha', $noSenha);
-                        $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.success');
+                if ($request->nuValor > 0) {
+                    if ($request->nuValor <= $totalCredito) {
+                        try {
+                            $noCodigo = $this->getService('service.transacao')->requisicaoTransacaoUsuario(
+                                $franqueadorUsuario->getIdUsuario(),
+                                $franqueadorUsuario->getIdFranqueador(),
+                                $request->nuValor
+                            );
 
-                    } catch (\Exception $exp) {
-                        $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.exception');
+                            $this->add('valido', true);
+                            $this->add('codigo', $noCodigo);
+                            $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.success');
+
+                        } catch (\Exception $exp) {
+                            $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.exception');
+                        }
+                    } else {
+                        $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.error_valor');
                     }
                 } else {
-                    $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.error_valor');
+                    $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.error_valor_zero');
                 }
             } else {
-                $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.error_valor_zero');
+                $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.error_senha');
             }
         } else {
             $this->add('mensagem', 'mobile_bundle.transacao.obter_senha.error_usuario');

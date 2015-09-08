@@ -15,12 +15,16 @@ mobile_bundle:
         responder:
             success: Enquete respondida com sucesso, agradecemos a sua participação!
             error: Erro inesperado ao salvar a sua resposta, por favor tente novamente.
+        listar:
+            default: Nenhuma enquete disponível nesse momento.
     bonus:
         listar:
             error: Não foi possível listar os bônus deste usuário.
     franqueador:
         default:
             error: Ocorreu um erro inesperado ao buscar por este franqueador, por favor tente novamente.
+        listar_lojas_distancia:
+            error: Não existem lojas próximas de você.
     franquia:
         default:
             error: Ocorreu um erro inesperado ao buscar por esta franquia, por favor tente novamente.
@@ -36,4 +40,5 @@ mobile_bundle:
             error_usuario: Usuário não encontrado para esta rede de franquias.
             error_valor: Você não possui bônus suficientes para esta operação.
             error_valor_zero: O valor informado deve ser maior que zero.
+            error_senha: A senha informada não confere.
             exception: Erro inesperado ao gerar a senha, por favor tente novamente.

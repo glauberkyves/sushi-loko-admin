@@ -41,6 +41,29 @@ class Mobile extends CrudService
     }
 
     /**
+     * Atualizar posicao do usuario
+     * @param int $idUsuario
+     * @param int $noLatitude
+     * @param int $noLongitude
+     * @return bool
+     */
+    public function atualizarPosicao($idUsuario = 0, $noLatitude = 0, $noLongitude = 0)
+    {
+        $idUsuario = $this->getService('service.usuario')->find($idUsuario);
+
+        if ($idUsuario) {
+            $idUsuario->setNoLatitude($noLatitude);
+            $idUsuario->setNoLongitude($noLongitude);
+
+            $this->persist($idUsuario);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Realiza o logout do usuário manualmente
      */
     public function logout()

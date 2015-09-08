@@ -36,6 +36,20 @@ class TbUsuario
     private $stAtivo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_latitude", type="string", length=250, nullable=false)
+     */
+    private $noLatitude;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_longitude", type="string", length=250, nullable=false)
+     */
+    private $noLongitude;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)

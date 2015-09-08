@@ -74,6 +74,8 @@ doctrine:
                           day: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlDate
                           year: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlDay
                           date: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlYear
+                      numeric_functions:
+                          geo: GlauberKyves\MysqlDoctrineFunctions\DQL\MysqlGeo
 
 # Swiftmailer Configuration
 swiftmailer:

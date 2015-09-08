@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbEnqueteRespostaUsuario
  *
- * @ORM\Table(name="tb_enquete_resposta_usuario", indexes={@ORM\Index(name="id_enquete_resposta", columns={"id_enquete_resposta"}), @ORM\Index(name="id_usuario", columns={"id_usuario"})})
+ * @ORM\Table(name="tb_enquete_resposta_usuario", indexes={@ORM\Index(name="id_enquete_resposta", columns={"id_enquete_resposta"}), @ORM\Index(name="id_usuario", columns={"id_usuario"}), @ORM\Index(name="id_enquete", columns={"id_enquete"})})
  * @ORM\Entity
  */
 class TbEnqueteRespostaUsuario
@@ -47,6 +47,16 @@ class TbEnqueteRespostaUsuario
      * })
      */
     private $idUsuario;
+
+    /**
+     * @var \TbEnquete
+     *
+     * @ORM\ManyToOne(targetEntity="TbEnquete")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_enquete", referencedColumnName="id_enquete")
+     * })
+     */
+    private $idEnquete;
 
 
 }

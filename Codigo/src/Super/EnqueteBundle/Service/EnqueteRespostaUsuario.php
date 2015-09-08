@@ -8,13 +8,14 @@ class EnqueteRespostaUsuario extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbEnqueteRespostaUsuario';
 
-    public function adicionar($idUsuario = null, $idEnqueteResposta = null)
+    public function adicionar($idUsuario = null, $idEnquete = null, $idEnqueteResposta = null)
     {
-        if($idUsuario && $idEnqueteResposta)
+        if($idUsuario && $idEnquete)
         {
             $resposta = $this->newEntity();
             $resposta->setIdUsuario($idUsuario);
-            $resposta->setIdEnqueteResposta($idEnqueteResposta);
+            $resposta->setIdEnquete($idEnquete);
+            $resposta->setIdEnqueteResposta($idEnqueteResposta ?: null);
             $resposta->setDtCadastro(new \DateTime());
 
             $this->persist($resposta);

@@ -13,10 +13,20 @@ class EmailFeedBack extends CrudService
 
     public function registerEmailFaadBack($mensagem)
     {
-        $idFranqueador = $this->getService('service.franqueador')->findOneByIdUsuario($this->getUser());
-        $entidade = $this->getService('service.feedback_email')->findOneByIdFranqueador($idFranqueador->getIdFranqueador());
-        $entidade->setDsMensagem($mensagem);
-        $this->persist($entidade);
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
+        $feedback      = $this->getService('service.feedback_email')->findOneByIdFranqueador(
+            $idFranqueador->getIdFranqueador()
+        );
+
+        if(!$feedback) {
+            $feedback = $this->getService('service.feedback_email')->newEntity();
+            $feedback->setIdFranqueador($idFranqueador);
+        }
+
+        $feedback->setDsMensagem($mensagem);
+        $this->persist($feedback);
+
     }
 
 }

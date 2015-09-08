@@ -16,15 +16,21 @@ class DefaultController extends CrudController
         $srvTransacao = $this->getService("service.transacao");
         $dataSemana   = new \DateTime();
 
-        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana(56);
-        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem(56);
-        $countTransacao    = $srvTransacao->getTransacoesOntem(56);
+        $idFranqueador = null;
+
+        if ($this->getUser()->getIdFranqueador()) {
+            $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        }
+
+        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana($idFranqueador);
+        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
+        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
+        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem($idFranqueador);
+        $countTransacao    = $srvTransacao->getTransacoesOntem($idFranqueador);
 
         $arrUsuario = $arrTransacao = array();
 
-        foreach ($arrCountCadastro as $value) {
+        foreach ((array) $arrCountCadastro as $value) {
             $dia = new \DateTime($value["dtCadastro"]);
             array_push($arrUsuario, array(
                 "data"     => $dia->format('d/m'),
@@ -34,14 +40,14 @@ class DefaultController extends CrudController
 
         foreach ($countTransCredito as $key => $t) {
             $debito = 0;
-            $c = $countTransDebito;
+            $c      = $countTransDebito;
             if (isset($c[$key]['dtCadastro'])) {
                 $debito = ($c[$key]['dtCadastro'] == $t['dtCadastro']) ? $c[$key]['transacaoDebito'] : 0;
             }
             $arrTransacao[] = array(
                 'credito' => $t['transacaoCredito'],
-                'debito' => $debito,
-                'data'  => $t['dtCadastro']
+                'debito'  => $debito,
+                'data'    => $t['dtCadastro']
             );
         }
 
@@ -62,13 +68,16 @@ class DefaultController extends CrudController
     {
         $this->serviceName = 'service.pesquisa';
 
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $this->getRequest()->query->set('idFranqueador', $idFranqueador);
+
         $this->vars['entity']      = $this->getService()->newEntity()->populate($request->query->all());
         $this->vars['cmbSexo']     = Pesquisa::getComboSexo();
         $this->vars['cmbPeriodo']  = Pesquisa::getComboPeriodo();
         $this->vars['cmbOperador'] = Pesquisa::getComboOperador();
         $this->vars['cmbFranquia'] = $this->getService('service.franquia')->getComboDefault(array(
-            'stAtivo' => true,
-            'idFranqueador' => 56
+            'stAtivo'       => true,
+            'idFranqueador' => $idFranqueador
         ));
 
         reset($this->vars['cmbFranquia']);
@@ -81,6 +90,7 @@ class DefaultController extends CrudController
             $result     = $this->getService()->getRepository()->getResultGrid($request);
             $resultGrid = $this->getResultGrid($request, $result);
             $request->getSession()->set('arrUsuarios', $result);
+
             return $this->renderJson($resultGrid);
         }
 
@@ -89,6 +99,7 @@ class DefaultController extends CrudController
             $response = $this->render('SuperBaseBundle:Default:usuariosCSV.html.twig', array(
                 'arrUsuarios' => $result
             ));
+
             return $this->getService()->exportar($response);
         }
 
@@ -111,7 +122,7 @@ class DefaultController extends CrudController
         $sEcho = $request->query->get('sEcho', 1);
         $page  = $request->query->get('iDisplayStart', 0);
         $rows  = $request->query->get('iDisplayLength', 5);
-        $page  = ceil($page/$rows);
+        $page  = ceil($page / $rows);
 
         $paginator  = new \Knp\Component\Pager\Paginator();
         $pagination = $paginator->paginate($result, $page, $rows);

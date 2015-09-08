@@ -127,6 +127,26 @@ class UsuarioController extends AbstractMobile
     }
 
     /**
+     * Atualizar posicao do usuario
+     * @param idUsuario, noLatitude, noLongitude
+     * @return Response
+     */
+    public function atualizarPosicaoAction()
+    {
+        $request = $this->getRequest();
+
+        $stAtualizacao = $this->getService()->atualizarPosicao(
+            $request->idUsuario,
+            $request->noLatitude,
+            $request->noLongitude
+        );
+
+        $this->add('valido', $stAtualizacao);
+
+        return $this->response();
+    }
+
+    /**
      * Logout
      * @return Response
      */

@@ -24,13 +24,22 @@ class DefaultController extends CrudController
         return parent::createAction($request);
     }
 
+    public function localidadeAction()
+    {
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $arrUsuario    = $this->getService('service.usuario')->getLocalidades($idFranqueador);
+
+        return $this->renderJson($arrUsuario);
+    }
+
     public function dashboardAction(Request $request)
     {
         $srvUsuario   = $this->getService("service.usuario");
         $srvTransacao = $this->getService("service.transacao");
         $dataSemana   = new \DateTime();
 
-        $idFranqueador     = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+
         $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana($idFranqueador);
         $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
         $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
@@ -39,7 +48,7 @@ class DefaultController extends CrudController
 
         $arrUsuario = $arrTransacao = array();
 
-        foreach ($arrCountCadastro as $value) {
+        foreach ((array)$arrCountCadastro as $value) {
             $dia = new \DateTime($value["dtCadastro"]);
             array_push($arrUsuario, array(
                 "data"     => $dia->format('d/m'),
@@ -49,14 +58,14 @@ class DefaultController extends CrudController
 
         foreach ($countTransCredito as $key => $t) {
             $debito = 0;
-            $c      = $countTransDebito;
+            $c = $countTransDebito;
             if (isset($c[$key]['dtCadastro'])) {
                 $debito = ($c[$key]['dtCadastro'] == $t['dtCadastro']) ? $c[$key]['transacaoDebito'] : 0;
             }
             $arrTransacao[] = array(
                 'credito' => $t['transacaoCredito'],
-                'debito'  => $debito,
-                'data'    => $t['dtCadastro']
+                'debito' => $debito,
+                'data'  => $t['dtCadastro']
             );
         }
 

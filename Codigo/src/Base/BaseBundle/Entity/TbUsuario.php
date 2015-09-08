@@ -33,6 +33,18 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      */
     private $stAtivo = '0';
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_latitude", type="string", length=32, nullable=false)
+     */
+    private $noLatitude;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="no_longitude", type="string", length=32, nullable=false)
+     */
+    private $noLongitude;
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
@@ -391,5 +403,37 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function setIdFranquia($idFranquia)
     {
         $this->idFranquia = $idFranquia;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoLatitude()
+    {
+        return $this->noLatitude;
+    }
+
+    /**
+     * @param string $noLatitude
+     */
+    public function setNoLatitude($noLatitude)
+    {
+        $this->noLatitude = $noLatitude;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoLongitude()
+    {
+        return $this->noLongitude;
+    }
+
+    /**
+     * @param string $noLongitude
+     */
+    public function setNoLongitude($noLongitude)
+    {
+        $this->noLongitude = $noLongitude;
     }
 }

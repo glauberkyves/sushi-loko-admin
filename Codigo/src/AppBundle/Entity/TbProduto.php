@@ -31,7 +31,7 @@ class TbProduto
     /**
      * @var string
      *
-     * @ORM\Column(name="nu_valor", type="decimal", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="nu_valor", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $nuValor;
 

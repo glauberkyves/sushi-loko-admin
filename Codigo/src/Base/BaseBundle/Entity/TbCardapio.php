@@ -43,12 +43,21 @@ class TbCardapio extends AbstractEntity
     private $dtCadastro;
 
     /**
+     * @var \TbFranqueador
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueador")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_franqueador", referencedColumnName="id_franqueador")
+     * })
+     */
+    private $idFranqueador;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbProduto", mappedBy="idCardapio")
      */
     private $idProduto;
-
 
     /**
      * Constructor
@@ -138,6 +147,20 @@ class TbCardapio extends AbstractEntity
         $this->idProduto = $idProduto;
     }
 
+    /**
+     * @return \TbFranqueador
+     */
+    public function getIdFranqueador()
+    {
+        return $this->idFranqueador;
+    }
 
+    /**
+     * @param \TbFranqueador $idFranqueador
+     */
+    public function setIdFranqueador($idFranqueador)
+    {
+        $this->idFranqueador = $idFranqueador;
+    }
 }
 
