@@ -186,4 +186,25 @@ class TransacaoRepository extends AbstractRepository
 
         return $queryCredito + $queryDebito;
     }
+
+    public function getLojasByIdUsuario($idUsuario = 0)
+    {
+        $expr = new Expr();
+
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('f.idFranquia')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idTipoTransacao', 'tt')
+            ->innerJoin('t.idFranquia', 'f')
+            ->innerJoin('t.idUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->where($expr->eq('u.idUsuario', $idUsuario))
+            ->andWhere('tt.idTipoTransacao = 1 OR tt.idTipoTransacao = 2')
+            ->groupBy('t.idFranquia')
+            ->getQuery()
+            ->getResult();
+    }
 }
