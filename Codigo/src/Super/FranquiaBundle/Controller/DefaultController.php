@@ -2,6 +2,7 @@
 
 namespace Super\FranquiaBundle\Controller;
 
+use Base\BaseBundle\Service\Data;
 use Base\BaseBundle\Service\Mask;
 use Base\CrudBundle\Controller\CrudController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +33,7 @@ class DefaultController extends CrudController
                 $this->vars['idFranqueador'] = $idFranqueador;
                 break;
             case $security->isGranted('ROLE_FRANQUIA'):
-                return $this->render('SuperFranquiaBundle:Default:dashboard.html.twig', $this->getDashboardData());
+                return $this->render('SuperFranquiaBundle:Default:dashboard.html.twig', $this->getDashboardData($request));
                 break;
         }
 
@@ -164,14 +165,16 @@ class DefaultController extends CrudController
         return $this->render($this->resolveRouteName(), $arrTransacao);
     }
 
-    private function getDashboardData()
+    private function getDashboardData(Request $request)
     {
-        $srvTransacao = $this->getService("service.transacao");
-        $dataSemana   = new \DateTime();
+        $srvTransacao  = $this->getService("service.transacao");
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $nuMes         = $request->query->get('mes', date('m'));
 
-        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo(56, $dataSemana->modify('-9 days'));
-        $countTransacao    = $srvTransacao->getTransacoesOntem(56);
+        $countTransCredito = $srvTransacao->getTransacoesCredito($nuMes, $idFranqueador);
+        $countTransDebito  = $srvTransacao->getTransacoesDebito($nuMes, $idFranqueador);
+        $countTransacao    = $srvTransacao->getTransacoes($nuMes, $idFranqueador);
+        $cmbMes            = Data::getComboMes();
 
         $arrTransacao = array();
 
@@ -190,6 +193,8 @@ class DefaultController extends CrudController
 
         $this->vars['jsonTransacao']  = json_encode($arrTransacao);
         $this->vars['countTransacao'] = $countTransacao;
+        $this->vars['cmbMes']         = $cmbMes;
+        $this->vars['nuMes']          = $nuMes;
 
         return $this->vars;
     }

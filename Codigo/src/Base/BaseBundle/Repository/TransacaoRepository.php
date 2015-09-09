@@ -94,80 +94,90 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
     }
 
-    public function getTransacoesCreditoPeriodo($idFranqueador = 0, $data)
+    public function getTransacoesCredito($nuMes = 0, $idFranqueador = 0)
     {
-        $queryCredito = $this
+        $query = $this
             ->createQueryBuilder('t')
-            ->select('COUNT(t) as transacaoCredito, DAY(t.dtCadastro) as dtCadastro')
-            ->innerJoin('t.idFranquia', 'ff')
-            ->innerJoin('ff.idFranqueador', 'f')
-            ->where('t.dtCadastro >= :dtCadastro')
-            ->andWhere('t.idTipoTransacao = 1')
-            ->andWhere('f.idFranqueador = :idFranqueador')
-            ->groupBy('dtCadastro')
-            ->orderBy('dtCadastro', 'ASC')
-            ->setParameter('idFranqueador', $idFranqueador)
-            ->setParameter('dtCadastro', $data->format("Y-m-d"))
-            ->getQuery()
-            ->getResult();
-
-        $queryCredito = ($queryCredito) ? $queryCredito : array();
-
-        return $queryCredito;
-    }
-
-    public function getTransacoesDebitoPeriodo($idFranqueador = 0, $data)
-    {
-        $queryDebito = $this
-            ->createQueryBuilder('t')
-            ->select('COUNT(t) as transacaoDebito, DAY(t.dtCadastro) as dtCadastro')
-            ->innerJoin('t.idFranquia', 'ff')
-            ->innerJoin('ff.idFranqueador', 'f')
-            ->where('t.dtCadastro >= :dtCadastro')
-            ->andWhere('t.idTipoTransacao = 2')
-            ->andWhere('f.idFranqueador = :idFranqueador')
-            ->groupBy('dtCadastro')
-            ->orderBy('dtCadastro', 'ASC')
-            ->setParameter('idFranqueador', $idFranqueador)
-            ->setParameter('dtCadastro', $data->format("Y-m-d"))
-            ->getQuery()
-            ->getResult();
-
-        $queryDebito = ($queryDebito) ? $queryDebito : array();
-
-        return $queryDebito;
-    }
-
-    public function getTransacoesOntem($idFranqueador = 0)
-    {
-        $data = new \DateTime();
-        $data->modify('-1 day');
-
-        $queryCredito = $this
-            ->createQueryBuilder('t')
-            ->select('COUNT(t) as transacaoCredito, SUM(t.nuValor) as valorCredito, DAY(t.dtCadastro) as dtCadastro')
+            ->select('COUNT(t) transacaoCredito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
             ->innerJoin('ff.idFranqueador', 'f')
             ->where('t.idTipoTransacao = 1')
-            ->andWhere('f.idFranqueador = :idFranqueador')
-            ->groupBy("dtCadastro")
-            ->having('dtCadastro = :dtCadastro')
-            ->setParameter('idFranqueador', $idFranqueador)
-            ->setParameter('dtCadastro', $data->format("Y-m-d"))
+            ->having('nuMes = :nuMes')
+            ->groupBy('dtCadastro')
+            ->orderBy('dtCadastro', 'ASC')
+            ->setParameter('nuMes', $nuMes);
+
+        if ($idFranqueador) {
+            $query
+                ->andWhere('f.idFranqueador = :idFranqueador')
+                ->setParameter('idFranqueador', $idFranqueador);
+        }
+
+        return $query
             ->getQuery()
             ->getResult();
+    }
+
+    public function getTransacoesDebito($nuMes = 0, $idFranqueador = 0)
+    {
+        $query = $this
+            ->createQueryBuilder('t')
+            ->select('COUNT(t) transacaoDebito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
+            ->innerJoin('t.idFranquia', 'ff')
+            ->innerJoin('ff.idFranqueador', 'f')
+            ->where('t.idTipoTransacao = 2');
+
+        if ($idFranqueador) {
+            $query
+                ->andWhere('f.idFranqueador = :idFranqueador')
+                ->setParameter('idFranqueador', $idFranqueador);
+        }
+
+        return $query
+            ->having('nuMes = :nuMes')
+            ->groupBy('dtCadastro')
+            ->orderBy('dtCadastro', 'ASC')
+            ->setParameter('nuMes', $nuMes)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getTransacoes($nuMes = 0, $idFranqueador = 0)
+    {
+        $queryCredito = $this
+            ->createQueryBuilder('t')
+            ->select('COUNT(t) transacaoCredito, SUM(t.nuValor) valorCredito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
+            ->innerJoin('t.idFranquia', 'ff')
+            ->innerJoin('ff.idFranqueador', 'f')
+            ->where('t.idTipoTransacao = 1')
+            ->groupBy("dtCadastro")
+            ->having('nuMes = :nuMes')
+            ->setParameter('nuMes', $nuMes);
 
         $queryDebito = $this
             ->createQueryBuilder('t')
-            ->select('COUNT(t) as transacaoDebito, SUM(t.nuValor) as valorDebito, DAY(t.dtCadastro) as dtCadastro')
+            ->select('COUNT(t) transacaoDebito, SUM(t.nuValor) valorDebito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
             ->innerJoin('ff.idFranqueador', 'f')
             ->where('t.idTipoTransacao = 2')
-            ->andWhere('f.idFranqueador = :idFranqueador')
             ->groupBy("dtCadastro")
-            ->having('dtCadastro = :dtCadastro')
-            ->setParameter('idFranqueador', $idFranqueador)
-            ->setParameter('dtCadastro', $data->format("Y-m-d"))
+            ->having('nuMes = :nuMes')
+            ->setParameter('nuMes', $nuMes);
+
+        if ($idFranqueador) {
+            $queryCredito
+                ->andWhere('f.idFranqueador = :idFranqueador')
+                ->setParameter('idFranqueador', $idFranqueador);
+            $queryDebito
+                ->andWhere('f.idFranqueador = :idFranqueador')
+                ->setParameter('idFranqueador', $idFranqueador);
+        }
+
+        $queryCredito = $queryCredito
+            ->getQuery()
+            ->getResult();
+
+        $queryDebito = $queryDebito
             ->getQuery()
             ->getResult();
 

@@ -14,45 +14,26 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UsuarioRepository extends AbstractRepository
 {
-    public function getUsuariosCadastradosSemana($idFranqueador = 0)
+    public function getUsuariosCadastrados($nuMes = 0, $idFranqueador = 0)
     {
-        $data = new \DateTime();
-
         $query = $this
             ->createQueryBuilder('u')
-            ->select('COUNT(u.idUsuario) as total, DAY(u.dtCadastro) as dtCadastro')
+            ->select('COUNT(u.idUsuario) as total, MONTH(u.dtCadastro) nuMes, DAY(u.dtCadastro) dtCadastro')
             ->innerJoin('u.idFranqueadorUsuario', 'f')
-            ->where('u.dtCadastro >= :dtCadastro');
+            ->having('nuMes = :nuMes');
 
         if ($idFranqueador) {
-            $query->andWhere('f.idFranqueador = :idFranqueador')
+            $query
+                ->andWhere('f.idFranqueador = :idFranqueador')
                 ->setParameter('idFranqueador', $idFranqueador);
         }
 
-        $query->groupBy("dtCadastro")
+        return $query
             ->orderBy('dtCadastro', 'ASC')
-            ->setParameter('dtCadastro', $data->modify('-7 day')->format("Y-m-d"))
+            ->groupBy('dtCadastro')
+            ->setParameter('nuMes', $nuMes)
             ->getQuery()
             ->getResult();
-    }
-
-    public function getUsuariosCadastradosOntem($idFranqueador = 0)
-    {
-        $data = new \DateTime();
-
-        $query = $this
-            ->createQueryBuilder('u')
-            ->select('COUNT(u.idUsuario) as total, DAY(u.dtCadastro) as dtCadastro')
-            ->innerJoin('u.idFranqueadorUsuario', 'f')
-            ->where('f.idFranqueador = :idFranqueador')
-            ->groupBy("dtCadastro")
-            ->having('dtCadastro = :dtCadastro')
-            ->setParameter('idFranqueador', $idFranqueador)
-            ->setParameter('dtCadastro', $data->modify('-1 day')->format("Y-m-d"))
-            ->getQuery()
-            ->getResult();
-
-        return ($query) ? $query[0]['total'] : 0;
     }
 
     public function getLocalidades($idFranqueador = 0)
@@ -165,7 +146,6 @@ class UsuarioRepository extends AbstractRepository
                 ->where($expr->eq('fo.idFranquia', $request->get('idFranquia')));
         }
 
-        return $this
-            ->createQueryBuilder('e');
+        return $this->createQueryBuilder('e');
     }
 }

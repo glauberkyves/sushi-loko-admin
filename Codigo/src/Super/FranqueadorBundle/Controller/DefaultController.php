@@ -2,6 +2,7 @@
 
 namespace Super\FranqueadorBundle\Controller;
 
+use Base\BaseBundle\Service\Data;
 use Base\BaseBundle\Service\Dominio;
 use Base\CrudBundle\Controller\CrudController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,19 +37,23 @@ class DefaultController extends CrudController
     {
         $srvUsuario   = $this->getService("service.usuario");
         $srvTransacao = $this->getService("service.transacao");
-        $dataSemana   = new \DateTime();
+        $nuMes        = $request->query->get('mes', date('m'));
 
         $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
 
-        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana($idFranqueador);
-        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
-        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
-        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem($idFranqueador);
-        $countTransacao    = $srvTransacao->getTransacoesOntem($idFranqueador);
+        if ($this->getUser()->getIdFranqueador()) {
+            $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        }
+
+        $arrCountCadastro  = $srvUsuario->getUsuariosCadastrados($nuMes, $idFranqueador);
+        $countTransCredito = $srvTransacao->getTransacoesCredito($nuMes, $idFranqueador);
+        $countTransDebito  = $srvTransacao->getTransacoesDebito($nuMes, $idFranqueador);
+        $countTransacao    = $srvTransacao->getTransacoes($nuMes, $idFranqueador);
+        $cmbMes            = Data::getComboMes();
 
         $arrUsuario = $arrTransacao = array();
 
-        foreach ((array)$arrCountCadastro as $value) {
+        foreach ((array) $arrCountCadastro as $value) {
             $dia = new \DateTime($value["dtCadastro"]);
             array_push($arrUsuario, array(
                 "data"     => $dia->format('d/m'),
@@ -58,21 +63,23 @@ class DefaultController extends CrudController
 
         foreach ($countTransCredito as $key => $t) {
             $debito = 0;
-            $c = $countTransDebito;
+            $c      = $countTransDebito;
             if (isset($c[$key]['dtCadastro'])) {
                 $debito = ($c[$key]['dtCadastro'] == $t['dtCadastro']) ? $c[$key]['transacaoDebito'] : 0;
             }
             $arrTransacao[] = array(
                 'credito' => $t['transacaoCredito'],
-                'debito' => $debito,
-                'data'  => $t['dtCadastro']
+                'debito'  => $debito,
+                'data'    => $t['dtCadastro']
             );
         }
 
         $this->vars['jsonUsuario']    = json_encode($arrUsuario);
         $this->vars['jsonTransacao']  = json_encode($arrTransacao);
-        $this->vars['countCadastro']  = $countCadastro;
+        $this->vars['countCadastro']  = $arrCountCadastro ? $arrCountCadastro[0]['total'] : 0;
         $this->vars['countTransacao'] = $countTransacao;
+        $this->vars['cmbMes']         = $cmbMes;
+        $this->vars['nuMes']          = $nuMes;
 
         return parent::indexAction($request);
     }

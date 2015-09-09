@@ -2,6 +2,7 @@
 
 namespace Super\BaseBundle\Controller;
 
+use Base\BaseBundle\Service\Data;
 use Base\BaseBundle\Service\Pesquisa;
 use Base\CrudBundle\Controller\CrudController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ class DefaultController extends CrudController
     {
         $srvUsuario   = $this->getService("service.usuario");
         $srvTransacao = $this->getService("service.transacao");
-        $dataSemana   = new \DateTime();
+        $nuMes        = $request->query->get('mes', date('m'));
 
         $idFranqueador = null;
 
@@ -22,11 +23,11 @@ class DefaultController extends CrudController
             $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
         }
 
-        $arrCountCadastro  = $srvUsuario->getUsuariosCadastradosSemana($idFranqueador);
-        $countTransCredito = $srvTransacao->getTransacoesCreditoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
-        $countTransDebito  = $srvTransacao->getTransacoesDebitoPeriodo($idFranqueador, $dataSemana->modify('-9 days'));
-        $countCadastro     = $srvUsuario->getUsuariosCadastradosOntem($idFranqueador);
-        $countTransacao    = $srvTransacao->getTransacoesOntem($idFranqueador);
+        $arrCountCadastro  = $srvUsuario->getUsuariosCadastrados($nuMes, $idFranqueador);
+        $countTransCredito = $srvTransacao->getTransacoesCredito($nuMes, $idFranqueador);
+        $countTransDebito  = $srvTransacao->getTransacoesDebito($nuMes, $idFranqueador);
+        $countTransacao    = $srvTransacao->getTransacoes($nuMes, $idFranqueador);
+        $cmbMes            = Data::getComboMes();
 
         $arrUsuario = $arrTransacao = array();
 
@@ -53,8 +54,10 @@ class DefaultController extends CrudController
 
         $this->vars['jsonUsuario']    = json_encode($arrUsuario);
         $this->vars['jsonTransacao']  = json_encode($arrTransacao);
-        $this->vars['countCadastro']  = $countCadastro;
+        $this->vars['countCadastro']  = $arrCountCadastro ? $arrCountCadastro[0]['total'] : 0;
         $this->vars['countTransacao'] = $countTransacao;
+        $this->vars['cmbMes']         = $cmbMes;
+        $this->vars['nuMes']          = $nuMes;
 
         return parent::indexAction($request);
     }
