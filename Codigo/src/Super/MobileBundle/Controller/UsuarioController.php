@@ -93,7 +93,7 @@ class UsuarioController extends AbstractMobile
         } else {
             $this->add('mensagem', 'mobile_bundle.usuario.autenticar.error');
         }
-print_r($this->response);die;
+
         return $this->response();
     }
 
