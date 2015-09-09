@@ -48,13 +48,13 @@ super_cardapio:
 
 ########## FRANQUIA ###############
 super_franquia_index:
-    path:     /{idFranqueador}
-    defaults: { _controller: SuperFranquiaBundle:Default:index }
+    path:     /franquia/{idFranqueador}
+    defaults: { _controller: SuperFranquiaBundle:Default:index, idFranqueador: 0 }
     requirements:
         idFranqueador: \d+
 
 super_franquia_edit:
-    path:     /editar/{id}
+    path:     /franquia/editar/{id}
     defaults: { _controller: SuperFranquiaBundle:Default:edit }
     requirements:
         id: \d+

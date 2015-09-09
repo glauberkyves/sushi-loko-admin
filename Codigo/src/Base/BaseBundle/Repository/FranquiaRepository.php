@@ -24,7 +24,7 @@ class FranquiaRepository extends AbstractRepository
 
             if($idFranqueador = $request->query->get('idFranqueador'))
             {
-                $query
+                $query = $query
                     ->where('f.idFranqueador = :idFranqueador')
                     ->setParameter('idFranqueador', $idFranqueador);
             }

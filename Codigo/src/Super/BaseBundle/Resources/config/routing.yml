@@ -42,9 +42,14 @@ super_franquia_create:
     requirements:
         idFranqueador: \d+
 
-######## FRANQUIA #########
-super_franquia_index_super:
-    path:     /franquia/index.html
-    defaults: { _controller: SuperFranquiaBundle:Default:superIndex }
+super_franquia_edit_super:
+    path:     /franquia/editar/{id}
+    defaults: { _controller: SuperFranquiaBundle:Default:edit }
+    requirements:
+        id: \d+
+
+super_franquia_index_franquia_super:
+    path:     /franquia/{idFranqueador}
+    defaults: { _controller: SuperFranquiaBundle:Default:index }
     requirements:
         idFranqueador: \d+

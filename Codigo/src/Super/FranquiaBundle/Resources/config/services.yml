@@ -11,3 +11,6 @@ services:
     service.franquia_opiniao:
         class: Super\FranquiaBundle\Service\FranquiaOpiniao
         arguments:  ["@service_container"]
+    service.franqueador_franquia:
+        class: Super\FranquiaBundle\Service\FranqueadorFranquia
+        arguments:  ["@service_container"]

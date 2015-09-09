@@ -2,7 +2,7 @@
 {% block body %}
     <section class="panel">
         <header class="panel-heading">
-            Pesquisar Franquia
+            Pesquisar por Franquia
               <span class="tools pull-right">
                 <a class="fa fa-chevron-down" href="javascript:;"></a>
               </span>
@@ -27,12 +27,6 @@
                             <i class="fa fa-search"></i>
                             Pesquisar
                         </button>
-                        {% if is_granted('ROLE_SUPER') %}
-                            <a href="{{ path('super_franquia_create', {idFranqueador: idFranqueador}) }}" class="btn btn-default">
-                                <i class="fa fa-plus"></i>
-                                Cadastrar
-                            </a>
-                        {% endif %}
                     </div>
                 </div>
                 <input type="hidden" name="idFranqueador" value="{{ idFranqueador }}">

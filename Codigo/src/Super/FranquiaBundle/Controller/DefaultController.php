@@ -20,16 +20,16 @@ class DefaultController extends CrudController
      * @param null $idFranqueador
      * @return Response
      */
-    public function indexAction(Request $request, $idFranqueador = null)
+    public function indexAction(Request $request, $idFranqueador = 0)
     {
         $security = $this->get('security.authorization_checker');
 
         switch (true) {
-            case $security->isGranted('ROLE_FRANQUEADOR'):
-                $idFranqueador               = $this->getService('service.franqueador')->findOneByIdUsuario($this->getUser());
-                $this->vars['idFranqueador'] = $idFranqueador->getIdFranqueador();
-                break;
             case $security->isGranted('ROLE_SUPER'):
+                $this->vars['idFranqueador'] = $idFranqueador;
+                break;
+            case $security->isGranted('ROLE_FRANQUEADOR'):
+                $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
                 $this->vars['idFranqueador'] = $idFranqueador;
                 break;
             case $security->isGranted('ROLE_FRANQUIA'):
@@ -48,6 +48,19 @@ class DefaultController extends CrudController
      * @return Response
      */
     public function superIndexAction(Request $request)
+    {
+        $this->serviceName = 'service.franqueador_franquia';
+        $this->vars['cmbStatus'] = Dominio::getStAtivo();
+
+        return parent::indexAction($request);
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function superIndexFranquiaAction(Request $request)
     {
         $this->vars['cmbStatus'] = Dominio::getStAtivo();
 
@@ -106,9 +119,7 @@ class DefaultController extends CrudController
      */
     public function resolveRouteIndex()
     {
-        return $this->generateUrl('super_franquia_index', array(
-            'idFranqueador' => $this->getRequest()->get('idFranqueador')
-        ));
+        return $this->generateUrl('super_franquia_index');
     }
 
     public function transacaoAction(Request $request)
