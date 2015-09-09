@@ -24,7 +24,8 @@ class EnqueteController extends AbstractMobile
             $request->idUsuario
         );
         $idEnquete = $this->getService('service.enquete')->find($idEnquete);
-        $arrLojas  = $this->getService('service.transacao')->getLojasByIdUsuario($request->idUsuario);
+        $arrSend   = $this->getService('service.transacao')->getSendTagsByIdUsuario($request->idUsuario);
+        $arrRemove = $this->getService('service.transacao')->getRemoveTagsByIdUsuario($request->idUsuario);
 
         if ($idEnquete) {
             foreach ($idEnquete->getIdResposta() as $idResposta) {
@@ -43,8 +44,13 @@ class EnqueteController extends AbstractMobile
             $this->add('responderEnquete', false);
         }
 
+        $arrTags = array(
+            'send' => $arrSend ?: array(),
+            'remove' => $arrRemove ?: array()
+        );
+
         $this->add('valido', true);
-        $this->add('franquias', $arrLojas);
+        $this->add('tags', $arrTags);
 
         return $this->response();
     }

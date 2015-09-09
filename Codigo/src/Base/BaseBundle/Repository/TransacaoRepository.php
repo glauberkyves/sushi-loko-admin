@@ -10,6 +10,7 @@ namespace Base\BaseBundle\Repository;
 
 use Doctrine\ORM\Query\Expr;
 use Super\TransacaoBundle\Service\TipoTransacao;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class TransacaoRepository extends AbstractRepository
 {
@@ -187,9 +188,11 @@ class TransacaoRepository extends AbstractRepository
         return $queryCredito + $queryDebito;
     }
 
-    public function getLojasByIdUsuario($idUsuario = 0)
+    public function getRemoveTagsByIdUsuario($idUsuario = 0)
     {
         $expr = new Expr();
+        $dtCadastro = new \DateTime();
+        $dtCadastro->modify('-3 months');
 
         return $this
             ->getEntityManager()
@@ -203,7 +206,34 @@ class TransacaoRepository extends AbstractRepository
             ->innerJoin('p.idPessoaFisica', 'pf')
             ->where($expr->eq('u.idUsuario', $idUsuario))
             ->andWhere('tt.idTipoTransacao = 1 OR tt.idTipoTransacao = 2')
+            ->andWhere('t.dtCadastro < :dtCadastro')
             ->groupBy('t.idFranquia')
+            ->setParameter('dtCadastro', $dtCadastro->format("Y-m-d H:i:s"))
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getSendTagsByIdUsuario($idUsuario = 0)
+    {
+        $expr = new Expr();
+        $dtCadastro = new \DateTime();
+        $dtCadastro->modify('-3 months');
+
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('f.idFranquia')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idTipoTransacao', 'tt')
+            ->innerJoin('t.idFranquia', 'f')
+            ->innerJoin('t.idUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->where($expr->eq('u.idUsuario', $idUsuario))
+            ->andWhere('tt.idTipoTransacao = 1 OR tt.idTipoTransacao = 2')
+            ->andWhere('t.dtCadastro >= :dtCadastro')
+            ->groupBy('t.idFranquia')
+            ->setParameter('dtCadastro', $dtCadastro->format("Y-m-d H:i:s"))
             ->getQuery()
             ->getResult();
     }
