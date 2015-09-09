@@ -12,8 +12,8 @@ class PromocaoController extends CrudController
 
     public function deleteAction(Request $request, $id)
     {
-        $this->getService()->inativarPromocao($id);
-        $this->addMessage("Operação realizada com sucesso.");
+        $this->getService()->delete($id);
+
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 }

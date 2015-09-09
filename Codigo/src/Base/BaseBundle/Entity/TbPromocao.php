@@ -64,6 +64,16 @@ class TbPromocao extends AbstractEntity
     private $dtCadastro;
 
     /**
+     * @var \TbFranqueador
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueador")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_franqueador", referencedColumnName="id_franqueador")
+     * })
+     */
+    private $idFranqueador;
+
+    /**
      * @return int
      */
     public function getIdPromocao()
@@ -175,6 +185,20 @@ class TbPromocao extends AbstractEntity
         $this->dtCadastro = $dtCadastro;
     }
 
+    /**
+     * @return \TbFranqueador
+     */
+    public function getIdFranqueador()
+    {
+        return $this->idFranqueador;
+    }
 
+    /**
+     * @param \TbFranqueador $idFranqueador
+     */
+    public function setIdFranqueador($idFranqueador)
+    {
+        $this->idFranqueador = $idFranqueador;
+    }
 }
 
