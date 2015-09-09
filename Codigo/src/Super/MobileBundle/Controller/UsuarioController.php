@@ -13,7 +13,7 @@ class UsuarioController extends AbstractMobile
 {
     /**
      * Cadastrar usuário
-     * @param nuCpf , dtNascimento, noSenha, noPessoa, noEmail, sgSexo
+     * @param nuCpf , dtNascimento, noSenha, noPessoa, noEmail, sgSexo, nuTelefone
      * @return Response
      */
     public function cadastrarAction()
@@ -35,6 +35,7 @@ class UsuarioController extends AbstractMobile
             $this->getParentRequest()->request->set('noPessoa', $request->noPessoa);
             $this->getParentRequest()->request->set('noEmail', $request->noEmail);
             $this->getParentRequest()->request->set('sgSexo', $request->sgSexo);
+            $this->getParentRequest()->request->set('nuTelefone', $request->nuTelefone);
             $this->getParentRequest()->request->set('dtNascimento', Data::dateBr($request->dtNascimento));
 
             $idUsuario = $this->getService('service.usuario')->save();
@@ -57,15 +58,15 @@ class UsuarioController extends AbstractMobile
 
     /**
      * Login
-     * @param nuCpf , noSenha
+     * @param idFranqueador, nuCpf , noSenha
      * @return Response
      */
     public function autenticarAction()
     {
         $request = $this->getRequest();
 
-        $user = $this->getService('service.usuario')->getByCpfSenha(
-            $request->nuCpf, md5($request->noSenha)
+        $user = $this->getService('service.usuario')->getByCpfEmailSenha(
+            $request->nuCpf, md5($request->noSenha), $request->idFranqueador
         );
 
         if ($user) {
@@ -79,7 +80,7 @@ class UsuarioController extends AbstractMobile
                     'nuCpf'        => $pessoaFisica->getNuCpf(),
                     'noEmail'      => $pessoaFisica->getNoEmail(),
                     'dtNascimento' => $pessoaFisica->getDtNascimento()->format('dmY'),
-                    'nuTelefone'   => '6182843161',
+                    'nuTelefone'   => $pessoaFisica->getNuTelefone(),
                     'sgSexo'       => $pessoaFisica->getSgSexo()
                 );
 
@@ -92,7 +93,7 @@ class UsuarioController extends AbstractMobile
         } else {
             $this->add('mensagem', 'mobile_bundle.usuario.autenticar.error');
         }
-
+print_r($this->response);die;
         return $this->response();
     }
 

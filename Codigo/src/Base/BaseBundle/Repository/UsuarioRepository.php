@@ -125,7 +125,7 @@ class UsuarioRepository extends AbstractRepository
         return $result ? false : true;
     }
 
-    public function getByCpfSenha($cpf = null, $senha = null)
+    public function getByCpfEmailSenha($nuCpfNoEmail = null, $senha = null, $idFranqueador = null)
     {
         return $this
             ->getEntityManager()
@@ -134,12 +134,17 @@ class UsuarioRepository extends AbstractRepository
             ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
+            ->innerJoin('u.idFranqueadorUsuario', 'f')
             ->where('pf.nuCpf = :nuCpf')
+            ->orWhere('pf.noEmail = :noEmail')
             ->andWhere('u.noSenha = :noSenha')
             ->andWhere('u.stAtivo = :stAtivo')
-            ->setParameter('nuCpf', preg_replace("/[^\d]/", "", $cpf))
+            ->andWhere('f.idFranqueador = :idFranqueador')
+            ->setParameter('nuCpf', preg_replace("/[^\d]/", "", $nuCpfNoEmail))
+            ->setParameter('noEmail', $nuCpfNoEmail)
             ->setParameter('noSenha', $senha)
             ->setParameter('stAtivo', true)
+            ->setParameter('idFranqueador', $idFranqueador)
             ->getQuery()
             ->getOneOrNullResult();
     }

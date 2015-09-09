@@ -41,6 +41,13 @@ class TbPessoaFisica extends AbstractEntity
     private $sgSexo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_telefone", type="string", length=20, nullable=true)
+     */
+    private $nuTelefone;
+
+    /**
      * @var \TbPessoa
      *
      * @ORM\Id
@@ -117,6 +124,22 @@ class TbPessoaFisica extends AbstractEntity
     }
 
     /**
+     * @return string
+     */
+    public function getNuTelefone()
+    {
+        return $this->nuTelefone;
+    }
+
+    /**
+     * @param string $nuTelefone
+     */
+    public function setNuTelefone($nuTelefone)
+    {
+        $this->nuTelefone = $nuTelefone;
+    }
+
+    /**
      * @return \TbPessoa
      */
     public function getIdPessoa()
@@ -131,6 +154,5 @@ class TbPessoaFisica extends AbstractEntity
     {
         $this->idPessoa = $idPessoa;
     }
-
 }
 
