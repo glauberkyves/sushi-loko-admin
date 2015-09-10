@@ -27,6 +27,13 @@ class TbPessoaFisica
     private $noEmail;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_telefone", type="string", length=20, nullable=true)
+     */
+    private $nuTelefone;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_nascimento", type="datetime", nullable=true)

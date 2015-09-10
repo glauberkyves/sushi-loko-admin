@@ -14,6 +14,10 @@ super_franqueador_feedback_delete:
     path:     /delete/{id}
     defaults: { _controller: SuperFeedbackBundle:Feedback:delete }
 
+super_franqueador_feedback_relatorio:
+    path:     /relatorio/{id}
+    defaults: { _controller: SuperFeedbackBundle:Feedback:relatorio }
+
 super_franqueador_feedback_email:
     path:     /email
     defaults: { _controller: SuperFeedbackBundle:Feedback:email }

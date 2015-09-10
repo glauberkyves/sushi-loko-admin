@@ -1,8 +1,10 @@
 services:
     service.feedback:
-              class: Super\FeedbackBundle\Service\FeedBack
-              arguments:  ["@service_container"]
-
+        class: Super\FeedbackBundle\Service\FeedBack
+        arguments:  ["@service_container"]
     service.feedback_email:
-              class: Super\FeedbackBundle\Service\EmailFeedBack
-              arguments:  ["@service_container"]
+        class: Super\FeedbackBundle\Service\EmailFeedBack
+        arguments:  ["@service_container"]
+    service.feedback_questao:
+        class: Super\FeedbackBundle\Service\FeedbackQuestao
+        arguments:  ["@service_container"]

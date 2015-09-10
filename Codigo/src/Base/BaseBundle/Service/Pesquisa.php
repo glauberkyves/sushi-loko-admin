@@ -85,7 +85,8 @@ class Pesquisa extends CrudService
     {
         $entity = new TbTransacao();
 
-        $idFranqueador = $this->getService('service.franqueador')->find(56);
+        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
 
         $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::BONUS);
 
