@@ -14,7 +14,7 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
-    email_fale_conosco: contato@2creativegames.com.br
+    email_no_reply: contato@2creativegames.com.br
 
     locale:            pt-BR
 

@@ -1,0 +1,231 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <div class="row">
+        <aside class="profile-nav col-lg-3">
+            <section class="panel">
+                <div class="user-heading round">
+                    <a href="#">
+                        <img src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}" alt="">
+                    </a>
+
+                    <h1>{{ entity.getIdUsuario().getIdPessoa().getNoPessoa() }}</h1>
+
+                    <p>{{ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNoEmail() }}</p>
+
+                    {% set cpf = entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(0, 3) ~ '.' %}
+                    {% set cpf = cpf ~ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(3, 3) ~ '.' %}
+                    {% set cpf = cpf ~ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(6, 3) ~ '-' %}
+                    {% set cpf = cpf ~ entity.getIdUsuario().getIdPessoa().getIdPessoaFisica().getNuCpf()|slice(9) %}
+                    <p>CPF: {{ cpf }}</p>
+
+                    <p></p>
+
+                    <p></p>
+                </div>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="#" class="transacao"> <i class="fa fa-bar-chart-o"></i> Transações
+                            <span class="label label-danger pull-right r-activity">
+                                {{ entity.getIdUsuario().getIdTransacao()|length }}
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="comentario"> <i class="fa fa-comment"></i> Comentários
+                            <span class="label label-danger pull-right r-activity">
+                                {{ entity.getIdFranqueadorComentario()|length }}
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+            </section>
+        </aside>
+
+        <aside class="profile-info col-lg-9" id="transacao">
+            <section class="panel">
+                <header class="panel-heading bio-graph-heading">
+                    <h4>Transações</h4>
+                </header>
+                <div class="panel-body bio-graph-info">
+                    <div class="row">
+                        <div class="bio-row">
+                            {% set totalConsumo = 0 %}
+                            {% set totalTransacao = 0 %}
+                            {% for transacao in entity.getIdUsuario().getIdTransacao() %}
+                                {% if transacao.getIdTipoTransacao().getIdTipoTransacao() == debito %}
+                                    {% set totalConsumo = totalConsumo + transacao.getNuValor() %}
+                                    {% set totalTransacao = totalTransacao +1 %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <p><b>Franquia mais visitada:</b>
+                                Sushi Loko - Pirenópolis</p>
+                        </div>
+
+                        <div class="bio-row">
+                            {% set totalConsumo = 0 %}
+                            {% set totalTransacao = 0 %}
+                            {% for transacao in entity.getIdUsuario().getIdTransacao() %}
+                                {% if transacao.getIdTipoTransacao().getIdTipoTransacao() == debito %}
+                                    {% set totalConsumo = totalConsumo + transacao.getNuValor() %}
+                                    {% set totalTransacao = totalTransacao +1 %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <p><b>Média de consumo:</b>
+                                R$ {{ totalConsumo / totalTransacao|number_format(2, ',', '.') }}</p>
+                        </div>
+
+                        <div class="bio-row">
+                            <p><b>Total Bônus:</b> 45</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                            </header>
+                            <div class="panel-body">
+                                <div class="adv-table">
+                                    <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                                        <div class="row-fluid">
+                                        </div>
+                                        <table id="dynamic-table"
+                                               class="display table table-bordered table-striped dataTable">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>Tipo Transação</th>
+                                                <th>Franquia</th>
+                                                <th>Operador</th>
+                                                <th>Valor</th>
+                                                <th>Data</th>
+                                                <th>Status</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            {% for transacao in entity.getIdUsuario().getIdTransacao() %}
+                                                <tr class="">
+                                                    <td class="">
+                                                        {{ transacao.getIdTipoTransacao().getNoTipoTransacao() }}
+                                                    </td>
+                                                    <td class="">
+                                                        {% if transacao.getIdFranquia() %}
+                                                            {{ transacao.getIdFranquia().getNoFranquia() }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="">
+                                                        {% if transacao.getIdOperador() %}
+                                                            {{ transacao.getIdOperador().getIdPessoa().getNoPessoa() }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="">
+                                                        {{ transacao.getNuValor()|number_format(2, ',', '.') }}
+                                                    </td>
+                                                    <td class="">
+                                                        {{ transacao.getDtCadastro()|date('d/m/Y H:i:s') }}
+                                                    </td>
+                                                    <td class="">
+                                                        {% if transacao.getStAtivo() %}
+                                                            Aprovado
+                                                        {% else %}
+                                                            Cancelado
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <aside class="profile-info col-lg-9 hide" id="comentario">
+            <section class="panel">
+                <header class="panel-heading summary-head">
+                    <h4>Comentários</h4>
+                </header>
+                <div class="panel-body profile-activity">
+                    <h5 class="pull-right">{{ 'now'|date('d/m/Y') }}</h5>
+                    {% for comentario in entity.getIdFranqueadorComentario() %}
+                        {% if comentario.getIdFranqueadorComentarioUsuario()|round % 2 == 0 %}
+                            {% set class = 'alt purple' %}
+                        {% else %}
+                            {% set class = 'terques' %}
+                        {% endif %}
+                        <div class="activity {{ class }}">
+                                  <span>
+                                      <i class="fa fa-comment"></i>
+                                  </span>
+
+                            <div class="activity-desk">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="arrow"></div>
+                                        <i class=" fa fa-time"></i>
+                                        <h4>{{ comentario.getDtCadastro()|date('d/m/Y H:i:s') }}</h4>
+
+                                        <p>{{ comentario.getDsComentario() }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="panel">
+                <form action="{{ path('super_franqueador_comentario_cliente_view', {
+                    idFranqueador: entity.getIdFranqueador().getIdFranqueador(),
+                    idUsuario: entity.getIdUsuario().getIdUsuario(),
+                }) }}" method="post">
+                    {{ formTextarea('dsComentario', '', {
+                        class: 'form-control input-lg p-text-area',
+                        rows: 2,
+                        placeholder: 'Comente sobre esse usuário, digite aqui seu comentário'
+                    }) }}
+
+                    <footer class="panel-footer">
+                        <a href="{{ path('super_franqueador_comentario_cliente') }}" class="btn btn-primary pull-right"
+                           style="margin-left: 10px !important;">Voltar</a>
+                        <button class="btn btn-danger pull-right">Comentar</button>
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a href="#"></a>
+                            </li>
+                        </ul>
+                    </footer>
+                </form>
+            </section>
+        </aside>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.transacao').click(function () {
+                $('#transacao').removeClass('hide')
+                $('#comentario').addClass('hide')
+            })
+
+            $('.comentario').click(function () {
+                $('#comentario').removeClass('hide')
+                $('#transacao').addClass('hide')
+            })
+
+            $('#dynamic-table').dataTable({
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false
+            });
+        });
+
+    </script>
+{% endblock body %}

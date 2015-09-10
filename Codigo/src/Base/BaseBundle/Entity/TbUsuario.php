@@ -94,6 +94,13 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      */
     private $idFranquia;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbTransacao", mappedBy="idUsuario")
+     */
+    private $idTransacao;
+
     private $salt;
     /**
      * Constructor
@@ -436,4 +443,22 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     {
         $this->noLongitude = $noLongitude;
     }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdTransacao()
+    {
+        return $this->idTransacao;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idTransacao
+     */
+    public function setIdTransacao($idTransacao)
+    {
+        $this->idTransacao = $idTransacao;
+    }
+
+
 }

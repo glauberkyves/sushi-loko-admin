@@ -1,0 +1,55 @@
+<div class="btn-group ">
+    <a href="{{ path('super_franqueador_usuario_view', {
+        idFranqueador: data.idFranqueador,
+        idUsuario: data.idUsuario,
+    }) }}" class="btn ">
+        <span class="fa fa-gear"></span>
+    </a>
+    <a href="{{ path('super_franqueador_comentario_cliente_view', {
+        idFranqueador: data.idFranqueador,
+        idUsuario: data.idUsuario,
+    }) }}" class="btn ">
+        <span class="fa fa-comments-o"></span>
+    </a>
+    {% if data.stAtivo == true %}
+        <a href="#" class="btn justificativa"
+           data-target="#justificativa"
+           data-noPessoa="{{ data.noPessoa }}"
+           data-nuCpf="{{ data.nuCpf }}"
+           data-idUsuario="{{ data.idUsuario }}"
+           data-toggle="modal">
+            <span class="fa fa-check-circle"></span>
+        </a>
+    {% else %}
+        <a href="#" class="btn cancelamento"
+           data-target="#justificativa"
+           data-noPessoa="{{ data.noPessoa }}"
+           data-nuCpf="{{ data.nuCpf }}"
+           data-idUsuario="{{ data.idUsuario }}"
+           data-toggle="modal">
+            <span class="fa fa-ban"></span>
+        </a>
+    {% endif %}
+    </a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('a.justificativa').click(function () {
+            $('#justificativa h4.modal-title').html('Justificativa Inativar Usuário')
+        })
+
+        $('a.cancelamento').click(function () {
+            $('#justificativa h4.modal-title').html('Justificativa Ativar Usuário')
+        })
+
+        $('a.justificativa, a.cancelamento').click(function () {
+            $('#noPessoa, #nuCpf, #nuValor, #dsJustifitiva, #idTransacao').val('')
+            $('#form-justificativa').get(0).reset();
+
+            $('#idUsuario').val($(this).attr('data-idUsuario'))
+            $('#noPessoa').val($(this).attr('data-noPessoa'))
+            $('#nuCpf').val($(this).attr('data-nuCpf'))
+        })
+    })
+</script>

@@ -42,9 +42,9 @@ foreach ($symfonyRequirements->getRecommendations() as $req) {
 }
 
 if ($checkPassed) {
-    echo_block('success', 'OK', 'Your system is ready to run Symfony2 projects', true);
+    echo_block('success', 'OK', 'Your system is ready to run Symfony2 projects');
 } else {
-    echo_block('error', 'ERROR', 'Your system is not ready to run Symfony2 projects', true);
+    echo_block('error', 'ERROR', 'Your system is not ready to run Symfony2 projects');
 
     echo_title('Fix the following mandatory requirements', 'red');
 
@@ -53,8 +53,7 @@ if ($checkPassed) {
     }
 }
 
-if (!empty($messages['warning']))
-{
+if (!empty($messages['warning'])) {
     echo_title('Optional recommendations to improve your setup', 'yellow');
 
     foreach ($messages['warning'] as $helpText) {

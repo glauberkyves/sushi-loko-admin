@@ -48,7 +48,7 @@ class Usuario extends CrudService
             }
         }
         $letters = (!$onlyNumbers)   ? 'abcdefghkmnpqrstuvxwyz' : '';
-        $letters .= ($especialChars) ? '/#$%&*()^´[]' : $letters;
+        $letters .= ($especialChars) ? '/#$%&*()^Â´[]' : $letters;
         $letters .= (string)$numbers;
 
         $final = str_split($letters);

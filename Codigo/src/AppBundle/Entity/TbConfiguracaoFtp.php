@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbConfiguracaoFtp
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_configuracao_ftp", type="integer", nullable=false)
      * @ORM\Id
@@ -57,7 +57,7 @@ class TbConfiguracaoFtp
     private $dtCadastro;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
