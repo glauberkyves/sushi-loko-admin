@@ -8,3 +8,6 @@ services:
     service.feedback_questao:
         class: Super\FeedbackBundle\Service\FeedbackQuestao
         arguments:  ["@service_container"]
+    service.feedback_questao_resposta:
+        class: Super\FeedbackBundle\Service\FeedbackQuestaoResposta
+        arguments:  ["@service_container"]

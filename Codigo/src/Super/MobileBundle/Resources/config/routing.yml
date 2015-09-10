@@ -37,6 +37,13 @@ super_mobile_enquete_responder:
     methods:  [POST]
 
 
+######### FEEDBACK #########
+super_mobile_feedback_responder:
+    path:     /feedback/responder
+    defaults: { _controller: SuperMobileBundle:Feedback:responder }
+    methods:  [POST]
+
+
 ######### TRANSACAO #########
 super_mobile_transacao_credito_usuario:
     path:     /transacao/credito/usuario

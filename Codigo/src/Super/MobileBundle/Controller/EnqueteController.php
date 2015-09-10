@@ -13,21 +13,23 @@ class EnqueteController extends AbstractMobile
      * Listar enquetes de um franqueador
      * @param idFranqueador, idUsuario
      * @return Response
+     * @todo ID_FRANQUIA e ID_FEEDBACK está fixo!
      */
     public function listarAction()
     {
-        $request     = $this->getRequest();
-        $arrResposta = array();
+        $request    = $this->getRequest();
 
-        $idEnquete = $this->getService('service.enquete')->listarEnqueteByIdUsuario(
+        $arrSend    = $this->getService('service.transacao')->getSendTagsByIdUsuario($request->idUsuario);
+        $arrRemove  = $this->getService('service.transacao')->getRemoveTagsByIdUsuario($request->idUsuario);
+        $idFeedback = $this->getService('service.feedback')->find(5);
+        $idEnquete  = $this->getService('service.enquete')->listarEnqueteByIdUsuario(
             $request->idFranqueador,
             $request->idUsuario
         );
-        $idEnquete = $this->getService('service.enquete')->find($idEnquete);
-        $arrSend   = $this->getService('service.transacao')->getSendTagsByIdUsuario($request->idUsuario);
-        $arrRemove = $this->getService('service.transacao')->getRemoveTagsByIdUsuario($request->idUsuario);
+        $idEnquete  = $this->getService('service.enquete')->find($idEnquete);
 
         if ($idEnquete) {
+            $arrResposta = array();
             foreach ($idEnquete->getIdResposta() as $idResposta) {
                 $arrResposta[] = array(
                     'idResposta' => $idResposta->getIdResposta(),
@@ -36,16 +38,35 @@ class EnqueteController extends AbstractMobile
             }
             $this->add('responderEnquete', true);
             $this->add('enquete', array(
-                'idEnquete' => $idEnquete->getIdEnquete(),
-                'noPergunta' => $idEnquete->getNoPergunta(),
+                'idEnquete'   => $idEnquete->getIdEnquete(),
+                'noPergunta'  => $idEnquete->getNoPergunta(),
                 'arrResposta' => $arrResposta
             ));
         } else {
             $this->add('responderEnquete', false);
         }
 
+        if($idFeedback) {
+            $arrResposta = array();
+            foreach ($idFeedback->getIdFeedbackQuestao() as $idQuestao) {
+                $arrResposta[] = array(
+                    'idResposta' => $idQuestao->getIdFeedbackQuestao(),
+                    'noResposta' => $idQuestao->getNoQuestao()
+                );
+            }
+            $this->add('responderFeedback', true);
+            $this->add('feedback', array(
+                'idFeedback'  => $idFeedback->getIdFeedback(),
+                'idFranquia'  => 5,
+                'noPergunta'  => $idFeedback->getNoFeedback(),
+                'arrResposta' => $arrResposta
+            ));
+        } else {
+            $this->add('responderFeedback', false);
+        }
+
         $arrTags = array(
-            'send' => $arrSend ?: array(),
+            'send'   => $arrSend ?: array(),
             'remove' => $arrRemove ?: array()
         );
 

@@ -17,6 +17,10 @@ mobile_bundle:
             error: Erro inesperado ao salvar a sua resposta, por favor tente novamente.
         listar:
             default: Nenhuma enquete disponível nesse momento.
+    feedback:
+        responder:
+            success: Feedback respondido com sucesso, agradecemos a sua participação!
+            error: Erro inesperado ao salvar a sua resposta, por favor tente novamente.
     bonus:
         listar:
             error: Não foi possível listar os bônus deste usuário.
