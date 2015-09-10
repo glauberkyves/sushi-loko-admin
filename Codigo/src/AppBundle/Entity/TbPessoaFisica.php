@@ -48,6 +48,13 @@ class TbPessoaFisica
     private $sgSexo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_telefone", type="string", length=20, nullable=true)
+     */
+    private $nuTelefone;
+
+    /**
      * @var \TbPessoa
      *
      * @ORM\Id

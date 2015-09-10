@@ -61,7 +61,7 @@ class FranqueadorUsuarioRepository extends AbstractRepository
         return $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('p.noPessoa, pf.noEmail, pf.nuCpf, u.idUsuario, f.idFranqueador')
+            ->select('p.noPessoa, pf.noEmail, pf.nuCpf, u.idUsuario, f.idFranqueador, u.stAtivo')
             ->from('Base\BaseBundle\Entity\TbFranqueadorUsuario', 'fu')
             ->innerJoin('fu.idFranqueador', 'f')
             ->innerJoin('fu.idUsuario', 'u')

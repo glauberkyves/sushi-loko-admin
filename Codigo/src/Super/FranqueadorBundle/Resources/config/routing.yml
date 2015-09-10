@@ -45,6 +45,20 @@ super_cardapio:
     resource: "@SuperCardapioBundle/Resources/config/routing.yml"
     prefix:   /cardapio
 
+super_franqueador_usuario:
+    path:     /usuario/index.html
+    defaults: { _controller: SuperFranqueadorBundle:Usuario:index }
+
+super_franqueador_usuario_status:
+    path:     /usuario/status
+    defaults: { _controller: SuperFranqueadorBundle:Usuario:status }
+
+super_franqueador_usuario_view:
+    path:     /usuario/view/{idFranqueador}/{idUsuario}
+    defaults: { _controller: SuperFranqueadorBundle:Usuario:view }
+    requirements:
+            idFranqueador: \d+
+            idUsuario: \d+
 
 ########## FRANQUIA ###############
 super_franquia_index:
