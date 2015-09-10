@@ -36,7 +36,7 @@ function carregarPontos() {
 
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(ponto.noLatitude, ponto.noLongitude),
-                title: ponto.noPessoa
+                title: ""
             });
 
             var myOptions = {
@@ -57,7 +57,7 @@ function carregarPontos() {
             infoBox[ponto.idUsuario].marker = marker;
 
             infoBox[ponto.idUsuario].listener = google.maps.event.addListener(marker, 'click', function (e) {
-                abrirInfoBox(ponto.idUsuario, marker);
+                //abrirInfoBox(ponto.idUsuario, marker);
             });
 
             markers.push(marker);

@@ -1,79 +1,8 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block body %}
-
-    <section class="panel">
-        <header class="panel-heading">
-            Editar feedback
-              <span class="tools pull-right">
-                <a class="fa fa-chevron-down" href="javascript:;"></a>
-              </span>
-        </header>
-        <div class="panel-body">
-            <form method="post"  id="form-cadastro"
-                  class="form-horizontal tasi-form" enctype="multipart/form-data">
-                <input type="hidden" name="idFeedback" value="{{ entity.idFeedback }}">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
-
-                    <div class="col-lg-9">
-                        <input type="text"  class="form-control required" id="noFeedback" name="noFeedback"
-                               placeholder="Nome" value="{{ entity.noFeedback }}">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Descrição de feedback</label>
-
-                    <div class="col-lg-9">
-                        <textarea class="form-control required" placeholder="Descrição" id="dsFeedback"
-                                  name="dsFeedback"  >{{ entity.dsFeedback }}</textarea>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="txtData" class="control-label col-md-3">Data Inicial</label>
-
-                    <div class="col-md-3">
-                        <div class="input-group m-bot15">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            {{ formText('dtInicio', entity.getDtInicio()|date("d/m/Y"), {id:"datepicker", class: 'form-control required', placeholder:"Validade"}) }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
-
-                    <div class="col-lg-9">
-                        <select class="form-control required" id="stAtivo" name="stAtivo">
-                            {% if entity.stAtivo == 1 %}
-                                <option value="1">Ativo</option>
-                                <option value="0">Inativo</option>
-                            {% else %}
-                                <option value="0">Inativo</option>
-                                <option value="1">Ativo</option>
-                            {% endif %}
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-save"></i>
-                            Salvar
-                        </button>
-
-                        <a href="{{ path('super_franqueador_feedback_index') }}" class="btn btn-default">
-                            <i class="fa fa-times"></i>
-                            Cancelar
-                        </a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
-
+    {% include 'SuperFeedbackBundle:Feedback:form.html.twig' %}
 {% endblock body %}
+
 {% block javascripts %}
     <script>
         $(document).ready(function () {

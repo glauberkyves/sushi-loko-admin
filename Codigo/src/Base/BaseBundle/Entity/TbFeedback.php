@@ -68,6 +68,21 @@ class TbFeedback extends AbstractEntity
     private $idFranqueador;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFeedbackQuestao", mappedBy="idFeedback")
+     */
+    private $idFeedbackQuestao;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idFeedbackQuestao = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * @return \TbFranqueador
      */
     public function getIdFranqueador()
@@ -179,6 +194,20 @@ class TbFeedback extends AbstractEntity
         $this->stAtivo = $stAtivo;
     }
 
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdFeedbackQuestao()
+    {
+        return $this->idFeedbackQuestao;
+    }
 
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idFeedbackQuestao
+     */
+    public function setIdFeedbackQuestao($idFeedbackQuestao)
+    {
+        $this->idFeedbackQuestao = $idFeedbackQuestao;
+    }
 }
 

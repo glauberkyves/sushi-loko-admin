@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbPromocao
  *
- * @ORM\Table(name="tb_promocao")
+ * @ORM\Table(name="tb_promocao", indexes={@ORM\Index(name="id_franqueador", columns={"id_franqueador"})})
  * @ORM\Entity
  */
 class TbPromocao
@@ -62,6 +62,16 @@ class TbPromocao
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
+
+    /**
+     * @var \TbFranqueador
+     *
+     * @ORM\ManyToOne(targetEntity="TbFranqueador")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_franqueador", referencedColumnName="id_franqueador")
+     * })
+     */
+    private $idFranqueador;
 
 
 }

@@ -12,10 +12,10 @@ class Enquete extends CrudService
 
     public function preSave(AbstractEntity $entity = null)
     {
-        $this->entity->setDtCadastro(new \DateTime());
-        $dtFim = $this->getRequest()->request->get('dtFim');
+        $dtFim    = $this->getRequest()->request->get('dtFim');
         $dtInicio = $this->getRequest()->request->get('dtInicial');
 
+        $this->entity->setDtCadastro(new \DateTime());
         $this->entity->setDtInicio(Data::dateBr($dtInicio));
         $this->entity->setDtFim(Data::dateBr($dtFim));
     }
@@ -55,5 +55,4 @@ class Enquete extends CrudService
     {
         $this->addMessage($this->container->get('translator')->trans('base_bundle.messages.success'));
     }
-
 }

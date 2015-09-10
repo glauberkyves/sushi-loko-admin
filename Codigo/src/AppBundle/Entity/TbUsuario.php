@@ -38,14 +38,14 @@ class TbUsuario
     /**
      * @var string
      *
-     * @ORM\Column(name="no_latitude", type="string", length=250, nullable=false)
+     * @ORM\Column(name="no_latitude", type="string", length=250, nullable=true)
      */
     private $noLatitude;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="no_longitude", type="string", length=250, nullable=false)
+     * @ORM\Column(name="no_longitude", type="string", length=250, nullable=true)
      */
     private $noLongitude;
 
