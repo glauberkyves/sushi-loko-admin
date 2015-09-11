@@ -50,9 +50,9 @@ class TbFranqueador extends AbstractEntity
     private $stNiveis;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="nu_valor_minimo_resgate", type="integer", nullable=false)
+     * @ORM\Column(name="nu_valor_minimo_resgate", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $nuValorMinimoResgate;
 

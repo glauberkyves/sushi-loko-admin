@@ -179,7 +179,7 @@ class DefaultController extends CrudController
     private function getDashboardData(Request $request)
     {
         $srvTransacao  = $this->getService("service.transacao");
-        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $idFranqueador = $this->getUser()->getIdFranquia()->getIdFranqueador()->getIdFranqueador();
         $nuMes         = $request->query->get('mes', date('m'));
 
         $countTransCredito = $srvTransacao->getTransacoesCredito($nuMes, $idFranqueador);

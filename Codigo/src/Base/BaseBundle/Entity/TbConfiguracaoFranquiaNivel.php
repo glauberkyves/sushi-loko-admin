@@ -36,9 +36,9 @@ class TbConfiguracaoFranquiaNivel extends AbstractEntity
     private $nuPontosBonusCadastro;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="nu_valor_bonus_cadastro", type="integer", nullable=true)
+     * @ORM\Column(name="nu_valor_bonus_cadastro", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $nuValorBonusCadastro;
 

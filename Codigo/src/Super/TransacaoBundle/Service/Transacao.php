@@ -97,4 +97,44 @@ class Transacao extends CrudService
 
         $this->persist($entityJustificativa);
     }
+
+    public function getCreditoProcessado($idFranqueador, $idUsuario)
+    {
+        $franqueadorUsuario = $this->getService('service.franqueador_usuario')->findOneBy(array(
+            'idUsuario'     => $idUsuario,
+            'idFranqueador' => $idFranqueador
+        ));
+
+        if (!$franqueadorUsuario) {
+            return false;
+        }
+
+        echo '<pre>';
+        \Doctrine\Common\Util\Debug::dump($this->isValidResgate($idFranqueador, $idUsuario));
+        die;
+
+
+    }
+
+
+    public function isValidResgate($idFranqueador, $idUsuario, $nuValor = 0)
+    {
+        $franqueadorUsuario = $this->getService('service.franqueador_usuario')->findOneBy(array(
+            'idUsuario'     => $idUsuario,
+            'idFranqueador' => $idFranqueador
+        ));
+
+        if (!$franqueadorUsuario) {
+            return false;
+        }
+
+
+        echo '<pre>'; \Doctrine\Common\Util\Debug::dump($franqueadorUsuario
+        ->getIdFranqueador()
+        ->getNuValorMinimoResgate());die;
+
+        return $nuValor >= $franqueadorUsuario
+            ->getIdFranqueador()
+            ->getNuValorMinimoResgate() ? true : false;
+    }
 }

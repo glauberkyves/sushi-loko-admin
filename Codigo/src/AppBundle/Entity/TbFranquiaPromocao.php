@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbFranquiaPromocao
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_franquia_promocao", type="integer", nullable=false)
      * @ORM\Id
