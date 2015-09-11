@@ -40,7 +40,7 @@ class TransacaoController extends AbstractMobile
     }
 
     /**
-     * Gerar senha para o usuário (utilizar bônus)
+     * Gerar senha para o usuário (utilizar crédito)
      * @param idUsuario, idFranqueador, nuValor
      * @return Response
      */

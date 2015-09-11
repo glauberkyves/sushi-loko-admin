@@ -23,7 +23,7 @@ class FeedbackController extends AbstractMobile
         $idFranquia = $this->getService('service.franquia')->find($request->idFranquia);
         $idFeedback = $this->getService('service.feedback')->find($request->idFeedback);
 
-        if($idUsuario && $idFranquia) {
+        if($idUsuario) {
             foreach ($request->arrResposta as $resposta) {
                 $this->getService('service.feedback_questao_resposta')->adicionar(
                     $idUsuario,
