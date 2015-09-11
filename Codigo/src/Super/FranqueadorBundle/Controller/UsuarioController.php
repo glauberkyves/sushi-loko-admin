@@ -13,9 +13,9 @@ class UsuarioController extends CrudController
 
     public function indexAction(Request $request)
     {
-        $a = $this->getService('service.transacao')->getCreditoProcessado(56, 75);
-
-        echo '<pre>'; \Doctrine\Common\Util\Debug::dump($a);die;
+//        $a = $this->getService('service.transacao')->getCreditoProcessado(56, 75);
+//
+//        echo '<pre>'; \Doctrine\Common\Util\Debug::dump($a);die;
 
 
 

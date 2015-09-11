@@ -56,8 +56,9 @@ class TbFranqueadorUsuario extends AbstractEntity
     private $idFranqueadorComentario;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbBonus", mappedBy="idFranqueadorUsuario")
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbBonus", mappedBy="idFranqueadorUsuario")
      */
     private $idBonus;
 
@@ -142,7 +143,7 @@ class TbFranqueadorUsuario extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getIdBonus()
     {
@@ -150,11 +151,13 @@ class TbFranqueadorUsuario extends AbstractEntity
     }
 
     /**
-     * @param mixed $idBonus
+     * @param \Doctrine\Common\Collections\Collection $idBonus
      */
     public function setIdBonus($idBonus)
     {
         $this->idBonus = $idBonus;
     }
+
+
 }
 

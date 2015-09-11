@@ -110,12 +110,11 @@ class Transacao extends CrudService
         }
 
         echo '<pre>';
-        \Doctrine\Common\Util\Debug::dump($this->isValidResgate($idFranqueador, $idUsuario));
+        \Doctrine\Common\Util\Debug::dump($this->isValidResgate($idFranqueador, $idUsuario, 99));
         die;
 
 
     }
-
 
     public function isValidResgate($idFranqueador, $idUsuario, $nuValor = 0)
     {
@@ -127,11 +126,6 @@ class Transacao extends CrudService
         if (!$franqueadorUsuario) {
             return false;
         }
-
-
-        echo '<pre>'; \Doctrine\Common\Util\Debug::dump($franqueadorUsuario
-        ->getIdFranqueador()
-        ->getNuValorMinimoResgate());die;
 
         return $nuValor >= $franqueadorUsuario
             ->getIdFranqueador()

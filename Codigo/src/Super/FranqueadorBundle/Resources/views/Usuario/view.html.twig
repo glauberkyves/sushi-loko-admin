@@ -32,6 +32,13 @@
                         </a>
                     </li>
                     <li>
+                        <a href="#" class="bonus"> <i class="fa fa-trophy"></i> Bônus
+                            <span class="label label-danger pull-right r-activity">
+                                {{ entity.getIdBonus()|length }}
+                            </span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" class="comentario"> <i class="fa fa-comment"></i> Comentários
                             <span class="label label-danger pull-right r-activity">
                                 {{ entity.getIdFranqueadorComentario()|length }}
@@ -39,7 +46,6 @@
                         </a>
                     </li>
                 </ul>
-
             </section>
         </aside>
 
@@ -81,7 +87,6 @@
                         <div class="bio-row">
                             <p><b>Total Bônus:</b> 45</p>
                         </div>
-
                     </div>
 
                     <div class="col-sm-12">
@@ -130,6 +135,73 @@
                                                     </td>
                                                     <td class="">
                                                         {% if transacao.getStAtivo() %}
+                                                            Aprovado
+                                                        {% else %}
+                                                            Cancelado
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <aside class="profile-info col-lg-9 hide" id="bonus">
+            <section class="panel">
+                <header class="panel-heading bio-graph-heading">
+                    <h4>Bônus</h4>
+                </header>
+                <div class="panel-body bio-graph-info">
+                    <div class="row">
+                        <div class="bio-row">
+                            {% set totalBonus = 0 %}
+                            {% for bonus in entity.getIdBonus() %}
+                                {% if bonus.getStAtivo() == true %}
+                                    {% set totalBonus = totalBonus + bonus.getNuBonus() %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <p><b>Total Bônus:</b> {{ totalBonus }}</p>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                            </header>
+                            <div class="panel-body">
+                                <div class="adv-table">
+                                    <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                                        <div class="row-fluid">
+                                        </div>
+                                        <table id="dynamic-table"
+                                               class="display table table-bordered table-striped dataTable">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>Bônus</th>
+                                                <th>Data</th>
+                                                <th>Status</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            {% for bonus in entity.getIdBonus() %}
+                                                <tr class="">
+                                                    <td class="">
+                                                        {{ bonus.getNuBonus() }}
+                                                    </td>
+                                                    <td class="">
+                                                        {{ bonus.getDtCadastro()|date('d/m/Y H:i:s') }}
+                                                    </td>
+                                                    <td class="">
+                                                        {% if bonus.getStAtivo() %}
                                                             Aprovado
                                                         {% else %}
                                                             Cancelado
@@ -212,15 +284,20 @@
         $(document).ready(function () {
             $('.transacao').click(function () {
                 $('#transacao').removeClass('hide')
-                $('#comentario').addClass('hide')
+                $('#comentario, #bonus').addClass('hide')
             })
 
             $('.comentario').click(function () {
                 $('#comentario').removeClass('hide')
-                $('#transacao').addClass('hide')
+                $('#transacao, #bonus').addClass('hide')
             })
 
-            $('#dynamic-table').dataTable({
+            $('.bonus').click(function () {
+                $('#bonus').removeClass('hide')
+                $('#transacao, #comentario').addClass('hide')
+            })
+
+            $('table[id=dynamic-table]').dataTable({
                 "bPaginate": false,
                 "bFilter": false,
                 "bInfo": false
