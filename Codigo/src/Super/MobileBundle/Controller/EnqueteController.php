@@ -17,12 +17,14 @@ class EnqueteController extends AbstractMobile
      */
     public function listarAction()
     {
-        $request    = $this->getRequest();
+        $request       = $this->getRequest();
 
-        $arrSend    = $this->getService('service.transacao')->getSendTagsByIdUsuario($request->idUsuario);
-        $arrRemove  = $this->getService('service.transacao')->getRemoveTagsByIdUsuario($request->idUsuario);
-        $idFeedback = $this->getService('service.feedback')->find(5);
-        $idEnquete  = $this->getService('service.enquete')->listarEnqueteByIdUsuario(
+        $arrSend       = $this->getService('service.transacao')->getSendTagsByIdUsuario($request->idUsuario);
+        $arrRemove     = $this->getService('service.transacao')->getRemoveTagsByIdUsuario($request->idUsuario);
+
+        $idUsuario     = $this->getService('service.usuario')->find($request->idUsuario);
+        $idFeedback    = $this->getService('service.feedback')->find(5);
+        $idEnquete     = $this->getService('service.enquete')->listarEnqueteByIdUsuario(
             $request->idFranqueador,
             $request->idUsuario
         );
@@ -63,6 +65,30 @@ class EnqueteController extends AbstractMobile
             ));
         } else {
             $this->add('responderFeedback', false);
+        }
+
+        $this->add('possuiBonus', false);
+        if ($idBonus = $idUsuario->getIdFranqueadorUsuario()->getIdBonus()) {
+            $nivel = $this->getService('service.franqueador')->getNivel(
+                $request->idFranqueador,
+                $idBonus->getNuBonus()
+            );
+
+            if($nivel) {
+                $idConfig = (int)$nivel['idConfiguracaoFranquiaNivel']+1;
+                $idConfig = $this->getService('service.configuracao_franquia_nivel')->find($idConfig);
+
+                if($idConfig) {
+                    $arrBonus = array(
+                        'noNivel' => $nivel['noNivel'],
+                        'nuMin'   => $nivel['nuQuantidadePontosNecessaio'],
+                        'nuMax'   => $idConfig->getNuQuantidadePontosNecessaio(),
+                        'nuBonus' => $idBonus->getNuBonus()
+                    );
+                    $this->add('possuiBonus', true);
+                    $this->add('bonus', $arrBonus);
+                }
+            }
         }
 
         $arrTags = array(

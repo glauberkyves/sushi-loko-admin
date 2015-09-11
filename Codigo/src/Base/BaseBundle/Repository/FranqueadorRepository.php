@@ -124,4 +124,26 @@ class FranqueadorRepository extends AbstractRepository
 
         return $arrFranquia;
     }
+
+    public function getNivel($idFranqueador = 0, $nuBonus = 0)
+    {
+        $arrNivel = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('cf')
+            ->from('BaseBaseBundle:TbConfiguracaoFranquiaNivel', 'cf')
+            ->innerJoin('cf.idFranqueador', 'f')
+            ->where('cf.nuQuantidadePontosNecessaio <= :nuBonus')
+            ->andWhere('f.idFranqueador = :idFranqueador')
+            ->andWhere('f.stAtivo = :stAtivo')
+            ->orderBy('cf.idConfiguracaoFranquiaNivel', 'DESC')
+            ->setMaxResults(1)
+            ->setParameter('nuBonus', $nuBonus)
+            ->setParameter('idFranqueador', $idFranqueador)
+            ->setParameter('stAtivo', true)
+            ->getQuery()
+            ->getArrayResult();
+
+        return ($arrNivel) ? $arrNivel[0] : null;
+    }
 }

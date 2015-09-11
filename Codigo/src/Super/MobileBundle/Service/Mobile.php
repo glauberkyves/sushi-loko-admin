@@ -94,4 +94,17 @@ class Mobile extends CrudService
 
         return $file;
     }
+
+    /**
+     * Retorna o host
+     * @return string
+     */
+    public function siteURL() {
+        $protocol   = "http://";
+        $domainName = $_SERVER['HTTP_HOST'];
+        if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
+            $protocol = "https://";
+        }
+        return $protocol.$domainName;
+    }
 }

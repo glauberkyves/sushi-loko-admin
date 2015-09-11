@@ -56,6 +56,12 @@ class TbFranqueadorUsuario extends AbstractEntity
     private $idFranqueadorComentario;
 
     /**
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbBonus", mappedBy="idFranqueadorUsuario")
+     */
+    private $idBonus;
+
+    /**
      * @return int
      */
     public function getIdFranqueadorUsuario()
@@ -135,6 +141,20 @@ class TbFranqueadorUsuario extends AbstractEntity
         $this->idFranqueadorComentario = $idFranqueadorComentario;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdBonus()
+    {
+        return $this->idBonus;
+    }
 
+    /**
+     * @param mixed $idBonus
+     */
+    public function setIdBonus($idBonus)
+    {
+        $this->idBonus = $idBonus;
+    }
 }
 

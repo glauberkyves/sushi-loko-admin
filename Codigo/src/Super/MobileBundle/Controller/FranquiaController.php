@@ -56,7 +56,8 @@ class FranquiaController extends AbstractMobile
                     if($idPromocao->getDtValidade()->format('u') >= $dtAtual->format('u')) {
                         $arrPromocao[$key] = array(
                             'noPromocao' => $idPromocao->getNoPromocao(),
-                            'dsPromocao' => $idPromocao->getDsPromocao()
+                            'dsPromocao' => $idPromocao->getDsPromocao(),
+                            'noImagem'   => $this->getService()->siteURL().$idPromocao->getNoImagem()
                         );
                     }
                 }
@@ -93,12 +94,10 @@ class FranquiaController extends AbstractMobile
 
             foreach($idCardapio->getIdProduto() as $key => $idProduto) {
                 if($idProduto->getStAtivo()) {
-                    $imagem = $this->getService()->getInfoFile($idProduto->getNoImagem());
                     $arrProduto[$key] = array(
                         'noProduto' => $idProduto->getNoProduto(),
-                        'nuValor' => $idProduto->getNuValor(),
-                        'extensao' => $imagem['extensao'],
-                        'imagem' => $imagem['imagem']
+                        'nuValor'   => $idProduto->getNuValor(),
+                        'noImagem'  => $this->getService()->siteURL().$idProduto->getNoImagem()
                     );
                 }
             }
