@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbCardapio
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_cardapio", type="integer", nullable=false)
      * @ORM\Id
@@ -29,7 +29,7 @@ class TbCardapio
     private $noCardapio;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

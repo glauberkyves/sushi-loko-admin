@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbEndereco
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_endereco", type="integer", nullable=false)
      * @ORM\Id
@@ -57,7 +57,7 @@ class TbEndereco
     private $noBairro;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="nu_cep", type="integer", nullable=true)
      */

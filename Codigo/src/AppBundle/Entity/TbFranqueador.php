@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbFranqueador
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_franqueador", type="integer", nullable=false)
      * @ORM\Id
@@ -43,42 +43,42 @@ class TbFranqueador
     private $noFantasia;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_niveis", type="integer", nullable=false)
      */
     private $stNiveis;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="nu_valor_minimo_resgate", type="integer", nullable=false)
+     * @ORM\Column(name="nu_valor_minimo_resgate", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $nuValorMinimoResgate;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="nu_pontos_transacao", type="integer", nullable=false)
      */
     private $nuPontosTransacao;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="nu_porcentagem_bonus_transacao", type="integer", nullable=false)
      */
     private $nuPorcentagemBonusTransacao;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="nu_validade_bonus", type="integer", nullable=false)
      */
     private $nuValidadeBonus;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
