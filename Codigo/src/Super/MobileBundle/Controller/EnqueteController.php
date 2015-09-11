@@ -67,6 +67,24 @@ class EnqueteController extends AbstractMobile
             $this->add('responderFeedback', false);
         }
 
+        if($idFeedback) {
+            $arrResposta = array();
+            foreach ($idFeedback->getIdFeedbackQuestao() as $idQuestao) {
+                $arrResposta[] = array(
+                    'idResposta' => $idQuestao->getIdFeedbackQuestao(),
+                    'noResposta' => $idQuestao->getNoQuestao()
+                );
+            }
+            $this->add('opiniaoAtiva', true);
+            $this->add('opiniao', array(
+                'idFeedback'  => $idFeedback->getIdFeedback(),
+                'noPergunta'  => $idFeedback->getNoFeedback(),
+                'arrResposta' => $arrResposta
+            ));
+        } else {
+            $this->add('responderOpiniao', false);
+        }
+
         $this->add('possuiBonus', false);
         if ($idBonus = $idUsuario->getIdFranqueadorUsuario()->getIdBonus()) {
             $nivel = $this->getService('service.franqueador')->getNivel(
@@ -78,16 +96,14 @@ class EnqueteController extends AbstractMobile
                 $idConfig = (int)$nivel['idConfiguracaoFranquiaNivel']+1;
                 $idConfig = $this->getService('service.configuracao_franquia_nivel')->find($idConfig);
 
-                if($idConfig) {
-                    $arrBonus = array(
-                        'noNivel' => $nivel['noNivel'],
-                        'nuMin'   => $nivel['nuQuantidadePontosNecessaio'],
-                        'nuMax'   => $idConfig->getNuQuantidadePontosNecessaio(),
-                        'nuBonus' => $idBonus->getNuBonus()
-                    );
-                    $this->add('possuiBonus', true);
-                    $this->add('bonus', $arrBonus);
-                }
+                $arrBonus = array(
+                    'noNivel' => $nivel['noNivel'],
+                    'nuMin'   => $nivel['nuQuantidadePontosNecessaio'],
+                    'nuMax'   => $idConfig ? $idConfig->getNuQuantidadePontosNecessaio() : null,
+                    'nuBonus' => $idBonus->getNuBonus()
+                );
+                $this->add('possuiBonus', true);
+                $this->add('bonus', $arrBonus);
             }
         }
 
