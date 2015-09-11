@@ -56,6 +56,13 @@ class TbFranqueadorUsuario extends AbstractEntity
     private $idFranqueadorComentario;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbBonus", mappedBy="idFranqueadorUsuario")
+     */
+    private $idBonus;
+
+    /**
      * @return int
      */
     public function getIdFranqueadorUsuario()
@@ -133,6 +140,22 @@ class TbFranqueadorUsuario extends AbstractEntity
     public function setIdFranqueadorComentario($idFranqueadorComentario)
     {
         $this->idFranqueadorComentario = $idFranqueadorComentario;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdBonus()
+    {
+        return $this->idBonus;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idBonus
+     */
+    public function setIdBonus($idBonus)
+    {
+        $this->idBonus = $idBonus;
     }
 
 
