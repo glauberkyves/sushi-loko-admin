@@ -24,35 +24,21 @@ class TbConfiguracaoFranquiaNivel extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="no_nivel", type="string", length=45, nullable=true)
+     * @ORM\Column(name="no_nivel", type="string", length=45, nullable=false)
      */
     private $noNivel;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="nu_pontos_bonus_cadastro", type="integer", nullable=true)
-     */
-    private $nuPontosBonusCadastro;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nu_valor_bonus_cadastro", type="decimal", precision=10, scale=2, nullable=true)
-     */
-    private $nuValorBonusCadastro;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="nu_quantidade_pontos_necessaio", type="integer", nullable=true)
+     * @ORM\Column(name="nu_quantidade_pontos_necessaio", type="integer", nullable=false)
      */
     private $nuQuantidadePontosNecessaio;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="nu_porcentagem_pontos_extra", type="integer", nullable=true)
+     * @ORM\Column(name="nu_porcentagem_pontos_extra", type="integer", nullable=false)
      */
     private $nuPorcentagemPontosExtra;
 
@@ -62,6 +48,13 @@ class TbConfiguracaoFranquiaNivel extends AbstractEntity
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_quantidade_pontos_por_atingir", type="integer", nullable=false)
+     */
+    private $nuQuantidadePontosPorAtingir;
 
     /**
      * @var \TbFranqueador
@@ -201,7 +194,20 @@ class TbConfiguracaoFranquiaNivel extends AbstractEntity
         $this->idFranqueador = $idFranqueador;
     }
 
+    /**
+     * @return int
+     */
+    public function getNuQuantidadePontosPorAtingir()
+    {
+        return $this->nuQuantidadePontosPorAtingir;
+    }
 
-
+    /**
+     * @param int $nuQuantidadePontosPorAtingir
+     */
+    public function setNuQuantidadePontosPorAtingir($nuQuantidadePontosPorAtingir)
+    {
+        $this->nuQuantidadePontosPorAtingir = $nuQuantidadePontosPorAtingir;
+    }
 }
 

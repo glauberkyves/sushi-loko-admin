@@ -8,12 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  * TbBonus
  *
  * @ORM\Table(name="tb_bonus", indexes={@ORM\Index(name="fk_bonus_franqueadorusuario_idx", columns={"id_franqueador_usuario"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Base\BaseBundle\Repository\BonusRepository")
  */
 class TbBonus extends AbstractEntity
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_bonus", type="integer", nullable=false)
      * @ORM\Id
@@ -22,7 +22,7 @@ class TbBonus extends AbstractEntity
     private $idBonus;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="nu_bonus", type="integer", nullable=false)
      */
@@ -36,7 +36,14 @@ class TbBonus extends AbstractEntity
     private $dtCadastro;
 
     /**
-     * @var int
+     * @var integer
+     *
+     * @ORM\Column(name="st_vencido", type="integer", nullable=false)
+     */
+    private $stVencido;
+
+    /**
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
@@ -132,6 +139,20 @@ class TbBonus extends AbstractEntity
         $this->idFranqueadorUsuario = $idFranqueadorUsuario;
     }
 
+    /**
+     * @return int
+     */
+    public function getStVencido()
+    {
+        return $this->stVencido;
+    }
 
+    /**
+     * @param int $stVencido
+     */
+    public function setStVencido($stVencido)
+    {
+        $this->stVencido = $stVencido;
+    }
 }
 

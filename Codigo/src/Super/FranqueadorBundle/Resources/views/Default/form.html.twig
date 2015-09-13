@@ -94,6 +94,16 @@
                     }) }}
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Data Início Cadastro</label>
+
+                <div class="col-lg-2">
+                    {{ formText('dtInicioCadastro', entity.getDtInicioCadastro() ? entity.getDtInicioCadastro()|date('d/m/Y'):'', {
+                        class: 'form-control dateBR',
+                        'data-mask': '99/99/9999',
+                    }) }}
+                </div>
+            </div>
         </div>
     </section>
 
@@ -186,6 +196,75 @@
 
         <div class="panel-body">
             <div class="form-group">
+                <div class="col-lg-4">
+                    <label>Valor mínimo para resgate</label>
+
+                    <div class="input-group m-bot15 col-md-8">
+                        <span class="input-group-addon">R$</span>
+                        {{ formText('nuValorMinimoResgate', entity.getNuValorMinimoResgate(), {
+                            class: 'form-control',
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>Pontos por transação</label>
+
+                    <div class="input-group m-bot15 col-md-8">
+                        <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                        {{ formText('nuPontosTransacao', entity.getNuPontosTransacao(), {
+                            class: 'form-control',
+                            'data-mask': 'numeric'
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>Porcentagem bônus por transação</label>
+
+                    <div class="input-group m-bot15 col-md-8">
+                        <span class="input-group-addon">%</span>
+                        {{ formText('nuPorcentagemBonusTransacao', entity.getNuPorcentagemBonusTransacao(), {
+                            class: 'form-control required ',
+                            'data-mask': '99'
+                        }) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-4">
+                    <label>Validade dos bônus</label>
+
+                    <div class="input-group m-bot15 col-md-8">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        {{ formText('nuValidadeBonus', entity.getNuValidadeBonus(), {
+                            class: 'form-control required',
+                            'data-mask': 'numeric'
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>Pontos bônus por cadastro</label>
+
+                    <div class="input-group m-bot15 col-md-8">
+                        <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                        {{ formText('nuPontosBonusCadastro', entity.getNuPontosBonusCadastro(), {
+                            class: 'form-control required',
+                        }) }}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>Bônus em reais por cadastro</label>
+
+                    <div class="input-group m-bot15 col-md-8">
+                        <span class="input-group-addon">R$</span>
+                        {{ formText('nuValorBonusCadastro', entity.getNuValorBonusCadastro(), {
+                            class: 'form-control required',
+                        }) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="noEmailResponsavel">Utilizar Níves?</label>
 
                 <div class="col-lg-1">
@@ -200,100 +279,51 @@
 
             <div class="alert alert-info fade in" id="div-niveis">
                 <div class="form-group">
-                    <div data-tip="Nome do nível" class="col-lg-4">
+                    <div class="col-lg-4">
+                        <label>Nome do nível</label>
+
                         <div class="input-group m-bot15">
                             <span class="input-group-addon"><i class="fa fa-font"></i></span>
                             {{ formText('niveis[noNivel][]', '', {
                                 class: 'form-control',
-                                placeholder: 'Nome do nível',
                             }) }}
                         </div>
                     </div>
-                    <div data-tip="Pontos bônus por cadastro" class="col-lg-4">
-                        <div class="input-group m-bot15">
-                            <span class="input-group-addon"><i class="fa fa-check"></i></span>
-                            {{ formText('niveis[nuPontosBonusCadastro][]', '', {
-                                class: 'form-control required',
-                                placeholder: 'Pontos bônus por cadastro',
-                            }) }}
-                        </div>
-                    </div>
-                    <div data-tip="Bônus em reais por cadastro" class="col-lg-4">
-                        <div class="input-group m-bot15">
-                            <span class="input-group-addon">R$</span>
-                            {{ formText('niveis[nuValorBonusCadastro][]', '', {
-                                class: 'form-control required',
-                                placeholder: 'Bônus em reais por cadastro',
-                            }) }}
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div data-tip="Porcentagem pontos extra" class="col-lg-4">
+                    <div class="col-lg-2">
+                        <label>Pontos extra</label>
+
                         <div class="input-group m-bot15">
                             <span class="input-group-addon">%</span>
                             {{ formText('niveis[nuPorcentagemPontosExtra][]', '', {
                                 class: 'form-control required',
-                                placeholder: 'Porcentagem pontos extra',
                                 'data-mask': '99'
                             }) }}
                         </div>
                     </div>
-                    <div data-tip="Quantidade pontos necessário" class="col-lg-4">
-                        {{ formText('niveis[nuQuantidadePontosNecessaio][]', '', {
-                            class: 'form-control required',
-                            placeholder: 'Quantidade pontos necessário',
-                            'data-mask': 'numeric'
-                        }) }}
-                    </div>
-                    <div class="col-lg-4">
-                        <button class="btn btn-danger remover-niveis pull-right" type="button">Remover</button>
-                    </div>
-                </div>
-            </div>
+                    <div class="col-lg-2">
+                        <label>Pontos necessário</label>
 
-            <div class="form-group">
-                <div data-tip="Valor mínimo para resgate" class="col-lg-4">
-                    <div class="input-group m-bot15">
-                        <span class="input-group-addon">R$</span>
-                        {{ formText('nuValorMinimoResgate', entity.getNuValorMinimoResgate(), {
-                            class: 'form-control',
-                            placeholder: 'Valor mínimo para resgate'
-                        }) }}
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                            {{ formText('niveis[nuQuantidadePontosNecessaio][]', '', {
+                                class: 'form-control required',
+                                'data-mask': 'numeric'
+                            }) }}
+                        </div>
                     </div>
-                </div>
-                <div data-tip="Pontos por transação" class="col-lg-4">
-                    <div class="input-group m-bot15">
-                        <span class="input-group-addon"><i class="fa fa-check"></i></span>
-                        {{ formText('nuPontosTransacao', entity.getNuPontosTransacao(), {
-                            class: 'form-control',
-                            placeholder: 'Pontos por transação',
-                            'data-mask': 'numeric'
-                        }) }}
-                    </div>
-                </div>
+                    <div class="col-lg-2">
+                        <label>Extra por atingir</label>
 
-            </div>
-
-            <div class="form-group">
-                <div data-tip="Porcentagem bônus por transação" class="col-lg-4">
-                    <div class="input-group m-bot15">
-                        <span class="input-group-addon">%</span>
-                        {{ formText('nuPorcentagemBonusTransacao', entity.getNuPorcentagemBonusTransacao(), {
-                            class: 'form-control required ',
-                            placeholder: 'Porcentagem bônus por transação',
-                            'data-mask': '99'
-                        }) }}
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                            {{ formText('niveis[nuQuantidadePontosPorAtingir][]', '', {
+                                class: 'form-control required',
+                                'data-mask': 'numeric'
+                            }) }}
+                        </div>
                     </div>
-                </div>
-                <div data-tip="Validade dos bônus" class="col-lg-4">
-                    <div class="input-group m-bot15">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        {{ formText('nuValidadeBonus', entity.getNuValidadeBonus(), {
-                            class: 'form-control required',
-                            placeholder: 'Validade dos bônus',
-                            'data-mask': '99'
-                        }) }}
+                    <div class="col-lg-2">
+                        <button class="btn btn-danger remover-niveis pull-right" type="button">x</button>
                     </div>
                 </div>
             </div>
@@ -333,45 +363,40 @@
 
         $('#add-niveis').click(function () {
             var div = '<div class="form-group">'
-            div = div + '<div data-tip="Nome do nível" class="col-lg-4">'
+            div = div + '<div class="col-lg-4">'
+            div = div + '<label>Nome do nível</label>'
             div = div + '<div class="input-group m-bot15">'
             div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
-            div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="" class="form-control" placeholder="Nome do nível">'
+            div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="" class="form-control">'
             div = div + '</div>'
             div = div + '</div>'
-            div = div + '<div data-tip="Pontos bônus por cadastro" class="col-lg-4">'
-            div = div + '<div class="input-group m-bot15">'
-            div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
-            div = div + '<input type="text" name="niveis[nuPontosBonusCadastro][]" id="niveis-nuPontosBonusCadastro" value="" class="form-control required" placeholder="Pontos bônus por cadastro">'
-            div = div + '</div>'
-            div = div + '</div>'
-            div = div + '<div data-tip="Bônus em reais por cadastro" class="col-lg-4">'
-            div = div + '<div class="input-group m-bot15">'
-            div = div + '<span class="input-group-addon">R$</span>'
-            div = div + '<input type="text" name="niveis[nuValorBonusCadastro][]" id="niveis-nuValorBonusCadastro" value="" class="form-control required" placeholder="Bônus em reais por cadastro">'
-            div = div + '</div>'
-            div = div + '</div>'
-            div = div + '</div>'
-            div = div + '<div class="form-group">'
-            div = div + '<div data-tip="Porcentagem pontos extra" class="col-lg-4">'
+            div = div + '<div class="col-lg-2">'
+            div = div + '<label>Pontos extra</label>'
             div = div + '<div class="input-group m-bot15">'
             div = div + '<span class="input-group-addon">%</span>'
-            div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="" class="form-control required" placeholder="Porcentagem pontos extra" data-mask="99">'
+            div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="" class="form-control required" data-mask="99">'
             div = div + '</div>'
             div = div + '</div>'
-            div = div + '<div data-tip="Quantidade pontos necessário" class="col-lg-4">'
-            div = div + '<input type="text" name="niveis[nuQuantidadePontosNecessaio][]" id="niveis-nuQuantidadePontosNecessaio" value="" class="form-control required" placeholder="Quantidade pontos necessário" data-mask="numeric">'
+            div = div + '<div class="col-lg-2">'
+            div = div + '<label>Pontos necessário</label>'
+            div = div + '<div class="input-group m-bot15">'
+            div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
+            div = div + '<input type="text" name="niveis[nuQuantidadePontosNecessaio][]" id="niveis-nuQuantidadePontosNecessaio" value="" class="form-control required" data-mask="numeric">'
             div = div + '</div>'
-            div = div + '<div class="col-lg-4">'
-            div = div + '<button class="btn btn-danger remover-niveis pull-right" type="button">Remover</button>'
+            div = div + '</div>'
+            div = div + '<div class="col-lg-2">'
+            div = div + '<label>Extra por atingir</label>'
+            div = div + '<div class="input-group m-bot15">'
+            div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
+            div = div + '<input type="text" name="niveis[nuQuantidadePontosPorAtingir][]" id="niveis-nuQuantidadePontosPorAtingir" value="" class="form-control required" data-mask="numeric">'
+            div = div + '</div>'
+            div = div + '</div>'
+            div = div + '<div class="col-lg-2">'
+            div = div + '<button class="btn btn-danger remover-niveis pull-right" type="button">x</button>'
             div = div + '</div>'
             div = div + '</div>'
 
             $('#div-niveis').append(div)
-
-            $('#nuValorMinimoResgate, input[name="niveis[nuValorBonusCadastro][]"]').focus(function () {
-                $(this).setMask('decimal');
-            })
 
             $('input[data-mask]').each(function () {
                 var input = $(this);
@@ -380,8 +405,7 @@
         })
 
         $('#div-niveis').on('click', '.remover-niveis', function () {
-            if ($('#div-niveis div').size() > 12) {
-                $(this).parents('div.form-group').prev().remove()
+            if ($('#div-niveis div').size() > 10) {
                 $(this).parents('div.form-group').remove()
             } else {
                 $(this).parents('div.form-group').prev().find('input').val('')
@@ -389,9 +413,7 @@
             }
         })
 
-        $('#nuValorMinimoResgate, input[name="niveis[nuValorBonusCadastro][]"]').focus(function () {
-            $(this).setMask('decimal');
-        })
+        $('#nuValorMinimoResgate, #nuValorBonusCadastro').setMask('decimal');
 
         {% if entity.getIdFranqueador() and entity.getStNiveis() %}
         $('#div-niveis, #add-niveis').show()
@@ -401,37 +423,36 @@
 
         {% for key, configuracao in entity.getIdConfiguracaoFranquiaNivel() %}
         var div = '<div class="form-group">'
-        div = div + '<div data-tip="Nome do nível" class="col-lg-4">'
+        div = div + '<div class="col-lg-4">'
+        div = div + '<label>Nome do nível</label>'
         div = div + '<div class="input-group m-bot15">'
         div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
-        div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="{{ configuracao.getNoNivel() }}" class="form-control" placeholder="Nome do nível">'
+        div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="{{ configuracao.getNoNivel() }}" class="form-control">'
         div = div + '</div>'
         div = div + '</div>'
-        div = div + '<div data-tip="Pontos bônus por cadastro" class="col-lg-4">'
-        div = div + '<div class="input-group m-bot15">'
-        div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
-        div = div + '<input type="text" name="niveis[nuPontosBonusCadastro][]" id="niveis-nuPontosBonusCadastro" value="{{ configuracao.getNuPontosBonusCadastro() }}" class="form-control required" placeholder="Pontos bônus por cadastro">'
-        div = div + '</div>'
-        div = div + '</div>'
-        div = div + '<div data-tip="Bônus em reais por cadastro" class="col-lg-4">'
-        div = div + '<div class="input-group m-bot15">'
-        div = div + '<span class="input-group-addon">R$</span>'
-        div = div + '<input type="text" name="niveis[nuValorBonusCadastro][]" id="niveis-nuValorBonusCadastro" value="{{ configuracao.getNuValorBonusCadastro() }}" class="form-control required" placeholder="Bônus em reais por cadastro">'
-        div = div + '</div>'
-        div = div + '</div>'
-        div = div + '</div>'
-        div = div + '<div class="form-group">'
-        div = div + '<div data-tip="Porcentagem pontos extra" class="col-lg-4">'
+        div = div + '<div class="col-lg-2">'
+        div = div + '<label>Pontos extra</label>'
         div = div + '<div class="input-group m-bot15">'
         div = div + '<span class="input-group-addon">%</span>'
-        div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="{{ configuracao.getNuPorcentagemPontosExtra() }}" class="form-control required" placeholder="Porcentagem pontos extra" data-mask="99">'
+        div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="{{ configuracao.getNuPorcentagemPontosExtra() }}" class="form-control required" data-mask="99">'
         div = div + '</div>'
         div = div + '</div>'
-        div = div + '<div data-tip="Quantidade pontos necessária" class="col-lg-4">'
-        div = div + '<input type="text" name="niveis[nuQuantidadePontosNecessaio][]" id="niveis-nuQuantidadePontosNecessaio" value="{{ configuracao.getNuQuantidadePontosNecessaio() }}" class="form-control required" placeholder="Quantidade pontos necessário" data-mask="numeric">'
+        div = div + '<div class="col-lg-2">'
+        div = div + '<label>Pontos necessário</label>'
+        div = div + '<div class="input-group m-bot15">'
+        div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
+        div = div + '<input type="text" name="niveis[nuQuantidadePontosNecessaio][]" id="niveis-nuQuantidadePontosNecessaio" value="{{ configuracao.getNuQuantidadePontosNecessaio() }}" class="form-control required" data-mask="numeric">'
         div = div + '</div>'
-        div = div + '<div class="col-lg-4">'
-        div = div + '<button class="btn btn-danger remover-niveis pull-right" type="button">Remover</button>'
+        div = div + '</div>'
+        div = div + '<div class="col-lg-2">'
+        div = div + '<label>Extra por atingir</label>'
+        div = div + '<div class="input-group m-bot15">'
+        div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
+        div = div + '<input type="text" name="niveis[nuQuantidadePontosPorAtingir][]" id="niveis-nuQuantidadePontosPorAtingir" value="{{ configuracao.getNuQuantidadePontosPorAtingir() }}" class="form-control required" data-mask="numeric">'
+        div = div + '</div>'
+        div = div + '</div>'
+        div = div + '<div class="col-lg-2">'
+        div = div + '<button class="btn btn-danger remover-niveis pull-right" type="button">x</button>'
         div = div + '</div>'
         div = div + '</div>'
 

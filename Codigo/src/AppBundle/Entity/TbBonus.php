@@ -38,6 +38,13 @@ class TbBonus
     /**
      * @var integer
      *
+     * @ORM\Column(name="st_vencido", type="integer", nullable=false)
+     */
+    private $stVencido;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
     private $stAtivo;

@@ -14,3 +14,7 @@ services:
     service.requisicao_transacao:
         class: Super\TransacaoBundle\Service\RequisicaoTransacao
         arguments:  ["@service_container"]
+
+    service.bonus:
+        class: Super\TransacaoBundle\Service\Bonus
+        arguments:  ["@service_container"]

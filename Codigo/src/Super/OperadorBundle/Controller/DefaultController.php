@@ -105,11 +105,12 @@ class DefaultController extends CrudController
                     if ($solicitacaoTransacao = $srvRequisicaoTransacao->findOneBy($criteria)) {
 
                         try {
-                            $srvTransacao->saque($user, $idFranquia, $solicitacaoTransacao->getNuValor());
-
                             $params['entity']           = $user;
                             $params['nuValor']          = $srvTransacao->getCreditosUsuario($user->getIdUsuario(), $idFranqueador);
                             $params['nuValorUtilizado'] = $solicitacaoTransacao->getNuValor();
+
+                            $srvTransacao->saque($user, $idFranquia, $solicitacaoTransacao->getNuValor());
+                            $params['nuValorTotal'] = $srvTransacao->getCreditosUsuario($user->getIdUsuario(), $idFranqueador);
 
                             $solicitacaoTransacao->setStUtilizado(true);
                             $srvRequisicaoTransacao->persist($solicitacaoTransacao);

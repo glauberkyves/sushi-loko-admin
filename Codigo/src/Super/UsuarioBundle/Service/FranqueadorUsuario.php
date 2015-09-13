@@ -25,7 +25,15 @@ class FranqueadorUsuario extends CrudService
         $idFranqueadorUsuario->setIdUsuario($idUsuario);
         $idFranqueadorUsuario->setDtCadastro(new \DateTime());
 
-        return $this->persist($idFranqueadorUsuario);
+        $this->persist($idFranqueadorUsuario);
+
+        $transacao = $this->getService('service.transacao');
+        $bonus     = $this->getService('service.bonus');
+
+        $transacao->setCredito($idUsuario, $idFranqueador, $idFranqueador->getNuValorBonusCadastro());
+        $bonus->setBonus($idFranqueadorUsuario, $idFranqueador->getNuPontosBonusCadastro());
+
+        return $idFranqueadorUsuario;
     }
 
     public function findUsuarioPorFranquia($nuCpf, $nuCodigoLoja)

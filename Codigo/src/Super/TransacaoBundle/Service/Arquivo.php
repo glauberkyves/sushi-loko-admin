@@ -97,14 +97,29 @@ class Arquivo extends CrudService
         $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO);
         $entity->setIdTipoTransacao($idTipoTransacao);
 
-        $nuValor = str_replace(".", "", $dadosArquivo['nuValor']);
-        $nuValor = str_replace(",", ".", $nuValor);
+        $criteria             = array(
+            'idUsuario'     => $idUsuario,
+            'idFranqueador' => $idFranquia->getIdFranqueador()
+        );
+        $idFranqueadorUsuario = $this->getService('service.franqueador_usuario')->findOneBy($criteria);
 
-        $entity->setNuValor($nuValor);
-        $entity->setDtCadastro(new \DateTime());
+        $nuValorCreditar = $this->getService('service.transacao')->getNuValorCreditar(
+            $idFranqueadorUsuario,
+            str_replace(",", ".", str_replace(".", "", $dadosArquivo['nuValor']))
+        );
+
+        $entity->setNuValor($nuValorCreditar);
         $entity->setStAtivo(true);
+        $entity->setDtCadastro(new \DateTime());
 
         $this->persist($entity);
+
+        $nuBonusCreditar = $this->getService('service.bonus')->getBonusCreditar(
+            $idFranqueadorUsuario,
+            str_replace(",", ".", str_replace(".", "", $dadosArquivo['nuValor']))
+        );
+
+        $this->getService('service.bonus')->setBonus($idFranqueadorUsuario, $nuBonusCreditar);
     }
 
     public function getDetailFile($path, $filename)
