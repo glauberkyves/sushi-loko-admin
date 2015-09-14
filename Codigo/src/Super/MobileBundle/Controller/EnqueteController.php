@@ -68,6 +68,7 @@ class EnqueteController extends AbstractMobile
                     $this->add('responderFeedback', true);
                     $this->add('feedback', array(
                         'idFranquia' => $idRequisicao->getIdTransacao()->getIdFranquia()->getIdFranquia(),
+                        'noFranquia' => $idRequisicao->getIdTransacao()->getIdFranquia()->getNoFranquia(),
                         'idRequisicao' => $idRequisicao->getIdRequisacaoTransacao(),
                         'noPergunta' => $idFeedback->getNoFeedback(),
                         'arrResposta' => $arrResposta
