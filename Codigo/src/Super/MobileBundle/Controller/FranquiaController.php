@@ -93,13 +93,11 @@ class FranquiaController extends AbstractMobile
             $idCardapio = $idFranquia->getIdCardapio();
 
             foreach($idCardapio->getIdProduto() as $key => $idProduto) {
-                if($idProduto->getStAtivo()) {
-                    $arrProduto[$key] = array(
-                        'noProduto' => $idProduto->getNoProduto(),
-                        'nuValor'   => $idProduto->getNuValor(),
-                        'noImagem'  => $this->getService()->siteURL().$idProduto->getNoImagem()
-                    );
-                }
+                $arrProduto[$key] = array(
+                    'noProduto' => $idProduto->getNoProduto(),
+                    'nuValor'   => $idProduto->getNuValor(),
+                    'noImagem'  => $this->getService()->siteURL().$idProduto->getNoImagem()
+                );
             }
 
             if($arrProduto) {

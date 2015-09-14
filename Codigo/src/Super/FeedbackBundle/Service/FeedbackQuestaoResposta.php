@@ -30,10 +30,12 @@ class FeedbackQuestaoResposta extends CrudService
 
             $this->persist($entity);
 
-            $idRequisicao = $this->getService('service.requisicao_transacao')->find($args['idRequisicao']);
-            $idRequisicao->setIdFeedbackQuestaoResposta($entity);
+            if ($idRequisicao = $args['idRequisicao']) {
+                $idRequisicao = $this->getService('service.requisicao_transacao')->find($idRequisicao);
+                $idRequisicao->setIdFeedbackQuestaoResposta($entity);
 
-            $this->persist($idRequisicao);
+                $this->persist($idRequisicao);
+            }
 
             return $entity;
         }

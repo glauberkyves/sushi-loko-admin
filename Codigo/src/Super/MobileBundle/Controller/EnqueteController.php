@@ -11,25 +11,28 @@ class EnqueteController extends AbstractMobile
 {
     /**
      * Listar enquetes de um franqueador
-     * @param idFranqueador, idUsuario, ultimoCodigo
+     * @param idFranqueador, idUsuario
      * @return Response
-     * @todo ID_FRANQUIA e ID_FEEDBACK está fixo!
      */
     public function listarAction()
     {
         $request       = $this->getRequest();
 
-        $arrSend       = $this->getService('service.transacao')->getSendTagsByIdUsuario($request->idUsuario);
-        $arrRemove     = $this->getService('service.transacao')->getRemoveTagsByIdUsuario($request->idUsuario);
+        $srvTransacao  = $this->getService('service.transacao');
+        $srvUsuario    = $this->getService('service.usuario');
+        $srvEnquete    = $this->getService('service.enquete');
+        $srvFeedback   = $this->getService('service.feedback');
+        $srvRequisicao = $this->getService('service.requisicao_transacao');
 
-        $idRequisicao  = $this->getService('service.requisicao_transacao')->findOneByNoSenha($request->ultimoCodigo);
-        $idUsuario     = $this->getService('service.usuario')->find($request->idUsuario);
-        $idFeedback    = $this->getService('service.feedback')->findOneByStAtivo(true);
-        $idEnquete     = $this->getService('service.enquete')->listarEnqueteByIdUsuario(
-            $request->idFranqueador,
-            $request->idUsuario
-        );
-        $idEnquete = $this->getService('service.enquete')->find($idEnquete);
+        $arrSend       = $srvTransacao->getSendTagsByIdUsuario($request->idUsuario);
+        $arrRemove     = $srvTransacao->getRemoveTagsByIdUsuario($request->idUsuario);
+
+        $idUsuario     = $srvUsuario->find($request->idUsuario);
+        $idFeedback    = $srvFeedback->findOneByStAtivo(true);
+        $idEnquete     = $srvEnquete->listarEnqueteByIdUsuario($request->idFranqueador, $request->idUsuario);
+        $idEnquete     = $srvEnquete->find($idEnquete);
+        $idRequisicao  = $srvRequisicao->getUltimaTransacao($request->idUsuario);
+
 
         if ($idEnquete) {
             $arrResposta = array();
@@ -50,27 +53,32 @@ class EnqueteController extends AbstractMobile
         }
 
         //caso não tenha respondido a ultima requisicao
-        if(!$idRequisicao->getIdFeedbackQuestaoResposta()->getIdFeedbackQuestaoResposta()) {
-            $arrResposta = array();
-            foreach ($idFeedback->getIdFeedbackQuestao() as $idQuestao) {
-                $arrResposta[] = array(
-                    'idResposta' => $idQuestao->getIdFeedbackQuestao(),
-                    'noResposta' => $idQuestao->getNoQuestao()
-                );
+        $this->add('responderFeedback', false);
+
+        if($idRequisicao) {
+            if (!$idRequisicao->getIdFeedbackQuestaoResposta()->getIdFeedbackQuestaoResposta()) {
+                if($idRequisicao->getIdTransacao()->getIdFranquia()) {
+                    $arrResposta = array();
+                    foreach ($idFeedback->getIdFeedbackQuestao() as $idQuestao) {
+                        $arrResposta[] = array(
+                            'idResposta' => $idQuestao->getIdFeedbackQuestao(),
+                            'noResposta' => $idQuestao->getNoQuestao()
+                        );
+                    }
+                    $this->add('responderFeedback', true);
+                    $this->add('feedback', array(
+                        'idFranquia' => $idRequisicao->getIdTransacao()->getIdFranquia()->getIdFranquia(),
+                        'idRequisicao' => $idRequisicao->getIdRequisacaoTransacao(),
+                        'noPergunta' => $idFeedback->getNoFeedback(),
+                        'arrResposta' => $arrResposta
+                    ));
+                }
             }
-            $this->add('responderFeedback', true);
-            $this->add('feedback', array(
-                'idFeedback'   => $idFeedback->getIdFeedback(),
-                'idFranquia'   => $idRequisicao->getIdTransacao()->getIdFranquia()->getIdFranquia(),
-                'idRequisicao' => $idRequisicao->getIdRequisacaoTransacao(),
-                'noPergunta'   => $idFeedback->getNoFeedback(),
-                'arrResposta'  => $arrResposta
-            ));
-        } else {
-            $this->add('responderFeedback', false);
         }
 
         //caso exista um feedback ativo
+        $this->add('opiniaoAtiva', false);
+
         if($idFeedback) {
             $arrResposta = array();
             foreach ($idFeedback->getIdFeedbackQuestao() as $idQuestao) {
@@ -81,12 +89,9 @@ class EnqueteController extends AbstractMobile
             }
             $this->add('opiniaoAtiva', true);
             $this->add('opiniao', array(
-                'idFeedback'  => $idFeedback->getIdFeedback(),
                 'noPergunta'  => $idFeedback->getNoFeedback(),
                 'arrResposta' => $arrResposta
             ));
-        } else {
-            $this->add('responderOpiniao', false);
         }
 
         $this->add('possuiBonus', false);
