@@ -100,11 +100,10 @@ class Mobile extends CrudService
      * @return string
      */
     public function siteURL() {
-        $protocol   = "http://";
-        $domainName = $_SERVER['HTTP_HOST'];
+        $protocol = "http://";
         if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) {
             $protocol = "https://";
         }
-        return $protocol.$domainName;
+        return $protocol.$_SERVER['HTTP_HOST'];
     }
 }

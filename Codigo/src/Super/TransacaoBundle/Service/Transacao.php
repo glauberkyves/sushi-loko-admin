@@ -14,34 +14,33 @@ class Transacao extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbTransacao';
 
-    public function saque(TbUsuario $idUsuario, TbFranquia $idFranquia, $nuValor)
+    public function saque(TbUsuario $idUsuario, TbFranquia $idFranquia, $requisicaoTransacao = null)
     {
+        $nuValor      = $requisicaoTransacao->getNuValor();
         $totalCredito = $this->getCreditosUsuario(
             $idUsuario->getIdUsuario(),
             $idFranquia->getIdFranqueador()->getIdFranqueador()
         );
+        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::DEBITO);
 
         if ($nuValor > $totalCredito) {
             throw new \Exception('Valor a ser utilizado é maior do que total de créditos.');
         }
 
         $entity = new TbTransacao();
+
         $entity->setIdFranquia($idFranquia);
         $entity->setIdUsuario($idUsuario);
-
+        $entity->setIdRequisacaoTransacao($requisicaoTransacao);
         $entity->setIdOperador($this->getUser());
         $entity->setIdArquivo(null);
-
-        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::DEBITO);
         $entity->setIdTipoTransacao($idTipoTransacao);
-
         $entity->setNuValor(substr_replace($nuValor, '.', strlen($nuValor) - 3, 1));
         $entity->setDtCadastro(new \DateTime());
         $entity->setStAtivo(true);
 
         try {
             $this->persist($entity);
-
         } catch (\Exception $exp) {
             throw new \Exception('Erro ao utilizar créditos.');
         }

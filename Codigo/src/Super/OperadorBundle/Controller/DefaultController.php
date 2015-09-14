@@ -109,7 +109,7 @@ class DefaultController extends CrudController
                             $params['nuValor']          = $srvTransacao->getCreditosUsuario($user->getIdUsuario(), $idFranqueador);
                             $params['nuValorUtilizado'] = $solicitacaoTransacao->getNuValor();
 
-                            $srvTransacao->saque($user, $idFranquia, $solicitacaoTransacao->getNuValor());
+                            $srvTransacao->saque($user, $idFranquia, $solicitacaoTransacao);
                             $params['nuValorTotal'] = $srvTransacao->getCreditosUsuario($user->getIdUsuario(), $idFranqueador);
 
                             $solicitacaoTransacao->setStUtilizado(true);

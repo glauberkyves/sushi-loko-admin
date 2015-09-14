@@ -15,24 +15,20 @@ class FeedbackQuestaoResposta extends CrudService
 {
     protected $entityName = 'Base\BaseBundle\Entity\TbFeedbackQuestaoResposta';
 
-    public function adicionar(
-        $idUsuario   = null,
-        $idFranquia  = null,
-        $idFeedback  = null,
-        $resposta = array(),
-        $dsResposta  = null)
+    public function adicionar($args = array())
     {
-        $idQuestao = $this->getService('service.feedback_questao')->find($resposta->idResposta);
+        if ($args) {
+            $entity = new TbFeedbackQuestaoResposta();
 
-        $entity = new TbFeedbackQuestaoResposta();
+            $entity->setIdFeedbackQuestao($args['idQuestao']);
+            $entity->setNuResposta($args['nuResposta']);
+            $entity->setIdUsuario($args['idUsuario']);
+            $entity->setIdFranquia($args['idFranquia']);
+            $entity->setIdTipoFeedback($args['idTipoFeedback']);
+            $entity->setDsResposta($args['dsResposta']);
+            $entity->setDtCadastro(new \DateTime());
 
-        $entity->setIdFeedbackQuestao($idQuestao);
-        $entity->setNuResposta($resposta->nuResposta);
-        $entity->setIdUsuario($idUsuario);
-        $entity->setIdFranquia($idFranquia);
-        $entity->setDsResposta($dsResposta);
-        $entity->setDtCadastro(new \DateTime());
-
-        $this->persist($entity);
+            $this->persist($entity);
+        }
     }
 }

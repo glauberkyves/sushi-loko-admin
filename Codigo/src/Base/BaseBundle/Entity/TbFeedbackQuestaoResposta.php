@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbFeedbackQuestaoResposta
  *
- * @ORM\Table(name="tb_feedback_questao_resposta", indexes={@ORM\Index(name="id_feedback", columns={"id_feedback"}), @ORM\Index(name="id_usuario", columns={"id_usuario"}), @ORM\Index(name="id_feedback_questao", columns={"id_feedback_questao"})})
+ * @ORM\Table(name="tb_feedback_questao_resposta", indexes={@ORM\Index(name="id_usuario", columns={"id_usuario"}), @ORM\Index(name="id_feedback_questao", columns={"id_feedback_questao"}), @ORM\Index(name="id_franquia", columns={"id_franquia"}), @ORM\Index(name="id_tipo_feedback", columns={"id_tipo_feedback"})})
  * @ORM\Entity
  */
 class TbFeedbackQuestaoResposta extends AbstractEntity
@@ -20,6 +20,20 @@ class TbFeedbackQuestaoResposta extends AbstractEntity
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idFeedbackQuestaoResposta;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_resposta", type="integer", nullable=true)
+     */
+    private $nuResposta;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ds_resposta", type="text", length=65535, nullable=true)
+     */
+    private $dsResposta;
 
     /**
      * @var \DateTime
@@ -39,30 +53,6 @@ class TbFeedbackQuestaoResposta extends AbstractEntity
     private $idUsuario;
 
     /**
-     * @var \TbFranquia
-     *
-     * @ORM\ManyToOne(targetEntity="TbFranquia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_franquia", referencedColumnName="id_franquia")
-     * })
-     */
-    private $idFranquia;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="nu_resposta", type="integer", nullable=false)
-     */
-    private $nuResposta;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ds_resposta", type="text", length=65535, nullable=true)
-     */
-    private $dsResposta;
-
-    /**
      * @var \TbFeedbackQuestao
      *
      * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFeedbackQuestao")
@@ -71,6 +61,26 @@ class TbFeedbackQuestaoResposta extends AbstractEntity
      * })
      */
     private $idFeedbackQuestao;
+
+    /**
+     * @var \TbFranquia
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFranquia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_franquia", referencedColumnName="id_franquia")
+     * })
+     */
+    private $idFranquia;
+
+    /**
+     * @var \TbTipoFeedback
+     *
+     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbTipoFeedback")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_tipo_feedback", referencedColumnName="id_tipo_feedback")
+     * })
+     */
+    private $idTipoFeedback;
 
     /**
      * @return int
@@ -86,54 +96,6 @@ class TbFeedbackQuestaoResposta extends AbstractEntity
     public function setIdFeedbackQuestaoResposta($idFeedbackQuestaoResposta)
     {
         $this->idFeedbackQuestaoResposta = $idFeedbackQuestaoResposta;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDtCadastro()
-    {
-        return $this->dtCadastro;
-    }
-
-    /**
-     * @param \DateTime $dtCadastro
-     */
-    public function setDtCadastro($dtCadastro)
-    {
-        $this->dtCadastro = $dtCadastro;
-    }
-
-    /**
-     * @return \TbUsuario
-     */
-    public function getIdUsuario()
-    {
-        return $this->idUsuario;
-    }
-
-    /**
-     * @param \TbUsuario $idUsuario
-     */
-    public function setIdUsuario($idUsuario)
-    {
-        $this->idUsuario = $idUsuario;
-    }
-
-    /**
-     * @return \TbFranquia
-     */
-    public function getIdFranquia()
-    {
-        return $this->idFranquia;
-    }
-
-    /**
-     * @param \TbFranquia $idFranquia
-     */
-    public function setIdFranquia($idFranquia)
-    {
-        $this->idFranquia = $idFranquia;
     }
 
     /**
@@ -169,6 +131,38 @@ class TbFeedbackQuestaoResposta extends AbstractEntity
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getDtCadastro()
+    {
+        return $this->dtCadastro;
+    }
+
+    /**
+     * @param \DateTime $dtCadastro
+     */
+    public function setDtCadastro($dtCadastro)
+    {
+        $this->dtCadastro = $dtCadastro;
+    }
+
+    /**
+     * @return \TbUsuario
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    /**
+     * @param \TbUsuario $idUsuario
+     */
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    /**
      * @return \TbFeedbackQuestao
      */
     public function getIdFeedbackQuestao()
@@ -182,5 +176,37 @@ class TbFeedbackQuestaoResposta extends AbstractEntity
     public function setIdFeedbackQuestao($idFeedbackQuestao)
     {
         $this->idFeedbackQuestao = $idFeedbackQuestao;
+    }
+
+    /**
+     * @return \TbFranquia
+     */
+    public function getIdFranquia()
+    {
+        return $this->idFranquia;
+    }
+
+    /**
+     * @param \TbFranquia $idFranquia
+     */
+    public function setIdFranquia($idFranquia)
+    {
+        $this->idFranquia = $idFranquia;
+    }
+
+    /**
+     * @return \TbTipoFeedback
+     */
+    public function getIdTipoFeedback()
+    {
+        return $this->idTipoFeedback;
+    }
+
+    /**
+     * @param \TbTipoFeedback $idTipoFeedback
+     */
+    public function setIdTipoFeedback($idTipoFeedback)
+    {
+        $this->idTipoFeedback = $idTipoFeedback;
     }
 }

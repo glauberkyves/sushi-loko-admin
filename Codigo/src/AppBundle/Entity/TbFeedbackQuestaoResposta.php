@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbFeedbackQuestaoResposta
  *
- * @ORM\Table(name="tb_feedback_questao_resposta", indexes={@ORM\Index(name="id_feedback", columns={"id_feedback"}), @ORM\Index(name="id_usuario", columns={"id_usuario"}), @ORM\Index(name="id_feedback_questao", columns={"id_feedback_questao"}), @ORM\Index(name="id_franquia", columns={"id_franquia"})})
+ * @ORM\Table(name="tb_feedback_questao_resposta", indexes={@ORM\Index(name="id_usuario", columns={"id_usuario"}), @ORM\Index(name="id_feedback_questao", columns={"id_feedback_questao"}), @ORM\Index(name="id_franquia", columns={"id_franquia"}), @ORM\Index(name="id_tipo_feedback", columns={"id_tipo_feedback"})})
  * @ORM\Entity
  */
 class TbFeedbackQuestaoResposta
@@ -24,7 +24,7 @@ class TbFeedbackQuestaoResposta
     /**
      * @var integer
      *
-     * @ORM\Column(name="nu_resposta", type="integer", nullable=false)
+     * @ORM\Column(name="nu_resposta", type="integer", nullable=true)
      */
     private $nuResposta;
 
@@ -41,16 +41,6 @@ class TbFeedbackQuestaoResposta
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
-
-    /**
-     * @var \TbFeedback
-     *
-     * @ORM\ManyToOne(targetEntity="TbFeedback")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_feedback", referencedColumnName="id_feedback")
-     * })
-     */
-    private $idFeedback;
 
     /**
      * @var \TbUsuario
@@ -81,6 +71,16 @@ class TbFeedbackQuestaoResposta
      * })
      */
     private $idFranquia;
+
+    /**
+     * @var \TbTipoFeedback
+     *
+     * @ORM\ManyToOne(targetEntity="TbTipoFeedback")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_tipo_feedback", referencedColumnName="id_tipo_feedback")
+     * })
+     */
+    private $idTipoFeedback;
 
 
 }

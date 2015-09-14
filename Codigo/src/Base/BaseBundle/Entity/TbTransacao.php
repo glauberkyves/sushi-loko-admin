@@ -103,6 +103,16 @@ class TbTransacao extends AbstractEntity
     private $idUsuario;
 
     /**
+     * @var \TbRequisacaoTransacao
+     *
+     * @ORM\ManyToOne(targetEntity="TbRequisacaoTransacao")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_requisacao_transacao", referencedColumnName="id_requisacao_transacao")
+     * })
+     */
+    private $idRequisacaoTransacao;
+
+    /**
      * @return int
      */
     public function getIdTransacao()
@@ -262,6 +272,20 @@ class TbTransacao extends AbstractEntity
         $this->idFranqueador = $idFranqueador;
     }
 
+    /**
+     * @return \TbRequisacaoTransacao
+     */
+    public function getIdRequisacaoTransacao()
+    {
+        return $this->idRequisacaoTransacao;
+    }
 
+    /**
+     * @param \TbRequisacaoTransacao $idRequisacaoTransacao
+     */
+    public function setIdRequisacaoTransacao($idRequisacaoTransacao)
+    {
+        $this->idRequisacaoTransacao = $idRequisacaoTransacao;
+    }
 }
 

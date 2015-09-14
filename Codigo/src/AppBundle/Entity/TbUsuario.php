@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbUsuario
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_usuario", type="integer", nullable=false)
      * @ORM\Id
@@ -29,7 +29,7 @@ class TbUsuario
     private $noSenha;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
@@ -38,14 +38,14 @@ class TbUsuario
     /**
      * @var string
      *
-     * @ORM\Column(name="no_latitude", type="string", length=250, nullable=true)
+     * @ORM\Column(name="no_latitude", type="string", length=250, nullable=false)
      */
     private $noLatitude;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="no_longitude", type="string", length=250, nullable=true)
+     * @ORM\Column(name="no_longitude", type="string", length=250, nullable=false)
      */
     private $noLongitude;
 

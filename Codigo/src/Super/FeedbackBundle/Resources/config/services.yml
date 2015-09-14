@@ -11,3 +11,6 @@ services:
     service.feedback_questao_resposta:
         class: Super\FeedbackBundle\Service\FeedbackQuestaoResposta
         arguments:  ["@service_container"]
+    service.tipo_feedback:
+        class: Super\FeedbackBundle\Service\TipoFeedback
+        arguments:  ["@service_container"]

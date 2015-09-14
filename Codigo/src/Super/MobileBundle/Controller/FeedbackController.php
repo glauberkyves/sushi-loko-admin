@@ -12,25 +12,30 @@ class FeedbackController extends AbstractMobile
 {
     /**
      * Responder feedback
-     * @param idFeedback, idUsuario, idFranquia, dsResposta, arrResposta[idResposta, nuResposta]
+     * @param idFeedback, idUsuario, idFranquia, dsResposta, tipo, arrResposta[idResposta, nuResposta]
      * @return Response
      */
     public function responderAction()
     {
         $request = $this->getRequest();
 
-        $idUsuario  = $this->getService('service.usuario')->find($request->idUsuario);
-        $idFranquia = $this->getService('service.franquia')->find($request->idFranquia);
-        $idFeedback = $this->getService('service.feedback')->find($request->idFeedback);
+        $idUsuario      = $this->getService('service.usuario')->find($request->idUsuario);
+        $idFranquia     = $this->getService('service.franquia')->find($request->idFranquia);
+        $idTipoFeedback = $this->getService('service.tipo_feedback')->find($request->tipo);
 
         if($idUsuario) {
             foreach ($request->arrResposta as $resposta) {
+                $idQuestao = $this->getService('service.feedback_questao')->find($resposta->idResposta);
+
                 $this->getService('service.feedback_questao_resposta')->adicionar(
-                    $idUsuario,
-                    $idFranquia,
-                    $idFeedback,
-                    $resposta,
-                    $request->dsResposta
+                    array(
+                        'idUsuario'      => $idUsuario,
+                        'idFranquia'     => $idFranquia,
+                        'idTipoFeedback' => $idTipoFeedback,
+                        'idQuestao'      => $idQuestao,
+                        'nuResposta'     => $resposta->nuResposta,
+                        'dsResposta'     => $request->dsResposta
+                    )
                 );
             }
 
