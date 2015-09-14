@@ -12,7 +12,7 @@ class FeedbackController extends AbstractMobile
 {
     /**
      * Responder feedback
-     * @param idFeedback, idUsuario, idFranquia, dsResposta, tipo, arrResposta[idResposta, nuResposta]
+     * @param idUsuario, idFranquia, dsResposta, tipo, idRequisicao, arrResposta[idResposta, nuResposta]
      * @return Response
      */
     public function responderAction()
@@ -34,7 +34,8 @@ class FeedbackController extends AbstractMobile
                         'idTipoFeedback' => $idTipoFeedback,
                         'idQuestao'      => $idQuestao,
                         'nuResposta'     => $resposta->nuResposta,
-                        'dsResposta'     => $request->dsResposta
+                        'dsResposta'     => $request->dsResposta,
+                        'idRequisicao'   => $request->idRequisicao
                     )
                 );
             }

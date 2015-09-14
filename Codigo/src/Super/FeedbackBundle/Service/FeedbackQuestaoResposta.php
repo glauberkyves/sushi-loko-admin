@@ -29,6 +29,13 @@ class FeedbackQuestaoResposta extends CrudService
             $entity->setDtCadastro(new \DateTime());
 
             $this->persist($entity);
+
+            $idRequisicao = $this->getService('service.requisicao_transacao')->find($args['idRequisicao']);
+            $idRequisicao->setIdFeedbackQuestaoResposta($entity);
+
+            $this->persist($idRequisicao);
+
+            return $entity;
         }
     }
 }

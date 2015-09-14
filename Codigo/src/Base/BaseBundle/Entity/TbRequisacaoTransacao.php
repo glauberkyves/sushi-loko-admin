@@ -77,6 +77,23 @@ class TbRequisacaoTransacao extends AbstractEntity
     private $idUsuario;
 
     /**
+     * @var \TbFeedbackQuestaoResposta
+     *
+     * @ORM\ManyToOne(targetEntity="TbFeedbackQuestaoResposta")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_feedback_questao_resposta", referencedColumnName="id_feedback_questao_resposta")
+     * })
+     */
+    private $idFeedbackQuestaoResposta;
+
+    /**
+     * @var TbTransacao
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbTransacao", mappedBy="idRequisacaoTransacao")
+     */
+    protected $idTransacao;
+
+    /**
      * @return int
      */
     public function getIdRequisacaoTransacao()
@@ -204,6 +221,36 @@ class TbRequisacaoTransacao extends AbstractEntity
         $this->stAtivo = $stAtivo;
     }
 
+    /**
+     * @return TbTransacao
+     */
+    public function getIdTransacao()
+    {
+        return $this->idTransacao ?: new TbTransacao();
 
+    }
 
+    /**
+     * @param TbTransacao $idTransacao
+     */
+    public function setIdTransacao($idTransacao)
+    {
+        $this->idTransacao = $idTransacao;
+    }
+
+    /**
+     * @return \TbFeedbackQuestaoResposta
+     */
+    public function getIdFeedbackQuestaoResposta()
+    {
+        return $this->idFeedbackQuestaoResposta ?: new TbFeedbackQuestaoResposta();
+    }
+
+    /**
+     * @param \TbFeedbackQuestaoResposta $idFeedbackQuestaoResposta
+     */
+    public function setIdFeedbackQuestaoResposta($idFeedbackQuestaoResposta)
+    {
+        $this->idFeedbackQuestaoResposta = $idFeedbackQuestaoResposta;
+    }
 }
