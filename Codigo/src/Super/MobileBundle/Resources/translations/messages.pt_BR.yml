@@ -44,5 +44,6 @@ mobile_bundle:
             error_usuario: Usuário não encontrado para esta rede de franquias.
             error_valor: Você não possui bônus suficientes para esta operação.
             error_valor_zero: O valor informado deve ser maior que zero.
+            error_valor_minimo: Valor mínimo não atingido.
             error_senha: A senha informada não confere.
             exception: Erro inesperado ao gerar a senha, por favor tente novamente.

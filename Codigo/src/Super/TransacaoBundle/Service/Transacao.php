@@ -2,6 +2,7 @@
 namespace Super\TransacaoBundle\Service;
 
 use Base\BaseBundle\Entity\TbFranqueador;
+use Base\BaseBundle\Entity\TbFranqueadorUsuario;
 use Base\BaseBundle\Entity\TbFranquia;
 use Base\BaseBundle\Entity\TbRequisacaoTransacao;
 use Base\BaseBundle\Entity\TbTransacao;
@@ -21,7 +22,7 @@ class Transacao extends CrudService
         );
 
         if ($nuValor > $totalCredito) {
-            throw new \Exception('Valor a ser utilizado é maior do que total de créditos.');
+            throw new \Exception('Valor a ser utilizado Ã© maior do que total de crÃ©ditos.');
         }
 
         $entity = new TbTransacao();
@@ -42,7 +43,31 @@ class Transacao extends CrudService
             $this->persist($entity);
 
         } catch (\Exception $exp) {
-            throw new \Exception('Erro ao utilizar créditos.');
+            throw new \Exception('Erro ao utilizar crÃ©ditos.');
+        }
+    }
+
+    public function setCredito(TbUsuario $idUsuario, TbFranqueador $idFranqueador, $nuValor = 0)
+    {
+        $transacao = new TbTransacao();
+        $transacao->setIdFranqueador($idFranqueador);
+        $transacao->setIdUsuario($idUsuario);
+
+        $transacao->setIdOperador(null);
+        $transacao->setIdArquivo(null);
+
+        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO);
+        $transacao->setIdTipoTransacao($idTipoTransacao);
+
+        $transacao->setNuValor($nuValor);
+        $transacao->setDtCadastro(new \DateTime());
+        $transacao->setStAtivo(true);
+
+        try {
+            $this->persist($transacao);
+
+        } catch (\Exception $exp) {
+            throw new \Exception('Erro ao inserir crÃ©ditos.');
         }
     }
 
@@ -78,7 +103,7 @@ class Transacao extends CrudService
             return $entity->getNoSenha();
 
         } catch (\Exception $exp) {
-            throw new \Exception('Erro ao solicitar créditos.');
+            throw new \Exception('Erro ao solicitar crÃ©ditos.');
         }
     }
 
@@ -98,24 +123,6 @@ class Transacao extends CrudService
         $this->persist($entityJustificativa);
     }
 
-    public function getCreditoProcessado($idFranqueador, $idUsuario)
-    {
-        $franqueadorUsuario = $this->getService('service.franqueador_usuario')->findOneBy(array(
-            'idUsuario'     => $idUsuario,
-            'idFranqueador' => $idFranqueador
-        ));
-
-        if (!$franqueadorUsuario) {
-            return false;
-        }
-
-        echo '<pre>';
-        \Doctrine\Common\Util\Debug::dump($this->isValidResgate($idFranqueador, $idUsuario, 99));
-        die;
-
-
-    }
-
     public function isValidResgate($idFranqueador, $idUsuario, $nuValor = 0)
     {
         $franqueadorUsuario = $this->getService('service.franqueador_usuario')->findOneBy(array(
@@ -130,5 +137,16 @@ class Transacao extends CrudService
         return $nuValor >= $franqueadorUsuario
             ->getIdFranqueador()
             ->getNuValorMinimoResgate() ? true : false;
+    }
+
+    public function getNuValorCreditar(TbFranqueadorUsuario $idFranqueadorUsuario, $nuValor = 0.0)
+    {
+        $valor = ($nuValor / 100) * $idFranqueadorUsuario->getIdFranqueador()->getNuPorcentagemBonusTransacao();
+
+        if ($idFranqueadorUsuario->getIdFranqueador()->getStNiveis()) {
+            $valor += $this->getService('service.bonus')->getPontosExtra($idFranqueadorUsuario, $nuValor);
+        }
+
+        return $valor;
     }
 }

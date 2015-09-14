@@ -90,7 +90,7 @@
                             <form class="form-horizontal tasi-form" method="post" novalidate="novalidate">
                                 <div class="activity blue">
                                   <span>
-                                      <i class="fa  fa-cutlery"></i>
+                                      <i class="fa fa-credit-card"></i>
                                   </span>
 
                                     <div class="activity-desk">
@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
 
-                                <div class="activity green">
+                                <div class="activity purple">
                                   <span>
                                       <i class="fa  fa-cutlery"></i>
                                   </span>
@@ -119,6 +119,24 @@
                                                 <h4>Total Utilizado</h4>
 
                                                 <h1 id="total-credito">R$ {{ nuValorUtilizado|number_format(2, ',', '.') }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="activity green">
+                                  <span>
+                                      <i class="fa  fa-thumbs-o-up"></i>
+                                  </span>
+
+                                    <div class="activity-desk">
+                                        <div class="panel col-md-12">
+                                            <div class="panel-body">
+                                                <div class="arrow"></div>
+                                                <i class=" fa fa-money"></i>
+                                                <h4>Total Restante</h4>
+
+                                                <h1 id="total-credito">R$ {{ nuValorTotal|number_format(2, ',', '.') }}</h1>
                                             </div>
                                         </div>
                                     </div>

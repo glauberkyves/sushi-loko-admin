@@ -71,7 +71,21 @@ class TbFranqueador extends AbstractEntity
     private $nuPorcentagemBonusTransacao;
 
     /**
-     * @var \DateTime
+     * @var integer
+     *
+     * @ORM\Column(name="nu_pontos_bonus_cadastro", type="integer", nullable=true)
+     */
+    private $nuPontosBonusCadastro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_valor_bonus_cadastro", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $nuValorBonusCadastro;
+
+    /**
+     * @var integer
      *
      * @ORM\Column(name="nu_validade_bonus", type="integer", nullable=false)
      */
@@ -83,6 +97,13 @@ class TbFranqueador extends AbstractEntity
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
     private $stAtivo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dt_inicio_cadastro", type="datetime", nullable=true)
+     */
+    private $dtInicioCadastro;
 
     /**
      * @var \DateTime
@@ -450,6 +471,54 @@ class TbFranqueador extends AbstractEntity
     public function setIdConfiguracaoFtp($idConfiguracaoFtp)
     {
         $this->idConfiguracaoFtp = $idConfiguracaoFtp;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getNuPontosBonusCadastro()
+    {
+        return $this->nuPontosBonusCadastro;
+    }
+
+    /**
+     * @param \DateTime $nuPontosBonusCadastro
+     */
+    public function setNuPontosBonusCadastro($nuPontosBonusCadastro)
+    {
+        $this->nuPontosBonusCadastro = $nuPontosBonusCadastro;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNuValorBonusCadastro()
+    {
+        return $this->nuValorBonusCadastro;
+    }
+
+    /**
+     * @param string $nuValorBonusCadastro
+     */
+    public function setNuValorBonusCadastro($nuValorBonusCadastro)
+    {
+        $this->nuValorBonusCadastro = $nuValorBonusCadastro;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtInicioCadastro()
+    {
+        return $this->dtInicioCadastro;
+    }
+
+    /**
+     * @param \DateTime $dtInicioCadastro
+     */
+    public function setDtInicioCadastro($dtInicioCadastro)
+    {
+        $this->dtInicioCadastro = $dtInicioCadastro;
     }
 
 

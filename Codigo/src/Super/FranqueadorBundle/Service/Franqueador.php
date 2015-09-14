@@ -3,6 +3,7 @@
 namespace Super\FranqueadorBundle\Service;
 
 use Base\BaseBundle\Entity\AbstractEntity;
+use Base\BaseBundle\Service\Data;
 use Base\CrudBundle\Service\CrudService;
 use Super\UsuarioBundle\Service\Perfil;
 
@@ -15,11 +16,14 @@ class Franqueador extends CrudService
         $request = $this->getRequest()->request;
 
         $this->entity->setNuCnpj($this->getRequest()->request->getDigits('nuCnpj'));
-        $this->entity->setNuValorMinimoResgate($request->getDigits('nuValorMinimoResgate'));
+        $this->entity->setNuValorMinimoResgate($this->converteValor($request->get('nuValorMinimoResgate')));
         $this->entity->setNuPontosTransacao($request->getDigits('nuPontosTransacao'));
         $this->entity->setNuPorcentagemBonusTransacao($request->getDigits('nuPorcentagemBonusTransacao'));
+        $this->entity->setNuPontosBonusCadastro($request->getDigits('nuPontosBonusCadastro'));
+        $this->entity->setNuValorBonusCadastro($this->converteValor($request->get('nuValorBonusCadastro')));
         $this->entity->setNuValidadeBonus($request->getDigits('nuValidadeBonus'));
         $this->entity->setStNiveis($request->getInt('stNiveis'));
+        $this->entity->setDtInicioCadastro(Data::dateBr($request->get('dtInicioCadastro')));
 
         if ($request->get('idOperador')) {
             $idOperador = $this->getService('service.usuario')->find($request->get('idOperador'));
@@ -84,5 +88,10 @@ class Franqueador extends CrudService
     public function postSave(AbstractEntity $entity = null)
     {
         $this->getService('service.configuracao_franquia_nivel')->saveConfiguracaoNivel($this->entity);
+    }
+
+    public function converteValor($nuValor)
+    {
+        return str_replace(",", ".", str_replace(".", "", $nuValor));
     }
 }

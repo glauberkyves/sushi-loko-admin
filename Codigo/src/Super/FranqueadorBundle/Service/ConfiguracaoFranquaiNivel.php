@@ -22,10 +22,9 @@ class ConfiguracaoFranquaiNivel extends CrudService
             $entity = $this->newEntity();
 
             $entity->setNoNivel($nives['noNivel'][$i]);
-            $entity->setNuValorBonusCadastro($nives['nuValorBonusCadastro'][$i]);
             $entity->setNuPorcentagemPontosExtra($nives['nuPorcentagemPontosExtra'][$i]);
             $entity->setNuQuantidadePontosNecessaio($nives['nuQuantidadePontosNecessaio'][$i]);
-            $entity->setNuPontosBonusCadastro($nives['nuPontosBonusCadastro'][$i]);
+            $entity->setNuQuantidadePontosPorAtingir($nives['nuQuantidadePontosPorAtingir'][$i]);
             $entity->setDtCadastro(new \DateTime());
             $entity->setIdFranqueador($franqueador);
 

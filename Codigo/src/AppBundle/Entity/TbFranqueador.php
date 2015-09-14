@@ -73,6 +73,20 @@ class TbFranqueador
     /**
      * @var integer
      *
+     * @ORM\Column(name="nu_pontos_bonus_cadastro", type="integer", nullable=true)
+     */
+    private $nuPontosBonusCadastro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_valor_bonus_cadastro", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $nuValorBonusCadastro;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="nu_validade_bonus", type="integer", nullable=false)
      */
     private $nuValidadeBonus;
@@ -83,6 +97,13 @@ class TbFranqueador
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
     private $stAtivo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dt_inicio_cadastro", type="datetime", nullable=true)
+     */
+    private $dtInicioCadastro;
 
     /**
      * @var \DateTime

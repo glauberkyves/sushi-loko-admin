@@ -39,9 +39,9 @@ security:
         ROLE_USER:                [ROLE_USER]
 
     access_control:
-#         - { path: ^/administrador,                 roles: [ROLE_SUPER] }
-#         - { path: ^/franqueador,                   roles: [ROLE_FRANQUEADOR] }
-#         - { path: ^/franquia,                      roles: [ROLE_FRANQUIA] }
-#         - { path: ^/operador,                      roles: [ROLE_OPERADOR] }
-#         - { path: ^/utilizar-creditos$,            roles: [ROLE_OPERADOR] }
-#         - { path: ^/entrar.html$,         role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/administrador,                 roles: [ROLE_SUPER] }
+         - { path: ^/franqueador,                   roles: [ROLE_FRANQUEADOR] }
+         - { path: ^/franquia,                      roles: [ROLE_FRANQUIA] }
+         - { path: ^/operador,                      roles: [ROLE_OPERADOR] }
+         - { path: ^/utilizar-creditos$,            roles: [ROLE_OPERADOR] }
+         - { path: ^/entrar.html$,         role: IS_AUTHENTICATED_ANONYMOUSLY }

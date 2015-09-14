@@ -20,13 +20,12 @@ class UsuarioController extends AbstractMobile
     {
         $request = $this->getRequest();
 
-        $idFranqueador = $this->getService('service.franqueador')->find($request->idFranqueador);
-        $idUsuario     = $this->getService('service.usuario')->findOneBy(array(
-            'nuCpf' => $request->nuCpf
-        ));
+        $idFranqueadorUsuario = $this->getService('service.franqueador_usuario')->findUsuarioPorFranqueador(
+            $request->nuCpf,
+            $request->idFranqueador
+        );
 
-        if (!$idUsuario) {
-
+        if (!$idFranqueadorUsuario) {
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 2, 0);
             $request->dtNascimento = substr_replace($request->dtNascimento, '/', 5, 0);
 
@@ -38,7 +37,8 @@ class UsuarioController extends AbstractMobile
             $this->getParentRequest()->request->set('nuTelefone', $request->nuTelefone);
             $this->getParentRequest()->request->set('dtNascimento', Data::dateBr($request->dtNascimento));
 
-            $idUsuario = $this->getService('service.usuario')->save();
+            $idUsuario     = $this->getService('service.usuario')->save();
+            $idFranqueador = $this->getService('service.franqueador')->find($request->idFranqueador);
 
             if ($idUsuario) {
                 $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
@@ -58,7 +58,7 @@ class UsuarioController extends AbstractMobile
 
     /**
      * Login
-     * @param idFranqueador, nuCpf , noSenha
+     * @param idFranqueador , nuCpf , noSenha
      * @return Response
      */
     public function autenticarAction()
@@ -129,7 +129,7 @@ class UsuarioController extends AbstractMobile
 
     /**
      * Atualizar posicao do usuario
-     * @param idUsuario, noLatitude, noLongitude
+     * @param idUsuario , noLatitude, noLongitude
      * @return Response
      */
     public function atualizarPosicaoAction()
