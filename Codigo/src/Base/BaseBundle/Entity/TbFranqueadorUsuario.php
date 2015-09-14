@@ -58,7 +58,7 @@ class TbFranqueadorUsuario extends AbstractEntity
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbBonus", mappedBy="idFranqueadorUsuario")
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbBonus", mappedBy="idFranqueadorUsuario")
      */
     private $idBonus;
 

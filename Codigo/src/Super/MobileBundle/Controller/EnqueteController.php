@@ -23,7 +23,7 @@ class EnqueteController extends AbstractMobile
         $arrRemove     = $this->getService('service.transacao')->getRemoveTagsByIdUsuario($request->idUsuario);
 
         $idUsuario     = $this->getService('service.usuario')->find($request->idUsuario);
-        $idFeedback    = $this->getService('service.feedback')->find(5);
+        $idFeedback    = $this->getService('service.feedback')->find(3);
         $idEnquete     = $this->getService('service.enquete')->listarEnqueteByIdUsuario(
             $request->idFranqueador,
             $request->idUsuario
@@ -86,6 +86,7 @@ class EnqueteController extends AbstractMobile
         }
 
         $this->add('possuiBonus', false);
+
         if ($idBonus = $idUsuario->getIdFranqueadorUsuario()->getIdBonus()) {
             $nivel = $this->getService('service.franqueador')->getNivel(
                 $request->idFranqueador,
