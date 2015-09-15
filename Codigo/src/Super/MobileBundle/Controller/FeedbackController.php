@@ -38,6 +38,25 @@ class FeedbackController extends AbstractMobile
                         'idRequisicao'   => $request->idRequisicao
                     )
                 );
+
+                //caso seja um feedback e não uma opinião
+                try {
+                    if ($idTipoFeedback->getIdTipoFeedback() == 1) {
+                        $nuPontos   = $idQuestao->getIdFeedbackQuestao()->getIdFeedback()->getNuPontos();
+                        $nuCreditos = $idQuestao->getIdFeedbackQuestao()->getIdFeedback()->getNuCreditos();
+                        if ($nuPontos > 0) {
+                            $this->getService('service.bonus')->setBonus(
+                                $idUsuario->getIdFranqueadorUsuario(),
+                                $idQuestao->getIdFeedbackQuestao()->getIdFeedback()->getNuPontos()
+                            );
+                        }
+                        if ($nuCreditos > 0) {
+                            $this->getService('service.enquete')->creditar(TipoTransacao::CREDITO, $nuCreditos, $idUsuario);
+                        }
+                    }
+                } catch (\Exception $e) {
+
+                }
             }
 
             $this->add('valido',   true);

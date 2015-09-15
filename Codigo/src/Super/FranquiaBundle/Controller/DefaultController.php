@@ -190,15 +190,18 @@ class DefaultController extends CrudController
         $arrTransacao = array();
 
         foreach ($countTransCredito as $key => $t) {
-            $debito = 0;
-            $c = $countTransDebito;
-            if (isset($c[$key]['dtCadastro'])) {
-                $debito = ($c[$key]['dtCadastro'] == $t['dtCadastro']) ? $c[$key]['transacaoDebito'] : 0;
+            foreach($countTransDebito as $k => $c) {
+                $debito = 0;
+                if($c['dtCadastro'] == $t['dtCadastro']) {
+                    $debito = ($c['dtCadastro'] == $t['dtCadastro']) ? $c['transacaoDebito'] : 0;
+                    break;
+                }
             }
+
             $arrTransacao[] = array(
                 'credito' => $t['transacaoCredito'],
-                'debito' => $debito,
-                'data'  => $t['dtCadastro']
+                'debito'  => $debito,
+                'data'    => $t['dtCadastro']
             );
         }
 
