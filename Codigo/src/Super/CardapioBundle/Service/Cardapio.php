@@ -24,8 +24,9 @@ class Cardapio extends CrudService
             $entidade = $this->getService('service.produto')->newEntity();
 
             $noProduto = $this->getRequest()->request->get("noProduto" . $i);
+            $dsProduto = $this->getRequest()->request->get("dsProduto" . $i);
             $nuPreco   = $this->getRequest()->request->get("noPreco" . $i);
-            $nuPreco   = floatval(str_replace(',', '.', str_replace('.', '', $nuPreco)));
+            $nuPreco   = str_replace(',', '.', str_replace('.', '', $nuPreco));
 
             if ($this->getRequest()->files->get('noImagem' . $i)) {
                 $path = $this->uploadFile('produto/' . $i, 'noImagem' . $i);
@@ -35,6 +36,7 @@ class Cardapio extends CrudService
             $entidade->setIdCardapio($this->entity);
             $entidade->setDtCadastro(new \DateTime());
             $entidade->setNoProduto($noProduto);
+            $entidade->setDsProduto($dsProduto);
             $entidade->setNuValor($nuPreco);
 
             $this->persist($entidade);
@@ -49,6 +51,7 @@ class Cardapio extends CrudService
             if ($idProduto) {
 
                 $noProduto  = $this->getRequest()->request->get("noProduto");
+                $dsProduto  = $this->getRequest()->request->get("dsProduto");
                 $nuPreco    = $this->getRequest()->request->get("noPreco");
                 $idCardapio = $this->getRequest()->request->get("idCardapio");
                 $idCardapio = $this->getService('service.cardapio')->find($idCardapio);
@@ -76,7 +79,9 @@ class Cardapio extends CrudService
                     }
 
                     $produto->setNoProduto($noProduto[$key]);
-                    $produto->setNuValor(floatval(str_replace(',', '.', str_replace('.', '', $nuPreco[$key]))));
+                    $produto->setDsProduto($dsProduto[$key]);
+                    $produto->setNuValor(str_replace(',', '.', str_replace('.', '', $nuPreco[$key])));
+
                     $this->persist($produto);
                 }
             } else {

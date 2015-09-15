@@ -96,11 +96,12 @@ class EnqueteController extends AbstractMobile
         }
 
         $this->add('possuiBonus', false);
+        $idFranqueadorUsuario = $idUsuario->getIdFranqueadorUsuario();
 
-        if ($idBonus = $idUsuario->getIdFranqueadorUsuario()->getIdBonus()) {
+        if ($nuBonus = $this->getService('service.bonus')->getBonus($idFranqueadorUsuario)) {
             $nivel = $this->getService('service.franqueador')->getNivel(
                 $request->idFranqueador,
-                $idBonus->getNuBonus()
+                $nuBonus
             );
 
             if($nivel) {
@@ -111,7 +112,7 @@ class EnqueteController extends AbstractMobile
                     'noNivel' => $nivel['noNivel'],
                     'nuMin'   => $nivel['nuQuantidadePontosNecessaio'],
                     'nuMax'   => $idConfig ? $idConfig->getNuQuantidadePontosNecessaio() : null,
-                    'nuBonus' => $idBonus->getNuBonus()
+                    'nuBonus' => $nuBonus
                 );
                 $this->add('possuiBonus', true);
                 $this->add('bonus', $arrBonus);

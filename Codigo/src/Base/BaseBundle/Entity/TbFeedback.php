@@ -75,6 +75,20 @@ class TbFeedback extends AbstractEntity
     private $idFeedbackQuestao;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_creditos", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $nuCreditos;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_pontos", type="integer", nullable=false)
+     */
+    private $nuPontos;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -208,6 +222,38 @@ class TbFeedback extends AbstractEntity
     public function setIdFeedbackQuestao($idFeedbackQuestao)
     {
         $this->idFeedbackQuestao = $idFeedbackQuestao;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNuCreditos()
+    {
+        return $this->nuCreditos;
+    }
+
+    /**
+     * @param string $nuCreditos
+     */
+    public function setNuCreditos($nuCreditos)
+    {
+        $this->nuCreditos = $nuCreditos;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNuPontos()
+    {
+        return $this->nuPontos;
+    }
+
+    /**
+     * @param int $nuPontos
+     */
+    public function setNuPontos($nuPontos)
+    {
+        $this->nuPontos = $nuPontos;
     }
 }
 

@@ -89,23 +89,27 @@ class FranquiaController extends AbstractMobile
 
         if($idFranquia) {
 
-            $arrProduto = array();
+            $arrCardapio = $arrProduto = array();
             $idCardapio = $idFranquia->getIdCardapio();
 
             foreach($idCardapio->getIdProduto() as $key => $idProduto) {
                 $arrProduto[$key] = array(
                     'noProduto' => $idProduto->getNoProduto(),
+                    'dsProduto' => $idProduto->getDsProduto(),
                     'nuValor'   => $idProduto->getNuValor(),
                     'noImagem'  => $this->getService()->siteURL().$idProduto->getNoImagem()
                 );
             }
 
+            //prevendo json quando possuir mais de 1 cardapio
+            $arrCardapio[] = array(
+                'noCardapio'  => $idCardapio->getNoCardapio(),
+                'arrProdutos' => $arrProduto
+            );
+
             if($arrProduto) {
                 $this->add('valido', true);
-                $this->add('cardapio', array(
-                    'noCardapio' => $idCardapio->getNoCardapio(),
-                    'produtos' => $arrProduto
-                ));
+                $this->add('arrCardapio', $arrCardapio);
             } else {
                 $this->add('mensagem', 'mobile_bundle.franquia.listar_cardapio.error');
             }

@@ -13,10 +13,12 @@ class FeedBack extends CrudService
 
     public function preSave(AbstractEntity $entity = null)
     {
-        $dtInicio = $this->getRequest()->request->get('dtInicio');
+        $request  = $this->getRequest()->request;
+        $dtInicio = $request->get('dtInicio');
 
         $this->entity->setDtInicio(Data::dateBr($dtInicio));
         $this->entity->setIdFranqueador($this->getUser()->getIdFranqueador());
+        $this->entity->setNuCreditos($this->converteValor($request->get('nuCreditos')));
     }
 
     public function preInsert(AbstractEntity $entity = null)
@@ -70,5 +72,10 @@ class FeedBack extends CrudService
             $this->entity->setStAtivo(true);
             $this->persist($this->entity);
         }
+    }
+
+    public function converteValor($nuValor)
+    {
+        return str_replace(",", ".", str_replace(".", "", $nuValor));
     }
 }

@@ -12,12 +12,18 @@ class Enquete extends CrudService
 
     public function preSave(AbstractEntity $entity = null)
     {
-        $dtFim    = $this->getRequest()->request->get('dtFim');
-        $dtInicio = $this->getRequest()->request->get('dtInicial');
+        $request  = $this->getRequest()->request;
+        $dtFim    = $request->get('dtFim');
+        $dtInicio = $request->get('dtInicial');
 
-        $this->entity->setDtCadastro(new \DateTime());
         $this->entity->setDtInicio(Data::dateBr($dtInicio));
         $this->entity->setDtFim(Data::dateBr($dtFim));
+        $this->entity->setNuBonus($this->converteValor($request->get('nuBonus')));
+    }
+
+    public function preInsert(AbstractEntity $entity = null)
+    {
+        $this->entity->setDtCadastro(new \DateTime());
     }
 
     public function postSave(AbstractEntity $entity = null)
@@ -54,5 +60,10 @@ class Enquete extends CrudService
     public function postRemove(AbstractEntity $entity = null)
     {
         $this->addMessage($this->container->get('translator')->trans('base_bundle.messages.success'));
+    }
+
+    public function converteValor($nuValor)
+    {
+        return str_replace(",", ".", str_replace(".", "", $nuValor));
     }
 }

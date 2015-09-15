@@ -18,7 +18,7 @@ class Pesquisa extends CrudService
     protected $entityName = 'Base\BaseBundle\Entity\Pesquisa';
 
     /**
-     * Adicionar pontos ou bonus a lista de usuarios
+     * Adicionar bonus ou crédito a lista de usuarios
      * @param array $arrUsuarios
      * @return array
      */
@@ -29,7 +29,7 @@ class Pesquisa extends CrudService
         $srvUsuario = $this->getService('service.usuario');
 
         $nuPontos = $request->get('addPontos');
-        $nuBonus  = floatval(str_replace(',', '.', str_replace('.', '', $request->get('addBonus'))));
+        $nuBonus  = $this->converteValor($request->get('addBonus'));
 
         if ($nuPontos || $nuBonus) {
             if ($arrUsuarios) {
@@ -45,7 +45,10 @@ class Pesquisa extends CrudService
                     }
 
                     if ($nuPontos > 0) {
-
+                        $this->getService('service.bonus')->setBonus(
+                            $entityUsuario->getIdFranqueadorUsuario(),
+                            $nuPontos
+                        );
                     }
                 }
                 $response['valido']   = true;
@@ -83,15 +86,11 @@ class Pesquisa extends CrudService
 
     public function saveTransacao($idUsuario = null, $nuValor = 0)
     {
+        $idFranqueador   = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $idFranqueador   = $this->getService('service.franqueador')->find($idFranqueador);
+        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO);
+
         $entity = new TbTransacao();
-
-        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
-        $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
-
-        $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::BONUS);
-
-        $nuValor = str_replace(".", "", $nuValor);
-        $nuValor = str_replace(",", ".", $nuValor);
 
         $entity->setIdOperador($this->getUser());
         $entity->setIdArquivo(null);
@@ -172,6 +171,16 @@ class Pesquisa extends CrudService
             'maior' => 'Maior',
             'menor' => 'Menor'
         );
+    }
+
+    /**
+     * Converter valor
+     * @param $nuValor
+     * @return mixed
+     */
+    public function converteValor($nuValor)
+    {
+        return str_replace(",", ".", str_replace(".", "", $nuValor));
     }
 
     /**

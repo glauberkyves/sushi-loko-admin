@@ -24,7 +24,10 @@ class EnqueteRespostaUsuario extends CrudService
 
             //caso tenha respondido, verificar a recompensa
             if($idEnqueteResposta) {
-                $this->creditar(TipoTransacao::BONUS, $idEnquete->getNuPontos(), $idUsuario);
+                $this->getService('service.bonus')->setBonus(
+                    $idUsuario->getIdFranqueadorUsuario(),
+                    $idEnquete->getNuPontos()
+                );
                 $this->creditar(TipoTransacao::CREDITO, $idEnquete->getNuBonus(), $idUsuario);
             }
 

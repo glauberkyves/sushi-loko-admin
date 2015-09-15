@@ -67,6 +67,13 @@ class TbProduto extends AbstractEntity
     private $idCardapio;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ds_produto", type="text", length=65535, nullable=true)
+     */
+    private $dsProduto;
+
+    /**
      * @return int
      */
     public function getIdProduto()
@@ -178,7 +185,20 @@ class TbProduto extends AbstractEntity
         $this->idCardapio = $idCardapio;
     }
 
+    /**
+     * @return string
+     */
+    public function getDsProduto()
+    {
+        return $this->dsProduto;
+    }
 
-
+    /**
+     * @param string $dsProduto
+     */
+    public function setDsProduto($dsProduto)
+    {
+        $this->dsProduto = $dsProduto;
+    }
 }
 

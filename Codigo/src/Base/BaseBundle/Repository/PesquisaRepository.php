@@ -168,7 +168,7 @@ class PesquisaRepository extends AbstractRepository
             ->orWhere($expr->eq("t{$i}.idFranqueador", $request->get('idFranqueador')))
             ->andWhere($expr->eq("u{$i}.idUsuario", "u.idUsuario"))
             ->andWhere($expr->eq("t{$i}.stAtivo", true))
-            ->andWhere($expr->in("tt{$i}.idTipoTransacao", array(TipoTransacao::CREDITO, TipoTransacao::BONUS)));
+            ->andWhere($expr->eq("tt{$i}.idTipoTransacao", TipoTransacao::CREDITO));
 
         if ($filtrarPeriodo) {
             #filtro por pessoas que obtiveram bônus no periodo informado

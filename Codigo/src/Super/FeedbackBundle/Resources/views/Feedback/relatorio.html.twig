@@ -58,7 +58,10 @@
                             {% for mensagem in mensagens %}
                                 <tr class="odd">
                                     <td>
-                                        <a href="#{{ mensagem.idUsuario }}">
+                                        <a href="{{ path('super_franqueador_usuario_view', {
+                                            idFranqueador: app.user.getIdFranqueador().getIdFranqueador(),
+                                            idUsuario: mensagem.idUsuario})
+                                        }}">
                                             {{ mensagem.noPessoa }}
                                         </a>
                                     </td>

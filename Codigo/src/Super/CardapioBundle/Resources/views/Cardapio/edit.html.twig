@@ -32,6 +32,13 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert" style="margin-top: 10px">
+                            <strong>Atenção:</strong> A imagem do produto possui o tamanho: 640px X 238px
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group primeiroelemeto ">
                     {% set num = 0 %}
                     {% for key, produto  in  entity.idProduto %}
@@ -41,7 +48,6 @@
                                 <header class="panel-heading alert-info">
                                     Produto
                                     {% if  num == 1 %}
-
                                     {% else %}
                                         <button type="button"
                                                 class="btn btn-shadow btn-danger pull-right  btn-xs excluiPainel">
@@ -64,7 +70,12 @@
                                                        value="{{ produto.noProduto }}" placeholder="Nome">
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label class="col-sm-5 control-label col-lg-4" for="inputSuccess">Descrição</label>
+                                            <div class="col-lg-9 ">
+                                                <textarea rows="3" cols="60" class="form-control" style="width:207px; max-width:440px;" name="dsProduto[{{ produto.idProduto }}]">{{ produto.dsProduto }}</textarea>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço </label>
                                             <div class="col-lg-9">
@@ -79,7 +90,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-lg-4">
                                         <div class="form-group last">
                                             <div class="col-md-9">
@@ -103,7 +113,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
