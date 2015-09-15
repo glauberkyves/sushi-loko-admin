@@ -29,6 +29,13 @@ class TbArquivo extends AbstractEntity
     private $noArquivo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_valor", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $nuValor;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dt_processamento", type="datetime", nullable=false)
@@ -96,6 +103,22 @@ class TbArquivo extends AbstractEntity
     public function setNoBlobArquivo($noBlobArquivo)
     {
         $this->noBlobArquivo = $noBlobArquivo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNuValor()
+    {
+        return $this->nuValor;
+    }
+
+    /**
+     * @param string $nuValor
+     */
+    public function setNuValor($nuValor)
+    {
+        $this->nuValor = $nuValor;
     }
 
 

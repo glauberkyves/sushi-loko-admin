@@ -207,7 +207,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <label>Pontos por transação</label>
+                    <label>Pontos por R$ gasto</label>
 
                     <div class="input-group m-bot15 col-md-8">
                         <span class="input-group-addon"><i class="fa fa-check"></i></span>
@@ -218,7 +218,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <label>Porcentagem bônus por transação</label>
+                    <label>Porcentagem Crédito por transação</label>
 
                     <div class="input-group m-bot15 col-md-8">
                         <span class="input-group-addon">%</span>
@@ -232,7 +232,7 @@
 
             <div class="form-group">
                 <div class="col-lg-4">
-                    <label>Validade dos bônus</label>
+                    <label>Validade dos Crédito / Pontos</label>
 
                     <div class="input-group m-bot15 col-md-8">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -243,7 +243,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <label>Pontos bônus por cadastro</label>
+                    <label>Pontos por cadastro</label>
 
                     <div class="input-group m-bot15 col-md-8">
                         <span class="input-group-addon"><i class="fa fa-check"></i></span>
@@ -253,7 +253,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <label>Bônus em reais por cadastro</label>
+                    <label>Crédito por cadastro</label>
 
                     <div class="input-group m-bot15 col-md-8">
                         <span class="input-group-addon">R$</span>
@@ -290,7 +290,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        <label>Pontos extra</label>
+                        <label>Porcentagem Crédito por transacação</label>
 
                         <div class="input-group m-bot15">
                             <span class="input-group-addon">%</span>
@@ -312,7 +312,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        <label>Extra por atingir</label>
+                        <label>Pontos por atingir</label>
 
                         <div class="input-group m-bot15">
                             <span class="input-group-addon"><i class="fa fa-check"></i></span>
@@ -348,6 +348,7 @@
             if ($(this).is(':checked')) {
                 $(this).val(1)
                 $('#div-niveis, #add-niveis').show()
+                $('#nuPorcentagemBonusTransacao').attr('disabled', true)
             } else {
                 $(this).val(0)
                 $('#div-niveis div').each(function (i, v) {
@@ -358,20 +359,21 @@
 
                 $('#div-niveis').find('input').val('')
                 $('#div-niveis, #add-niveis').hide()
+                $('#nuPorcentagemBonusTransacao').removeAttr('disabled')
             }
         })
 
         $('#add-niveis').click(function () {
             var div = '<div class="form-group">'
-            div = div + '<div class="col-lg-4">'
+            div = div + '<div class="col-lg-3">'
             div = div + '<label>Nome do nível</label>'
             div = div + '<div class="input-group m-bot15">'
             div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
             div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="" class="form-control">'
             div = div + '</div>'
             div = div + '</div>'
-            div = div + '<div class="col-lg-2">'
-            div = div + '<label>Pontos extra</label>'
+            div = div + '<div class="col-lg-3">'
+            div = div + '<label>Porcentagem Crédito por transacação</label>'
             div = div + '<div class="input-group m-bot15">'
             div = div + '<span class="input-group-addon">%</span>'
             div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="" class="form-control required" data-mask="99">'
@@ -385,7 +387,7 @@
             div = div + '</div>'
             div = div + '</div>'
             div = div + '<div class="col-lg-2">'
-            div = div + '<label>Extra por atingir</label>'
+            div = div + '<label>Pontos por atingir</label>'
             div = div + '<div class="input-group m-bot15">'
             div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
             div = div + '<input type="text" name="niveis[nuQuantidadePontosPorAtingir][]" id="niveis-nuQuantidadePontosPorAtingir" value="" class="form-control required" data-mask="numeric">'
@@ -420,18 +422,19 @@
         $('#div-niveis div.form-group:nth-child(1)').remove()
         $('#div-niveis div.form-group:nth-child(1)').remove()
         $('#stNiveis').attr('checked', true)
+        $('#nuPorcentagemBonusTransacao').attr('disabled', true)
 
         {% for key, configuracao in entity.getIdConfiguracaoFranquiaNivel() %}
         var div = '<div class="form-group">'
-        div = div + '<div class="col-lg-4">'
+        div = div + '<div class="col-lg-3">'
         div = div + '<label>Nome do nível</label>'
         div = div + '<div class="input-group m-bot15">'
         div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
         div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="{{ configuracao.getNoNivel() }}" class="form-control">'
         div = div + '</div>'
         div = div + '</div>'
-        div = div + '<div class="col-lg-2">'
-        div = div + '<label>Pontos extra</label>'
+        div = div + '<div class="col-lg-3">'
+        div = div + '<label>Porcentagem Crédito por transacação</label>'
         div = div + '<div class="input-group m-bot15">'
         div = div + '<span class="input-group-addon">%</span>'
         div = div + '<input type="text" name="niveis[nuPorcentagemPontosExtra][]" id="niveis-nuPorcentagemPontosExtra" value="{{ configuracao.getNuPorcentagemPontosExtra() }}" class="form-control required" data-mask="99">'
@@ -445,7 +448,7 @@
         div = div + '</div>'
         div = div + '</div>'
         div = div + '<div class="col-lg-2">'
-        div = div + '<label>Extra por atingir</label>'
+        div = div + '<label>Pontos por atingir</label>'
         div = div + '<div class="input-group m-bot15">'
         div = div + '<span class="input-group-addon"><i class="fa fa-check"></i></span>'
         div = div + '<input type="text" name="niveis[nuQuantidadePontosPorAtingir][]" id="niveis-nuQuantidadePontosPorAtingir" value="{{ configuracao.getNuQuantidadePontosPorAtingir() }}" class="form-control required" data-mask="numeric">'

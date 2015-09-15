@@ -22,12 +22,11 @@ class FranquiaRepository extends AbstractRepository
             ->select('f.idFranquia, f.noFranquia, u.idUsuario, f.stAtivo')
             ->innerJoin('f.idUsuario', 'u');
 
-            if($idFranqueador = $request->query->get('idFranqueador'))
-            {
-                $query = $query
-                    ->where('f.idFranqueador = :idFranqueador')
-                    ->setParameter('idFranqueador', $idFranqueador);
-            }
+        if ($idFranqueador = $request->query->get('idFranqueador')) {
+            $query = $query
+                ->where('f.idFranqueador = :idFranqueador')
+                ->setParameter('idFranqueador', $idFranqueador);
+        }
 
         return $query;
     }

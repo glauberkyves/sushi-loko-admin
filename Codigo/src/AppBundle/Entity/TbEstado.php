@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbEstado
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_estado", type="integer", nullable=false)
      * @ORM\Id

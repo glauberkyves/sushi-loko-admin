@@ -1,5 +1,13 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block body %}
+
+    {% set totalBonus = 0 %}
+    {% for bonus in entity.getIdBonus() %}
+        {% if bonus.getStAtivo() == true and bonus.getStVencido == false %}
+            {% set totalBonus = totalBonus + bonus.getNuBonus() %}
+        {% endif %}
+    {% endfor %}
+
     <div class="row">
         <aside class="profile-nav col-lg-3">
             <section class="panel">
@@ -32,9 +40,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="bonus"> <i class="fa fa-trophy"></i> Bônus
+                        <a href="#" class="bonus"> <i class="fa fa-trophy"></i> Pontos
                             <span class="label label-danger pull-right r-activity">
-                                {{ entity.getIdBonus()|length }}
+                                {{ totalBonus }}
                             </span>
                         </a>
                     </li>
@@ -57,35 +65,26 @@
                 <div class="panel-body bio-graph-info">
                     <div class="row">
                         <div class="bio-row">
-                            {% set totalConsumo = 0 %}
-                            {% set totalTransacao = 0 %}
-                            {% for transacao in entity.getIdUsuario().getIdTransacao() %}
-                                {% if transacao.getIdTipoTransacao().getIdTipoTransacao() == debito %}
-                                    {% set totalConsumo = totalConsumo + transacao.getNuValor() %}
-                                    {% set totalTransacao = totalTransacao +1 %}
-                                {% endif %}
-                            {% endfor %}
-
-                            <p><b>Franquia mais visitada:</b>
-                                Sushi Loko - Pirenópolis</p>
+                            <p><b>Franquia mais visitada:</b> {{ franquia }}</p>
                         </div>
 
                         <div class="bio-row">
                             {% set totalConsumo = 0 %}
                             {% set totalTransacao = 0 %}
                             {% for transacao in entity.getIdUsuario().getIdTransacao() %}
-                                {% if transacao.getIdTipoTransacao().getIdTipoTransacao() == debito %}
-                                    {% set totalConsumo = totalConsumo + transacao.getNuValor() %}
+                                {% if transacao.getIdArquivo() %}
+                                    {% set totalConsumo = totalConsumo + transacao.getIdArquivo().getNuValor() %}
                                     {% set totalTransacao = totalTransacao +1 %}
                                 {% endif %}
                             {% endfor %}
 
                             <p><b>Média de consumo:</b>
-                                R$ {{ totalConsumo / totalTransacao|number_format(2, ',', '.') }}</p>
-                        </div>
-
-                        <div class="bio-row">
-                            <p><b>Total Bônus:</b> 45</p>
+                                {% if totalConsumo %}
+                                    R$ {{ totalConsumo / totalTransacao|number_format(2, ',', '.') }}
+                                {% else %}
+                                    R$ 0,00
+                                {% endif %}
+                            </p>
                         </div>
                     </div>
 
@@ -105,9 +104,10 @@
                                                 <th>Tipo Transação</th>
                                                 <th>Franquia</th>
                                                 <th>Operador</th>
-                                                <th>Valor</th>
+                                                <th>Valor Original</th>
+                                                <th>Valor Crédito</th>
                                                 <th>Data</th>
-                                                <th>Status</th>
+                                                <th>Situação</th>
                                             </tr>
                                             </thead>
 
@@ -129,6 +129,13 @@
                                                     </td>
                                                     <td class="">
                                                         {{ transacao.getNuValor()|number_format(2, ',', '.') }}
+                                                    </td>
+                                                    <td class="">
+                                                        {% if transacao.getIdArquivo() %}
+                                                            R$ {{ transacao.getIdArquivo().getNuValor()|number_format(2, ',', '.') }}
+                                                        {% else %}
+                                                            R$ 0,00
+                                                        {% endif %}
                                                     </td>
                                                     <td class="">
                                                         {{ transacao.getDtCadastro()|date('d/m/Y H:i:s') }}
@@ -156,22 +163,15 @@
         <aside class="profile-info col-lg-9 hide" id="bonus">
             <section class="panel">
                 <header class="panel-heading bio-graph-heading">
-                    <h4>Bônus</h4>
+                    <h4>Pontos</h4>
                 </header>
                 <div class="panel-body bio-graph-info">
                     <div class="row">
                         <div class="bio-row">
-                            {% set totalBonus = 0 %}
-                            {% for bonus in entity.getIdBonus() %}
-                                {% if bonus.getStAtivo() == true %}
-                                    {% set totalBonus = totalBonus + bonus.getNuBonus() %}
-                                {% endif %}
-                            {% endfor %}
-
-                            <p><b>Total Bônus:</b> {{ totalBonus }}</p>
+                            <p><b>Total Pontos:</b> {{ totalBonus }}</p>
                         </div>
-
                     </div>
+
                     <div class="col-sm-12">
                         <section class="panel">
                             <header class="panel-heading">
@@ -185,9 +185,9 @@
                                                class="display table table-bordered table-striped dataTable">
                                             <thead>
                                             <tr role="row">
-                                                <th>Bônus</th>
+                                                <th>Pontos</th>
                                                 <th>Data</th>
-                                                <th>Status</th>
+                                                <th>Situação</th>
                                             </tr>
                                             </thead>
 

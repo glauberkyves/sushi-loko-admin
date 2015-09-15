@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbRequisacaoTransacao
  *
- * @ORM\Table(name="tb_requisacao_transacao", indexes={@ORM\Index(name="fk_requisicaotransacao_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_requisicaotransacao_franqueador_idx", columns={"id_franqueador"})})
+ * @ORM\Table(name="tb_requisacao_transacao", indexes={@ORM\Index(name="fk_requisicaotransacao_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_requisicaotransacao_franqueador_idx", columns={"id_franqueador"}), @ORM\Index(name="id_feedback_questao_resposta", columns={"id_feedback_questao_resposta"})})
  * @ORM\Entity
  */
 class TbRequisacaoTransacao
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_requisacao_transacao", type="integer", nullable=false)
      * @ORM\Id
@@ -36,14 +36,14 @@ class TbRequisacaoTransacao
     private $nuValor;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_utilizado", type="integer", nullable=false)
      */
     private $stUtilizado;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
@@ -75,6 +75,16 @@ class TbRequisacaoTransacao
      * })
      */
     private $idUsuario;
+
+    /**
+     * @var \TbFeedbackQuestaoResposta
+     *
+     * @ORM\ManyToOne(targetEntity="TbFeedbackQuestaoResposta")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_feedback_questao_resposta", referencedColumnName="id_feedback_questao_resposta")
+     * })
+     */
+    private $idFeedbackQuestaoResposta;
 
 
 }

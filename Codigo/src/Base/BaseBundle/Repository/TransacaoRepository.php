@@ -52,7 +52,7 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
 
         $credito = $queryCredito ? $queryCredito[0]['credito'] : 0;
-        $debito  = $queryDebito ? $queryDebito[0]['debito'] : 0;
+        $debito = $queryDebito ? $queryDebito[0]['debito'] : 0;
 
         return $credito - $debito;
     }
@@ -183,7 +183,7 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
 
         $queryCredito = ($queryCredito) ? $queryCredito[0] : 0;
-        $queryDebito  = ($queryDebito) ? $queryDebito[0] : 0;
+        $queryDebito = ($queryDebito) ? $queryDebito[0] : 0;
 
         return $queryCredito + $queryDebito;
     }
@@ -236,5 +236,32 @@ class TransacaoRepository extends AbstractRepository
             ->setParameter('dtCadastro', $dtCadastro->format("Y-m-d H:i:s"))
             ->getQuery()
             ->getResult();
+    }
+
+    public function getFranquiaVisitada($idUsuario)
+    {
+        $exp = new Expr();
+
+        $query = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('f.noFranquia')
+            ->addSelect(
+                '(' .
+                $this
+                    ->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('DISTINCT COUNT(t1.idTransacao)')
+                    ->from('Base\BaseBundle\Entity\TbTransacao', 't1')
+                    ->innerJoin('t1.idFranquia', 'f1')
+                    ->where($exp->eq('f1.idFranquia', 'f.idFranquia'))
+                . ') franquia')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idFranquia', 'f')
+            ->addOrderBy('t.idTransacao', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $query ? $query[0]['noFranquia'] : '';
     }
 }

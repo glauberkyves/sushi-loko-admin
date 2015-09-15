@@ -75,9 +75,12 @@ class UsuarioController extends CrudController
             )
         );
 
+        $franquia = $this->getService('service.transacao')->getFranquiaVisitada($idUsuario);
+
         return $this->render($this->resolveRouteName(), array(
             'entity' => $rlFranqueadorUsuario,
             'debito' => TipoTransacao::DEBITO,
+            'franquia' => $franquia,
         ));
     }
 }

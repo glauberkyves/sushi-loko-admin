@@ -143,7 +143,7 @@ class Transacao extends CrudService
         $valor = ($nuValor / 100) * $idFranqueadorUsuario->getIdFranqueador()->getNuPorcentagemBonusTransacao();
 
         if ($idFranqueadorUsuario->getIdFranqueador()->getStNiveis()) {
-            $valor += $this->getService('service.bonus')->getPontosExtra($idFranqueadorUsuario, $nuValor);
+            $valor = $this->getService('service.bonus')->getPontosExtra($idFranqueadorUsuario, $nuValor);
         }
 
         return $valor;

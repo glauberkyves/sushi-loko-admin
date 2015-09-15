@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * TbTransacao
  *
- * @ORM\Table(name="tb_transacao", indexes={@ORM\Index(name="fk_transacao_franquia_idx", columns={"id_franquia"}), @ORM\Index(name="fk_transacao_operador_idx", columns={"id_operador"}), @ORM\Index(name="fk_transacao_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_transacao_tipotransacao_idx", columns={"id_tipo_transacao"}), @ORM\Index(name="fk_transacao_arquivo_idx", columns={"id_arquivo"}), @ORM\Index(name="fk_transacao_franqueador_idx", columns={"id_franqueador"})})
+ * @ORM\Table(name="tb_transacao", indexes={@ORM\Index(name="fk_transacao_franquia_idx", columns={"id_franquia"}), @ORM\Index(name="fk_transacao_operador_idx", columns={"id_operador"}), @ORM\Index(name="fk_transacao_usuario_idx", columns={"id_usuario"}), @ORM\Index(name="fk_transacao_tipotransacao_idx", columns={"id_tipo_transacao"}), @ORM\Index(name="fk_transacao_arquivo_idx", columns={"id_arquivo"}), @ORM\Index(name="fk_transacao_franqueador_idx", columns={"id_franqueador"}), @ORM\Index(name="id_requisacao_transacao", columns={"id_requisacao_transacao"})})
  * @ORM\Entity
  */
 class TbTransacao
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_transacao", type="integer", nullable=false)
      * @ORM\Id
@@ -36,7 +36,7 @@ class TbTransacao
     private $dtCadastro;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
@@ -101,6 +101,16 @@ class TbTransacao
      * })
      */
     private $idUsuario;
+
+    /**
+     * @var \TbRequisacaoTransacao
+     *
+     * @ORM\ManyToOne(targetEntity="TbRequisacaoTransacao")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_requisacao_transacao", referencedColumnName="id_requisacao_transacao")
+     * })
+     */
+    private $idRequisacaoTransacao;
 
 
 }

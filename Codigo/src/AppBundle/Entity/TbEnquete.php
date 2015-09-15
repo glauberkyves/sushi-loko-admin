@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbEnquete
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_enquete", type="integer", nullable=false)
      * @ORM\Id
@@ -36,7 +36,7 @@ class TbEnquete
     private $dtInicio;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */
