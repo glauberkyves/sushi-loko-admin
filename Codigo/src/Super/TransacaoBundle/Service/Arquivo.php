@@ -27,6 +27,7 @@ class Arquivo extends CrudService
 
                 foreach ($contents as $key => $arquivoFTP) {
                     $pathFile = str_replace('\\', '/', $config->getNoPasta() . DIRECTORY_SEPARATOR . $arquivoFTP);
+
                     ftp_get($ftp, $tempFolder . $arquivoFTP, $pathFile, FTP_BINARY) or new \Exception();
                 }
 
@@ -129,7 +130,7 @@ class Arquivo extends CrudService
         $filename = str_replace('.txt', '', strtolower($filename));
 
         ob_start();
-        echo file_get_contents($path . DIRECTORY_SEPARATOR . $filename . '.txt');
+        echo file_get_contents($path . DIRECTORY_SEPARATOR . $filename . '.TXT');
         $file = ob_get_contents();
         ob_end_clean();
 
