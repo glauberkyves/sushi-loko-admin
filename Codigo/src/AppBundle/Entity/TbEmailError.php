@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbEmailError
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_email_error", type="integer", nullable=false)
      * @ORM\Id
@@ -57,7 +57,7 @@ class TbEmailError
     private $dtEnvio;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_envio", type="integer", nullable=false)
      */

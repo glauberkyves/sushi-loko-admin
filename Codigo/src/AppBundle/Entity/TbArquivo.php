@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbArquivo
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_arquivo", type="integer", nullable=false)
      * @ORM\Id
@@ -27,6 +27,13 @@ class TbArquivo
      * @ORM\Column(name="no_arquivo", type="string", length=100, nullable=false)
      */
     private $noArquivo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_valor", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $nuValor;
 
     /**
      * @var \DateTime

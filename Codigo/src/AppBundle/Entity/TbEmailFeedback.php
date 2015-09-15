@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbEmailFeedback
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_email_fedback", type="integer", nullable=false)
      * @ORM\Id
