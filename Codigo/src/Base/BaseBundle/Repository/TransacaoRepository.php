@@ -101,7 +101,6 @@ class TransacaoRepository extends AbstractRepository
             ->createQueryBuilder('t')
             ->select('COUNT(t) transacaoCredito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
-            ->innerJoin('ff.idFranqueador', 'f')
             ->where('t.idTipoTransacao = 1')
             ->having('nuMes = :nuMes')
             ->groupBy('dtCadastro')
@@ -110,6 +109,7 @@ class TransacaoRepository extends AbstractRepository
 
         if ($idFranqueador) {
             $query
+                ->innerJoin('ff.idFranqueador', 'f')
                 ->andWhere('f.idFranqueador = :idFranqueador')
                 ->setParameter('idFranqueador', $idFranqueador);
         }
@@ -125,11 +125,11 @@ class TransacaoRepository extends AbstractRepository
             ->createQueryBuilder('t')
             ->select('COUNT(t) transacaoDebito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
-            ->innerJoin('ff.idFranqueador', 'f')
             ->where('t.idTipoTransacao = 2');
 
         if ($idFranqueador) {
             $query
+                ->innerJoin('ff.idFranqueador', 'f')
                 ->andWhere('f.idFranqueador = :idFranqueador')
                 ->setParameter('idFranqueador', $idFranqueador);
         }
@@ -149,7 +149,6 @@ class TransacaoRepository extends AbstractRepository
             ->createQueryBuilder('t')
             ->select('COUNT(t) transacaoCredito, SUM(t.nuValor) valorCredito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
-            ->innerJoin('ff.idFranqueador', 'f')
             ->where('t.idTipoTransacao = 1')
             ->groupBy("dtCadastro")
             ->having('nuMes = :nuMes')
@@ -159,7 +158,6 @@ class TransacaoRepository extends AbstractRepository
             ->createQueryBuilder('t')
             ->select('COUNT(t) transacaoDebito, SUM(t.nuValor) valorDebito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
-            ->innerJoin('ff.idFranqueador', 'f')
             ->where('t.idTipoTransacao = 2')
             ->groupBy("dtCadastro")
             ->having('nuMes = :nuMes')
@@ -167,9 +165,11 @@ class TransacaoRepository extends AbstractRepository
 
         if ($idFranqueador) {
             $queryCredito
+                ->innerJoin('ff.idFranqueador', 'f')
                 ->andWhere('f.idFranqueador = :idFranqueador')
                 ->setParameter('idFranqueador', $idFranqueador);
             $queryDebito
+                ->innerJoin('ff.idFranqueador', 'f')
                 ->andWhere('f.idFranqueador = :idFranqueador')
                 ->setParameter('idFranqueador', $idFranqueador);
         }
