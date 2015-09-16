@@ -98,7 +98,7 @@
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Data Início Cadastro</label>
 
                 <div class="col-lg-2">
-                    {{ formText('dtInicioCadastro', entity.getDtInicioCadastro() ? entity.getDtInicioCadastro()|date('d/m/Y'):'', {
+                    {{ formText('dtInicioCadastro', entity.getDtInicioCadastro() ? entity.getDtInicioCadastro()|date('d/m/Y') : '', {
                         class: 'form-control dateBR',
                         'data-mask': '99/99/9999',
                     }) }}
@@ -295,7 +295,7 @@
                         <div class="input-group m-bot15">
                             <span class="input-group-addon">%</span>
                             {{ formText('niveis[nuPorcentagemPontosExtra][]', '', {
-                                class: 'form-control required',
+                                class: 'form-control',
                                 'data-mask': '99'
                             }) }}
                         </div>
@@ -306,7 +306,7 @@
                         <div class="input-group m-bot15">
                             <span class="input-group-addon"><i class="fa fa-check"></i></span>
                             {{ formText('niveis[nuQuantidadePontosNecessaio][]', '', {
-                                class: 'form-control required',
+                                class: 'form-control',
                                 'data-mask': 'numeric'
                             }) }}
                         </div>
@@ -317,7 +317,7 @@
                         <div class="input-group m-bot15">
                             <span class="input-group-addon"><i class="fa fa-check"></i></span>
                             {{ formText('niveis[nuQuantidadePontosPorAtingir][]', '', {
-                                class: 'form-control required',
+                                class: 'form-control',
                                 'data-mask': 'numeric'
                             }) }}
                         </div>

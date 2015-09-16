@@ -33,6 +33,13 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Código da Loja</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control required number" id="nuCodigoLoja" placeholder="Número do código da loja (processado no arquivo)"
+                   name="nuCodigoLoja" value="{{ entity.getNuCodigoLoja() }}">
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="nuCep">CEP do franqueado</label>
         <div class="col-lg-3">
             <div class="input-group">

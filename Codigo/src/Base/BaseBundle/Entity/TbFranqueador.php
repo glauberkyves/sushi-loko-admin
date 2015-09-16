@@ -2,6 +2,7 @@
 
 namespace Base\BaseBundle\Entity;
 
+use Base\BaseBundle\Service\Data;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -510,6 +511,9 @@ class TbFranqueador extends AbstractEntity
      */
     public function getDtInicioCadastro()
     {
+        if(is_string($this->dtInicioCadastro)) {
+            return Data::dateBr($this->dtInicioCadastro);
+        }
         return $this->dtInicioCadastro;
     }
 
