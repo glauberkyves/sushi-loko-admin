@@ -17,6 +17,8 @@ class Operador extends CrudService
         $this->entity->setIdPessoa($idPessoaFisica->getIdPessoa());
         $this->entity->setNoSenha('temp');
         $this->entity->setDtCadastro(new \DateTime());
+        $this->entity->setNoLatitude(0);
+        $this->entity->setNoLongitude(0);
         $this->entity->setStAtivo(true);
     }
 

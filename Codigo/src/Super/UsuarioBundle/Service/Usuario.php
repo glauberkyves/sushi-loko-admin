@@ -16,6 +16,8 @@ class Usuario extends CrudService
         $this->entity->setIdPessoa($idPessoaFisica->getIdPessoa());
         $this->entity->setNoSenha(md5($this->entity->getNoSenha()));
         $this->entity->setDtCadastro(new \DateTime());
+        $this->entity->setNoLatitude(0);
+        $this->entity->setNoLongitude(0);
         $this->entity->setStAtivo(true);
     }
 
