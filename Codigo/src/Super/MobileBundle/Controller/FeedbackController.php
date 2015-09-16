@@ -8,6 +8,8 @@
 
 namespace Super\MobileBundle\Controller;
 
+use Super\TransacaoBundle\Service\TipoTransacao;
+
 class FeedbackController extends AbstractMobile
 {
     /**
@@ -19,11 +21,23 @@ class FeedbackController extends AbstractMobile
     {
         $request = $this->getRequest();
 
+//        $request->idUsuario = 75;
+//        $request->idFranquia = 5;
+//        $request->dsResposta = 'mobile';
+//        $request->tipo = 1;
+//        $request->idRequisicao = 25;
+//        $request->arrResposta = array(
+//            (object)array('idResposta' => 7, 'nuResposta' => 5),
+//            (object)array('idResposta' => 8, 'nuResposta' => 5),
+//            (object)array('idResposta' => 9, 'nuResposta' => 5)
+//        );
+
         $idUsuario      = $this->getService('service.usuario')->find($request->idUsuario);
         $idFranquia     = $this->getService('service.franquia')->find($request->idFranquia);
         $idTipoFeedback = $this->getService('service.tipo_feedback')->find($request->tipo);
 
         if($idUsuario) {
+            $idQuestao = null;
             foreach ($request->arrResposta as $resposta) {
                 $idQuestao = $this->getService('service.feedback_questao')->find($resposta->idResposta);
 
@@ -38,24 +52,26 @@ class FeedbackController extends AbstractMobile
                         'idRequisicao'   => $request->idRequisicao
                     )
                 );
+            }
 
-                //caso seja um feedback e não uma opinião
-                try {
-                    if ($idTipoFeedback->getIdTipoFeedback() == 1) {
-                        $nuPontos   = $idQuestao->getIdFeedbackQuestao()->getIdFeedback()->getNuPontos();
-                        $nuCreditos = $idQuestao->getIdFeedbackQuestao()->getIdFeedback()->getNuCreditos();
-                        if ($nuPontos > 0) {
-                            $this->getService('service.bonus')->setBonus(
-                                $idUsuario->getIdFranqueadorUsuario(),
-                                $idQuestao->getIdFeedbackQuestao()->getIdFeedback()->getNuPontos()
-                            );
-                        }
-                        if ($nuCreditos > 0) {
-                            $this->getService('service.enquete')->creditar(TipoTransacao::CREDITO, $nuCreditos, $idUsuario);
-                        }
+            if($idQuestao) {
+                //caso seja um feedback e não uma opinião, add pontos ou creditos
+                if ($idTipoFeedback->getIdTipoFeedback() == 1) {
+                    $nuPontos = $idQuestao->getIdFeedback()->getNuPontos();
+                    $nuCreditos = $idQuestao->getIdFeedback()->getNuCreditos();
+                    if ($nuPontos > 0) {
+                        $this->getService('service.bonus')->setBonus(
+                            $idUsuario->getIdFranqueadorUsuario(),
+                            $idQuestao->getIdFeedback()->getNuPontos()
+                        );
                     }
-                } catch (\Exception $e) {
-
+                    if ($nuCreditos > 0) {
+                        $this->getService('service.enquete_resposta_usuario')->creditar(
+                            TipoTransacao::CREDITO,
+                            $nuCreditos,
+                            $idUsuario
+                        );
+                    }
                 }
             }
 

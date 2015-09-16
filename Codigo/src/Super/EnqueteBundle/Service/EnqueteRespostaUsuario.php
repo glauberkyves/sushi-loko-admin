@@ -41,12 +41,14 @@ class EnqueteRespostaUsuario extends CrudService
 
         if ($idTipoTransacao && ($nuValor > 0)) {
             $entity = new TbTransacao();
-            $entity->setIdFranquia(null);
-            $entity->setIdOperador(null);
-            $entity->setIdArquivo(null);
+            $entity->setIdFranqueador($idUsuario->getIdFranqueadorUsuario()->getIdFranqueador());
             $entity->setIdUsuario($idUsuario);
             $entity->setIdTipoTransacao($idTipoTransacao);
             $entity->setNuValor(substr_replace($nuValor, '.', strlen($nuValor) - 3, 1));
+            $entity->setIdFranquia(null);
+            $entity->setIdFranquia(null);
+            $entity->setIdOperador(null);
+            $entity->setIdArquivo(null);
             $entity->setDtCadastro(new \DateTime());
             $entity->setStAtivo(true);
 
