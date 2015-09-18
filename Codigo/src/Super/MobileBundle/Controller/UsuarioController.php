@@ -26,8 +26,11 @@ class UsuarioController extends AbstractMobile
         );
 
         if (!$idFranqueadorUsuario) {
-            $request->dtNascimento = substr_replace($request->dtNascimento, '/', 2, 0);
-            $request->dtNascimento = substr_replace($request->dtNascimento, '/', 5, 0);
+            if ($request->dtNascimento) {
+                $request->dtNascimento = substr_replace($request->dtNascimento, '-', 2, 0);
+                $request->dtNascimento = substr_replace($request->dtNascimento, '-', 5, 0);
+                $request->dtNascimento = Data::dateBr($request->dtNascimento);
+            }
 
             $this->getParentRequest()->request->set('nuCpf', $request->nuCpf);
             $this->getParentRequest()->request->set('noSenha', $request->noSenha);
@@ -35,7 +38,7 @@ class UsuarioController extends AbstractMobile
             $this->getParentRequest()->request->set('noEmail', $request->noEmail);
             $this->getParentRequest()->request->set('sgSexo', $request->sgSexo);
             $this->getParentRequest()->request->set('nuTelefone', $request->nuTelefone);
-            $this->getParentRequest()->request->set('dtNascimento', Data::dateBr($request->dtNascimento));
+            $this->getParentRequest()->request->set('dtNascimento', $request->dtNascimento ?: null);
 
             $idUsuario     = $this->getService('service.usuario')->save();
             $idFranqueador = $this->getService('service.franqueador')->find($request->idFranqueador);
@@ -73,13 +76,14 @@ class UsuarioController extends AbstractMobile
             if ($user = $this->getService()->login($user)) {
 
                 $pessoaFisica = $user->getIdPessoa()->getIdPessoaFisica();
+                $dtNascimento = $pessoaFisica->getDtNascimento() ? $pessoaFisica->getDtNascimento()->format('d/m/Y') : '';
 
                 $data = array(
                     'idUsuario'    => $user->getIdUsuario(),
                     'noPessoa'     => $user->getIdPessoa()->getNoPessoa(),
                     'nuCpf'        => $pessoaFisica->getNuCpf(),
                     'noEmail'      => $pessoaFisica->getNoEmail(),
-                    'dtNascimento' => $pessoaFisica->getDtNascimento()->format('dmY'),
+                    'dtNascimento' => $dtNascimento,
                     'nuTelefone'   => $pessoaFisica->getNuTelefone(),
                     'sgSexo'       => $pessoaFisica->getSgSexo()
                 );
@@ -143,6 +147,30 @@ class UsuarioController extends AbstractMobile
         );
 
         $this->add('valido', $stAtualizacao);
+
+        return $this->response();
+    }
+
+    /**
+     * Extrato do usuário
+     * @param idUsuario
+     * @return mixed
+     */
+    public function extratoAction()
+    {
+        $request = $this->getRequest();
+
+        $arrExtrato   = array();
+        $queryExtrato = $this->getService('service.transacao')->getExtratoPorUsuario($request->idUsuario);
+
+        foreach($queryExtrato as $key => $extrato) {
+            $extrato['dtCadastro'] = $extrato['dtCadastro']->format('d/m/Y H:i');
+            $extrato['nuValor']    = sprintf("%s", number_format($extrato['nuValor'], 2, ',', '.'));
+            $arrExtrato[$key] = $extrato;
+        }
+
+        $this->add('valido', true);
+        $this->add('arrExtrato', $arrExtrato);
 
         return $this->response();
     }
