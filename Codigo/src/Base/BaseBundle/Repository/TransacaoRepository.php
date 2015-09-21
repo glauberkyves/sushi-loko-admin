@@ -238,7 +238,7 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
     }
 
-    public function getFranquiaVisitada($idUsuario)
+    public function getFranquiaVisitada($idUsuario = 0)
     {
         $exp = new Expr();
 
@@ -263,5 +263,31 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
 
         return $query ? $query[0]['noFranquia'] : '';
+    }
+
+    public function getExtratoPorUsuario($idUsuario = 0)
+    {
+        $expr = new Expr();
+        $dtCadastro = new \DateTime();
+        $dtCadastro->modify('-3 months');
+
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('f.idFranquia, f.noFranquia, tt.idTipoTransacao, tt.noTipoTransacao, t.nuValor, t.dtCadastro')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idTipoTransacao', 'tt')
+            ->innerJoin('t.idFranquia', 'f')
+            ->innerJoin('t.idUsuario', 'u')
+            ->innerJoin('u.idPessoa', 'p')
+            ->innerJoin('p.idPessoaFisica', 'pf')
+            ->where($expr->eq('u.idUsuario', $idUsuario))
+            ->andWhere('tt.idTipoTransacao = 1 OR tt.idTipoTransacao = 2')
+            ->andWhere('t.dtCadastro >= :dtCadastro')
+            ->andWhere('t.stAtivo = :stAtivo')
+            ->setParameter('dtCadastro', $dtCadastro->format("Y-m-d H:i:s"))
+            ->setParameter('stAtivo', true)
+            ->getQuery()
+            ->getResult();
     }
 }

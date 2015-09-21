@@ -24,6 +24,11 @@ super_mobile_usuario_atualizar_posicao:
     defaults: { _controller: SuperMobileBundle:Usuario:atualizarPosicao }
     methods:  [POST]
 
+super_mobile_usuario_extrato:
+    path:     /usuario/extrato
+    defaults: { _controller: SuperMobileBundle:Usuario:extrato }
+    methods:  [POST]
+
 
 ######### ENQUETE #########
 super_mobile_enquete_listar:
