@@ -13,13 +13,27 @@ use Doctrine\ORM\Mapping as ORM;
 class TbFeedback
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_feedback", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idFeedback;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_pontos", type="integer", nullable=false)
+     */
+    private $nuPontos;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nu_creditos", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $nuCreditos;
 
     /**
      * @var string
@@ -50,7 +64,7 @@ class TbFeedback
     private $dtCadastro;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

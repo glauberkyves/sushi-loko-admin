@@ -1,0 +1,24 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            {% block title %}{% endblock %}
+            <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+            </span>
+        </header>
+        <div class="panel-body">
+            {% block form %}{% endblock %}
+        </div>
+    </section>
+    {% include 'SuperOperadorBundle:Default:createModal.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {% javascripts
+        '@SuperBaseBundle/Resources/public/js/jquery.autocomplete.js'
+        '@SuperBaseBundle/Resources/public/js/operador/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

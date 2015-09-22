@@ -114,16 +114,6 @@ class TbFranqueador extends AbstractEntity
     private $dtCadastro;
 
     /**
-     * @var \TbUsuario
-     *
-     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
-     * })
-     */
-    private $idOperador;
-
-    /**
      * @var \TbEndereco
      *
      * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbEndereco")
@@ -424,22 +414,6 @@ class TbFranqueador extends AbstractEntity
     public function setIdConfiguracaoFranquiaNivel($idConfiguracaoFranquiaNivel)
     {
         $this->idConfiguracaoFranquiaNivel = $idConfiguracaoFranquiaNivel;
-    }
-
-    /**
-     * @return \TbUsuario
-     */
-    public function getIdOperador()
-    {
-        return $this->idOperador ? $this->idOperador : new TbUsuario();
-    }
-
-    /**
-     * @param \TbUsuario $idOperador
-     */
-    public function setIdOperador($idOperador)
-    {
-        $this->idOperador = $idOperador;
     }
 
     /**

@@ -39,32 +39,6 @@
                     }) }}
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Nome Operador</label>
-
-                <div class="col-lg-4">
-                    <div class="input-group m-bot15">
-                        {{ formText('noOperador', entity.getIdOperador().getIdPessoa().getNoPessoa(), {
-                            class: 'form-control required'
-                        }) }}
-                        {{ formHidden('idOperador', entity.getIdOperador().getIdUsuario()) }}
-                        <span class="input-group-addon" data-toggle="modal" href="#cadastrarUsuario"><i
-                                    class="fa fa-plus"></i></span>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">E-mail Operador</label>
-
-                <div class="col-lg-4">
-                    {{ formText('noEmailOperador', entity.getIdOperador().getIdPessoa().getIdPessoaFisica().getNoEmail(), {
-                        class: 'form-control required email',
-                        readonly: 'readonly'
-                    }) }}
-                </div>
-            </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Razão Social</label>
@@ -279,7 +253,7 @@
 
             <div class="alert alert-info fade in" id="div-niveis">
                 <div class="form-group">
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <label>Nome do nível</label>
 
                         <div class="input-group m-bot15">
@@ -289,7 +263,7 @@
                             }) }}
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-4">
                         <label>Porcentagem Crédito por transacação</label>
 
                         <div class="input-group m-bot15">
@@ -337,8 +311,6 @@
         </div>
     </section>
 </form>
-
-{% include 'SuperOperadorBundle:Default:createModal.html.twig' %}
 <script src="{{ asset('bundles/superbase/js/jquery.autocomplete.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -352,7 +324,7 @@
             } else {
                 $(this).val(0)
                 $('#div-niveis div').each(function (i, v) {
-                    if (i > 11) {
+                    if (i > 9) {
                         $(this).remove()
                     }
                 })
@@ -365,14 +337,14 @@
 
         $('#add-niveis').click(function () {
             var div = '<div class="form-group">'
-            div = div + '<div class="col-lg-3">'
+            div = div + '<div class="col-lg-2">'
             div = div + '<label>Nome do nível</label>'
             div = div + '<div class="input-group m-bot15">'
             div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
             div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="" class="form-control">'
             div = div + '</div>'
             div = div + '</div>'
-            div = div + '<div class="col-lg-3">'
+            div = div + '<div class="col-lg-4">'
             div = div + '<label>Porcentagem Crédito por transacação</label>'
             div = div + '<div class="input-group m-bot15">'
             div = div + '<span class="input-group-addon">%</span>'
@@ -426,14 +398,14 @@
 
         {% for key, configuracao in entity.getIdConfiguracaoFranquiaNivel() %}
         var div = '<div class="form-group">'
-        div = div + '<div class="col-lg-3">'
+        div = div + '<div class="col-lg-2">'
         div = div + '<label>Nome do nível</label>'
         div = div + '<div class="input-group m-bot15">'
         div = div + '<span class="input-group-addon"><i class="fa fa-font"></i></span>'
         div = div + '<input type="text" name="niveis[noNivel][]" id="niveis-noNivel" value="{{ configuracao.getNoNivel() }}" class="form-control">'
         div = div + '</div>'
         div = div + '</div>'
-        div = div + '<div class="col-lg-3">'
+        div = div + '<div class="col-lg-4">'
         div = div + '<label>Porcentagem Crédito por transacação</label>'
         div = div + '<div class="input-group m-bot15">'
         div = div + '<span class="input-group-addon">%</span>'
@@ -468,32 +440,6 @@
         getMunicipio({{ entity.getIdEndereco().getIdMunicipio().getIdEstado().getIdEstado() }}, {{ entity.getIdEndereco().getIdMunicipio().getIdMunicipio() }})
         getBairro({{ entity.getIdEndereco().getIdMunicipio().getIdMunicipio() }}, {{ entity.getIdEndereco().getIdBairro().getIdBairro() }})
         {% endif %}
-
-        $("#noOperador").autocomplete({
-            serviceUrl:       "{{ path('super_franquia_buscar_usuario') }}?q=nome",
-            type:             "POST",
-            minChars:         3,
-            maxHeight:        400,
-            onSelect:         function (suggestion) {
-                if (suggestion.data) {
-                    $('#idOperador').val(suggestion.data);
-                    $('#noEmailOperador').val(suggestion.noEmail);
-                } else {
-                    $("#idOperador").val("");
-                    $("#noOperador").val("");
-                    $("#noEmailOperador").val("");
-                }
-            },
-            onSearchStart:    function () {
-                $(this).addClass("spinner");
-            },
-            onSearchComplete: function () {
-                $(this).removeClass("spinner");
-            },
-            onSearchError:    function () {
-                $(this).removeClass("spinner");
-            }
-        });
 
         {% if not entity.getIdFranqueador() %}
         $("#nuCpf").rules('add', {

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbUsuario
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_usuario", type="integer", nullable=false)
      * @ORM\Id
@@ -29,7 +29,7 @@ class TbUsuario
     private $noSenha;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

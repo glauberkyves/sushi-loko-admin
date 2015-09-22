@@ -72,3 +72,15 @@ super_franquia_edit:
     defaults: { _controller: SuperFranquiaBundle:Default:edit }
     requirements:
         id: \d+
+
+super_franqueador_operador_index:
+    path:     /operador/index.html
+    defaults: { _controller: SuperOperadorBundle:Default:index }
+
+super_franqueador_operador_create:
+    path:     /operador/cadastro.html
+    defaults: { _controller: SuperOperadorBundle:Default:create }
+
+super_franqueador_operador_edit:
+    path:     /operador/editar
+    defaults: { _controller: SuperOperadorBundle:Default:edit }

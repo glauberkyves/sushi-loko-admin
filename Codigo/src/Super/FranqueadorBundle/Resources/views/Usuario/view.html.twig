@@ -118,8 +118,8 @@
                                                         {{ transacao.getIdTipoTransacao().getNoTipoTransacao() }}
                                                     </td>
                                                     <td class="">
-                                                        {% if transacao.getIdFranquia() %}
-                                                            {{ transacao.getIdFranquia().getNoFranquia() }}
+                                                        {% if transacao.getIdOperador() and transacao.getIdOperador().getIdFranquia() %}
+                                                            {{ transacao.getIdOperador().getIdFranquia().getNoFranquia() }}
                                                         {% endif %}
                                                     </td>
                                                     <td class="">
