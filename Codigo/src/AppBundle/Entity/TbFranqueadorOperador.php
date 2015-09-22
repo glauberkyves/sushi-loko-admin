@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbFranqueadorOperador
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_franqueador_operador", type="integer", nullable=false)
      * @ORM\Id
@@ -27,6 +27,13 @@ class TbFranqueadorOperador
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="st_visualizacao", type="integer", nullable=false)
+     */
+    private $stVisualizacao = '1';
 
     /**
      * @var \TbFranqueador

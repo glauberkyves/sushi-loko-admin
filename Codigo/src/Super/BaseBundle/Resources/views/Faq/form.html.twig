@@ -1,0 +1,59 @@
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Novo Faq
+                </header>
+                <div class="panel-body ">
+
+                    <div class="panel-body">
+                        <form enctype="multipart/form-data" class="form-horizontal tasi-form" method="post">
+                            <div class="form-group">
+                                <label for="noSite" class="control-label col-md-3">Pergunta (*)</label>
+
+                                <div class="col-md-9">
+                                    {{ formHidden('idFaq',entity.getIdFaq(),  {class: 'form-control required'}) }}
+                                    {{ formText('noAssunto',entity.getNoAssunto(),   {class: 'form-control required', placeholder:"Pergunta"}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="noSite" class="control-label col-md-3">Resposta (*)</label>
+
+                                <div class="col-md-9">
+                                    {{ formTextarea('noDescricao',entity.getNoDescricao(),   {class: 'form-control required', placeholder:"Resposta",rows: 6}) }}
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="rdCensura" class="control-label col-md-3">Situação</label>
+
+                                <div class="col-md-9">
+                                    {{ formSelect('stAtivo', entity.getStAtivo(), {class: 'form-control'}, {1: 'Ativo', 0: 'Inativo'}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <br>
+                                <button type="submit" class="btn btn-primary">
+                                    Salvar
+                                </button>
+                                <a type="button" href="{{ path('super_faq_index') }}" class="btn btn-danger">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+        jQuery(function ($) {
+            $(".date").mask("99/99/9999");
+        });
+    </script>
+{% endblock %}

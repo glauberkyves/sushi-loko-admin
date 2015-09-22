@@ -30,11 +30,13 @@ class TransacaoController extends CrudController
             $data->iTotalRecords        = $page;
             $data->iTotalDisplayRecords = ceil($pagination->getTotalItemCount() / $rows);
             $data->records              = $pagination->getTotalItemCount();
-            $data->aaData               = $this->getService()->parserItens($pagination->getItems(), false);
+            $data->aaData               = $pagination->getItems();
 
             foreach ($data->aaData as $key => $value) {
                 foreach ($value as $keyIten => $iten) {
                     $data->aaData[$key]['nuCpf'] = Mask::mask($value['nuCpf'], '###.###.###-##');
+                    $data->aaData[$key]['dtCadastro'] = $value['dtCadastro']->format('d/m/Y H:i:s');
+                    $data->aaData[$key]['nuValor'] = 'R$ '.number_format($value['nuValor'], 2, ',', '.');
 
                     $data->aaData[$key]['opcoes'] = $this->container->get('templating')->render(
                         'SuperFranqueadorBundle:Transacao:gridOptionsTransacao.html.twig',

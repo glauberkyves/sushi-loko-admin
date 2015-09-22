@@ -53,3 +53,21 @@ super_franquia_index_franquia_super:
     defaults: { _controller: SuperFranquiaBundle:Default:index }
     requirements:
         idFranqueador: \d+
+
+
+################## faq
+super_faq_index:
+    path:     /faq/index.html
+    defaults: { _controller: SuperBaseBundle:Faq:index }
+
+super_faq_create:
+    path:     /faq/cadastro.html
+    defaults: { _controller: SuperBaseBundle:Faq:create }
+
+super_faq_edit:
+    path:     /faq/editar
+    defaults: { _controller: SuperBaseBundle:Faq:edit }
+
+super_faq_delete:
+    path:     /faq/delete/{id}
+    defaults: { _controller: SuperBaseBundle:Faq:delete }

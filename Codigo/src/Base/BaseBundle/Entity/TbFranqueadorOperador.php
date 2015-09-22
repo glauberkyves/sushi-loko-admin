@@ -29,6 +29,13 @@ class TbFranqueadorOperador extends AbstractEntity
     private $dtCadastro;
 
     /**
+     * @var Int
+     *
+     * @ORM\Column(name="st_visualizacao", type="integer", nullable=false)
+     */
+    private $stVisualizacao;
+
+    /**
      * @var \TbFranqueador
      *
      * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueador")
@@ -101,7 +108,7 @@ class TbFranqueadorOperador extends AbstractEntity
      */
     public function getIdOperador()
     {
-        return $this->idOperador;
+        return $this->idOperador ? $this->idOperador : new TbUsuario();
     }
 
     /**
@@ -110,6 +117,22 @@ class TbFranqueadorOperador extends AbstractEntity
     public function setIdOperador($idOperador)
     {
         $this->idOperador = $idOperador;
+    }
+
+    /**
+     * @return Int
+     */
+    public function getStVisualizacao()
+    {
+        return $this->stVisualizacao;
+    }
+
+    /**
+     * @param Int $stVisualizacao
+     */
+    public function setStVisualizacao($stVisualizacao)
+    {
+        $this->stVisualizacao = $stVisualizacao;
     }
 
 

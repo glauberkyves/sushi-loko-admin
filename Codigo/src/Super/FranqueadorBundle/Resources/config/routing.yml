@@ -75,12 +75,12 @@ super_franquia_edit:
 
 super_franqueador_operador_index:
     path:     /operador/index.html
-    defaults: { _controller: SuperOperadorBundle:Default:index }
+    defaults: { _controller: SuperFranqueadorBundle:Operador:index }
 
 super_franqueador_operador_create:
     path:     /operador/cadastro.html
-    defaults: { _controller: SuperOperadorBundle:Default:create }
+    defaults: { _controller: SuperFranqueadorBundle:Operador:create }
 
 super_franqueador_operador_edit:
     path:     /operador/editar
-    defaults: { _controller: SuperOperadorBundle:Default:edit }
+    defaults: { _controller: SuperFranqueadorBundle:Operador:edit }

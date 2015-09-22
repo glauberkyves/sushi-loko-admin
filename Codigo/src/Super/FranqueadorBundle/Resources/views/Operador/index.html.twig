@@ -2,22 +2,25 @@
 {% block body %}
     <section class="panel">
         <header class="panel-heading">
-            Pesquisar Franquia
+            Pesquisar Operador
               <span class="tools pull-right">
                 <a class="fa fa-chevron-down" href="javascript:;"></a>
               </span>
         </header>
+
         <div class="panel-body">
-            <form method="post" action=" " id="form-franquia" class="form-horizontal tasi-form">
-                {{ formHidden('idFranqueador', idFranqueador) }}
+            <form method="post" action=" " id="form-operador" class="form-horizontal tasi-form">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Franqueado</label>
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Operador</label>
+
                     <div class="col-lg-10">
-                        <input type="text" class="form-control " id="noFranquia" placeholder="" name="noFranquia" value="">
+                        <input type="text" class="form-control " id="noPessoa" placeholder=""
+                               name="noPessoa" value="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Status</label>
+
                     <div class="col-lg-10">
                         {{ formSelect('stAtivo', '', {class: 'form-control'}, cmbStatus) }}
                     </div>
@@ -28,12 +31,9 @@
                             <i class="fa fa-search"></i>
                             Pesquisar
                         </button>
-                        {% if is_granted('ROLE_SUPER') %}
-                            <a href="{{ path('super_franquia_create', {idFranqueador: idFranqueador}) }}" class="btn btn-default">
-                                <i class="fa fa-plus"></i>
-                                Cadastrar
-                            </a>
-                        {% endif %}
+                        <a href="{{ path('super_franqueador_operador_create') }}" class="btn btn-default">
+                            <i class="fa fa-plus"></i>
+                            Cadastrar</a>
                     </div>
                 </div>
             </form>
@@ -48,20 +48,19 @@
         </header>
         <div class="panel-body">
             <section id="unseen">
-                <table class="table table-bordered table-striped table-condensed" data-grid="form-franquia">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-operador">
                     <thead>
-                        <tr>
-                            <th data-column="noFranquia">Nome do franqueado</th>
-                            <th data-column="noResponsavel">Nome do responsável</th>
-                            <th data-column="noEmailResponsavel">E-mail do responsável</th>
-                            <th data-column="stAtivo">Status</th>
-                            <th data-column="opcoes">Ações</th>
-                        </tr>
+                    <tr>
+                        <th data-column="noPessoa">Nome operador</th>
+                        <th data-column="noEmail">E-mail</th>
+                        <th data-column="stAtivo">Status</th>
+                        <th data-column="opcoes">Ações</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr class="odd">
-                            <td valign="top" colspan="5">Acione a pesquisa</td>
-                        </tr>
+                    <tr class="odd">
+                        <td valign="top" colspan="4">Acione a pesquisa</td>
+                    </tr>
                     </tbody>
                 </table>
             </section>

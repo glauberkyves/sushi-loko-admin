@@ -2,3 +2,7 @@ services:
     service.configuracao_ftp:
         class: Super\BaseBundle\Service\ConfiguracaoFtp
         arguments:  ["@service_container"]
+
+    service.faq:
+        class: Super\BaseBundle\Service\Faq
+        arguments:  ["@service_container"]

@@ -7,7 +7,10 @@ services:
         class: Super\FranqueadorBundle\Service\ConfiguracaoFranquaiNivel
         arguments:  ["@service_container"]
 
-
     service.franqueador_comentario_usuario:
         class: Super\FranqueadorBundle\Service\ComentarioUsuario
+        arguments:  ["@service_container"]
+
+    service.franqueador_operador:
+        class: Super\FranqueadorBundle\Service\FranqueadorOperador
         arguments:  ["@service_container"]

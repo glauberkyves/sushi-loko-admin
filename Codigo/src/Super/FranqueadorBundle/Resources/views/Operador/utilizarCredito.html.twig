@@ -1,0 +1,164 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    {% if(app.session.flashbag.peekAll|length) %}
+        {% for label, flashes in app.session.flashbag.all %}
+            <div class="alert alert-block alert-{{ label|replace({'error': 'danger'}) }} fade in">
+                <button type="button" class="close close-sm" data-dismiss="alert">
+                    <i class="fa fa-times"></i>
+                </button>
+                {% for flash in flashes %}
+                    {{ flash }}<br/>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <section class="panel">
+        <header class="panel-heading">
+            Utilizar Créditos
+        </header>
+        <div class="panel-body">
+            <form class="form-horizontal tasi-form" role="form" method="post">
+                <div class="col-md-4">
+                    <label class="">CPF do Cliente</label>
+
+                    <div class="iconic-input">
+                        <i class="fa fa-user"></i>
+                        {{ formText('nuCpf', '', {
+                            class: 'form-control required cpf',
+                            placeholder: 'CPF do Cliente',
+                            'data-mask': 'cpf'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="">Senha App</label>
+
+                    <div class="iconic-input">
+                        <i class="fa fa-key"></i>
+                        {{ formText('noSenha', '', {
+                            class: 'form-control required',
+                            placeholder: 'Senha app fornecido pelo cliente'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="">&nbsp;</label>
+
+                    <div class="iconic-input">
+                        <button type="submit" class="btn btn-danger date-set" id="btn-buscar">
+                            <span class="fa fa-beer"></span>
+                            Utilizar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    {% if entity is defined %}
+        <section class="panel col-md-12">
+            <div class="panel-body">
+                <div class="alert alert-block alert-danger fade in hide">
+                    <span id="error-msg"></span>
+                </div>
+                <aside class="profile-nav col-lg-3">
+                    <section class="panel">
+                        <div class="user-heading round">
+                            <a href="#">
+                                <img src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}" alt="">
+                            </a>
+
+                            <h1>{{ entity.getIdPessoa().getNoPessoa() }}</h1>
+
+                            <p>{{ entity.getIdPessoa().getIdPessoaFisica().getNoEmail() }}</p>
+
+                            <p>CPF: {{ app.request.get('nuCpf') }}</p>
+
+                            <p></p>
+
+                            <p></p>
+                        </div>
+
+                    </section>
+                </aside>
+                <aside class="profile-info col-lg-9">
+                    <section class="panel">
+                        <div class="panel-body bio-graph-info">
+                            <form class="form-horizontal tasi-form" method="post" novalidate="novalidate">
+                                <div class="activity blue">
+                                  <span>
+                                      <i class="fa fa-credit-card"></i>
+                                  </span>
+
+                                    <div class="activity-desk">
+                                        <div class="panel col-md-12">
+                                            <div class="panel-body">
+                                                <div class="arrow"></div>
+                                                <i class=" fa fa-money"></i>
+                                                <h4>Total em Créditos</h4>
+
+                                                <h1 id="total-credito">R$ {{ nuValor|number_format(2, ',', '.') }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="activity purple">
+                                  <span>
+                                      <i class="fa  fa-cutlery"></i>
+                                  </span>
+
+                                    <div class="activity-desk">
+                                        <div class="panel col-md-12">
+                                            <div class="panel-body">
+                                                <div class="arrow"></div>
+                                                <i class=" fa fa-beer"></i>
+                                                <h4>Total Utilizado</h4>
+
+                                                <h1 id="total-credito">R$ {{ nuValorUtilizado|number_format(2, ',', '.') }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="activity green">
+                                  <span>
+                                      <i class="fa  fa-thumbs-o-up"></i>
+                                  </span>
+
+                                    <div class="activity-desk">
+                                        <div class="panel col-md-12">
+                                            <div class="panel-body">
+                                                <div class="arrow"></div>
+                                                <i class=" fa fa-money"></i>
+                                                <h4>Total Restante</h4>
+
+                                                <h1 id="total-credito">R$ {{ nuValorTotal|number_format(2, ',', '.') }}</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3"></label>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </section>
+
+        <script>
+            $(document).ready(function () {
+                $('#btn-voltar').click(function () {
+                    window.location = '{{ path('super_operador_home') }}'
+                })
+
+            })
+        </script>
+    {% endif %}
+{% endblock %}
