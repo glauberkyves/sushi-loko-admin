@@ -93,6 +93,13 @@ class TbFranqueador extends AbstractEntity
     private $nuValidadeBonus;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_url_compra_online", type="string", length=100, nullable=true)
+     */
+    private $noUrlCompraOnline;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
@@ -497,6 +504,22 @@ class TbFranqueador extends AbstractEntity
     public function setDtInicioCadastro($dtInicioCadastro)
     {
         $this->dtInicioCadastro = $dtInicioCadastro;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoUrlCompraOnline()
+    {
+        return $this->noUrlCompraOnline;
+    }
+
+    /**
+     * @param string $noUrlCompraOnline
+     */
+    public function setNoUrlCompraOnline($noUrlCompraOnline)
+    {
+        $this->noUrlCompraOnline = $noUrlCompraOnline;
     }
 
 

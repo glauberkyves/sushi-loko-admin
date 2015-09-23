@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbRequisacaoTransacao
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_requisacao_transacao", type="integer", nullable=false)
      * @ORM\Id
@@ -36,14 +36,14 @@ class TbRequisacaoTransacao
     private $nuValor;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_utilizado", type="integer", nullable=false)
      */
     private $stUtilizado;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

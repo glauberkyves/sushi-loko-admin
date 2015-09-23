@@ -84,6 +84,10 @@ class Arquivo extends CrudService
         $idFranquia = $this->getService('service.franquia')->findOneBy($criteria);
         $entity->setIdFranquia($idFranquia);
 
+        if(!$idFranquia->getStAtivo()){
+            return;
+        }
+
         $idUsuario = $this->getService('service.franqueador_usuario')->findUsuarioPorFranquia(
             $dadosArquivo['nuCpf'],
             $dadosArquivo['nuCodigoLoja']

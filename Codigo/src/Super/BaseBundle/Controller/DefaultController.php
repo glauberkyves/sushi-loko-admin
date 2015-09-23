@@ -102,7 +102,13 @@ class DefaultController extends CrudController
 
         //parametros exportacao
         if ($request->query->has('exportar')) {
-            $response = $this->render('SuperBaseBundle:Default:usuariosCSV.html.twig', array(
+            $template = 'SuperBaseBundle:Default:usuariosCSV.html.twig';
+
+            if($request->query->get('exportar') == 'excel'){
+                return $this->getService()->exportarExcel($result);
+            }
+
+            $response = $this->render($template, array(
                 'arrUsuarios' => $result
             ));
 

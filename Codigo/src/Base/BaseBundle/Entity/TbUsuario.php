@@ -93,6 +93,16 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
      * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranquia", mappedBy="idUsuario")
      */
     private $idFranquia;
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueadorOperador", mappedBy="idOperador")
+     */
+    private $idOperadorFranqueador;
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="Base\BaseBundle\Entity\TbFranquiaOperador", mappedBy="idOperador")
+     */
+    private $idOperadorFranquia;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -458,6 +468,38 @@ class TbUsuario extends AbstractEntity implements UserInterface, \Serializable
     public function setIdTransacao($idTransacao)
     {
         $this->idTransacao = $idTransacao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdOperadorFranqueador()
+    {
+        return $this->idOperadorFranqueador;
+    }
+
+    /**
+     * @param mixed $idOperadorFranqueador
+     */
+    public function setIdOperadorFranqueador($idOperadorFranqueador)
+    {
+        $this->idOperadorFranqueador = $idOperadorFranqueador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdOperadorFranquia()
+    {
+        return $this->idOperadorFranquia;
+    }
+
+    /**
+     * @param mixed $idOperadorFranquia
+     */
+    public function setIdOperadorFranquia($idOperadorFranquia)
+    {
+        $this->idOperadorFranquia = $idOperadorFranquia;
     }
 
 

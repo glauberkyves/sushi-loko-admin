@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new GlauberKyves\Bundle\ZendFormTwigBundle\ZendFormTwigBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
 
             new Base\BaseBundle\BaseBaseBundle(),
             new Base\CrudBundle\BaseCrudBundle(),

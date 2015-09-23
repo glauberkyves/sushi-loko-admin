@@ -82,7 +82,7 @@
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <img alt="" src="{{ asset('bundles/superbase/img/avatar-mini2.jpg') }}">
                                 <span class="username">
-                                    {#{{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}#}
+                                    {{ app.security.getToken().getUser().getIdPessoa().getNoPessoa(true) }}
                                 </span>
                                 <b class="caret"></b>
                             </a>

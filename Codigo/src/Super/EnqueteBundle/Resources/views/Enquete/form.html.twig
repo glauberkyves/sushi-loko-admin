@@ -9,43 +9,51 @@
         <form method="post" id="form-cadastro" class="form-horizontal tasi-form" enctype="multipart/form-data">
             <input type="hidden" name="idEnquete" value="{{ entity.idEnquete }}">
             <input type="hidden" name="updateEnquete" value="1">
+
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>
+
                 <div class="col-lg-9">
                     <input type="text" class="form-control required" id="noEnquete" name="noEnquete" value="{{ entity.noEnquete }}">
                 </div>
             </div>
             <div class="form-group">
                 <label for="txtData" class="control-label col-md-3">Pontos</label>
+
                 <div class="col-md-1">
-                    <input type="text" class="form-control  required" mask="integer" value="{{ entity.nuPontos }}" id="nuPontos" name="nuPontos"/>
+                    <input type="text" class="form-control  required" mask="integer" value="{{ entity.nuPontos }}" id="nuPontos"
+                           name="nuPontos"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="txtData" class="control-label col-md-3">Crédito:</label>
+
                 <div class="col-lg-2">
                     <div class="input-group m-bot15">
                         <span class="input-group-addon">R$</span>
-                        <input type="text" mask="decimal"  id="nuBonus" value="{{ entity.nuBonus }}" name="nuBonus" class="form-control required">
+                        <input type="text" mask="decimal" id="nuBonus" value="{{ entity.nuBonus }}" name="nuBonus"
+                               class="form-control required">
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="txtData" class="control-label col-md-3">Data Inicial</label>
+
                 <div class="col-lg-3">
                     <div class="input-group m-bot15">
                         <span class="input-group-addon"><span class="fa  fa-calendar"></span> </span>
-                        <input type="text"  value="{{ entity.getDtInicio()|date("d/m/Y") }}"  class="form-control required" id="datepicker"
+                        <input type="text" value="{{ entity.getDtInicio()|date("d/m/Y") }}" class="form-control required" id="datepicker"
                                placeholder="Data Inicial" name="dtInicial"/>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="txtData" class="control-label col-md-3">Data Final</label>
+
                 <div class="col-lg-3">
                     <div class="input-group m-bot15">
                         <span class="input-group-addon"><span class="fa  fa-calendar"></span> </span>
-                        <input type="text"  value="{{ entity.getDtFim()|date("d/m/Y") }}"  class="form-control required" id="datepicker2"
+                        <input type="text" value="{{ entity.getDtFim()|date("d/m/Y") }}" class="form-control required" id="datepicker2"
                                placeholder="Data final" name="dtFim"/>
                     </div>
                 </div>
@@ -64,14 +72,22 @@
                     <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">{{ num }}° Resposta</label>
 
                     <div class="col-lg-9">
-                        <input type="hidden" name="idResposta{{ num }}" value="{{  resposta.idResposta }}" />
-                        <input type="hidden" name="total" value="{{ num }}" />
-                        <input type="text" class="form-control required" value="{{ resposta.noResposta }}" placeholder="{{ key }}° Resposta" id="" name="resposta{{ num }}">
+                        <input type="hidden" name="idResposta{{ num }}" value="{{ resposta.idResposta }}"/>
+                        <input type="hidden" name="total" value="{{ num }}"/>
+
+                        {% set required = 'required' %}
+
+                        {% if key > 1 %}
+                            {% set required = '' %}
+                        {% endif %}
+                        <input type="text" class="form-control {{ required }}" value="{{ resposta.noResposta }}" placeholder="{{ num }}° Resposta"
+                               id="" name="resposta{{ num }}">
                     </div>
                 </div>
             {% endfor %}
             <div class="form-group">
                 <label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Situação</label>
+
                 <div class="col-lg-9">
                     <select class="form-control required" id="stAtivo" name="stAtivo">
                         {% if entity.stAtivo == 1 %}
