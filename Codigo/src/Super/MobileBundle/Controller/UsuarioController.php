@@ -164,7 +164,8 @@ class UsuarioController extends AbstractMobile
         $queryExtrato = $this->getService('service.transacao')->getExtratoPorUsuario($request->idUsuario);
 
         foreach($queryExtrato as $key => $extrato) {
-            $extrato['dtCadastro'] = $extrato['dtCadastro']->format('d/m/Y H:i');
+            $extrato['dtDia']      = $extrato['dtCadastro']->format('d/m/Y');
+            $extrato['dtHora']     = $extrato['dtCadastro']->format('H:i');
             $extrato['nuValor']    = sprintf("%s", number_format($extrato['nuValor'], 2, ',', '.'));
             $arrExtrato[$key] = $extrato;
         }
