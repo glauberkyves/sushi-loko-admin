@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbProduto
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_produto", type="integer", nullable=false)
      * @ORM\Id
@@ -43,7 +43,14 @@ class TbProduto
     private $noImagem;
 
     /**
-     * @var int
+     * @var string
+     *
+     * @ORM\Column(name="ds_produto", type="text", length=65535, nullable=true)
+     */
+    private $dsProduto;
+
+    /**
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

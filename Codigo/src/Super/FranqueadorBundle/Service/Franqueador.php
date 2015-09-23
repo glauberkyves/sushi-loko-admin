@@ -24,13 +24,6 @@ class Franqueador extends CrudService
         $this->entity->setNuValidadeBonus($request->getDigits('nuValidadeBonus'));
         $this->entity->setStNiveis($request->getInt('stNiveis'));
         $this->entity->setDtInicioCadastro(Data::dateBr($request->get('dtInicioCadastro')));
-
-        if ($request->get('idOperador')) {
-            $idOperador = $this->getService('service.usuario')->find($request->get('idOperador'));
-            $this->entity->setIdOperador($idOperador);
-        } else {
-            $this->setIdOperador(null);
-        }
     }
 
     public function preInsert(AbstractEntity $entity = null)

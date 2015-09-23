@@ -1,0 +1,69 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Pesquisar Operador
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <form method="post" action=" " id="form-operador" class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Operador</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control " id="noPessoa" placeholder=""
+                               name="noPessoa" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Status</label>
+
+                    <div class="col-lg-10">
+                        {{ formSelect('stAtivo', '', {class: 'form-control'}, cmbStatus) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i>
+                            Pesquisar
+                        </button>
+                        <a href="{{ path('super_franqueador_operador_create') }}" class="btn btn-default">
+                            <i class="fa fa-plus"></i>
+                            Cadastrar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="panel">
+        <header class="panel-heading">
+            Resultado da pesquisa
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+        <div class="panel-body">
+            <section id="unseen">
+                <table class="table table-bordered table-striped table-condensed" data-grid="form-operador">
+                    <thead>
+                    <tr>
+                        <th data-column="noPessoa">Nome operador</th>
+                        <th data-column="noEmail">E-mail</th>
+                        <th data-column="stAtivo">Status</th>
+                        <th data-column="opcoes">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td valign="top" colspan="4">Acione a pesquisa</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>
+{% endblock body %}

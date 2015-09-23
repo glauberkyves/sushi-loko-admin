@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class RlUsuarioPerfil
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_usuario_perfil", type="integer", nullable=false)
      * @ORM\Id

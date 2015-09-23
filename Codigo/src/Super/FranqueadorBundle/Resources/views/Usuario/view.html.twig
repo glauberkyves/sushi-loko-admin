@@ -118,8 +118,8 @@
                                                         {{ transacao.getIdTipoTransacao().getNoTipoTransacao() }}
                                                     </td>
                                                     <td class="">
-                                                        {% if transacao.getIdFranquia() %}
-                                                            {{ transacao.getIdFranquia().getNoFranquia() }}
+                                                        {% if transacao.getIdOperador() and transacao.getIdOperador().getIdFranquia() %}
+                                                            {{ transacao.getIdOperador().getIdFranquia().getNoFranquia() }}
                                                         {% endif %}
                                                     </td>
                                                     <td class="">
@@ -128,14 +128,14 @@
                                                         {% endif %}
                                                     </td>
                                                     <td class="">
-                                                        {{ transacao.getNuValor()|number_format(2, ',', '.') }}
-                                                    </td>
-                                                    <td class="">
                                                         {% if transacao.getIdArquivo() %}
                                                             R$ {{ transacao.getIdArquivo().getNuValor()|number_format(2, ',', '.') }}
                                                         {% else %}
                                                             R$ 0,00
                                                         {% endif %}
+                                                    </td>
+                                                    <td class="">
+                                                        R$ {{ transacao.getNuValor()|number_format(2, ',', '.') }}
                                                     </td>
                                                     <td class="">
                                                         {{ transacao.getDtCadastro()|date('d/m/Y H:i:s') }}

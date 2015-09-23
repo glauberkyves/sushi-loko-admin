@@ -65,7 +65,25 @@ class UsuarioRepository extends AbstractRepository
                 ->getQuery()
                 ->getResult();
 
-            return $result ? current($result) : array();
+            if($result){
+                $entity = current($result);
+                switch (true) {
+                    case $entity->getIdFranqueador():
+                        return $entity;
+                        break;
+                    case $entity->getIdFranquia() && $entity->getIdFranquia()->getStAtivo():
+                        return $entity;
+                        break;
+                    case $entity->getIdOperadorFranquia():
+                        return $entity;
+                        break;
+                    case $entity->getIdOperadorFranqueador():
+                        return $entity;
+                        break;
+                }
+            }
+
+            return array();
         }
 
         return parent::findOneBy($criteria, $orderBy);

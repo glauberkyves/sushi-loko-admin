@@ -1,0 +1,86 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            Cadastrar Operador
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+        </header>
+
+        <div class="panel-body">
+            <form method="post" action="{{ path('super_franqueador_operador_edit') }}" id="form-operador"
+                  class="form-horizontal tasi-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Nome</label>
+
+                    <div class="col-lg-10">
+                        {{ formText('noPessoa', entity.getIdOperador().getIdPessoa().getNoPessoa(), {
+                            class: 'form-control required',
+                            placeholder: 'Nome do operador'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="noEmail">E-mail</label>
+
+                    <div class="col-lg-10">
+                        {{ formText('noEmail', entity.getIdOperador().getIdPessoa().getIdPessoaFisica().getNoEmail(), {
+                            class: 'form-control required email',
+                            placeholder: 'E-mail do operador'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="nuCpf">CPF</label>
+
+                    <div class="col-lg-10">
+                        {{ formText('nuCpf', entity.getIdOperador().getIdPessoa().getIdPessoaFisica().getNuCpf(), {
+                            class: 'form-control required cpf',
+                            placeholder: 'Número de CPF',
+                            'data-mask': 'cpf'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="nuCpf">CPF</label>
+
+                    <div class="col-lg-2">
+                        {{ formSelect('stAtivo', entity.getIdOperador().getStAtivo(), {class: 'form-control required'}, cmbStatus) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="nuCpf">Perfil de Visualização?</label>
+
+                    <div class="col-lg-2">
+                        {{ formSelect('stVisualizacao', entity.getStVisualizacao(), {class: 'form-control required'}, {
+                            1: 'Sim',
+                            0: 'Não'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-plus"></i>
+                            Salvar
+                        </button>
+                        <a class="btn btn-danger" href="{{ path('super_franqueador_operador_index') }}">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script>
+        {% if not entity.getIdOperador() %}
+        $(document).ready(function () {
+            $("#nuCpf").rules('add', {
+                remote: '{{ path('super_usuario_verificar_cpf') }}',
+                messages: {
+                    remote: "CPF já cadastrado"
+                }
+            })
+        })
+        {% endif %}
+    </script>
+{% endblock body %}

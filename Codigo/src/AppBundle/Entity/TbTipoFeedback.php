@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbTipoFeedback
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_tipo_feedback", type="integer", nullable=false)
      * @ORM\Id

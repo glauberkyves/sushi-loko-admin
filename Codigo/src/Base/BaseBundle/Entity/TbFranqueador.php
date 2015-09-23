@@ -93,6 +93,13 @@ class TbFranqueador extends AbstractEntity
     private $nuValidadeBonus;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_url_compra_online", type="string", length=100, nullable=true)
+     */
+    private $noUrlCompraOnline;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
@@ -112,16 +119,6 @@ class TbFranqueador extends AbstractEntity
      * @ORM\Column(name="dt_cadastro", type="datetime", nullable=false)
      */
     private $dtCadastro;
-
-    /**
-     * @var \TbUsuario
-     *
-     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbUsuario")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_operador", referencedColumnName="id_usuario")
-     * })
-     */
-    private $idOperador;
 
     /**
      * @var \TbEndereco
@@ -427,22 +424,6 @@ class TbFranqueador extends AbstractEntity
     }
 
     /**
-     * @return \TbUsuario
-     */
-    public function getIdOperador()
-    {
-        return $this->idOperador ? $this->idOperador : new TbUsuario();
-    }
-
-    /**
-     * @param \TbUsuario $idOperador
-     */
-    public function setIdOperador($idOperador)
-    {
-        $this->idOperador = $idOperador;
-    }
-
-    /**
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getIdFranquia()
@@ -523,6 +504,22 @@ class TbFranqueador extends AbstractEntity
     public function setDtInicioCadastro($dtInicioCadastro)
     {
         $this->dtInicioCadastro = $dtInicioCadastro;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoUrlCompraOnline()
+    {
+        return $this->noUrlCompraOnline;
+    }
+
+    /**
+     * @param string $noUrlCompraOnline
+     */
+    public function setNoUrlCompraOnline($noUrlCompraOnline)
+    {
+        $this->noUrlCompraOnline = $noUrlCompraOnline;
     }
 
 

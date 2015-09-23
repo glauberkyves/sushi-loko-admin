@@ -1,0 +1,29 @@
+<div class="btn-group  btn-group-sm">
+    <a href="{{ path('super_faq_edit', {id: data.idFaq}) }}">
+        <button class="btn btn-white" type="button">
+            <i class="fa fa-edit"></i>
+        </button>
+    </a>
+    <a href="#deleteModal{{ data.idFaq }}" data-toggle="modal" data-toggle="modal">
+        <button class="btn btn-white" type="button">
+            <i class="fa fa-times"></i>
+        </button>
+    </a>
+</div>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="deleteModal{{ data.idFaq }}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Excluir Faq</h4>
+            </div>
+            <div class="modal-body">
+                Atenção: Deseja realmente excluir este Faq? Esta ação não é reversível.
+            </div>
+            <div class="modal-footer">
+                <a href="{{ path('super_faq_delete', {id: data.idFaq}) }}" class="btn btn-danger" type="button">Excluir</a>
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

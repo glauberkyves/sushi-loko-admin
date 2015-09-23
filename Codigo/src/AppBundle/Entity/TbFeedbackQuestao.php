@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbFeedbackQuestao
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_feedback_questao", type="integer", nullable=false)
      * @ORM\Id
@@ -29,7 +29,7 @@ class TbFeedbackQuestao
     private $noQuestao;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="nu_posicao", type="integer", nullable=false)
      */

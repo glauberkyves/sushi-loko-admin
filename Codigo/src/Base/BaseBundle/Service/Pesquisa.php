@@ -12,6 +12,7 @@ use Base\CrudBundle\Service\CrudService;
 use Symfony\Component\HttpFoundation\Response;
 use Super\TransacaoBundle\Service\TipoTransacao;
 use Base\BaseBundle\Entity\TbTransacao;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class Pesquisa extends CrudService
 {
@@ -70,16 +71,51 @@ class Pesquisa extends CrudService
      */
     public function exportar(Response $response)
     {
-        $date = date("d-m-Y_H-i-s");
-        $filename = "usuarios_".$date.".csv";
+        $date     = date("d-m-Y_H-i-s");
+        $filename = "usuarios_" . $date . ".csv";
 
         $response->setStatusCode(200);
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Description', 'Submissions Export');
-        $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
+        $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
         $response->headers->set('Content-Transfer-Encoding', 'binary');
         $response->headers->set('Pragma', 'no-cache');
         $response->headers->set('Expires', '0');
+
+        return $response;
+    }
+
+    public function exportarExcel(array $data)
+    {
+        $date     = date("d-m-Y_H-i-s");
+        $filename = "usuarios_" . $date . ".xls";
+
+        $phpExcelObject = $this->getContainer()->get('phpexcel')->createPHPExcelObject();
+
+        $phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Nome')
+            ->setCellValue('B1', 'E-mail');
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        foreach($data as $key => $value){
+            $cell = $key + 2;
+            $phpExcelObject->setActiveSheetIndex(0)
+                ->setCellValue("A{$cell}", $value['noPessoa'])
+                ->setCellValue("B{$cell}", $value['noEmail']);
+        }
+
+        $writer = $this->getContainer()->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->getContainer()->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $dispositionHeader = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+        $response->headers->set('Content-Disposition', $dispositionHeader);
 
         return $response;
     }
@@ -113,10 +149,14 @@ class Pesquisa extends CrudService
     public static function getOperador($operador = 'igual')
     {
         switch ($operador) {
-            case 'igual': return '=';
-            case 'maior': return '>';
-            case 'menor': return '<';
-            default:      return '=';
+            case 'igual':
+                return '=';
+            case 'maior':
+                return '>';
+            case 'menor':
+                return '<';
+            default:
+                return '=';
         }
     }
 
@@ -128,10 +168,14 @@ class Pesquisa extends CrudService
     public static function getPeriodo($periodo = 'd')
     {
         switch ($periodo) {
-            case 'd': return 'days';
-            case 'm': return 'months';
-            case 'a': return 'years';
-            default:  return 'days';
+            case 'd':
+                return 'days';
+            case 'm':
+                return 'months';
+            case 'a':
+                return 'years';
+            default:
+                return 'days';
         }
     }
 
@@ -195,7 +239,7 @@ class Pesquisa extends CrudService
             foreach ($value as $keyIten => $iten) {
                 switch (true) {
                     case $keyIten == 'nuCreditoTotal':
-                        $nuBonus = $iten - $itens[$key]['nuDebitoTotal'];
+                        $nuBonus                = $iten - $itens[$key]['nuDebitoTotal'];
                         $itens[$key]['nuBonus'] = sprintf("R$ %s", number_format($nuBonus, 2, ',', '.'));
                         break;
                     case $keyIten == 'sgSexo':
