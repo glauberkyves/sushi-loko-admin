@@ -81,7 +81,7 @@ class FranqueadorRepository extends AbstractRepository
         $arrFranquia = $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('ff.idFranquia, ff.noFranquia, e.noLatitude, e.noLongitude, e.noEnderecoAmigavel')
+            ->select('ff.idFranquia, ff.noFranquia, UPPER(ff.noFranquia) noTituloFranquia, e.noLatitude, e.noLongitude, e.noEnderecoAmigavel')
             ->from('BaseBaseBundle:TbFranquia', 'ff')
             ->innerJoin('ff.idEndereco', 'e')
             ->innerJoin('e.idMunicipio', 'm')

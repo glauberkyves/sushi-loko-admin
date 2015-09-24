@@ -25,16 +25,22 @@ class FranqueadorController extends AbstractMobile
 
             $arrResponse = array();
 
-            foreach($arrCidades as $key => $cidade)
-            {
-                $arrFranquia = $this->getService('service.franqueador')->findFranquiasByMunicipio(
+            foreach($arrCidades as $key => $cidade) {
+                $arrFranquia = array();
+                $franquias = $this->getService('service.franqueador')->findFranquiasByMunicipio(
                     $request->idFranqueador,
                     $cidade['idMunicipio']
                 );
 
+                foreach($franquias as $franquia) {
+                    $franquia['noTituloFranquia'] = mb_strtoupper($franquia['noTituloFranquia'], 'UTF-8');
+                    $arrFranquia[] = $franquia;
+                }
+
                 $arrResponse[$key] = array(
                     'idMunicipio'  => $cidade['idMunicipio'],
                     'noMunicipio'  => $cidade['noMunicipio'],
+                    'noTituloMunicipio' => mb_strtoupper($cidade['noMunicipio'], 'UTF-8'),
                     'arrFranquias' => $arrFranquia
                 );
             }
