@@ -8,16 +8,24 @@
 
 namespace Base\BaseBundle\Repository;
 
+use Base\BaseBundle\Service\Data;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Date;
+
 class FeedbackRepository extends AbstractRepository
 {
-    public function getRelatorio($id = 0)
+    public function getRelatorio($id = 0, $idFranquia = null, $dtInicio = null)
     {
+        $expr = new Expr();
+
         $query = $this
             ->createQueryBuilder('f')
             ->select('f.stAtivo, COUNT(DISTINCT fr.idUsuario) participantes')
             ->addSelect(
                 '(' .
-                    $this
+                $this
                     ->getEntityManager()
                     ->createQueryBuilder()
                     ->select('AVG(fr1.nuResposta)')
@@ -62,49 +70,122 @@ class FeedbackRepository extends AbstractRepository
             )
             ->innerJoin('f.idFeedbackQuestao', 'fq')
             ->innerJoin('fq.idFeedbackQuestaoResposta', 'fr')
+            ->innerJoin('fr.idFranquia', 'fra')
             ->where('f.idFeedback = :idFeedback')
-            ->setParameter('idFeedback', $id, \PDO::PARAM_INT)
-            ->getQuery()
+            ->setParameter('idFeedback', $id, \PDO::PARAM_INT);
+
+        if ($idFranquia) {
+            $query->andWhere($expr->eq('fra.idFranquia', $idFranquia));
+        }
+
+        if ($dtInicio) {
+            $query->andWhere($expr->gte("fr.dtCadastro", $expr->literal(Data::dateBr($dtInicio)->format('Y-m-d') . ' 00:00:00')));
+        }
+
+        $result = $query->getQuery()
             ->getArrayResult();
 
-        return ($query) ? $query[0] : array();
+        return ($result) ? $result[0] : array();
     }
 
-    public function getMensagens($id = 0)
+    public function getMensagens($id = 0, $idFranquia = null, $dtInicio = null)
     {
-        return $this
+        $expr = new Expr();
+
+        $query = $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('p.noPessoa, u.idUsuario, fr.dsResposta, fr.dtCadastro')
+            ->select('p.noPessoa, u.idUsuario, fr.dsResposta, fr.dtCadastro, fra.noFranquia, fr.nuResposta')
             ->from('Base\BaseBundle\Entity\TbFeedbackQuestaoResposta', 'fr')
             ->innerJoin('fr.idFeedbackQuestao', 'fq')
+            ->innerJoin('fr.idFranquia', 'fra')
             ->innerJoin('fq.idFeedback', 'f')
             ->innerJoin('fr.idUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->where('f.idFeedback = :idFeedback')
             ->groupBy('fr.idUsuario')
             ->orderBy('fr.dtCadastro', 'ASC')
-            ->setParameter('idFeedback', $id, \PDO::PARAM_INT)
-            ->getQuery()
+            ->setParameter('idFeedback', $id, \PDO::PARAM_INT);
+
+        if ($idFranquia) {
+            $query->andWhere($expr->eq('fra.idFranquia', $idFranquia));
+        }
+
+        if ($dtInicio) {
+            $query->andWhere($expr->gte("fr.dtCadastro", $expr->literal(Data::dateBr($dtInicio)->format('Y-m-d') . ' 00:00:00')));
+        }
+
+        return $query->getQuery()
             ->getArrayResult();
     }
 
-    public function getGrafico($id, $nuPosicao = 1)
+    public function getGrafico($id, $nuPosicao = 1, $idFranquia = null, $dtInicio = null)
     {
-        return $this
+        $expr = new Expr();
+
+        $query = $this
             ->getEntityManager()
             ->createQueryBuilder()
             ->select('AVG(fr.nuResposta) media, MONTH(fr.dtCadastro) dtMonth, fr.dtCadastro')
             ->from('Base\BaseBundle\Entity\TbFeedbackQuestaoResposta', 'fr')
             ->innerJoin('fr.idFeedbackQuestao', 'fq')
+            ->innerJoin('fr.idFranquia', 'fra')
             ->innerJoin('fq.idFeedback', 'f')
             ->where('f.idFeedback = :idFeedback')
             ->andWhere('fq.nuPosicao = :nuPosicao')
             ->groupBy('dtMonth')
             ->orderBy('fr.dtCadastro', 'ASC')
             ->setParameter('idFeedback', $id, \PDO::PARAM_INT)
-            ->setParameter('nuPosicao', $nuPosicao, \PDO::PARAM_INT)
-            ->getQuery()
+            ->setParameter('nuPosicao', $nuPosicao, \PDO::PARAM_INT);
+
+        if ($idFranquia) {
+            $query->andWhere($expr->eq('fra.idFranquia', $idFranquia));
+        }
+
+        if ($dtInicio) {
+            $query->andWhere($expr->gte("fr.dtCadastro", $expr->literal(Data::dateBr($dtInicio)->format('Y-m-d') . ' 00:00:00')));
+        }
+
+        return $query->getQuery()
             ->getArrayResult();
+    }
+
+    public function fetchGrid(Request $request)
+    {
+        return $this
+            ->createQueryBuilder('e')
+            ->innerJoin('e.idFranqueador', 'ff')
+            ->innerJoin('ff.idFranquia', 'f')
+            ->groupBy('e.idFeedback');
+    }
+
+    public function addWhere(QueryBuilder $query, Request $request)
+    {
+        $expr = new Expr();
+        foreach ($request->query->all() as $key => $value) {
+            if ($value != '') {
+                $typeColumn = $this->getTypeColumn($query, $key);
+
+                switch ($typeColumn) {
+                    case 'string':
+                        $query->andWhere($expr->like("e.{$key}", $expr->literal('%' . $value . '%')));
+                        break;
+
+                    case 'integer':
+                        $query->andWhere($expr->eq("e.{$key}", $value));
+                        break;
+
+                    case 'datetime':
+                        $query->andWhere($expr->gte("e.{$key}", $expr->literal(Data::dateBr($value)->format('Y-m-d') . ' 00:00:00')));
+                        break;
+
+                    case null:
+                        if ($key == 'idFranquia') {
+                            $query->andWhere($expr->eq("f.{$key}", $value));
+                        }
+                        break;
+                }
+            }
+        }
     }
 }

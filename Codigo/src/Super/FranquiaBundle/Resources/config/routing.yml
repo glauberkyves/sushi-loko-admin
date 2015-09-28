@@ -17,3 +17,7 @@ super_franquia_operador:
 super_usuario:
     resource: "@SuperUsuarioBundle/Resources/config/routing.yml"
     prefix:   /usuario
+
+super_franquia_feedback_relatorio:
+    path:     /feedback/{id}
+    defaults: { _controller: SuperFeedbackBundle:Feedback:relatorio }

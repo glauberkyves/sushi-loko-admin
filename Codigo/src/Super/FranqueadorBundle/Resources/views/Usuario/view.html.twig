@@ -47,6 +47,10 @@
                         </a>
                     </li>
                     <li>
+                        <a href="#" class="franquia"> <i class="fa fa-sitemap"></i> Franquias
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" class="comentario"> <i class="fa fa-comment"></i> Comentários
                             <span class="label label-danger pull-right r-activity">
                                 {{ entity.getIdFranqueadorComentario()|length }}
@@ -278,23 +282,121 @@
                 </form>
             </section>
         </aside>
+
+        <aside class="profile-info col-lg-9" id="franquia">
+            <section class="panel">
+                <header class="panel-heading bio-graph-heading">
+                    <h4>Franquias</h4>
+                </header>
+                <div class="panel-body bio-graph-info">
+                    <div class="row">
+                        <div class="bio-row">
+                            <p><b>Franquia mais visitada:</b> {{ franquia }}</p>
+                        </div>
+
+                        <div class="bio-row">
+                            {% set totalConsumo = 0 %}
+                            {% set totalTransacao = 0 %}
+                            {% for transacao in entity.getIdUsuario().getIdTransacao() %}
+                                {% if transacao.getIdArquivo() %}
+                                    {% set totalConsumo = totalConsumo + transacao.getIdArquivo().getNuValor() %}
+                                    {% set totalTransacao = totalTransacao +1 %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <p><b>Média de consumo:</b>
+                                {% if totalConsumo %}
+                                    R$ {{ totalConsumo / totalTransacao|number_format(2, ',', '.') }}
+                                {% else %}
+                                    R$ 0,00
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                            </header>
+                            <div class="panel-body">
+                                <div class="adv-table">
+                                    <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                                        <div class="row-fluid">
+                                        </div>
+                                        <table id="dynamic-table"
+                                               class="display table table-bordered table-striped dataTable">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>Franquia</th>
+                                                <th>Visitas</th>
+                                                <th>Total gasto</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            {% for transacao in entity.getIdUsuario().getIdTransacao() %}
+                                                {% if transacao.getIdArquivo() %}
+                                                    <tr class="">
+                                                        <td class="">
+                                                            {{ transacao.getIdFranquia().getNoFranquia() }}
+                                                        </td>
+                                                        <td class="">
+                                                            {% set total = 0 %}
+                                                            {% for franquia in entity.getIdUsuario().getIdTransacao() %}
+                                                                {% if franquia.getIdArquivo()
+                                                                and transacao.getIdFranquia().getIdFranquia() == franquia.getIdFranquia().getIdFranquia() %}
+                                                                    {% set total = total + 1 %}
+                                                                {% endif %}
+                                                            {% endfor %}
+
+                                                            {{ total }}
+                                                        </td>
+                                                        <td class="">
+                                                            {% set totalGasto = 0 %}
+                                                            {% for franquia in entity.getIdUsuario().getIdTransacao() %}
+                                                                {% if franquia.getIdArquivo()
+                                                                and transacao.getIdFranquia().getIdFranquia() == franquia.getIdFranquia().getIdFranquia() %}
+                                                                    {% set totalGasto = totalGasto + franquia.getIdArquivo().getNuValor() %}
+                                                                {% endif %}
+                                                            {% endfor %}
+
+                                                            R$ {{ totalGasto|number_format(2, ',', '.') }}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </aside>
     </div>
 
     <script>
         $(document).ready(function () {
             $('.transacao').click(function () {
                 $('#transacao').removeClass('hide')
-                $('#comentario, #bonus').addClass('hide')
+                $('#comentario, #bonus, #franquia').addClass('hide')
             })
 
             $('.comentario').click(function () {
                 $('#comentario').removeClass('hide')
-                $('#transacao, #bonus').addClass('hide')
+                $('#transacao, #bonus, #franquia').addClass('hide')
             })
 
             $('.bonus').click(function () {
                 $('#bonus').removeClass('hide')
-                $('#transacao, #comentario').addClass('hide')
+                $('#transacao, #comentario, #franquia').addClass('hide')
+            })
+
+            $('.franquia').click(function () {
+                $('#franquia').removeClass('hide')
+                $('#transacao, #comentario, #bonus').addClass('hide')
             })
 
             $('table[id=dynamic-table]').dataTable({
