@@ -7,9 +7,8 @@
  */
 namespace Super\MobileBundle\Service;
 
+use Base\BaseBundle\Service\Data;
 use Base\CrudBundle\Service\CrudService;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class Mobile extends CrudService
 {
@@ -105,5 +104,45 @@ class Mobile extends CrudService
             $protocol = "https://";
         }
         return $protocol.$_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * @param Object $request
+     * @param null $idUsuario
+     * @return dtNascimento, noSenhaNova, noPessoa, noEmail, sgSexo, nuTelefone
+     */
+    public function updateUser($request, $idUsuario = null)
+    {
+        $idPessoa       = $idUsuario->getIdPessoa();
+        $idPessoaFisica = $idPessoa->getIdPessoaFisica();
+
+        if (isset($request->dtNascimento) && $request->dtNascimento) {
+            $request->dtNascimento = substr_replace($request->dtNascimento, '-', 2, 0);
+            $request->dtNascimento = substr_replace($request->dtNascimento, '-', 5, 0);
+            $request->dtNascimento = Data::dateBr($request->dtNascimento);
+
+            $idPessoaFisica->setDtNascimento($request->dtNascimento);
+        }
+        if (isset($request->sgSexo) && $request->sgSexo) {
+            $idPessoaFisica->setSgSexo($request->sgSexo);
+        }
+        if (isset($request->nuTelefone) && $request->nuTelefone) {
+            $idPessoaFisica->setNuTelefone($request->nuTelefone);
+        }
+        if (isset($request->noEmail) && $request->noEmail) {
+            $idPessoaFisica->setNoEmail($request->noEmail);
+        }
+        if (isset($request->noPessoa) && $request->noPessoa) {
+            $idPessoa->setNoPessoa($request->noPessoa);
+        }
+        if (isset($request->noSenhaNova) && $request->noSenhaNova) {
+            $idUsuario->setNoSenha(md5($request->noSenhaNova));
+        }
+
+        $this->persist($idPessoaFisica);
+        $this->persist($idPessoa);
+        $this->persist($idUsuario);
+
+        return $idUsuario;
     }
 }

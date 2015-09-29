@@ -14,6 +14,11 @@ super_mobile_usuario_cadastrar:
     defaults: { _controller: SuperMobileBundle:Usuario:cadastrar }
     methods:  [POST]
 
+super_mobile_usuario_editar:
+    path:     /usuario/editar
+    defaults: { _controller: SuperMobileBundle:Usuario:editar }
+    methods:  [POST]
+
 super_mobile_usuario_recuperar_senha:
     path:     /usuario/recuperar-senha
     defaults: { _controller: SuperMobileBundle:Usuario:recuperarSenha }

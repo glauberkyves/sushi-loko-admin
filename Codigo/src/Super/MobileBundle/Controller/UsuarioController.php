@@ -60,6 +60,34 @@ class UsuarioController extends AbstractMobile
     }
 
     /**
+     * Editar usuário
+     * @param idUsuario, noSenha, noSenhaNova, noPessoa, noEmail, sgSexo, nuTelefone, dtNascimento
+     * @return Response
+     */
+    public function editarAction()
+    {
+        $request = $this->getRequest();
+
+        $idUsuario = $this->getService('service.usuario')->find($request->idUsuario);
+
+        if ($idUsuario) {
+            if($idUsuario->getNoSenha() == md5($request->noSenha)) {
+                $this->getService()->updateUser($request, $idUsuario);
+
+                $this->add('valido', true);
+                $this->add('mensagem', 'mobile_bundle.usuario.editar.success');
+
+            } else {
+                $this->add('mensagem', 'mobile_bundle.usuario.editar.error_senha');
+            }
+        } else {
+            $this->add('mensagem', 'mobile_bundle.usuario.editar.error');
+        }
+
+        return $this->response();
+    }
+
+    /**
      * Login
      * @param idFranqueador , nuCpf , noSenha
      * @return Response

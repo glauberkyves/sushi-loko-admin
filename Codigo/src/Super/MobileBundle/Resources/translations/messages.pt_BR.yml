@@ -3,6 +3,10 @@ mobile_bundle:
         autenticar:
             error: Login/Senha não conferem!
             exception: Não foi possível realizar o seu login, por favor tente novamente.
+        editar:
+            success: Dados alterados com sucesso.
+            error: Usuário inválido!
+            error_senha: A senha atual informada é inválida!
         cadastrar:
             success: Cadastro realizado com sucesso!
             error: CPF já cadastrado.
