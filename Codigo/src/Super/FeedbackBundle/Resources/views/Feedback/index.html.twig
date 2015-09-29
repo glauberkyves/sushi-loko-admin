@@ -11,30 +11,21 @@
             <form method="post" action=" " id="form-enquete" class="form-horizontal tasi-form">
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Feedback</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="noFeedback" placeholder="Nome" name="noFeedback" value="">
+
+                    <div class="col-lg-4">
+                        <input type="text" class="form-control" id="noFeedback" placeholder="Nome" name="noFeedback"
+                               value="">
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Status</label>
-                    <div class="col-lg-10">
-                        <select name="stAtivo" id="stAtivo" class="form-control">
-                            <option value="" selected="selected">Selecione</option>
-                            <option value="1">Ativo</option>
-                            <option value="0">Inativo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-offset-2 col-lg-10">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-search"></i>
-                            Pesquisar
-                        </button>
-                        <a href="{{ path('super_franqueador_feedback_create') }}" class="btn btn-default">
-                            <i class="fa fa-plus"></i>
-                            Cadastrar
-                        </a>
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Data</label>
+
+                    <div class="col-lg-4">
+                        {{ formText('dtInicio', '', {
+                            class: 'form-control',
+                            'data-mask': '99/99/9999'
+                        }) }}
                     </div>
                 </div>
             </form>

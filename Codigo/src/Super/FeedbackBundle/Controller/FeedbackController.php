@@ -29,17 +29,36 @@ class FeedbackController extends CrudController
 
     public function relatorioAction(Request $request, $id)
     {
-        $arrGrafico1 = $this->getService('service.feedback')->getGrafico($id, 1);
-        $arrGrafico2 = $this->getService('service.feedback')->getGrafico($id, 2);
-        $arrGrafico3 = $this->getService('service.feedback')->getGrafico($id, 3);
+        if($id == 0){
+            $idFranqueador = $this->getUser()->getIdFranquia()->getIdFranqueador()->getIdFranqueador();
+            $idFeedBack = $this->getService()->findOneByIdFranqueador($idFranqueador);
 
-        $this->vars['mensagens'] = $this->getService('service.feedback')->getMensagens($id);
-        $this->vars['relatorio'] = $this->getService('service.feedback')->getRelatorio($id);
+            $id = $idFeedBack->getIdFeedback();
+        }
+
+        $idFranquia = $request->get('idFranquia');
+
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_FRANQUIA')) {
+            $idFranquia = $this->getUser()->getIdFranquia()->getIdFranquia();
+        }
+
+        $dtInicio = $request->get('dtInicio');
+
+        $arrGrafico1 = $this->getService('service.feedback')->getGrafico($id, 1, $idFranquia, $dtInicio);
+        $arrGrafico2 = $this->getService('service.feedback')->getGrafico($id, 2, $idFranquia, $dtInicio);
+        $arrGrafico3 = $this->getService('service.feedback')->getGrafico($id, 3, $idFranquia, $dtInicio);
+
+        $this->vars['mensagens'] = $this->getService('service.feedback')->getMensagens($id, $idFranquia, $dtInicio);
+        $this->vars['relatorio'] = $this->getService('service.feedback')->getRelatorio($id, $idFranquia, $dtInicio);
         $this->vars['jsonMedia'] = array(
             $this->formatGraph($arrGrafico1),
             $this->formatGraph($arrGrafico2),
             $this->formatGraph($arrGrafico3)
         );
+
+        $this->vars['cmbFranquia'] = $this->getService('service.franquia')->getComboDefault(array(
+            'idFranqueador' => $this->getUser()->getIdFranqueador()
+        ));
 
         return $this->render($this->resolveRouteName(), $this->vars);
     }
@@ -47,10 +66,10 @@ class FeedbackController extends CrudController
     private function formatGraph($arrGrafico = array())
     {
         $arrMedia = array();
-        foreach($arrGrafico as $grafico) {
+        foreach ($arrGrafico as $grafico) {
             $arrMedia[] = array(
                 'media' => $grafico['media'],
-                'data'  => $grafico['dtCadastro']->format('Y-m-d')
+                'data' => $grafico['dtCadastro']->format('Y-m-d')
             );
         }
         return json_encode($arrMedia);
