@@ -33,6 +33,11 @@ super_operador_home:
     path:     /utilizar-creditos
     defaults: { _controller: SuperOperadorBundle:Default:utilizarCredito }
 
+######## FRNETE CAIXA OPERADOR #########
+super_template:
+    resource: "@SuperTemplateBundle/Resources/config/routing.yml"
+    prefix:   /
+
 
 ######## SECURITY #########
 super_security:

@@ -1,0 +1,16 @@
+<div class="btn-group  btn-group-sm">
+    {% if data.idFranquia is defined %}
+        {% if is_granted('ROLE_SUPER') %}
+            {% set url = path('super_franquia_edit_super', {id: data.idFranquia}) %}
+        {% elseif is_granted('ROLE_FRANQUEADOR') %}
+            {% set url = path('super_franquia_edit', {id: data.idFranquia}) %}
+        {% endif %}
+        <a href="{{ url }}" class="btn btn-success btn-xs">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+    {% else %}
+        <a href="{{ path('super_franquia_index_franquia_super', {idFranqueador: data.idFranqueador}) }}" class="btn btn-xs">
+            <span class="glyphicon glyphicon-user"></span>
+        </a>
+    {% endif %}
+</div>

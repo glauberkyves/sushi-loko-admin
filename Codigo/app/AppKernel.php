@@ -44,6 +44,7 @@ class AppKernel extends Kernel
             new Super\FeedbackBundle\SuperFeedbackBundle(),
             new Super\MobileBundle\SuperMobileBundle(),
             new Super\TransacaoBundle\SuperTransacaoBundle(),
+            new Super\TemplateBundle\SuperTemplateBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

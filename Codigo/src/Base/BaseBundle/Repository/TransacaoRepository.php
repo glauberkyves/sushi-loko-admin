@@ -8,8 +8,10 @@
 
 namespace Base\BaseBundle\Repository;
 
+use Base\BaseBundle\Service\Data;
 use Doctrine\ORM\Query\Expr;
 use Super\TransacaoBundle\Service\TipoTransacao;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 class TransacaoRepository extends AbstractRepository
@@ -52,16 +54,16 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
 
         $credito = $queryCredito ? $queryCredito[0]['credito'] : 0;
-        $debito = $queryDebito ? $queryDebito[0]['debito'] : 0;
+        $debito  = $queryDebito ? $queryDebito[0]['debito'] : 0;
 
         return $credito - $debito;
     }
 
-    public function getTransacaoFranqueador($idFranqueador)
+    public function getTransacaoFranqueador(Request $request)
     {
         $expr = new Expr();
 
-        return $this
+        $query = $this
             ->getEntityManager()
             ->createQueryBuilder()
             ->select('t.idTransacao, t.dtCadastro, tt.noTipoTransacao, t.stAtivo, p.noPessoa, pf.noEmail, pf.nuCpf, t.nuValor, ff.noFranquia')
@@ -72,16 +74,40 @@ class TransacaoRepository extends AbstractRepository
             ->innerJoin('t.idUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
-            ->andWhere($expr->eq('f.idFranqueador', $idFranqueador))
-            ->getQuery()
+            ->andWhere($expr->eq('f.idFranqueador', $request->query->get('idFranqueador')));
+
+        switch (true) {
+            case $request->get('dtCadastro'):
+                $dtCadastro = Data::dateBr($request->query->get('dtCadastro'));
+
+                $query->andWhere($expr->gte('t.dtCadastro', $expr->literal($dtCadastro->format('Y-m-d H:i:s'))));
+
+                $dtCadastro->modify('+1 day');
+                $query->andWhere($expr->lte('t.dtCadastro', $expr->literal($dtCadastro->format('Y-m-d H:i:s'))));
+                break;
+
+            case $request->query->getDigits('nuCpf'):
+                $query->andWhere($expr->eq('pf.nuCpf', $expr->literal($request->query->getDigits('nuCpf'))));
+                break;
+
+            case $request->query->get('idTipoTransacao'):
+                $query->andWhere($expr->eq('tt.idTipoTransacao', $request->query->get('idTipoTransacao')));
+                break;
+
+            case $request->query->get('idFranquia'):
+                $query->andWhere($expr->eq('ff.idFranquia', $request->query->get('idFranquia')));
+                break;
+        }
+
+        return $query->getQuery()
             ->getResult();
     }
 
-    public function getTransacaoFranquia($idFranquia)
+    public function getTransacaoFranquia(Request $request)
     {
         $expr = new Expr();
 
-        return $this
+        $query = $this
             ->getEntityManager()
             ->createQueryBuilder()
             ->select('t.idTransacao, t.dtCadastro, tt.noTipoTransacao, t.stAtivo, p.noPessoa, pf.noEmail, pf.nuCpf, t.nuValor')
@@ -91,8 +117,28 @@ class TransacaoRepository extends AbstractRepository
             ->innerJoin('t.idUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
-            ->andWhere($expr->eq('f.idFranquia', $idFranquia))
-            ->getQuery()
+            ->andWhere($expr->eq('f.idFranquia', $request->query->get('idFranquia')));
+
+        switch (true) {
+            case $request->get('dtCadastro'):
+                $dtCadastro = Data::dateBr($request->query->get('dtCadastro'));
+
+                $query->andWhere($expr->gte('t.dtCadastro', $expr->literal($dtCadastro->format('Y-m-d H:i:s'))));
+
+                $dtCadastro->modify('+1 day');
+                $query->andWhere($expr->lte('t.dtCadastro', $expr->literal($dtCadastro->format('Y-m-d H:i:s'))));
+                break;
+
+            case $request->query->getDigits('nuCpf'):
+                $query->andWhere($expr->eq('pf.nuCpf', $expr->literal($request->query->getDigits('nuCpf'))));
+                break;
+
+            case $request->query->get('idTipoTransacao'):
+                $query->andWhere($expr->eq('tt.idTipoTransacao', $request->query->get('idTipoTransacao')));
+                break;
+        }
+
+        return $query->getQuery()
             ->getResult();
     }
 
@@ -184,14 +230,14 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
 
         $queryCredito = ($queryCredito) ? $queryCredito[0] : 0;
-        $queryDebito = ($queryDebito) ? $queryDebito[0] : 0;
+        $queryDebito  = ($queryDebito) ? $queryDebito[0] : 0;
 
         return $queryCredito + $queryDebito;
     }
 
     public function getRemoveTagsByIdUsuario($idUsuario = 0)
     {
-        $expr = new Expr();
+        $expr       = new Expr();
         $dtCadastro = new \DateTime();
         $dtCadastro->modify('-3 months');
 
@@ -216,7 +262,7 @@ class TransacaoRepository extends AbstractRepository
 
     public function getSendTagsByIdUsuario($idUsuario = 0)
     {
-        $expr = new Expr();
+        $expr       = new Expr();
         $dtCadastro = new \DateTime();
         $dtCadastro->modify('-3 months');
 
@@ -268,7 +314,7 @@ class TransacaoRepository extends AbstractRepository
 
     public function getExtratoPorUsuario($idUsuario = 0)
     {
-        $expr = new Expr();
+        $expr       = new Expr();
         $dtCadastro = new \DateTime();
         $dtCadastro->modify('-3 months');
 

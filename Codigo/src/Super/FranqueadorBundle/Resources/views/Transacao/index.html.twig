@@ -12,8 +12,39 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">CPF</label>
 
-                    <div class="col-lg-10">
+                    <div class="col-lg-4">
                         <input type="text" class="form-control " id="noFranquia" placeholder="" name="cpf" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Data</label>
+
+                    <div class="col-lg-2">
+                        <input type="text" class="form-control " id="dtCadastro" placeholder="" name="dtCadastro" value=""
+                               mask="99/99/9999">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Franquia</label>
+
+                    <div class="col-lg-4">
+                        {{ formSelect('idFranquia', '', {
+                            class: 'form-control'
+                        },cmb) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Tipo de Transação</label>
+
+                    <div class="col-lg-2">
+                        {{ formSelect('idTipoTransacao', '', {
+                            class: 'form-control'
+                        },
+                        {
+                            '': 'Selecione',
+                            1: 'Crédito',
+                            2: 'Débito'
+                        }) }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -30,9 +61,10 @@
     <section class="panel">
         <header class="panel-heading">
             Resultado da pesquisa
-              <span class="tools pull-right">
-                <a class="fa fa-chevron-down" href="javascript:;"></a>
-              </span>
+            <a href="javascript:;" class="btn btn-warning btn-xs exportExcel" style="float:right; margin-right: 5px;">
+                <i class="fa fa-file-text"></i>
+                Exportar em Excel
+            </a>
         </header>
         <div class="panel-body" id="grid">
             <section id="unseen">
@@ -41,16 +73,17 @@
                     <tr>
                         <th data-column="noPessoa">Usuário</th>
                         <th data-column="nuCpf">CPF</th>
-                        <th data-column="noFranquia">Franquia</th>
                         <th data-column="nuValor">Valor</th>
                         <th data-column="dtCadastro">Data</th>
-                        <th data-column="noTipoTransacao">Situação</th>
+                        <th data-column="noTipoTransacao">Tipo Transação</th>
+                        <th data-column="stAtivo">Situação</th>
+                        <th data-column="noFranquia">Franquia</th>
                         <th data-column="opcoes">Ações</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr class="odd">
-                        <td valign="top" colspan="5">Acione a pesquisa</td>
+                        <td valign="top" colspan="8">Acione a pesquisa</td>
                     </tr>
                     </tbody>
                 </table>
@@ -118,4 +151,11 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('.exportExcel').click(function () {
+                window.location = window.location.href + '?sEcho=&export=excel&' + $('form:first').serialize()
+            })
+        })
+    </script>
 {% endblock body %}

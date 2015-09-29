@@ -29,7 +29,7 @@ class DefaultController extends CrudController
                 $this->vars['idFranqueador'] = $idFranqueador;
                 break;
             case $security->isGranted('ROLE_FRANQUEADOR'):
-                $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+                $idFranqueador               = $this->getUser()->getIdFranqueador()->getIdFranqueador();
                 $this->vars['idFranqueador'] = $idFranqueador;
                 break;
             case $security->isGranted('ROLE_FRANQUIA'):
@@ -49,7 +49,7 @@ class DefaultController extends CrudController
      */
     public function superIndexAction(Request $request)
     {
-        $this->serviceName = 'service.franqueador_franquia';
+        $this->serviceName       = 'service.franqueador_franquia';
         $this->vars['cmbStatus'] = Dominio::getStAtivo();
 
         return parent::indexAction($request);
@@ -124,46 +124,9 @@ class DefaultController extends CrudController
 
     public function transacaoAction(Request $request)
     {
-        $idFranquia   = $this->getUser()->getIdFranquia()->getIdFranquia();
-        $arrTransacao = $this->getService('service.transacao')->getTransacaoFranquia($idFranquia);
-
-        if ($request->query->has('sEcho') && $request->query->has('sEcho')) {
-            $sEcho = $request->query->get('sEcho');
-            $page  = $request->query->get('iDisplayStart', 1);
-            $rows  = $request->query->get('iDisplayLength', 10);
-
-            $paginator  = new Paginator();
-            $pagination = $paginator->paginate($arrTransacao, $page, $rows);
-
-            $data                       = new \StdClass();
-            $data->sEcho                = $sEcho;
-            $data->iTotalRecords        = $page;
-            $data->iTotalDisplayRecords = ceil($pagination->getTotalItemCount() / $rows);
-            $data->records              = $pagination->getTotalItemCount();
-            $data->aaData               = $pagination->getItems();
-
-            foreach ($data->aaData as $key => $value) {
-                foreach ($value as $keyIten => $iten) {
-                    $data->aaData[$key]['nuCpf'] = Mask::mask($value['nuCpf'], '###.###.###-##');
-                    $data->aaData[$key]['dtCadastro'] = $value['dtCadastro']->format('d/m/Y H:i:s');
-                    $data->aaData[$key]['nuValor'] = 'R$ '.number_format($value['nuValor'], 2, ',', '.');
-
-                    $data->aaData[$key]['opcoes'] = $this->container->get('templating')->render(
-                        'SuperFranquiaBundle:Default:gridOptionsTransacao.html.twig',
-                        array(
-                            'data'       => (object)$value,
-                            'cpf'        => $data->aaData[$key]['nuCpf'],
-                        )
-                    );
-                }
-            }
-
-            return new JsonResponse((array)$data);
-        }
-
         if ($request->isMethod('post')) {
             $idTransacao     = $request->request->get('idTransacao');
-            $stAtivo = $request->request->get('stAtivo');
+            $stAtivo         = $request->request->get('stAtivo');
             $dsJustificativa = $request->request->get('dsJustificativa');
 
             try {
@@ -173,9 +136,55 @@ class DefaultController extends CrudController
             } catch (\Exception $exp) {
                 $this->addMessage($exp->getMessage(), 'error');
             }
+        } else {
+
+            $idFranquia = $this->getUser()->getIdFranquia()->getIdFranquia();
+            $request->query->set('idFranquia', $idFranquia);
+
+            $arrTransacao = $this->getService('service.transacao')->getTransacaoFranquia($request);
+
+            if ($request->query->has('sEcho')) {
+                $sEcho = $request->query->get('sEcho');
+                $page  = $request->query->get('iDisplayStart', 1);
+                $rows  = $request->query->get('iDisplayLength', 10);
+
+                $paginator  = new Paginator();
+                $pagination = $paginator->paginate($arrTransacao, $page, $rows);
+
+                $data                       = new \StdClass();
+                $data->sEcho                = $sEcho;
+                $data->iTotalRecords        = $page;
+                $data->iTotalDisplayRecords = ceil($pagination->getTotalItemCount() / $rows);
+                $data->records              = $pagination->getTotalItemCount();
+                $data->aaData               = $pagination->getItems();
+                $arrStatus                  = array('Cancelado', 'Ativo');
+
+                foreach ($data->aaData as $key => $value) {
+                    foreach ($value as $keyIten => $iten) {
+                        $data->aaData[$key]['nuCpf']      = Mask::mask($value['nuCpf'], '###.###.###-##');
+                        $data->aaData[$key]['dtCadastro'] = $value['dtCadastro']->format('d/m/Y H:i:s');
+                        $data->aaData[$key]['nuValor']    = 'R$ ' . number_format($value['nuValor'], 2, ',', '.');
+                        $data->aaData[$key]['stAtivo']    = isset($arrStatus[$value['stAtivo']]) ? $arrStatus[$value['stAtivo']] : '';
+
+                        $data->aaData[$key]['opcoes'] = $this->container->get('templating')->render(
+                            'SuperFranquiaBundle:Default:gridOptionsTransacao.html.twig',
+                            array(
+                                'data' => (object)$value,
+                                'cpf'  => $data->aaData[$key]['nuCpf'],
+                            )
+                        );
+                    }
+                }
+
+                if ($request->query->has('export')) {
+                    return $this->getService('service.transacao')->excelTransacao($data->aaData, false);
+                }
+
+                return new JsonResponse((array)$data);
+            }
         }
 
-        return $this->render($this->resolveRouteName(), $arrTransacao);
+        return $this->render($this->resolveRouteName());
     }
 
     private function getDashboardData(Request $request)
@@ -192,9 +201,9 @@ class DefaultController extends CrudController
         $arrTransacao = array();
 
         foreach ($countTransCredito as $key => $t) {
-            foreach($countTransDebito as $k => $c) {
+            foreach ($countTransDebito as $k => $c) {
                 $debito = 0;
-                if($c['dtCadastro'] == $t['dtCadastro']) {
+                if ($c['dtCadastro'] == $t['dtCadastro']) {
                     $debito = ($c['dtCadastro'] == $t['dtCadastro']) ? $c['transacaoDebito'] : 0;
                     break;
                 }

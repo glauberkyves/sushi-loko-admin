@@ -1,0 +1,8 @@
+services:
+    service.template:
+        class: Super\TemplateBundle\Service\Template
+        arguments:  ["@service_container"]
+
+    service.tipo_template:
+        class: Super\TemplateBundle\Service\TipoTemplate
+        arguments:  ["@service_container"]

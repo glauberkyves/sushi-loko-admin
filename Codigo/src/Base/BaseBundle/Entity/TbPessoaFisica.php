@@ -48,6 +48,13 @@ class TbPessoaFisica extends AbstractEntity
     private $nuTelefone;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="nu_cep", type="integer", nullable=true)
+     */
+    private $nuCep;
+
+    /**
      * @var \TbPessoa
      *
      * @ORM\Id
@@ -154,5 +161,23 @@ class TbPessoaFisica extends AbstractEntity
     {
         $this->idPessoa = $idPessoa;
     }
+
+    /**
+     * @return int
+     */
+    public function getNuCep()
+    {
+        return $this->nuCep;
+    }
+
+    /**
+     * @param int $nuCep
+     */
+    public function setNuCep($nuCep)
+    {
+        $this->nuCep = $nuCep;
+    }
+
+
 }
 

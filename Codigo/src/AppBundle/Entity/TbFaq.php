@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbFaq
 {
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="id_faq", type="integer", nullable=false)
      * @ORM\Id
@@ -29,7 +29,7 @@ class TbFaq
     private $noAssunto;
 
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

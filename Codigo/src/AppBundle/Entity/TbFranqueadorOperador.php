@@ -29,6 +29,13 @@ class TbFranqueadorOperador
     private $dtCadastro;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="st_visualizacao", type="integer", nullable=false)
+     */
+    private $stVisualizacao = '1';
+
+    /**
      * @var \TbFranqueador
      *
      * @ORM\ManyToOne(targetEntity="TbFranqueador")

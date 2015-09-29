@@ -9,6 +9,7 @@ use Base\BaseBundle\Entity\TbTransacao;
 use Base\BaseBundle\Entity\TbTransacaoJustificativa;
 use Base\BaseBundle\Entity\TbUsuario;
 use Base\CrudBundle\Service\CrudService;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class Transacao extends CrudService
 {
@@ -16,8 +17,8 @@ class Transacao extends CrudService
 
     public function saque(TbUsuario $idUsuario, TbFranquia $idFranquia, $requisicaoTransacao = null)
     {
-        $nuValor      = $requisicaoTransacao->getNuValor();
-        $totalCredito = $this->getCreditosUsuario(
+        $nuValor         = $requisicaoTransacao->getNuValor();
+        $totalCredito    = $this->getCreditosUsuario(
             $idUsuario->getIdUsuario(),
             $idFranquia->getIdFranqueador()->getIdFranqueador()
         );
@@ -147,5 +148,58 @@ class Transacao extends CrudService
         }
 
         return $valor;
+    }
+
+    public function excelTransacao(array $data, $franquia = false)
+    {
+        $date     = date("d-m-Y_H-i-s");
+        $filename = "usuarios_" . $date . ".xls";
+
+        $phpExcelObject = $this->getContainer()->get('phpexcel')->createPHPExcelObject();
+
+        $phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Usuário')
+            ->setCellValue('B1', 'CPF')
+            ->setCellValue('C1', 'Valor')
+            ->setCellValue('D1', 'Data')
+            ->setCellValue('E1', 'Tipo Transação')
+            ->setCellValue('F1', 'Situação');
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        if ($franquia) {
+            $phpExcelObject->setActiveSheetIndex(0)
+                ->setCellValue('G1', 'Franquia');
+        }
+
+        foreach ($data as $key => $value) {
+            $cell = $key + 2;
+            $phpExcelObject->setActiveSheetIndex(0)
+                ->setCellValue("A{$cell}", $value['noPessoa'])
+                ->setCellValue("B{$cell}", $value['nuCpf'])
+                ->setCellValue("C{$cell}", $value['nuValor'])
+                ->setCellValue("D{$cell}", $value['dtCadastro'])
+                ->setCellValue("E{$cell}", $value['noTipoTransacao'])
+                ->setCellValue("F{$cell}", $value['stAtivo']);
+
+            if ($franquia) {
+                $phpExcelObject->setActiveSheetIndex(0)
+                    ->setCellValue("G{$cell}", $value['noFranquia']);
+            }
+        }
+
+        $writer = $this->getContainer()->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->getContainer()->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $dispositionHeader = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+        $response->headers->set('Content-Disposition', $dispositionHeader);
+
+        return $response;
     }
 }

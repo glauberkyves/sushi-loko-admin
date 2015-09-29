@@ -32,6 +32,10 @@ class UsuarioController extends AbstractMobile
                 $request->dtNascimento = Data::dateBr($request->dtNascimento);
             }
 
+            if ($request->nuCep) {
+                $request->nuCep = preg_replace('/\D/', '', $request->nuCep);
+            }
+
             $this->getParentRequest()->request->set('nuCpf', $request->nuCpf);
             $this->getParentRequest()->request->set('noSenha', $request->noSenha);
             $this->getParentRequest()->request->set('noPessoa', $request->noPessoa);
@@ -39,6 +43,7 @@ class UsuarioController extends AbstractMobile
             $this->getParentRequest()->request->set('sgSexo', $request->sgSexo);
             $this->getParentRequest()->request->set('nuTelefone', $request->nuTelefone);
             $this->getParentRequest()->request->set('dtNascimento', $request->dtNascimento ?: null);
+            $this->getParentRequest()->request->set('nuCep', $request->nuCep);
 
             $idUsuario     = $this->getService('service.usuario')->save();
             $idFranqueador = $this->getService('service.franqueador')->find($request->idFranqueador);
@@ -61,7 +66,7 @@ class UsuarioController extends AbstractMobile
 
     /**
      * Editar usuário
-     * @param idUsuario, noSenha, noSenhaNova, noPessoa, noEmail, sgSexo, nuTelefone, dtNascimento
+     * @param idUsuario , noSenha, noSenhaNova, noPessoa, noEmail, sgSexo, nuTelefone, dtNascimento
      * @return Response
      */
     public function editarAction()
@@ -71,9 +76,31 @@ class UsuarioController extends AbstractMobile
         $idUsuario = $this->getService('service.usuario')->find($request->idUsuario);
 
         if ($idUsuario) {
-            if($idUsuario->getNoSenha() == md5($request->noSenha)) {
+            if ($idUsuario->getNoSenha() == md5($request->noSenha)) {
                 $this->getService()->updateUser($request, $idUsuario);
 
+                $pessoaFisica = $idUsuario->getIdPessoa()->getIdPessoaFisica();
+                $dtNascimento = $pessoaFisica->getDtNascimento() ? $pessoaFisica->getDtNascimento()->format('d/m/Y') : '';
+
+                $result = current($this->getService('service.logradouro')->getDadosCep($pessoaFisica->getNuCep()));
+
+                if(!$result){
+                    $result = array();
+                }
+
+                $data = array(
+                    'idUsuario'    => $idUsuario->getIdUsuario(),
+                    'noPessoa'     => $idUsuario->getIdPessoa()->getNoPessoa(),
+                    'nuCpf'        => $pessoaFisica->getNuCpf(),
+                    'noEmail'      => $pessoaFisica->getNoEmail(),
+                    'dtNascimento' => $dtNascimento,
+                    'nuTelefone'   => $pessoaFisica->getNuTelefone(),
+                    'sgSexo'       => $pessoaFisica->getSgSexo(),
+                    'nuCep'        => $pessoaFisica->getNuCep(),
+                    'arrEndereco'  => $result
+                );
+
+                $this->add('dados', $data);
                 $this->add('valido', true);
                 $this->add('mensagem', 'mobile_bundle.usuario.editar.success');
 
@@ -106,6 +133,12 @@ class UsuarioController extends AbstractMobile
                 $pessoaFisica = $user->getIdPessoa()->getIdPessoaFisica();
                 $dtNascimento = $pessoaFisica->getDtNascimento() ? $pessoaFisica->getDtNascimento()->format('d/m/Y') : '';
 
+                $result = current($this->getService('service.logradouro')->getDadosCep($pessoaFisica->getNuCep()));
+
+                if(!$result){
+                    $result = array();
+                }
+
                 $data = array(
                     'idUsuario'    => $user->getIdUsuario(),
                     'noPessoa'     => $user->getIdPessoa()->getNoPessoa(),
@@ -113,7 +146,9 @@ class UsuarioController extends AbstractMobile
                     'noEmail'      => $pessoaFisica->getNoEmail(),
                     'dtNascimento' => $dtNascimento,
                     'nuTelefone'   => $pessoaFisica->getNuTelefone(),
-                    'sgSexo'       => $pessoaFisica->getSgSexo()
+                    'sgSexo'       => $pessoaFisica->getSgSexo(),
+                    'nuCep'        => $pessoaFisica->getNuCep(),
+                    'arrEndereco'  => $result
                 );
 
                 $this->add('valido', true);
@@ -191,11 +226,11 @@ class UsuarioController extends AbstractMobile
         $arrExtrato   = array();
         $queryExtrato = $this->getService('service.transacao')->getExtratoPorUsuario($request->idUsuario);
 
-        foreach($queryExtrato as $key => $extrato) {
-            $extrato['dtDia']      = $extrato['dtCadastro']->format('d/m/Y');
-            $extrato['dtHora']     = $extrato['dtCadastro']->format('H:i');
-            $extrato['nuValor']    = sprintf("%s", number_format($extrato['nuValor'], 2, ',', '.'));
-            $arrExtrato[$key] = $extrato;
+        foreach ($queryExtrato as $key => $extrato) {
+            $extrato['dtDia']   = $extrato['dtCadastro']->format('d/m/Y');
+            $extrato['dtHora']  = $extrato['dtCadastro']->format('H:i');
+            $extrato['nuValor'] = sprintf("%s", number_format($extrato['nuValor'], 2, ',', '.'));
+            $arrExtrato[$key]   = $extrato;
         }
 
         $this->add('valido', true);
