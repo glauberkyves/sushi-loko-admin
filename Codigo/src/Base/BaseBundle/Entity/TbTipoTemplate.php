@@ -24,9 +24,9 @@ class TbTipoTemplate extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="no_tipo_templatecol", type="string", length=45, nullable=false)
+     * @ORM\Column(name="no_tipo_template", type="string", length=45, nullable=false)
      */
-    private $noTipoTemplatecol;
+    private $noTipoTemplate;
 
     /**
      * @return int
@@ -47,17 +47,17 @@ class TbTipoTemplate extends AbstractEntity
     /**
      * @return string
      */
-    public function getNoTipoTemplatecol()
+    public function getNoTipoTemplate()
     {
-        return $this->noTipoTemplatecol;
+        return $this->noTipoTemplate;
     }
 
     /**
      * @param string $noTipoTemplatecol
      */
-    public function setNoTipoTemplatecol($noTipoTemplatecol)
+    public function setNoTipoTemplate($noTipoTemplatecol)
     {
-        $this->noTipoTemplatecol = $noTipoTemplatecol;
+        $this->noTipoTemplate = $noTipoTemplatecol;
     }
 
 }

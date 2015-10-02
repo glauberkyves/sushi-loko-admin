@@ -11,8 +11,28 @@ class FranqueadorController extends CrudController
 
     public function indexAction(Request $request)
     {
-        $this->vars['cmb'] = $this->get('service.tipo_template')->getComboDefault();
+        $this->getCombo();
 
         return parent::indexAction($request);
+    }
+
+    public function createAction(Request $request)
+    {
+        $this->getCombo();
+
+        return parent::createAction($request);
+    }
+
+    public function editAction(Request $request)
+    {
+        $this->getCombo();
+
+        return parent::editAction($request);
+    }
+
+    public function getCombo()
+    {
+        $this->getRequest()->request->set('idFranqueador', $this->getUser()->getIdFranqueador()->getIdFranqueador());
+        $this->vars['cmb'] = $this->get('service.tipo_template')->getComboDefault();
     }
 }

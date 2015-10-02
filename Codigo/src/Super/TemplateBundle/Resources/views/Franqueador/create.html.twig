@@ -1,3 +1,5 @@
 {% extends 'SuperBaseBundle::layout.html.twig' %}
 {% block title %}Cadastrar Template de E-mail{% endblock %}
-{% include 'SuperFranquiaBundle:Default:layout.html.twig' %}
+{% block body %}
+{% include 'SuperTemplateBundle:Franqueador:form.html.twig' %}
+{% endblock %}
