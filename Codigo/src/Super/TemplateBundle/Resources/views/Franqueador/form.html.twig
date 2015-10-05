@@ -1,20 +1,77 @@
-<form method="post" id="form-franquia" class="cmxform form-horizontal tasi-form" novalidate="novalidate">
-    <div class="form-group">
-        <label class="col-sm-2 control-label col-lg-2" for="noFranquia">Tipo Template</label>
-        <div class="col-lg-4">
-            {{ formText('idTipoTemplate', entity.getIdTipoTemplate().getIdTipoTemplate(), {
-                class: 'form-control required'
-            }) }}
-        </div>
+<section class="panel">
+    <header class="panel-heading">
+        {% if entity.getIdTemplateEmail() %}
+            Alterar Template
+        {% else %}
+            Cadastrar Template
+        {% endif %}
+        <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+    </header>
+
+    <div class="panel-body">
+        <form method="post" action="" id="form-operador" class="form-horizontal tasi-form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Tipo de template</label>
+
+                <div class="col-lg-4">
+                    {{ formHidden('idTemplateEmail', entity.getIdTemplateEmail(), {
+                        class: 'form-control required',
+                    }) }}
+                    {{ formSelect('idTipoTemplate', entity.getIdTipoTemplate().getIdTipoTemplate(), {
+                        class: 'form-control required',
+                    },
+                    cmb
+                    ) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Logo</label>
+
+                <div class="col-lg-4">
+                    {{ formText('noUrlLogo', entity.getNoUrlLogo(), {
+                        class: 'form-control required url',
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-12">
+                    {{ formTextarea('dsTemplate', entity.getDsTemplate(), {
+                        class: 'form-control required wysihtml5',
+                        rows: 8
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label col-lg-2" for="noPessoa">Situação</label>
+
+                <div class="col-lg-4">
+                    {{ formSelect('stAtivo', entity.getStAtivo(), {
+                        class: 'form-control required',
+                    },{
+                        1: 'Ativo',
+                        0: 'Inativo'
+                    }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-plus"></i>
+                        Salvar
+                    </button>
+                    <a class="btn btn-danger" href="{{ path('super_franqueador_template_index') }}">Cancelar</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <br>
-        <button type="submit" class="btn btn-primary">
-            <i class="fa fa-plus"></i>
-            Salvar
-        </button>
-        <a type="button" href = "{{ path('super_franqueador_template') }}" class="btn btn-danger">
-            Cancelar
-        </a>
-    </div>
-</form>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('.wysihtml5').wysihtml5();
+    });
+</script>

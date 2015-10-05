@@ -1,7 +1,11 @@
-super_franqueador_template:
+super_franqueador_template_index:
     path:     /franqueador/template-email/index.html
     defaults: { _controller: SuperTemplateBundle:Franqueador:index }
 
 super_franqueador_template_create:
     path:     /franqueador/template-email/cadastro.html
     defaults: { _controller: SuperTemplateBundle:Franqueador:create }
+
+super_franqueador_template_edit:
+    path:     /franqueador/template-email/editar.html
+    defaults: { _controller: SuperTemplateBundle:Franqueador:edit }
