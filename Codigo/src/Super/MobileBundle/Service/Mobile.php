@@ -123,12 +123,10 @@ class Mobile extends CrudService
 
             $idPessoaFisica->setDtNascimento($request->dtNascimento);
         }
-
-        if ($request->nuCep) {
+        if (isset($request->nuCep) && $request->nuCep) {
             $request->nuCep = preg_replace('/\D/', '', $request->nuCep);
             $idPessoaFisica->setNuCep($request->nuCep);
         }
-
         if (isset($request->sgSexo) && $request->sgSexo) {
             $idPessoaFisica->setSgSexo($request->sgSexo);
         }

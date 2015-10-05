@@ -63,11 +63,17 @@ class FranqueadorController extends AbstractMobile
     {
         $request = $this->getRequest();
 
-        $arrFranquia = $this->getService('service.franqueador')->findFranquiasByDistancia(
+        $franquias = $this->getService('service.franqueador')->findFranquiasByDistancia(
             $request->idFranqueador,
             $request->noLatitude,
             $request->noLongitude
         );
+
+        $arrFranquia = array();
+        foreach($franquias as $franquia) {
+            $franquia['noTituloFranquia'] = mb_strtoupper($franquia['noTituloFranquia'], 'UTF-8');
+            $arrFranquia[] = $franquia;
+        }
 
         if ($arrFranquia) {
             $this->add('valido', true);

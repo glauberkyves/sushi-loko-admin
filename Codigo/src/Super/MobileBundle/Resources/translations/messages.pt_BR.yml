@@ -32,7 +32,7 @@ mobile_bundle:
         default:
             error: Ocorreu um erro inesperado ao buscar por este franqueador, por favor tente novamente.
         listar_lojas_distancia:
-            error: Não existem lojas próximas de você.
+            error: Não existem lojas próximas a você.
     franquia:
         default:
             error: Ocorreu um erro inesperado ao buscar por esta franquia, por favor tente novamente.
