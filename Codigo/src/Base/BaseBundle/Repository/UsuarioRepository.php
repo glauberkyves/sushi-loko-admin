@@ -80,6 +80,8 @@ class UsuarioRepository extends AbstractRepository
                     case $entity->getIdOperadorFranqueador():
                         return $entity;
                         break;
+                    default:
+                        return $entity;
                 }
             }
 
