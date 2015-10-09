@@ -4,6 +4,7 @@ namespace Super\UsuarioBundle\Service;
 
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Entity\AbstractEntity;
+use Super\TemplateBundle\Service\TipoTemplate;
 
 class Usuario extends CrudService
 {
@@ -24,11 +25,23 @@ class Usuario extends CrudService
     public function postInsert(AbstractEntity $entity = null)
     {
         $view = 'SuperUsuarioBundle:Default:emailCadastro.html.twig';
-        $body = $this
+        $html = $this
             ->getContainer()
             ->get('templating')
             ->render($view, array(
                 'entity' => $this->entity,
+            ));
+
+        $tipoTemplate = TipoTemplate::CadastroUsuario;
+        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
+        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+
+        $body = $this
+            ->getContainer()
+            ->get('templating')
+            ->render($view, array(
+                'entity' => $template,
+                'dados' => $html,
             ));
 
         if ($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {

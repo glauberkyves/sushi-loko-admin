@@ -9,3 +9,7 @@ super_franqueador_template_create:
 super_franqueador_template_edit:
     path:     /franqueador/template-email/editar.html
     defaults: { _controller: SuperTemplateBundle:Franqueador:edit }
+
+super_franqueador_template_view:
+    path:     /franqueador/template-email/view/{id}
+    defaults: { _controller: SuperTemplateBundle:Franqueador:view }

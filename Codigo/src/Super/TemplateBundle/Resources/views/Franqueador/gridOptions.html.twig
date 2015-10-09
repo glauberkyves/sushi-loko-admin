@@ -1,5 +1,10 @@
 <div class="btn-group  btn-group-sm">
-    <a href="{{ path('super_franqueador_template_edit', {id: data.idTemplateEmail}) }}" class="btn btn-xs">
+    <a href="{{ path('super_franqueador_template_edit', {id: data.idTemplateEmail}) }}" class="btn">
         <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+</div>
+<div class="btn-group  btn-group-sm">
+    <a href="{{ path('super_franqueador_template_view', {id: data.idTemplateEmail}) }}" class="btn" target="_blank">
+        <span class="glyphicon glyphicon-eye-open"></span>
     </a>
 </div>

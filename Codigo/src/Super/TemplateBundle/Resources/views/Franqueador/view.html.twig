@@ -1,0 +1,113 @@
+{% extends 'SuperBaseBundle::layout-email.html.twig' %}
+{% block body %}
+    <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="f7f7f8" class="bg2_color">
+        <tbody>
+        <tr>
+            <td>
+                <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590 ">
+
+                    <tbody>
+                    <tr>
+                        <td height="50" style="font-size: 50px; line-height: 50px;">&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td align="left" mc:edit="portfolio-header"
+                            style="color: #343434; font-size: 30px; font-family: 'Open Sans', Calibri, sans-serif; font-weight: 300; line-height: 23px;"
+                            class="title_color main-header">
+                            <!-- ======= section subtitle ====== -->
+
+                            <div class="editable_text" style="line-height: 23px;">
+    <span class="text_container">
+    <multiline>
+        {% if entity.getIdTipoTemplate().getIdTipoTemplate() == 1
+        or entity.getIdTipoTemplate().getIdTipoTemplate() == 2
+        or entity.getIdTipoTemplate().getIdTipoTemplate() == 4
+        or entity.getIdTipoTemplate().getIdTipoTemplate() == 4
+        or entity.getIdTipoTemplate().getIdTipoTemplate() == 5 %}
+            Confirmação de cadastro
+        {% elseif entity.getIdTipoTemplate().getIdTipoTemplate() == 6 %}
+            Cancelamento de cadastro
+        {% elseif entity.getIdTipoTemplate().getIdTipoTemplate() == 7 %}
+            Reset de senha
+        {% elseif entity.getIdTipoTemplate().getIdTipoTemplate() == 8 %}
+            Feedback
+        {% endif %}
+    </multiline>
+        </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table border="0" align="left" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <td align="left" width="480" mc:edit="portfolio-text"
+                                        style="color: #777b80; font-size: 14px; font-family: 'Open Sans', Calibri, sans-serif; line-height: 23px;"
+                                        class="text_color">
+                                        <!-- ======= section subtitle ====== -->
+
+                                        <div class="editable_text" style="line-height: 23px;">
+											<span class="text_container">
+					        					<multiline>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                </multiline>
+											</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="480" mc:edit="portfolio-text"
+                                        style="color: #777b80; font-size: 14px; font-family: 'Open Sans', Calibri, sans-serif; line-height: 23px;"
+                                        class="text_color">
+                                        <!-- ======= section subtitle ====== -->
+
+                                        <div class="editable_text" style="line-height: 23px;">
+											<span class="text_container">
+					        					<multiline>
+                                                    {{ entity.getDsTemplate()|raw }}
+                                                </multiline>
+											</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="480" mc:edit="portfolio-text"
+                                        style="color: #777b80; font-size: 14px; font-family: 'Open Sans', Calibri, sans-serif; line-height: 23px;"
+                                        class="text_color">
+                                        <!-- ======= section subtitle ====== -->
+
+                                        <div class="editable_text" style="line-height: 23px;">
+											<span class="text_container">
+					        					<multiline>
+                                                    {% if dados %}
+                                                        {{ dados }}
+                                                    {% endif %}
+                                                </multiline>
+											</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td height="50" style="font-size: 50px; line-height: 50px;">&nbsp;</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+{% endblock body %}

@@ -29,7 +29,7 @@
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
-                                Número de transações de ganho e uso de bônus
+                                Número de transações de ganho e uso de créditos
                             </header>
                             <div class="panel-body">
                                 <div id="grafico-transacoes" class="graph"></div>
@@ -50,7 +50,7 @@
                                         <h1 class="count">
                                             R$ {{ countTransacao ? countTransacao['valorCredito']|number_format(2,',','.') : '0,00' }}
                                         </h1>
-                                        <p>Valor total gerado de bônus</p>
+                                        <p>Valor total gerado de créditos</p>
                                     </div>
                                 </section>
                             </div>
@@ -63,7 +63,7 @@
                                         <h1 class="count2">
                                             R$ {{ countTransacao ? countTransacao['valorDebito']|number_format(2,',','.') : '0,00' }}
                                         </h1>
-                                        <p>Valor total usado de bônus</p>
+                                        <p>Valor total usado de créditos</p>
                                     </div>
                                 </section>
                             </div>
@@ -85,14 +85,14 @@
                         <td>
                             <i class="fa fa-arrow-circle-up"></i>
                         </td>
-                        <td>Número de transações de ganho de bônus</td>
+                        <td>Número de transações de ganho de créditos</td>
                         <td>{{ countTransacao ? countTransacao['transacaoCredito'] : 0 }}</td>
                     </tr>
                     <tr>
                         <td>
                             <i class="fa fa-arrow-circle-down"></i>
                         </td>
-                        <td>Número de transações de uso de bônus</td>
+                        <td>Número de transações de uso de créditos</td>
                         <td>{{ countTransacao ? countTransacao['transacaoDebito'] : 0 }}</td>
                     </tr>
                     </tbody>
@@ -125,7 +125,7 @@
             data: {{ jsonTransacao|raw }},
             xkey: 'data',
             ykeys: ['credito', 'debito'],
-            labels: ['Ganho de bônus', 'Uso de bônus'],
+            labels: ['Ganho de créditos', 'Uso de créditos'],
             lineColors: ['#6ccac9', '#ff6c60'],
             dateFormat: function (date) {
                 var date = new Date(date);

@@ -19,7 +19,8 @@
                     <label class="col-sm-2 col-sm-2 control-label">Idade mínima</label>
 
                     <div class="col-lg-2">
-                        <input type="text" name="nuIdadeMin" mask="99" class="form-control" value="{{ entity.getNuIdadeMin() }}"
+                        <input type="text" name="nuIdadeMin" mask="99" class="form-control"
+                               value="{{ entity.getNuIdadeMin() }}"
                                placeholder="Idade mínima">
                     </div>
                 </div>
@@ -28,7 +29,8 @@
                     <label class="col-sm-2 col-sm-2 control-label">Idade máxima</label>
 
                     <div class="col-lg-2">
-                        <input type="text" name="nuIdadeMax" mask="99" class="form-control" id="" placeholder="Idade máxima">
+                        <input type="text" name="nuIdadeMax" mask="99" class="form-control" id=""
+                               placeholder="Idade máxima">
                     </div>
                 </div>
 
@@ -86,7 +88,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Que obtiveram e utilizaram créditos nos últimos</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Que obtiveram e utilizaram créditos nos
+                        últimos</label>
 
                     <div class="col-lg-2">
                         <input name="nuBonusTransacionado" type="text" mask="99999" class="form-control" id="">
@@ -106,6 +109,23 @@
                         <div class="input-group m-bot15">
                             <span class="input-group-addon">R$</span>
                             <input name="nuSaldoBonus" type="text" mask="decimal" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Período</label>
+
+                    <div class="col-lg-2">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            {{ formText("dtInicio", null, {'class': 'form-control valid', 'data-mask': '99/99/9999'}) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="input-group m-bot15">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            {{ formText("dtFim", null, {'class': 'form-control valid', 'data-mask': '99/99/9999'}) }}
                         </div>
                     </div>
                 </div>

@@ -142,6 +142,18 @@ class PesquisaRepository extends AbstractRepository
                     $query->andWhere('MONTH(pf.dtNascimento) = :dtNascimento');
                     $query->setParameter('dtNascimento', date('m'));
                     break;
+
+                #filtro data
+                case 'dtInicio':
+                    $query->andWhere('u.dtCadastro = :dtNascimento');
+                    $query->setParameter('dtNascimento', date('m'));
+                    break;
+
+                #filtro data
+                case 'dtFim':
+                    $query->andWhere('u.dtCadastro = :dtNascimento');
+                    $query->setParameter('dtNascimento', date('m'));
+                    break;
             }
         }
     }

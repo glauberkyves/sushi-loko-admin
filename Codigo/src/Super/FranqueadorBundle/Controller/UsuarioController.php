@@ -4,6 +4,7 @@ namespace Super\FranqueadorBundle\Controller;
 
 use Base\BaseBundle\Entity\TbFranqueadorComentarioUsuario;
 use Base\CrudBundle\Controller\CrudController;
+use Super\TemplateBundle\Service\TipoTemplate;
 use Super\TransacaoBundle\Service\TipoTransacao;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,12 +37,15 @@ class UsuarioController extends CrudController
                 $this->addMessage('Usuário Ativado com sucesso');
             } else {
                 $this->addMessage('Usuário Inativado com sucesso');
+                $tipoTemplate = TipoTemplate::CancelmentoCadastroUsuario;
+                $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
 
-                $view = 'SuperFranqueadorBundle:Usuario:emailCancelamento.html.twig';
+                $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
                 $body = $this
                     ->get('templating')
                     ->render($view, array(
-                        'entity' => $usuario,
+                        'entity' => $template,
+                        'dados' => false,
                     ));
 
                 $this
@@ -76,10 +80,19 @@ class UsuarioController extends CrudController
         );
 
         $franquia = $this->getService('service.transacao')->getFranquiaVisitada($idUsuario);
+        $creditos = $this->getService('service.transacao')->getCreditosUsuario(
+            $idUsuario,
+            $idFranqueador
+        );
+
+        if (!$rlFranqueadorUsuario) {
+            return $this->redirect($request->headers->get('referer'));
+        }
 
         return $this->render($this->resolveRouteName(), array(
             'entity' => $rlFranqueadorUsuario,
             'debito' => TipoTransacao::DEBITO,
+            'creditos' => $creditos,
             'franquia' => $franquia,
         ));
     }

@@ -4,6 +4,7 @@ namespace Super\OperadorBundle\Service;
 
 use Base\BaseBundle\Entity\AbstractEntity;
 use Base\CrudBundle\Service\CrudService;
+use Super\TemplateBundle\Service\TipoTemplate;
 use Super\UsuarioBundle\Service\Perfil;
 
 class Operador extends CrudService
@@ -45,12 +46,25 @@ class Operador extends CrudService
 
         $this->persist($this->entity);
 
-        $body = $this
+        $html = $this
             ->getContainer()
             ->get('templating')
             ->render($view, array(
                 'senha'  => $password,
                 'entity' => $this->entity,
+            ));
+
+        $tipoTemplate = TipoTemplate::CadastroOperadorFranquia;
+        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
+        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+
+        $body = $this
+            ->getContainer()
+            ->get('templating')
+            ->render($view, array(
+                'senha'  => $password,
+                'entity' => $template,
+                'dados' => $html,
             ));
 
         if ($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {

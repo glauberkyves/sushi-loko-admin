@@ -6,10 +6,15 @@ use Symfony\Component\Validator\Validator;
 
 class TipoTemplate extends CrudService
 {
-    protected $entityName = 'Base\BaseBundle\Entity\TbTipoTemplate';
 
-//    public function getComboDefault(array $criteria = array(), array $orderBy = null, $limit = null, $offset = null)
-//    {
-//        return array('' => 'Selecione') + $this->getRepository()->getComboDefault($criteria, $orderBy, $limit, $offset);
-//    }
+    CONST CadastroUsuario = 1;
+    CONST CadastroOperadorFranquia = 2;
+    CONST CadastroFranquia = 3;
+    CONST CadastroOperadorFranqueador = 4;
+    CONST CadastroFranqueador = 5;
+    CONST CancelmentoCadastroUsuario = 6;
+    CONST EsqueciSenha = 7;
+    CONST Feedback = 8;
+
+    protected $entityName = 'Base\BaseBundle\Entity\TbTipoTemplate';
 }

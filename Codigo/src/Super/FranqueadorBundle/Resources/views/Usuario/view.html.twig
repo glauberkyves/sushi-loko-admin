@@ -61,7 +61,7 @@
             </section>
         </aside>
 
-        <aside class="profile-info col-lg-9" id="transacao">
+        <aside class="profile-info col-lg-9 hide" id="transacao">
             <section class="panel">
                 <header class="panel-heading bio-graph-heading">
                     <h4>Transações</h4>
@@ -70,6 +70,9 @@
                     <div class="row">
                         <div class="bio-row">
                             <p><b>Franquia mais visitada:</b> {{ franquia }}</p>
+                        </div>
+                        <div class="bio-row">
+                            <p><b>Total em créditos:</b> R${{ creditos|number_format(2, ',', '.') }}</p>
                         </div>
 
                         <div class="bio-row">
@@ -173,6 +176,9 @@
                     <div class="row">
                         <div class="bio-row">
                             <p><b>Total Pontos:</b> {{ totalBonus }}</p>
+                        </div>
+                        <div class="bio-row">
+                            <p><b>Total em créditos:</b> R${{ creditos|number_format(2, ',', '.') }}</p>
                         </div>
                     </div>
 
@@ -290,6 +296,9 @@
                 </header>
                 <div class="panel-body bio-graph-info">
                     <div class="row">
+                        <div class="bio-row">
+                            <p><b>Total em créditos:</b> R${{ creditos|number_format(2, ',', '.') }}</p>
+                        </div>
                         <div class="bio-row">
                             <p><b>Franquia mais visitada:</b> {{ franquia }}</p>
                         </div>

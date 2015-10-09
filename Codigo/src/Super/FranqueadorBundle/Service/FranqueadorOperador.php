@@ -12,6 +12,7 @@ use Base\BaseBundle\Entity\AbstractEntity;
 use Base\BaseBundle\Entity\TbFranqueadorOperador;
 use Base\BaseBundle\Entity\TbUsuario;
 use Base\CrudBundle\Service\CrudService;
+use Super\TemplateBundle\Service\TipoTemplate;
 use Super\UsuarioBundle\Service\Perfil;
 
 class FranqueadorOperador extends CrudService
@@ -56,18 +57,30 @@ class FranqueadorOperador extends CrudService
     public function postInsert(AbstractEntity $entity = null)
     {
         $password = $this->getService('service.usuario')->getRandomHash();
-        $view = 'SuperFranqueadorBundle:Default:envioSenha.html.twig';
+        $view = 'SuperFranqueadorOperadorBundle:Default:envioSenha.html.twig';
 
         $this->entity->getIdOperador()->setNoSenha(md5($password));
 
         $this->persist($this->entity);
 
-        $body = $this
+        $html = $this
             ->getContainer()
             ->get('templating')
             ->render($view, array(
                 'senha' => $password,
                 'entity' => $this->entity->getIdOperador(),
+            ));
+
+        $tipoTemplate = TipoTemplate::CadastroOperadorFranqueador;
+        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
+        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+
+        $body = $this
+            ->getContainer()
+            ->get('templating')
+            ->render($view, array(
+                'entity' => $template,
+                'dados' => $html,
             ));
 
         if ($this->entity->getIdOperador()->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {

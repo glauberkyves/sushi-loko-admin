@@ -54,7 +54,7 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
 
         $credito = $queryCredito ? $queryCredito[0]['credito'] : 0;
-        $debito  = $queryDebito ? $queryDebito[0]['debito'] : 0;
+        $debito = $queryDebito ? $queryDebito[0]['debito'] : 0;
 
         return $credito - $debito;
     }
@@ -63,18 +63,31 @@ class TransacaoRepository extends AbstractRepository
     {
         $expr = new Expr();
 
+        $queryFranquias = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('f.idFranquia')
+            ->from('Base\BaseBundle\Entity\TbFranquia', 'f')
+            ->andWhere($expr->eq('f.idFranqueador', $request->query->get('idFranqueador')))
+            ->getQuery()
+            ->getArrayResult();
+
+        $arrFranquias = array();
+        foreach ($queryFranquias as $value) {
+            $arrFranquias[] = $value['idFranquia'];
+        }
+
         $query = $this
             ->getEntityManager()
             ->createQueryBuilder()
             ->select('t.idTransacao, t.dtCadastro, tt.noTipoTransacao, t.stAtivo, p.noPessoa, pf.noEmail, pf.nuCpf, t.nuValor, ff.noFranquia')
             ->from('Base\BaseBundle\Entity\TbTransacao', 't')
             ->innerJoin('t.idTipoTransacao', 'tt')
-            ->innerJoin('t.idFranqueador', 'f')
             ->innerJoin('t.idFranquia', 'ff')
             ->innerJoin('t.idUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
-            ->andWhere($expr->eq('f.idFranqueador', $request->query->get('idFranqueador')));
+            ->andWhere($expr->in('t.idFranquia', $arrFranquias));
 
         switch (true) {
             case $request->get('dtCadastro'):
@@ -99,7 +112,9 @@ class TransacaoRepository extends AbstractRepository
                 break;
         }
 
-        return $query->getQuery()
+        return $query
+            ->orderBy('t.dtCadastro', 'desc')
+            ->getQuery()
             ->getResult();
     }
 
@@ -197,7 +212,7 @@ class TransacaoRepository extends AbstractRepository
             ->select('COUNT(t) transacaoCredito, SUM(t.nuValor) valorCredito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
             ->where('t.idTipoTransacao = 1')
-            ->groupBy("dtCadastro")
+            ->groupBy("nuMes")
             ->having('nuMes = :nuMes')
             ->setParameter('nuMes', $nuMes);
 
@@ -206,7 +221,7 @@ class TransacaoRepository extends AbstractRepository
             ->select('COUNT(t) transacaoDebito, SUM(t.nuValor) valorDebito, MONTH(t.dtCadastro) nuMes, DAY(t.dtCadastro) dtCadastro')
             ->innerJoin('t.idFranquia', 'ff')
             ->where('t.idTipoTransacao = 2')
-            ->groupBy("dtCadastro")
+            ->groupBy("nuMes")
             ->having('nuMes = :nuMes')
             ->setParameter('nuMes', $nuMes);
 
@@ -230,14 +245,32 @@ class TransacaoRepository extends AbstractRepository
             ->getResult();
 
         $queryCredito = ($queryCredito) ? $queryCredito[0] : 0;
-        $queryDebito  = ($queryDebito) ? $queryDebito[0] : 0;
+        $queryDebito = ($queryDebito) ? $queryDebito[0] : 0;
+
+        if ($queryCredito <= 0) {
+            $queryCredito = array(
+                'transacaoCredito' => '0',
+                'valorCredito' => '0.00',
+                'nuMes' => date('m'),
+                'dtCadastro' => date('Y-m-d'),
+            );
+        }
+
+        if ($queryDebito <= 0) {
+            $queryCredito = array(
+                'transacaoDebito' => '0',
+                'valorDebito' => '0.00',
+                'nuMes' => date('m'),
+                'dtCadastro' => date('Y-m-d'),
+            );
+        }
 
         return $queryCredito + $queryDebito;
     }
 
     public function getRemoveTagsByIdUsuario($idUsuario = 0)
     {
-        $expr       = new Expr();
+        $expr = new Expr();
         $dtCadastro = new \DateTime();
         $dtCadastro->modify('-3 months');
 
@@ -262,7 +295,7 @@ class TransacaoRepository extends AbstractRepository
 
     public function getSendTagsByIdUsuario($idUsuario = 0)
     {
-        $expr       = new Expr();
+        $expr = new Expr();
         $dtCadastro = new \DateTime();
         $dtCadastro->modify('-3 months');
 
@@ -314,7 +347,7 @@ class TransacaoRepository extends AbstractRepository
 
     public function getExtratoPorUsuario($idUsuario = 0)
     {
-        $expr       = new Expr();
+        $expr = new Expr();
         $dtCadastro = new \DateTime();
         $dtCadastro->modify('-3 months');
 

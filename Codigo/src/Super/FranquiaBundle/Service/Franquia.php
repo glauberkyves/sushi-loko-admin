@@ -7,6 +7,7 @@ use Base\BaseBundle\Entity\TbUsuario;
 use Base\BaseBundle\Service\Mask;
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Service\Dominio;
+use Super\TemplateBundle\Service\TipoTemplate;
 use Super\UsuarioBundle\Service\Perfil;
 
 class Franquia extends CrudService
@@ -16,12 +17,12 @@ class Franquia extends CrudService
     public function preSave(AbstractEntity $entity = null)
     {
         $idFranqueador = $this->getRequest()->request->getInt('idFranqueador');
-        $idCardapio    = $this->getRequest()->request->getInt('idCardapio');
+        $idCardapio = $this->getRequest()->request->getInt('idCardapio');
 
-        $idUsuario     = $this->getService('service.usuario')->save();
-        $idEndereco    = $this->getService('service.endereco')->save();
+        $idUsuario = $this->getService('service.usuario')->save();
+        $idEndereco = $this->getService('service.endereco')->save();
         $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
-        $idCardapio    = $this->getService('service.cardapio')->find($idCardapio);
+        $idCardapio = $this->getService('service.cardapio')->find($idCardapio);
 
         $this->entity->setIdUsuario($idUsuario);
         $this->entity->setIdEndereco($idEndereco);
@@ -50,18 +51,30 @@ class Franquia extends CrudService
     public function editUsuario(TbUsuario $usuario = null)
     {
         $password = $this->getService('service.usuario')->getRandomHash();
-        $view     = 'SuperFranqueadorBundle:Default:envioSenha.html.twig';
+        $view = 'SuperFranquiaBundle:Default:envioSenha.html.twig';
 
         $usuario->setNoSenha(md5($password));
 
         $this->persist($usuario);
 
+        $html = $this
+            ->getContainer()
+            ->get('templating')
+            ->render($view, array(
+                'senha' => $password,
+                'entity' => $usuario,
+            ));
+
+        $tipoTemplate = TipoTemplate::CadastroFranquia;
+        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
+        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+
         $body = $this
             ->getContainer()
             ->get('templating')
             ->render($view, array(
-                'senha'  => $password,
-                'entity' => $usuario,
+                'entity' => $template,
+                'dados' => $html,
             ));
 
         if ($email = $usuario->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
@@ -80,7 +93,7 @@ class Franquia extends CrudService
      */
     public function savePromocao()
     {
-        $arrPromocao         = $this->getRequest()->request->get('idPromocao');
+        $arrPromocao = $this->getRequest()->request->get('idPromocao');
         $srvFranquiaPromocao = $this->getService('service.franquia_promocao');
         $arrFranquiaPromocao = $srvFranquiaPromocao->findByIdFranquia(
             $this->getRequest()->request->get('idFranquia')
@@ -109,29 +122,29 @@ class Franquia extends CrudService
      */
     public function buscarUsuario()
     {
-        $suggestions             = array();
+        $suggestions = array();
         $response['suggestions'] = array(
             array(
                 'value' => 'Nenhum resultado encontrado.',
-                'data'  => 0
+                'data' => 0
             )
         );
 
         if ($this->getRequest()->get('q') === 'email') {
-            $noEmail         = $this->getRequest()->request->get('query', '');
+            $noEmail = $this->getRequest()->request->get('query', '');
             $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoEmail($noEmail);
 
             if ($arrPessoaFisica) {
                 foreach ($arrPessoaFisica as $key => $idPessoaFisica) {
                     $suggestions[$key]['noPessoa'] = $idPessoaFisica->getIdPessoa()->getNoPessoa();
-                    $suggestions[$key]['value']    = $idPessoaFisica->getNoEmail();
-                    $suggestions[$key]['data']     = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
+                    $suggestions[$key]['value'] = $idPessoaFisica->getNoEmail();
+                    $suggestions[$key]['data'] = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
                 }
 
                 $response['suggestions'] = $suggestions;
             }
         } else {
-            $noPessoa        = $this->getRequest()->request->get('query', '');
+            $noPessoa = $this->getRequest()->request->get('query', '');
             $arrPessoaFisica = $this->getService('service.pessoa_fisica')->getByNoPessoa($noPessoa);
 
             if ($arrPessoaFisica) {
@@ -142,7 +155,7 @@ class Franquia extends CrudService
                     $nomeCpf .= Mask::mask($idPessoaFisica->getIdPessoa()->getIdPessoaFisica()->getNuCpf(), '###.###.###-##');
 
                     $suggestions[$key]['value'] = $nomeCpf;
-                    $suggestions[$key]['data']  = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
+                    $suggestions[$key]['data'] = $idPessoaFisica->getIdPessoa()->getIdUsuario()->getIdUsuario();
                 }
 
                 $response['suggestions'] = $suggestions;
@@ -160,15 +173,15 @@ class Franquia extends CrudService
     public function getCombos($idFranqueador = null)
     {
         $this->vars = array(
-            'cmbSituacao'   => Dominio::getStAtivo(),
-            'cmbMunicipio'  => array('Selecione'),
-            'cmbBairro'     => array('Selecione'),
-            'arrCardapio'   => array(),
-            'arrPromocao'   => array(),
-            'arrEstado'     => array(),
-            'arrMunicipio'  => array(),
-            'arrBairro'     => array(),
-            'arrSituacao'   => array(),
+            'cmbSituacao' => Dominio::getStAtivo(),
+            'cmbMunicipio' => array('Selecione'),
+            'cmbBairro' => array('Selecione'),
+            'arrCardapio' => array(),
+            'arrPromocao' => array(),
+            'arrEstado' => array(),
+            'arrMunicipio' => array(),
+            'arrBairro' => array(),
+            'arrSituacao' => array(),
             'idFranqueador' => $idFranqueador
         );
 
@@ -194,7 +207,7 @@ class Franquia extends CrudService
         //combos formulario de edição
         if ($id = $this->getRequest()->get('id')) {
             if ($entity = $this->getRepository()->find($id)) {
-                $idEndereco  = $entity->getIdEndereco();
+                $idEndereco = $entity->getIdEndereco();
                 $idMunicipio = $idEndereco->getIdMunicipio();
 
                 $this->vars['cmbMunicipio'] = $this->getService('service.municipio')->getComboDefault(
@@ -225,8 +238,8 @@ class Franquia extends CrudService
         foreach ($itens as $key => $value) {
             foreach ($value as $keyIten => $iten) {
                 if ($keyIten == 'idUsuario') {
-                    $user                              = $this->getService('service.usuario')->find($iten);
-                    $itens[$key]['noResponsavel']      = $user->getIdPessoa()->getNoPessoa();
+                    $user = $this->getService('service.usuario')->find($iten);
+                    $itens[$key]['noResponsavel'] = $user->getIdPessoa()->getNoPessoa();
                     $itens[$key]['noEmailResponsavel'] = $user->getIdPessoa()->getIdPessoaFisica()->getNoEmail();
                 }
             }

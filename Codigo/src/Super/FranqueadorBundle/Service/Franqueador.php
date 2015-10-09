@@ -5,6 +5,7 @@ namespace Super\FranqueadorBundle\Service;
 use Base\BaseBundle\Entity\AbstractEntity;
 use Base\BaseBundle\Service\Data;
 use Base\CrudBundle\Service\CrudService;
+use Super\TemplateBundle\Service\TipoTemplate;
 use Super\UsuarioBundle\Service\Perfil;
 
 class Franqueador extends CrudService
@@ -29,7 +30,7 @@ class Franqueador extends CrudService
     public function preInsert(AbstractEntity $entity = null)
     {
         $entityEndereco = $this->getService('service.endereco')->save();
-        $entityUsuario  = $this->getService('service.usuario')->save();
+        $entityUsuario = $this->getService('service.usuario')->save();
 
         $this->entity->setIdEndereco($entityEndereco);
         $this->entity->setIdUsuario($entityUsuario);
@@ -40,20 +41,32 @@ class Franqueador extends CrudService
 
     public function postInsert(AbstractEntity $entity = null)
     {
-        $usuario  = $this->entity->getIdUsuario();
+        $usuario = $this->entity->getIdUsuario();
         $password = $this->getService('service.usuario')->getRandomHash();
-        $view     = 'SuperFranqueadorBundle:Default:envioSenha.html.twig';
+        $view = 'SuperFranqueadorBundle:Default:envioSenha.html.twig';
 
         $usuario->setNoSenha(md5($password));
 
         $this->persist($usuario);
 
+        $html = $this
+            ->getContainer()
+            ->get('templating')
+            ->render($view, array(
+                'senha' => $password,
+                'entity' => $usuario,
+            ));
+
+        $tipoTemplate = TipoTemplate::CadastroFranqueador;
+        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
+        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+
         $body = $this
             ->getContainer()
             ->get('templating')
             ->render($view, array(
-                'senha'  => $password,
-                'entity' => $usuario,
+                'entity' => $template,
+                'dados' => $html,
             ));
 
         if ($this->entity->getIdUsuario()->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
