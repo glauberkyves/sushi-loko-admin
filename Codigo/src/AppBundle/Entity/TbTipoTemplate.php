@@ -24,9 +24,9 @@ class TbTipoTemplate
     /**
      * @var string
      *
-     * @ORM\Column(name="no_tipo_templatecol", type="string", length=45, nullable=false)
+     * @ORM\Column(name="no_tipo_template", type="string", length=45, nullable=true)
      */
-    private $noTipoTemplatecol;
+    private $noTipoTemplate;
 
 
 }

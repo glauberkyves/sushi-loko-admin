@@ -1,0 +1,52 @@
+{% extends 'SuperBaseBundle::layout.html.twig' %}
+{% block body %}
+    <form method="post" action=" " id="form-franqueador" class="form-horizontal tasi-form" enctype="multipart/form-data">
+        <section class="panel">
+            <header class="panel-heading">
+                Adicionar imagem nível
+              <span class="tools pull-right">
+                <a class="fa fa-chevron-down" href="javascript:;"></a>
+              </span>
+            </header>
+
+            <div class="panel-body">
+                {% for nivel in entity.getIdConfiguracaoFranquiaNivel() %}
+                    <div class="col-md-2">
+                        <label for="exampleInputEmail1">{{ nivel.getNoNivel() }}</label>
+
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <diFv class="fileupload-new thumbnail">
+                                {% if nivel.getNoImagem() %}
+                                    <img src="{{ nivel.getNoImagem() }}" alt=""/>
+                                {% else %}
+                                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt=""/>
+                                {% endif %}
+                            </diFv>
+                            <div class="fileupload-preview fileupload-exists thumbnail"
+                                 style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                            <div>
+                                                   <span class="btn btn-white btn-file">
+                                                   <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecione </span>
+                                                   <span class="fileupload-exists"><i class="fa fa-undo"></i> Trocar</span>
+                                                   <input type="file" name="{{ nivel.getIdConfiguracaoFranquiaNivel() }}" class="default"/>
+                                                   </span>
+                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i>
+                                    Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <br>
+                        <br>
+                        <br>
+                        <button class="btn btn-primary" type="submit">Salvar</button>
+                        <a class="btn btn-danger" href="{{ path('super_franqueador_index') }}">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock body %}

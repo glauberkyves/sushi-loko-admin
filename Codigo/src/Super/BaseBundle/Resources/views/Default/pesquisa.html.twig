@@ -119,13 +119,19 @@
                     <div class="col-lg-2">
                         <div class="input-group m-bot15">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            {{ formText("dtInicio", null, {'class': 'form-control valid', 'data-mask': '99/99/9999'}) }}
+                            {{ formText("dtInicio", null, {
+                                'class': 'form-control valid date-picker',
+                                'data-mask': '99/99/9999'
+                            }) }}
                         </div>
                     </div>
                     <div class="col-lg-2">
                         <div class="input-group m-bot15">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            {{ formText("dtFim", null, {'class': 'form-control valid', 'data-mask': '99/99/9999'}) }}
+                            {{ formText("dtFim", null, {
+                                'class': 'form-control valid date-picker',
+                                'data-mask': '99/99/9999'
+                            }) }}
                         </div>
                     </div>
                 </div>
@@ -241,6 +247,9 @@
     </section>
     <script>
         $(function () {
+            $('.date-picker').datepicker({
+                format: 'dd/mm/yyyy'
+            });
             $('#idFranqueado').multiSelect();
             $('.export').click(function () {
                 window.location = "{{ path('super_franqueador_pesquisa') }}" + "?exportar=csv&";

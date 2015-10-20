@@ -53,7 +53,7 @@ class DefaultController extends CrudController
 
         $arrUsuario = $arrTransacao = array();
 
-        foreach ((array) $arrCountCadastro as $value) {
+        foreach ((array)$arrCountCadastro as $value) {
             $dia = new \DateTime($value["dtCadastro"]);
             array_push($arrUsuario, array(
                 "data"     => $dia->format('d/m'),
@@ -69,7 +69,7 @@ class DefaultController extends CrudController
             );
         }
 
-        foreach($countTransDebito as $k => $c) {
+        foreach ($countTransDebito as $k => $c) {
             $arrTransacao[] = array(
                 'credito' => 0,
                 'debito'  => $c['transacaoDebito'],
@@ -112,5 +112,28 @@ class DefaultController extends CrudController
     public function resolveRouteIndex()
     {
         return $this->generateUrl('super_franqueador_index');
+    }
+
+    public function imagemNivelAction(Request $request, $id)
+    {
+        $this->vars['entity'] = $this->getService()->find($id);
+
+        if ($request->isMethod('post')) {
+            foreach ($request->files->all() as $key => $file) {
+                if ($file) {
+                    $pasta = 'nivel' . DIRECTORY_SEPARATOR . $this->vars['entity']->getIdFranqueador();
+                    $path  = $this->getService()->uploadFile($pasta, $key);
+
+                    $entity = $this->getService('service.configuracao_franquia_nivel')->find($key);
+                    $entity->setNoImagem($path);
+                    $this->getService()->persist($entity);
+                }
+            }
+
+            $this->addMessage('Operação realizada com sucesso.');
+        }
+
+
+        return $this->render($this->resolveRouteName(), $this->vars);
     }
 }

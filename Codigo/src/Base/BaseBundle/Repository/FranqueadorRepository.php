@@ -22,7 +22,7 @@ class FranqueadorRepository extends AbstractRepository
         return $this
             ->getEntityManager()
             ->createQueryBuilder()
-            ->select('e.idFranqueador, e.noRazaoSocial, e.stAtivo')
+            ->select('e.idFranqueador, e.noRazaoSocial, e.stAtivo, e.stNiveis')
             ->addSelect('(' .
                 $this->getEntityManager()
                     ->createQueryBuilder()

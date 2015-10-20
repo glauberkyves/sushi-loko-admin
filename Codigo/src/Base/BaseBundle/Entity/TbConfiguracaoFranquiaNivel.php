@@ -57,6 +57,13 @@ class TbConfiguracaoFranquiaNivel extends AbstractEntity
     private $nuQuantidadePontosPorAtingir;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_imagem", type="string", length=100, nullable=true)
+     */
+    private $noImagem;
+
+    /**
      * @var \TbFranqueador
      *
      * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbFranqueador")
@@ -209,5 +216,23 @@ class TbConfiguracaoFranquiaNivel extends AbstractEntity
     {
         $this->nuQuantidadePontosPorAtingir = $nuQuantidadePontosPorAtingir;
     }
+
+    /**
+     * @return string
+     */
+    public function getNoImagem()
+    {
+        return $this->noImagem;
+    }
+
+    /**
+     * @param string $noImagem
+     */
+    public function setNoImagem($noImagem)
+    {
+        $this->noImagem = $noImagem;
+    }
+
+
 }
 

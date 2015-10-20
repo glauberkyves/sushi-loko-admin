@@ -57,6 +57,13 @@ class TbConfiguracaoFranquiaNivel
     private $nuQuantidadePontosPorAtingir;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_imagem", type="string", length=100, nullable=true)
+     */
+    private $noImagem;
+
+    /**
      * @var \TbFranqueador
      *
      * @ORM\ManyToOne(targetEntity="TbFranqueador")

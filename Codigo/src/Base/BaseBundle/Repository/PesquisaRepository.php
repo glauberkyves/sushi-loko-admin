@@ -8,6 +8,7 @@
 
 namespace Base\BaseBundle\Repository;
 
+use Base\BaseBundle\Service\Data;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,12 +33,12 @@ class PesquisaRepository extends AbstractRepository
             ->getEntityManager()
             ->createQueryBuilder()
             ->select('u.stAtivo, u.idUsuario, p.noPessoa, pf.sgSexo, pf.noEmail')
-            ->addSelect('(' . $subQueryCreditoTotal   . ') nuCreditoTotal')
-            ->addSelect('(' . $subQueryDebitoTotal    . ') nuDebitoTotal')
+            ->addSelect('(' . $subQueryCreditoTotal . ') nuCreditoTotal')
+            ->addSelect('(' . $subQueryDebitoTotal . ') nuDebitoTotal')
             ->addSelect('(' . $subQueryCreditoPeriodo . ') nuCreditoPeriodo')
-            ->addSelect('(' . $subQueryDebitoPeriodo  . ') nuDebitoPeriodo')
-            ->addSelect('(' . $subQueryCount          . ') nuTransacao')
-            ->addSelect('(' . $subQueryMedia          . ') nuMediaConsumo')
+            ->addSelect('(' . $subQueryDebitoPeriodo . ') nuDebitoPeriodo')
+            ->addSelect('(' . $subQueryCount . ') nuTransacao')
+            ->addSelect('(' . $subQueryMedia . ') nuMediaConsumo')
             ->from('Base\BaseBundle\Entity\TbUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
@@ -54,10 +55,11 @@ class PesquisaRepository extends AbstractRepository
 
     public function addWhere(QueryBuilder $query, Request $request)
     {
+        $expr    = new Expr();
         $request = $request->query;
 
         foreach ($request->all() as $key => $value) {
-            switch($key) {
+            switch ($key) {
                 #filtro por sexo [u = unisex]
                 case 'sgSexo':
                     if (strlen($value) == 1 && $value != 'u') {
@@ -85,9 +87,15 @@ class PesquisaRepository extends AbstractRepository
                 case 'nuAtividade':
                     if (is_numeric($value)) {
                         switch (true) {
-                            case $value == 0: $query->having('nuTransacao >= 0'); break;
-                            case $value == 1: $query->having('nuTransacao > 0');  break;
-                            case $value == 2: $query->having('nuTransacao = 0');  break;
+                            case $value == 0:
+                                $query->having('nuTransacao >= 0');
+                                break;
+                            case $value == 1:
+                                $query->having('nuTransacao > 0');
+                                break;
+                            case $value == 2:
+                                $query->having('nuTransacao = 0');
+                                break;
                         }
                     }
                     break;
@@ -121,7 +129,7 @@ class PesquisaRepository extends AbstractRepository
                         $query->setParameter('saldo', $value, \PDO::PARAM_INT);
                     }
                     break;
-                #filtro por período de cadastro
+                #filtro por perï¿½odo de cadastro
                 case 'nuCadastro':
                     if (is_numeric($value) && $value > 0) {
                         $dtCadastro = $this->getDataModificada($value, $request->get('noCadastro'));
@@ -129,7 +137,7 @@ class PesquisaRepository extends AbstractRepository
                         $query->setParameter('dtCadastro', $dtCadastro);
                     }
                     break;
-                #filtro (consumo até hoje)
+                #filtro (consumo atï¿½ hoje)
                 case 'nuConsumoTotal':
                     $value = floatval(str_replace(',', '.', str_replace('.', '', $value)));
                     if (is_numeric($value) && $value > 0) {
@@ -145,14 +153,14 @@ class PesquisaRepository extends AbstractRepository
 
                 #filtro data
                 case 'dtInicio':
-                    $query->andWhere('u.dtCadastro = :dtNascimento');
-                    $query->setParameter('dtNascimento', date('m'));
+                    $data = Data::dateBr($value);
+                    $query->andWhere($expr->gte('u.dtCadastro', $data->format('d/m/Y H:i:s')));
                     break;
 
                 #filtro data
                 case 'dtFim':
-                    $query->andWhere('u.dtCadastro = :dtNascimento');
-                    $query->setParameter('dtNascimento', date('m'));
+                    $data = Data::dateBr($value);
+                    $query->andWhere($expr->lte('u.dtCadastro', $data->format('d/m/Y') . ' 59:59:59'));
                     break;
             }
         }
@@ -183,11 +191,11 @@ class PesquisaRepository extends AbstractRepository
             ->andWhere($expr->eq("tt{$i}.idTipoTransacao", TipoTransacao::CREDITO));
 
         if ($filtrarPeriodo) {
-            #filtro por pessoas que obtiveram bônus no periodo informado
+            #filtro por pessoas que obtiveram bï¿½nus no periodo informado
             $nuCreditoPeriodo = $request->get('nuCreditoPeriodo');
             if (is_numeric($nuCreditoPeriodo) && $nuCreditoPeriodo > 0) {
                 $dtCadastro = $this->getDataModificada($nuCreditoPeriodo, $request->get('noCreditoPeriodo'));
-                $query->andWhere("t{$i}.dtCadastro >= '".$dtCadastro->format("Y-m-d H:i:s")."'");
+                $query->andWhere("t{$i}.dtCadastro >= '" . $dtCadastro->format("Y-m-d H:i:s") . "'");
             }
         }
 
@@ -218,11 +226,11 @@ class PesquisaRepository extends AbstractRepository
             ->andWhere($expr->eq("tt{$i}.idTipoTransacao", TipoTransacao::DEBITO));
 
         if ($filtrarPeriodo) {
-            #filtro por pessoas que utilizaram bônus no periodo informado
+            #filtro por pessoas que utilizaram bï¿½nus no periodo informado
             $nuDebitoPeriodo = $request->get('nuDebitoPeriodo');
             if (is_numeric($nuDebitoPeriodo) && $nuDebitoPeriodo > 0) {
                 $dtCadastro = $this->getDataModificada($nuDebitoPeriodo, $request->get('noDebitoPeriodo'));
-                $query->andWhere("t{$i}.dtCadastro >= '".$dtCadastro->format("Y-m-d H:i:s")."'");
+                $query->andWhere("t{$i}.dtCadastro >= '" . $dtCadastro->format("Y-m-d H:i:s") . "'");
             }
         }
 
@@ -256,7 +264,7 @@ class PesquisaRepository extends AbstractRepository
         $nuPeriodo = $request->get('nuPeriodo');
         if (is_numeric($nuPeriodo) && $nuPeriodo > 0) {
             $dtCadastro = $this->getDataModificada($nuPeriodo, $request->get('noCadastro'));
-            $query->andWhere("t5.dtCadastro >= '".$dtCadastro->format("Y-m-d H:i:s")."'");
+            $query->andWhere("t5.dtCadastro >= '" . $dtCadastro->format("Y-m-d H:i:s") . "'");
         }
 
         return $query->getQuery()->getDQL();
@@ -296,10 +304,9 @@ class PesquisaRepository extends AbstractRepository
      */
     private function getDataModificada($nuPeriodo = 0, $noPeriodo = '')
     {
-        if($nuPeriodo && $noPeriodo)
-        {
-            $noPeriodo  = Pesquisa::getPeriodo($noPeriodo);
-            $dateTime = new \DateTime();
+        if ($nuPeriodo && $noPeriodo) {
+            $noPeriodo = Pesquisa::getPeriodo($noPeriodo);
+            $dateTime  = new \DateTime();
             $dateTime->modify("-{$nuPeriodo} {$noPeriodo}");
 
             return $dateTime;
@@ -320,9 +327,9 @@ class PesquisaRepository extends AbstractRepository
         $r = $request->query;
         if ($nuBonus = $r->get('nuBonusTransacionado')) {
             if (is_numeric($nuBonus) && $nuBonus > 0) {
-                $request->query->set('nuDebitoPeriodo',  $nuBonus);
+                $request->query->set('nuDebitoPeriodo', $nuBonus);
                 $request->query->set('nuCreditoPeriodo', $nuBonus);
-                $request->query->set('noDebitoPeriodo',  $r->get('noBonusTransacionado'));
+                $request->query->set('noDebitoPeriodo', $r->get('noBonusTransacionado'));
                 $request->query->set('noCreditoPeriodo', $r->get('noBonusTransacionado'));
             }
         }

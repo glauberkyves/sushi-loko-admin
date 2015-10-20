@@ -11,7 +11,7 @@ class Arquivo extends CrudService
 
     public function processarArquivoRetorno()
     {
-        $arrArquivo = array();
+        $arrArquivo        = array();
         $arrFranqueadorFTP = $this->getService('service.configuracao_ftp')->findAll();
 
         foreach ($arrFranqueadorFTP as $config) {
@@ -20,7 +20,7 @@ class Arquivo extends CrudService
                 $login = ftp_login($ftp, $config->getNoUsuario(), $config->getNoSenha()) or new \Exception();
                 $contents = ftp_nlist($ftp, $config->getNoPasta()) or new \Exception();
 
-                $dirFiles = md5(microtime()) . DIRECTORY_SEPARATOR;
+                $dirFiles   = md5(microtime()) . DIRECTORY_SEPARATOR;
                 $tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $dirFiles . DIRECTORY_SEPARATOR;
 
                 mkdir($tempFolder, 0777, true) or new \Exception();
@@ -34,7 +34,7 @@ class Arquivo extends CrudService
                 foreach (new \DirectoryIterator($tempFolder) as $arquivo) {
                     if (!$arquivo->isDot() && !$arquivo->isDir() && strtolower(pathinfo($arquivo->getFilename(), PATHINFO_EXTENSION)) == 'txt') {
                         $dadosArquivo = $this->getDetailFile($tempFolder, $arquivo->getFilename());
-                        $file = $tempFolder . DIRECTORY_SEPARATOR . $arquivo->getFilename();
+                        $file         = $tempFolder . DIRECTORY_SEPARATOR . $arquivo->getFilename();
 
                         $dadosArquivo['idFranqueador'] = $config->getIdFranqueador()->getIdFranqueador();
 
@@ -67,7 +67,7 @@ class Arquivo extends CrudService
         }
 
         return array(
-            'status' => count($arrArquivo) ? true : false,
+            'status'   => count($arrArquivo) ? true : false,
             'menssage' => 'Total Arquivos processados: ' . count($arrArquivo)
         );
     }
@@ -77,14 +77,15 @@ class Arquivo extends CrudService
         $entity = new TbTransacao();
 
         $criteria = array(
-            'nuCodigoLoja' => $dadosArquivo['nuCodigoLoja'],
+//            'nuCodigoLoja'  => $dadosArquivo['nuCodigoLoja'],
+            'nuCodigoLoja'  => 30,
             'idFranqueador' => $dadosArquivo['idFranqueador']
         );
 
         $idFranquia = $this->getService('service.franquia')->findOneBy($criteria);
         $entity->setIdFranquia($idFranquia);
 
-        if(!$idFranquia->getStAtivo()){
+        if (!$idFranquia->getStAtivo()) {
             return;
         }
 
@@ -92,20 +93,32 @@ class Arquivo extends CrudService
             $dadosArquivo['nuCpf'],
             $dadosArquivo['nuCodigoLoja']
         );
-        $entity->setIdUsuario($idUsuario);
 
         if (!$idUsuario) {
-            return;
+            $request = $this->getRequest();
+            $request->request->set('nuCpf', $dadosArquivo['nuCpf']);
+            $request->request->set('noSenha', '123456');
+            $request->request->set('noPessoa', 'Teste Arquivo');
+            $request->request->set('noEmail', 'testearquivo@testearquivo.com.br');
+            $request->request->set('sgSexo', 'm');
+            $request->request->set('nuCep', '12345678');
+
+            $idUsuario     = $this->getService('service.usuario')->save();
+            $idFranqueador = $idFranquia->getIdFranqueador();
+            $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
+
+//            return;
         }
 
+        $entity->setIdUsuario($idUsuario);
         $entity->setIdOperador(null);
         $entity->setIdArquivo($dadosArquivo['idArquivo']);
 
         $idTipoTransacao = $this->getService('service.tipo_transacao')->find(TipoTransacao::CREDITO);
         $entity->setIdTipoTransacao($idTipoTransacao);
 
-        $criteria = array(
-            'idUsuario' => $idUsuario,
+        $criteria             = array(
+            'idUsuario'     => $idUsuario,
             'idFranqueador' => $idFranquia->getIdFranqueador()
         );
         $idFranqueadorUsuario = $this->getService('service.franqueador_usuario')->findOneBy($criteria);
@@ -150,13 +163,13 @@ class Arquivo extends CrudService
             substr($file, strpos($file, '[DATA HORA]'), strpos($file, '[FIM DATA HORA]'))
         ));
 
-        $nuCodigoLoja = explode('|', $stringCodigoLoja);
-        $nuCodigoLoja = (int)end($nuCodigoLoja);
+        $nuCodigoLoja   = explode('|', $stringCodigoLoja);
+        $nuCodigoLoja   = (int)end($nuCodigoLoja);
         $dadosPagamento = explode('|', $stringPagamento);
 
         return array(
-            'nuCpf' => substr($filename, 0, 11),
-            'nuValor' => $dadosPagamento[1],
+            'nuCpf'        => substr($filename, 0, 11),
+            'nuValor'      => $dadosPagamento[1],
             'nuCodigoLoja' => $nuCodigoLoja
         );
     }

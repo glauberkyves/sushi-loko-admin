@@ -28,6 +28,12 @@ super_franqueador_edit:
     requirements:
         id: \d+
 
+super_franqueador_imagem_nivel:
+    path:     /franqueador/adicionar-imagem-nivel/{id}
+    defaults: { _controller: SuperFranqueadorBundle:Default:imagemNivel }
+    requirements:
+        id: \d+
+
 
 ######## FRANQUIA #########
 super_franquia_index_super:
