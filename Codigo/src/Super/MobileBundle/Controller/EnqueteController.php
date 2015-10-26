@@ -110,10 +110,11 @@ class EnqueteController extends AbstractMobile
                 $idConfig = $this->getService('service.configuracao_franquia_nivel')->find($idConfig);
 
                 $arrBonus = array(
-                    'noNivel' => $nivel['noNivel'],
-                    'nuMin'   => $nivel['nuQuantidadePontosNecessaio'],
-                    'nuMax'   => $idConfig ? $idConfig->getNuQuantidadePontosNecessaio() : null,
-                    'nuBonus' => $nuBonus
+                    'noNivel'  => $nivel['noNivel'],
+                    'nuMin'    => $nivel['nuQuantidadePontosNecessaio'],
+                    'nuMax'    => $idConfig ? $idConfig->getNuQuantidadePontosNecessaio() : null,
+                    'nuBonus'  => $nuBonus,
+                    'noImagem' => $nivel['noImagem'] ? $this->getService()->siteURL() . $nivel['noImagem'] : ''
                 );
                 $this->add('possuiBonus', true);
                 $this->add('bonus', $arrBonus);
