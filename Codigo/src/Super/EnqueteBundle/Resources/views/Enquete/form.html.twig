@@ -77,7 +77,7 @@
 
                         {% set required = 'required' %}
 
-                        {% if key > 1 %}
+                        {% if key  > 1 %}
                             {% set required = '' %}
                         {% endif %}
                         <input type="text" class="form-control {{ required }}" value="{{ resposta.noResposta }}" placeholder="{{ num }}° Resposta"

@@ -11,6 +11,8 @@ class Arquivo extends CrudService
 
     public function processarArquivoRetorno()
     {
+        ini_set('max_execution_time', 0);
+
         $arrArquivo        = array();
         $arrFranqueadorFTP = $this->getService('service.configuracao_ftp')->findAll();
 
@@ -18,23 +20,29 @@ class Arquivo extends CrudService
             try {
                 $ftp = ftp_connect($config->getNoHost()) or new \Exception();
                 $login = ftp_login($ftp, $config->getNoUsuario(), $config->getNoSenha()) or new \Exception();
+                ftp_pasv($ftp, true);
+                ftp_set_option($ftp, FTP_TIMEOUT_SEC, 1800);
+
                 $contents = ftp_nlist($ftp, $config->getNoPasta()) or new \Exception();
 
-                $dirFiles   = md5(microtime()) . DIRECTORY_SEPARATOR;
-                $tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $dirFiles . DIRECTORY_SEPARATOR;
+                $tempFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . md5(microtime()) . DIRECTORY_SEPARATOR;
 
                 mkdir($tempFolder, 0777, true) or new \Exception();
 
+                $total = 0;
                 foreach ($contents as $key => $arquivoFTP) {
-                    $pathFile = str_replace('\\', '/', $config->getNoPasta() . DIRECTORY_SEPARATOR . $arquivoFTP);
-
-                    ftp_get($ftp, $tempFolder . $arquivoFTP, $pathFile, FTP_BINARY) or new \Exception();
+                    if (strtoupper(substr($arquivoFTP, strlen($arquivoFTP) - 3, 3)) == 'TXT' && $total <= 500) {
+                        $pathFile = str_replace('\\', '/', $config->getNoPasta() . DIRECTORY_SEPARATOR . $arquivoFTP);
+                        ftp_get($ftp, $tempFolder . $arquivoFTP, $pathFile, FTP_BINARY) or new \Exception();
+                        clearstatcache();
+                        $total++;
+                    }
                 }
 
                 foreach (new \DirectoryIterator($tempFolder) as $arquivo) {
                     if (!$arquivo->isDot() && !$arquivo->isDir() && strtolower(pathinfo($arquivo->getFilename(), PATHINFO_EXTENSION)) == 'txt') {
                         $dadosArquivo = $this->getDetailFile($tempFolder, $arquivo->getFilename());
-                        $file         = $tempFolder . DIRECTORY_SEPARATOR . $arquivo->getFilename();
+                        $file         = $tempFolder . $arquivo->getFilename();
 
                         $dadosArquivo['idFranqueador'] = $config->getIdFranqueador()->getIdFranqueador();
 
@@ -51,7 +59,7 @@ class Arquivo extends CrudService
                         $this->saveTransacao($dadosArquivo);
 
                         $pathFileFTP = str_replace('\\', '/', $config->getNoPasta() . DIRECTORY_SEPARATOR . $arquivo->getFilename());
-                        ftp_delete($ftp, $pathFileFTP) or new \Exception();
+//                        ftp_delete($ftp, $pathFileFTP) or new \Exception();
 
                         array_push($arrArquivo, $dadosArquivo);
                         unlink($file);
@@ -147,7 +155,7 @@ class Arquivo extends CrudService
         $filename = str_replace('.txt', '', strtolower($filename));
 
         ob_start();
-        echo file_get_contents($path . DIRECTORY_SEPARATOR . $filename . '.TXT');
+        var_dump(file_get_contents($path . DIRECTORY_SEPARATOR . $filename . '.TXT'));
         $file = ob_get_contents();
         ob_end_clean();
 

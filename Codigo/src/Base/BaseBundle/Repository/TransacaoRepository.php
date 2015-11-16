@@ -257,7 +257,7 @@ class TransacaoRepository extends AbstractRepository
         }
 
         if ($queryDebito <= 0) {
-            $queryCredito = array(
+            $queryDebito = array(
                 'transacaoDebito' => '0',
                 'valorDebito' => '0.00',
                 'nuMes' => date('m'),
