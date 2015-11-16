@@ -39,8 +39,6 @@ class DefaultController extends CrudController
         $srvTransacao = $this->getService("service.transacao");
         $nuMes        = $request->query->get('mes', date('m'));
 
-        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
-
         if ($this->getUser()->getIdFranqueador()) {
             $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
         }
