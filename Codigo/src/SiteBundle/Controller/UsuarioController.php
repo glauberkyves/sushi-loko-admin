@@ -36,4 +36,23 @@ class UsuarioController extends CrudController
 
         return $this->redirect($this->generateUrl('site_homepage'));
     }
+
+    public function recuperarSenhaAction(Request $request)
+    {
+        if ($this->getUser()) {
+            return $this->redirect('/');
+        }
+
+        if ($request->isMethod('post')) {
+            $entity = $this->getService('service.pessoa_fisica')->findOneByNoEmail($request->request->get('noEmail'));
+
+            if ($entity && $this->getService('service.site.usuario')->recuperarSenha($entity->getIdPessoa()->getIdUsuario())) {
+                $this->addMessage('Sua senha foi enviada para o e-mail indicado');
+            } else {
+                $this->addMessage('E-mail n&atilde;o cadastrado em nosso sistema', 'error');
+            }
+        }
+
+        return $this->redirect($this->generateUrl('site_homepage'));
+    }
 }

@@ -7,8 +7,8 @@ site_login:
     defaults: { _controller: SiteBundle:Usuario:login }
 
 site_esqueci_senha:
-    path:     /esqueci-minha-senha.html
-    defaults: { _controller: SiteBundle:Usuario:login }
+    path:     /recuperar-senha
+    defaults: { _controller: SiteBundle:Usuario:recuperarSenha }
 
 site_ativar_cadastro:
     path:     /ativar-cadastro/{token}

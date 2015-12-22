@@ -58,7 +58,7 @@ class Usuario extends CrudService
         $this->persist($entity);
 
         $view = 'SiteBundle:Usuario:recuperar-senha.html.twig';
-        $html = $this
+        $body = $this
             ->getContainer()
             ->get('templating')
             ->render($view, array(
@@ -66,17 +66,17 @@ class Usuario extends CrudService
                 'pass' => $randonPass
             ));
 
-        $tipoTemplate = TipoTemplate::EsqueciSenha;
-        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
-        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
-
-        $body = $this
-            ->getContainer()
-            ->get('templating')
-            ->render($view, array(
-                'entity' => $template,
-                'dados' => $html,
-            ));
+//        $tipoTemplate = TipoTemplate::EsqueciSenha;
+//        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
+//        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+//
+//        $body = $this
+//            ->getContainer()
+//            ->get('templating')
+//            ->render($view, array(
+//                'entity' => $template,
+//                'dados' => $html,
+//            ));
 
         return $this->sendMail($mail, 'Recuperação de Senha', $body);
     }
