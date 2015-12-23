@@ -154,6 +154,8 @@
                 '</div>' +
                 '</section>');
 
+                $('[mask=decimal]').setMask('decimal')
+
                 $(".excluirPro" + totalProdutos).click(function () {
                     var elementoDelete = $(this).parent().children("span").html();
                     $(this).parent().parent().parent().next().children().children().children("span").html(elementoDelete);

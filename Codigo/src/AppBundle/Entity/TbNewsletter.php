@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbNewsletter
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_news", type="integer", nullable=false)
      * @ORM\Id
@@ -36,7 +36,7 @@ class TbNewsletter
     private $noEmail;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="nu_telefone", type="integer", nullable=true)
      */

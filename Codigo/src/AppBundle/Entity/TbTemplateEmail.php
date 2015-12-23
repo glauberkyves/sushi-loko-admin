@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbTemplateEmail
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_template_email", type="integer", nullable=false)
      * @ORM\Id
@@ -43,7 +43,7 @@ class TbTemplateEmail
     private $dtCadastro;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

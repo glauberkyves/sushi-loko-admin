@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbBonus
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_bonus", type="integer", nullable=false)
      * @ORM\Id
@@ -22,7 +22,7 @@ class TbBonus
     private $idBonus;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="nu_bonus", type="integer", nullable=false)
      */
@@ -36,14 +36,14 @@ class TbBonus
     private $dtCadastro;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_vencido", type="integer", nullable=false)
      */
     private $stVencido;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

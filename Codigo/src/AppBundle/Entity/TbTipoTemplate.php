@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbTipoTemplate
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_tipo_template", type="integer", nullable=false)
      * @ORM\Id

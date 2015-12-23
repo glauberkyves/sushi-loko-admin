@@ -17,17 +17,14 @@ class Franquia extends CrudService
     public function preSave(AbstractEntity $entity = null)
     {
         $idFranqueador = $this->getRequest()->request->getInt('idFranqueador');
-        $idCardapio = $this->getRequest()->request->getInt('idCardapio');
 
         $idUsuario = $this->getService('service.usuario')->save();
         $idEndereco = $this->getService('service.endereco')->save();
         $idFranqueador = $this->getService('service.franqueador')->find($idFranqueador);
-        $idCardapio = $this->getService('service.cardapio')->find($idCardapio);
 
         $this->entity->setIdUsuario($idUsuario);
         $this->entity->setIdEndereco($idEndereco);
         $this->entity->setIdFranqueador($idFranqueador);
-        $this->entity->setIdCardapio($idCardapio);
     }
 
     public function preInsert(AbstractEntity $entity = null)
@@ -43,6 +40,7 @@ class Franquia extends CrudService
     public function postSave(AbstractEntity $entity = null)
     {
         $this->savePromocao();
+        $this->saveCardapio();
     }
 
     /**
@@ -112,6 +110,34 @@ class Franquia extends CrudService
                 $idFranquiaPromocao->setIdPromocao($entityPromocao);
 
                 $this->persist($idFranquiaPromocao);
+            }
+        }
+    }
+
+    /**
+     * Salvar promoção
+     */
+    public function saveCardapio()
+    {
+        $arrCardapio = $this->getRequest()->request->get('idCardapio');
+        $srvFranquiaCardapio = $this->getService('service.franquia_cardapio');
+        $arrFranquiaCardapio = $srvFranquiaCardapio->findByIdFranquia(
+            $this->getRequest()->request->get('idFranquia')
+        );
+
+        foreach ($arrFranquiaCardapio as $idFranquiaCardapio) {
+            $this->remove($idFranquiaCardapio);
+        }
+
+        if ($arrCardapio) {
+            foreach ($arrCardapio as $key => $idCardapio) {
+                $entityCardapio = $this->getService('service.cardapio')->find($idCardapio);
+
+                $idFranquiaCardapio = $this->getService('service.franquia_cardapio')->newEntity();
+                $idFranquiaCardapio->setIdFranquia($this->entity);
+                $idFranquiaCardapio->setIdCardapio($entityCardapio);
+
+                $this->persist($idFranquiaCardapio);
             }
         }
     }
@@ -196,6 +222,10 @@ class Franquia extends CrudService
         );
 
         //remove primeiro elemento do array preservando chaves
+        reset($this->vars['cmbCardapio']);
+        unset($this->vars['cmbCardapio'][key($this->vars['cmbCardapio'])]);
+
+        //remove primeiro elemento do array preservando chaves
         reset($this->vars['cmbPromocao']);
         unset($this->vars['cmbPromocao'][key($this->vars['cmbPromocao'])]);
 
@@ -221,11 +251,14 @@ class Franquia extends CrudService
                 array_push($this->vars['arrMunicipio'], $idMunicipio->getIdMunicipio());
                 array_push($this->vars['arrEstado'], $idMunicipio->getIdEstado()->getIdEstado());
                 array_push($this->vars['arrBairro'], $idEndereco->getIdBairro()->getIdBairro());
-                array_push($this->vars['arrCardapio'], $entity->getIdCardapio()->getIdCardapio());
                 array_push($this->vars['arrSituacao'], $entity->getStAtivo());
 
                 foreach ($entity->getIdFranquiaPromocao() as $idFranquiaPromocao) {
                     array_push($this->vars['arrPromocao'], $idFranquiaPromocao->getIdPromocao()->getIdPromocao());
+                }
+
+                foreach ($entity->getIdFranquiaCardapio() as $idFranquiaCardapio) {
+                    array_push($this->vars['arrCardapio'], $idFranquiaCardapio->getIdCardapio()->getIdCardapio());
                 }
             }
         }

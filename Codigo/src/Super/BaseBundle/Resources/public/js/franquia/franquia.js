@@ -1,4 +1,4 @@
-$('#idPromocao').multiSelect();
+$('#idPromocao, #idCardapio').multiSelect();
 
 $('.datepicker').datepicker({
     format: 'dd/mm/yyyy',
@@ -6,7 +6,7 @@ $('.datepicker').datepicker({
 });
 
 $("#noEmailResponsavel").autocomplete({
-    serviceUrl: "/super/franqueador/franquia/usuario/buscar?q=email",
+    serviceUrl: "/super/franqueador/fracd nquia/usuario/buscar?q=email",
     type: "POST",
     minChars: 3,
     maxHeight: 400,

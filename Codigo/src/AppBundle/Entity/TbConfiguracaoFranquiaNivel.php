@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbConfiguracaoFranquiaNivel
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_configuracao_franquia_nivel", type="integer", nullable=false)
      * @ORM\Id
@@ -29,14 +29,14 @@ class TbConfiguracaoFranquiaNivel
     private $noNivel;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="nu_quantidade_pontos_necessaio", type="integer", nullable=false)
      */
     private $nuQuantidadePontosNecessaio;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="nu_porcentagem_pontos_extra", type="integer", nullable=false)
      */
@@ -50,7 +50,7 @@ class TbConfiguracaoFranquiaNivel
     private $dtCadastro;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="nu_quantidade_pontos_por_atingir", type="integer", nullable=false)
      */

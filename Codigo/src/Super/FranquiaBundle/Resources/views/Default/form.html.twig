@@ -119,7 +119,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label col-lg-2" for="idCardapio">Cardápio</label>
         <div class="col-lg-10">
-            {{ formSelect('', arrCardapio, {'class': 'form-control required', 'id': 'idCardapio', 'name': 'idCardapio'}, cmbCardapio) }}
+            {{ formSelect('', arrCardapio, {'class': 'multi-select', 'multiple': 'multiple', 'id': 'idCardapio', 'name': 'idCardapio[]'}, cmbCardapio) }}
         </div>
     </div>
     <div class="form-group">

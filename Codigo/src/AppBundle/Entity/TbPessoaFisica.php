@@ -48,7 +48,7 @@ class TbPessoaFisica
     private $nuTelefone;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="nu_cep", type="integer", nullable=true)
      */

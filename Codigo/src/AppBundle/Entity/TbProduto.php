@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class TbProduto
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id_produto", type="integer", nullable=false)
      * @ORM\Id
@@ -50,7 +50,7 @@ class TbProduto
     private $dsProduto;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
      */

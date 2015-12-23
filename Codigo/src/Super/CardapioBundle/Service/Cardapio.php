@@ -105,28 +105,23 @@ class Cardapio extends CrudService
 
     public function delete($id = 0)
     {
-        $idFranqueador = $this->getUser()->getIdFranqueador()->getIdFranqueador();
-        $idFranquia = $this->getService('service.franquia')->findOneBy(
-            array(
-                'idFranqueador' => $idFranqueador,
-                'idCardapio' => $id
-            )
-        );
+        $idFranqueador      = $this->getUser()->getIdFranqueador()->getIdFranqueador();
+        $idFranquiaCardapio = $this->getService('service.franquia_cardapio')->getByIdFranqueador($id, $idFranqueador);
 
-        if ($idFranquia) {
+        if ($idFranquiaCardapio) {
             $this->addMessage(
-                sprintf("A franquia \"%s\" está utilizando este cardápio no momento!", $idFranquia->getNoFranquia()),
+                sprintf("A franquia \"%s\" está utilizando este cardápio no momento!", $idFranquiaCardapio['noFranquia']),
                 "error"
             );
         } else {
-            $idCardapio = $this->getService('service.cardapio')->findOneBy(
+            $idPromocao = $this->getService('service.cardapio')->findOneBy(
                 array(
                     'idFranqueador' => $idFranqueador,
                     'idCardapio' => $id
                 )
             );
-            if ($idCardapio) {
-                if ($this->getService()->remove($idCardapio)) {
+            if ($idPromocao) {
+                if ($this->getService('service.cardapio')->remove($idPromocao)) {
                     $this->addMessage('Operação realizada com sucesso!');
                 }
             } else {

@@ -50,16 +50,6 @@ class TbFranquia extends AbstractEntity
     private $nuCodigoLoja;
 
     /**
-     * @var \TbCardapio
-     *
-     * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbCardapio")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_cardapio", referencedColumnName="id_cardapio")
-     * })
-     */
-    private $idCardapio;
-
-    /**
      * @var \TbEndereco
      *
      * @ORM\ManyToOne(targetEntity="Base\BaseBundle\Entity\TbEndereco")
@@ -89,6 +79,13 @@ class TbFranquia extends AbstractEntity
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
+     * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFranquiaCardapio", mappedBy="idFranquia")
+     */
+    private $idFranquiaCardapio;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
      * @ORM\OneToMany(targetEntity="Base\BaseBundle\Entity\TbFranquiaOperador", mappedBy="idFranquia")
      */
     private $idFranquiaOperador;
@@ -109,6 +106,7 @@ class TbFranquia extends AbstractEntity
     public function __construct()
     {
         $this->idFranquiaPromocao = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idFranquiaCardapio = new \Doctrine\Common\Collections\ArrayCollection();
         $this->idFranquiaOperador = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -174,22 +172,6 @@ class TbFranquia extends AbstractEntity
     public function setStAtivo($stAtivo)
     {
         $this->stAtivo = $stAtivo;
-    }
-
-    /**
-     * @return \TbCardapio
-     */
-    public function getIdCardapio()
-    {
-        return $this->idCardapio;
-    }
-
-    /**
-     * @param \TbCardapio $idCardapio
-     */
-    public function setIdCardapio($idCardapio)
-    {
-        $this->idCardapio = $idCardapio;
     }
 
     /**
@@ -288,6 +270,19 @@ class TbFranquia extends AbstractEntity
         $this->nuCodigoLoja = $nuCodigoLoja;
     }
 
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdFranquiaCardapio()
+    {
+        return $this->idFranquiaCardapio;
+    }
 
+    /**
+     * @param \Doctrine\Common\Collections\Collection $idFranquiaCardapio
+     */
+    public function setIdFranquiaCardapio($idFranquiaCardapio)
+    {
+        $this->idFranquiaCardapio = $idFranquiaCardapio;
+    }
 }
-
