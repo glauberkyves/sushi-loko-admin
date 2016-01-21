@@ -67,6 +67,7 @@ class FranqueadorUsuarioRepository extends AbstractRepository
             ->innerJoin('fu.idUsuario', 'u')
             ->innerJoin('u.idPessoa', 'p')
             ->innerJoin('p.idPessoaFisica', 'pf')
-            ->andWhere($expr->eq('f.idFranqueador', $request->request->get('idFranqueador')));
+            ->andWhere($expr->eq('f.idFranqueador', $request->request->get('idFranqueador')))
+            ->orderBy('u.idUsuario', 'DESC');
     }
 }
