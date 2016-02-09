@@ -21,10 +21,10 @@ class PesquisaRepository extends AbstractRepository
     {
         $request = $this->padronizarRequest($request);
 
-        $subQueryCreditoTotal   = $this->subQueryCredito($request, false, 1);
-        $subQueryDebitoTotal    = $this->subQueryDebito($request, false, 2);
+        $subQueryCreditoTotal = $this->subQueryCredito($request, false, 1);
+        $subQueryDebitoTotal = $this->subQueryDebito($request, false, 2);
         $subQueryCreditoPeriodo = $this->subQueryCredito($request, true, 3);
-        $subQueryDebitoPeriodo  = $this->subQueryDebito($request, true, 4);
+        $subQueryDebitoPeriodo = $this->subQueryDebito($request, true, 4);
 
         $subQueryCount = $this->subQueryCountTransacao($request);
         $subQueryMedia = $this->subQueryMediaConsumo($request);
@@ -55,7 +55,7 @@ class PesquisaRepository extends AbstractRepository
 
     public function addWhere(QueryBuilder $query, Request $request)
     {
-        $expr    = new Expr();
+        $expr = new Expr();
         $request = $request->query;
 
         foreach ($request->all() as $key => $value) {
@@ -154,13 +154,19 @@ class PesquisaRepository extends AbstractRepository
                 #filtro data
                 case 'dtInicio':
                     $data = Data::dateBr($value);
-                    $query->andWhere($expr->gte('u.dtCadastro', $data->format('d/m/Y H:i:s')));
+                    $query->andWhere($expr->gte('u.dtCadastro', $expr->literal($data->format('d/m/Y H:i:s'))));
                     break;
 
                 #filtro data
                 case 'dtFim':
-                    $data = Data::dateBr($value);
-                    $query->andWhere($expr->lte('u.dtCadastro', $data->format('d/m/Y') . ' 59:59:59'));
+                    if ($value) {
+                        $data = Data::dateBr($value);
+                        $query->andWhere($expr->lte('u.dtCadastro', $expr->literal($data->format('d/m/Y') . ' 59:59:59')));
+                    }
+                    break;
+
+                case 'noPessoa':
+                    $query->andWhere($expr->like('p.noPessoa', $expr->literal('%' . $value . '%')));
                     break;
             }
         }
@@ -172,7 +178,7 @@ class PesquisaRepository extends AbstractRepository
     private function subQueryCredito(Request $request, $filtrarPeriodo = false, $i = 1)
     {
         $request = $request->query;
-        $expr    = new Expr();
+        $expr = new Expr();
 
         $query = $this
             ->getEntityManager()
@@ -208,7 +214,7 @@ class PesquisaRepository extends AbstractRepository
     private function subQueryDebito(Request $request, $filtrarPeriodo = false, $i = 2)
     {
         $request = $request->query;
-        $expr    = new Expr();
+        $expr = new Expr();
 
         $query = $this
             ->getEntityManager()
@@ -243,7 +249,7 @@ class PesquisaRepository extends AbstractRepository
     private function subQueryCountTransacao(Request $request)
     {
         $request = $request->query;
-        $expr    = new Expr();
+        $expr = new Expr();
 
         $query = $this
             ->getEntityManager()
@@ -276,7 +282,7 @@ class PesquisaRepository extends AbstractRepository
     private function subQueryMediaConsumo(Request $request)
     {
         $request = $request->query;
-        $expr    = new Expr();
+        $expr = new Expr();
 
         $query = $this
             ->getEntityManager()
@@ -306,7 +312,7 @@ class PesquisaRepository extends AbstractRepository
     {
         if ($nuPeriodo && $noPeriodo) {
             $noPeriodo = Pesquisa::getPeriodo($noPeriodo);
-            $dateTime  = new \DateTime();
+            $dateTime = new \DateTime();
             $dateTime->modify("-{$nuPeriodo} {$noPeriodo}");
 
             return $dateTime;
