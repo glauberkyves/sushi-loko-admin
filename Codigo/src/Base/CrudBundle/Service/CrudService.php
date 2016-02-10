@@ -22,7 +22,7 @@ class CrudService extends AbstractService
         $sEcho = $request->query->get('sEcho', 1);
         $page  = $request->query->get('iDisplayStart', 0);
         $rows  = $request->query->get('iDisplayLength', 10);
-        $page  = ceil($page/$rows) + 1;
+        $page  = floor($page/$rows) + 1;
 
         $paginator  = new Paginator();
         $pagination = $paginator->paginate($result, $page, $rows);
