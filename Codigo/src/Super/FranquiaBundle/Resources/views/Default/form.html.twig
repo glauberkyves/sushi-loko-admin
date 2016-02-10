@@ -146,7 +146,10 @@
     </div>
 </form>
 
+{% block bodyScripts %}
 <script>
     var LATITUDE  = {{ entity.getIdEndereco().getNoLatitude() ?: -15.7940 }};
     var LONGITUDE = {{ entity.getIdEndereco().getNoLongitude() ?: -47.8827 }};
+    $('#idPromocao, #idCardapio').multiSelect();
 </script>
+{% endblock %}

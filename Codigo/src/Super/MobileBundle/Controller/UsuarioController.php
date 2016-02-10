@@ -20,6 +20,16 @@ class UsuarioController extends AbstractMobile
     {
         $request = $this->getRequest();
 
+//        $request->nuCpf = '76820441878';
+//        $request->idFranqueador = '56';
+//        $request->dtNascimento = '10101991';
+//        $request->nuCep = '73801450';
+//        $request->noSenha = '123456';
+//        $request->noPessoa = 'Teste User';
+//        $request->noEmail = 'teste-user@gmail.com';
+//        $request->sgSexo = 'M';
+//        $request->nuTelefone = '6182828282';
+
         $idFranqueadorUsuario = $this->getService('service.franqueador_usuario')->findUsuarioPorFranqueador(
             $request->nuCpf,
             $request->idFranqueador

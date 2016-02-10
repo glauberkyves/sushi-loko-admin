@@ -37,6 +37,20 @@ class TransacaoRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
 
+        $queryCredito2 = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('SUM(t.nuValor) credito')
+            ->from('Base\BaseBundle\Entity\TbTransacao', 't')
+            ->innerJoin('t.idTipoTransacao', 'tt')
+            ->innerJoin('t.idUsuario', 'u')
+            ->where($expr->eq('u.idUsuario', $idUsuario))
+            ->andWhere($expr->eq('t.idFranqueador', $idFranqueador))
+            ->andWhere($expr->eq('t.stAtivo', true))
+            ->andWhere($expr->eq('tt.idTipoTransacao', TipoTransacao::CREDITO))
+            ->getQuery()
+            ->getResult();
+
         $queryDebito = $this
             ->getEntityManager()
             ->createQueryBuilder()
@@ -53,10 +67,11 @@ class TransacaoRepository extends AbstractRepository
             ->getQuery()
             ->getResult();
 
-        $credito = $queryCredito ? $queryCredito[0]['credito'] : 0;
-        $debito = $queryDebito ? $queryDebito[0]['debito'] : 0;
+        $credito  = $queryCredito ? $queryCredito[0]['credito'] : 0;
+        $credito2 = $queryCredito2 ? $queryCredito2[0]['credito'] : 0;
+        $debito   = $queryDebito ? $queryDebito[0]['debito'] : 0;
 
-        return $credito - $debito;
+        return ($credito+$credito2) - $debito;
     }
 
     public function getTransacaoFranqueador(Request $request)
