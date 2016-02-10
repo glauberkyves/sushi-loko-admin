@@ -13,6 +13,7 @@ $.extend($.componentGrid, {
     data:    null,
     options: {
         processing:       true,
+        responsive:       true,
         serverSide:       true,
         sAjaxSource:      false,
         AutoWidth:        false,
@@ -21,8 +22,8 @@ $.extend($.componentGrid, {
         columns:          [],
         bFilter:          false,
         bLengthChange:    false,
-        iDisplayLength:   5,
-        iDisplayStart:    1,
+        iDisplayLength:   10,
+        iDisplayStart:    0,
         bDestroy:         true,
         paginationGrid:   true,
         fnServerParams:   false,
@@ -87,7 +88,7 @@ $.extend($.componentGrid, {
             this.grid = element;
             this.form = $('[id=' + element.attr('data-grid') + ']');
 
-            element.find('[data-column]').each(function (i, v) {
+            element.find('[data-column]').each(function(i, v){
                 var column = $(this).attr('data-column')
                 $.componentGrid.options.columns.push({data: column});
             });
@@ -101,7 +102,7 @@ $.extend($.componentGrid, {
 
                     $.componentGrid.options.fnServerParams = function (aoData) {
                         $.each(params, function (index, value) {
-                            aoData.push({'name': value.name, 'value': value.value});
+                            aoData.push({ 'name': value.name, 'value': value.value });
                         });
                     };
 
