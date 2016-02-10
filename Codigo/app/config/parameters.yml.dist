@@ -1,25 +1,17 @@
-# This file is a "template" of what your parameters.yml file should look like
+# This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
-    database_host: 187.45.198.33
+    database_host: entrandomaindb.ckx4jvbbiteg.us-west-2.rds.amazonaws.com
     database_port: 3306
     database_name: fidelidade
-    database_user: fidelidade
-    database_password: texugo22
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
-
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-
+    database_user: entrando
+    database_password: h54jks59
+    mailer_transport: smtp
+    mailer_host: email-smtp.us-west-2.amazonaws.com
+    mailer_user: AKIAIVOIZQ7ZZJPXQF4A
+    mailer_password: AhQJw1O+O5XTBtlj7L4dsouOs0fWpt8n8YAhajt9kM9u
     email_no_reply: contato@2creativegames.com.br
-
-    locale:            pt-BR
-
+    locale: pt-BR
     token_key: lAtM86mDWBMMXHBMu/I7jXLh9Unn4i4=
     token_iv: 3JHJCpIKFqvcdg==
-
-    # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret: ThisTokenIsNotSoSecretChangeIt
