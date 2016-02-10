@@ -1,5 +1,3 @@
-$('#idPromocao, #idCardapio').multiSelect();
-
 $('.datepicker').datepicker({
     format: 'dd/mm/yyyy',
     language: 'pt-BR'

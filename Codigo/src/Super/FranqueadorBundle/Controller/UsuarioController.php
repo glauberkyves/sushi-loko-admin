@@ -73,6 +73,27 @@ class UsuarioController extends CrudController
 
     public function viewAction($idFranqueador, $idUsuario, Request $request)
     {
+        if($request->isMethod('post')) {
+            $nuPontos  = $request->request->get('addPontos', 0);
+            $nuBonus   = $request->request->get('addBonus', 0);
+
+            if($nuPontos || $nuBonus) {
+
+                $idUsuario = $this->getService('service.usuario')->find($idUsuario);
+
+                if($idUsuario) {
+                    if ($nuBonus > 0) {
+                        $this->getService('service.pesquisa')->saveTransacao($idUsuario, $nuBonus);
+                    }
+                    if ($nuPontos > 0) {
+                        $this->getService('service.bonus')->setBonus($idUsuario->getIdFranqueadorUsuario(), $nuPontos);
+                    }
+                    $idUsuario = $idUsuario->getIdUsuario();
+                }
+            }
+            $this->addMessage('Créditos/Bonus acrescentados com sucesso!');
+        }
+
         $rlFranqueadorUsuario = $this->getService()->findOneBy(
             array(
                 'idFranqueador' => $idFranqueador, 'idUsuario' => $idUsuario
@@ -80,10 +101,7 @@ class UsuarioController extends CrudController
         );
 
         $franquia = $this->getService('service.transacao')->getFranquiaVisitada($idUsuario);
-        $creditos = $this->getService('service.transacao')->getCreditosUsuario(
-            $idUsuario,
-            $idFranqueador
-        );
+        $creditos = $this->getService('service.transacao')->getCreditosUsuario($idUsuario, $idFranqueador);
 
         if (!$rlFranqueadorUsuario) {
             return $this->redirect($request->headers->get('referer'));
