@@ -33,19 +33,20 @@ class Usuario extends CrudService
             ));
 
         $tipoTemplate = TipoTemplate::CadastroUsuario;
-        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
-        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+        if ($template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate)) {
+            $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
 
-        $body = $this
-            ->getContainer()
-            ->get('templating')
-            ->render($view, array(
-                'entity' => $template,
-                'dados' => $html,
-            ));
+            $body = $this
+                ->getContainer()
+                ->get('templating')
+                ->render($view, array(
+                    'entity' => $template,
+                    'dados' => $html,
+                ));
 
-        if ($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
-            $this->sendMail($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Confirmação de cadastro', $body);
+            if ($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
+                $this->sendMail($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Confirmação de cadastro', $body);
+            }
         }
 
         $this->getRequest()->request->set('idUsuario', $this->entity->getIdUsuario());
@@ -62,7 +63,7 @@ class Usuario extends CrudService
                 $numbers{$i} = mt_rand(2, 9);
             }
         }
-        $letters = (!$onlyNumbers)   ? 'abcdefghkmnpqrstuvxwyz' : '';
+        $letters = (!$onlyNumbers) ? 'abcdefghkmnpqrstuvxwyz' : '';
         $letters .= ($especialChars) ? '/#$%&*()^Â´[]' : $letters;
         $letters .= (string)$numbers;
 

@@ -38,19 +38,20 @@ class UsuarioController extends CrudController
             } else {
                 $this->addMessage('Usuário Inativado com sucesso');
                 $tipoTemplate = TipoTemplate::CancelmentoCadastroUsuario;
-                $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
 
-                $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
-                $body = $this
-                    ->get('templating')
-                    ->render($view, array(
-                        'entity' => $template,
-                        'dados' => false,
-                    ));
+                if ($template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate)) {
+                    $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+                    $body = $this
+                        ->get('templating')
+                        ->render($view, array(
+                            'entity' => $template,
+                            'dados' => false,
+                        ));
 
-                $this
-                    ->getService()
-                    ->sendMail($usuario->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Cancelamento de cadastro', $body);
+                    $this
+                        ->getService()
+                        ->sendMail($usuario->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Cancelamento de cadastro', $body);
+                }
             }
 
             $usuario->setStAtivo($stAtivo);
@@ -73,15 +74,15 @@ class UsuarioController extends CrudController
 
     public function viewAction($idFranqueador, $idUsuario, Request $request)
     {
-        if($request->isMethod('post')) {
-            $nuPontos  = $request->request->get('addPontos', 0);
-            $nuBonus   = $request->request->get('addBonus', 0);
+        if ($request->isMethod('post')) {
+            $nuPontos = $request->request->get('addPontos', 0);
+            $nuBonus = $request->request->get('addBonus', 0);
 
-            if($nuPontos || $nuBonus) {
+            if ($nuPontos || $nuBonus) {
 
                 $idUsuario = $this->getService('service.usuario')->find($idUsuario);
 
-                if($idUsuario) {
+                if ($idUsuario) {
                     if ($nuBonus > 0) {
                         $this->getService('service.pesquisa')->saveTransacao($idUsuario, $nuBonus);
                     }
