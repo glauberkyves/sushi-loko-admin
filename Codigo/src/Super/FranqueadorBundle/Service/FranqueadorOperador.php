@@ -72,23 +72,24 @@ class FranqueadorOperador extends CrudService
             ));
 
         $tipoTemplate = TipoTemplate::CadastroOperadorFranqueador;
-        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
-        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+        if ($template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate)) {
+            $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
 
-        $body = $this
-            ->getContainer()
-            ->get('templating')
-            ->render($view, array(
-                'entity' => $template,
-                'dados' => $html,
-            ));
+            $body = $this
+                ->getContainer()
+                ->get('templating')
+                ->render($view, array(
+                    'entity' => $template,
+                    'dados' => $html,
+                ));
 
-        if ($this->entity->getIdOperador()->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
-            $this->sendMail(
-                $this->entity->getIdOperador()->getIdPessoa()->getIdPessoaFisica()->getNoEmail(),
-                'Confirmação de cadastro',
-                $body
-            );
+            if ($this->entity->getIdOperador()->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
+                $this->sendMail(
+                    $this->entity->getIdOperador()->getIdPessoa()->getIdPessoaFisica()->getNoEmail(),
+                    'ConfirmaÃ§Ã£o de cadastro',
+                    $body
+                );
+            }
         }
 
         $this->getRequest()->request->set('idUsuario', $this->entity->getIdOperador());

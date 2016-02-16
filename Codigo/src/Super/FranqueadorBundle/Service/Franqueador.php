@@ -58,23 +58,24 @@ class Franqueador extends CrudService
             ));
 
         $tipoTemplate = TipoTemplate::CadastroFranqueador;
-        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
-        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+        if ($template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate)) {
+            $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
 
-        $body = $this
-            ->getContainer()
-            ->get('templating')
-            ->render($view, array(
-                'entity' => $template,
-                'dados' => $html,
-            ));
+            $body = $this
+                ->getContainer()
+                ->get('templating')
+                ->render($view, array(
+                    'entity' => $template,
+                    'dados' => $html,
+                ));
 
-        if ($this->entity->getIdUsuario()->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
-            $this->sendMail(
-                $this->entity->getIdUsuario()->getIdPessoa()->getIdPessoaFisica()->getNoEmail(),
-                'Senha de acesso',
-                $body
-            );
+            if ($this->entity->getIdUsuario()->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
+                $this->sendMail(
+                    $this->entity->getIdUsuario()->getIdPessoa()->getIdPessoaFisica()->getNoEmail(),
+                    'Senha de acesso',
+                    $body
+                );
+            }
         }
 
         $this->getService('service.perfil')->savePerfil($this->entity->getIdUsuario(), Perfil::SG_FRANQUEADOR);

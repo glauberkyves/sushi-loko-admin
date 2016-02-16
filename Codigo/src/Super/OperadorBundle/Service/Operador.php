@@ -40,7 +40,7 @@ class Operador extends CrudService
     public function postInsert(AbstractEntity $entity = null)
     {
         $password = $this->getService('service.usuario')->getRandomHash();
-        $view     = 'SuperFranqueadorBundle:Default:envioSenha.html.twig';
+        $view = 'SuperFranqueadorBundle:Default:envioSenha.html.twig';
 
         $this->entity->setNoSenha(md5($password));
 
@@ -50,22 +50,23 @@ class Operador extends CrudService
             ->getContainer()
             ->get('templating')
             ->render($view, array(
-                'senha'  => $password,
+                'senha' => $password,
                 'entity' => $this->entity,
             ));
 
         $tipoTemplate = TipoTemplate::CadastroOperadorFranquia;
-        $template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate);
-        $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
+        if ($template = $this->getService('service.template')->findOneByIdTipoTemplate($tipoTemplate)) {
+            $view = 'SuperTemplateBundle:Franqueador:view.html.twig';
 
-        $body = $this
-            ->getContainer()
-            ->get('templating')
-            ->render($view, array(
-                'senha'  => $password,
-                'entity' => $template,
-                'dados' => $html,
-            ));
+            $body = $this
+                ->getContainer()
+                ->get('templating')
+                ->render($view, array(
+                    'senha' => $password,
+                    'entity' => $template,
+                    'dados' => $html,
+                ));
+        }
 
         if ($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail()) {
             $this->sendMail($this->entity->getIdPessoa()->getIdPessoaFisica()->getNoEmail(), 'Confirmação de cadastro', $body);
