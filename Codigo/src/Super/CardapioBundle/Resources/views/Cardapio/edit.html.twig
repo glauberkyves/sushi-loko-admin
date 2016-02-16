@@ -5,7 +5,7 @@
         <input type="hidden" class="idCardapio" name="idCardapio" value="{{ entity.idCardapio }}"/>
         <section class="panel">
             <header class="panel-heading">
-                Cadastrar Editar
+                Editar
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
                 </span>
@@ -33,6 +33,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="txtData" class="control-label col-md-3">Produtos</label>
+                    <div class="col-md-1">
+                        <a class="btn btn-default" id="addProduto" value="Adicionar">Adicionar <span class="fa  fa-plus"></span></a>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-md-12">
                         <div class="alert alert-info" role="alert" style="margin-top: 10px">
                             <strong>Atenção:</strong> A imagem do produto possui o tamanho: 640px X 238px
@@ -47,13 +53,10 @@
                             <section class="panel newPro col-lg-12 ">
                                 <header class="panel-heading alert-info">
                                     Produto
-                                    {% if  num == 1 %}
-                                    {% else %}
-                                        <button type="button"
-                                                class="btn btn-shadow btn-danger pull-right  btn-xs excluiPainel">
-                                            <span class="fa fa-times"></span>
-                                        </button>
-                                    {% endif %}
+                                    <button type="button"
+                                            class="btn btn-shadow btn-danger pull-right  btn-xs excluiPainel">
+                                        <span class="fa fa-times"></span>
+                                    </button>
                                 </header>
 
                                 <div class="panel-body alert-info">
@@ -61,7 +64,6 @@
                                         <div class="form-group">
                                             <label class="col-sm-5 control-label col-lg-3" for="inputSuccess">Nome</label>
                                             <input type="hidden" name="total" value="{{ num }}"/>
-                                            <input type="hidden" class="TotalProdutos" name="TotalProdutos" value="1"/>
                                             <input type="hidden" class="updateProduto" name="updateProduto" value="1"/>
                                             <input type="hidden" name="idProduto[{{ produto.idProduto }}]" value="{{ produto.idProduto }}"/>
                                             <div class="col-lg-9 ">
@@ -122,7 +124,7 @@
 
                 </div>
                 <div class="form-group">
-                    <input type="hidden" class="TotalProdutos" name="TotalProdutos" value="1">
+                    <input type="hidden" class="TotalProdutos" name="TotalProdutos" value="0">
                     <div class="col-lg-10">
                         <button class="btn btn-primary" type="submit">Alterar</button>
                         <a class="btn btn-danger" href="{{ path('manter_cardapio_index') }}">Cancelar</a>
@@ -137,6 +139,67 @@
             $("#datepicker").datepicker("option", "dateFormat", "dd/mm/yy");
             $(".excluiPainel").click(function () {
                 $(this).parent().parent().remove();
+            });
+            $("#addProduto").click(function () {
+                var totalProdutos = $(".TotalProdutos").val();
+                totalProdutos = parseInt(totalProdutos) + 1;
+                $(".TotalProdutos").attr("value", totalProdutos);
+                $(".primeiroelemeto").append(' <div class="col-lg-6"> <section class="panel newPro  col-lg-12  deletar' + totalProdutos + '">' +
+                        '<header class="panel-heading alert-info"><span>' +
+                        'Produto </span> <button type="button" class="btn btn-shadow btn-danger pull-right  btn-xs excluirPro' + totalProdutos + '"><span class="fa fa-times"></span></button>' +
+                        '</header>' +
+                        '<div class="panel-body alert-info">' + ' <div class="col-lg-6">' +
+                        '<div class="form-group">' +
+                        '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Nome</label>' +
+                        '<div class="col-lg-9">' +
+                        '<input type="text" class="form-control required"  id="noProduto1" name="noProduto' + totalProdutos + '" placeholder="Nome">' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label class="col-sm-5 control-label col-lg-4" for="inputSuccess">Descrição</label>' +
+                        '<div class="col-lg-9 ">' +
+                        '<textarea rows="3" cols="60" class="form-control" style="width:207px; max-width:440px;" name="dsProduto' + totalProdutos + '"></textarea>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="form-group">' +
+                        '<label class="col-sm-2 control-label col-lg-3" for="inputSuccess">Preço</label>' +
+                        '<div class="col-lg-9">' +
+                        '  <div class="input-group m-bot15"> <span class="input-group-addon">R$</span> <input type="text" class="form-control required" id="noPreco1" mask="decimal" name="noPreco' + totalProdutos + '"  placeholder="Preço"> </div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' + '<div class="col-lg-4">' +
+                        '<div class="form-group last">' +
+                        '<div class="col-md-9">' +
+                        '<div class="fileupload fileupload-new" data-provides="fileupload">' +
+                        '<div class="fileupload-preview fileupload-exists thumbnail"' +
+                        'style="max-width: 70px; line-height: 20px;"></div>' +
+                        '<div>' +
+                        '<span class="btn btn-white btn-file">' +
+                        '<span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecionar imagem</span>' +
+                        '<span class="fileupload-exists"><i' +
+                        'class="fa fa-undo"></i> Alterar</span>' +
+                        '<input type="file" name="noImagemExtra[' + totalProdutos + ']" id="noImagem" accept="image/*">' +
+                        '</span>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' + '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</section>');
+
+                $('[mask=decimal]').setMask('decimal')
+
+                $(".excluirPro" + totalProdutos).click(function () {
+                    var elementoDelete = $(this).parent().children("span").html();
+                    $(this).parent().parent().parent().next().children().children().children("span").html(elementoDelete);
+
+                    $(".deletar" + totalProdutos).remove();
+                });
+                $('input[data-mask]').each(function () {
+                    var input = $(this);
+                    input.setMask(input.attr('data-mask'));
+                });
             });
         });
     </script>

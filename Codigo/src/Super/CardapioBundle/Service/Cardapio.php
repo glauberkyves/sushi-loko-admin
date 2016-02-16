@@ -49,7 +49,6 @@ class Cardapio extends CrudService
         if ($actionUpdate) {
             $idProduto = $this->getRequest()->request->get("idProduto");
             if ($idProduto) {
-
                 $noProduto  = $this->getRequest()->request->get("noProduto");
                 $dsProduto  = $this->getRequest()->request->get("dsProduto");
                 $nuPreco    = $this->getRequest()->request->get("noPreco");
@@ -84,6 +83,31 @@ class Cardapio extends CrudService
 
                     $this->persist($produto);
                 }
+
+                $total = $this->getRequest()->request->get("TotalProdutos");
+
+                for ($i = 1; $i <= $total; $i++) {
+                    $entidade = $this->getService('service.produto')->newEntity();
+
+                    $noProduto = $this->getRequest()->request->get("noProduto" . $i);
+                    $dsProduto = $this->getRequest()->request->get("dsProduto" . $i);
+                    $nuPreco   = $this->getRequest()->request->get("noPreco" . $i);
+                    $nuPreco   = str_replace(',', '.', str_replace('.', '', $nuPreco));
+
+                    if ($this->getRequest()->files->get('noImagemExtra')) {
+                        $path = $this->uploadSingleFile('produto/' . $i, 'noImagemExtra', $i);
+                        if ($path) {
+                            $entidade->setNoImagem($path);
+                        }
+                    }
+                    $entidade->setIdCardapio($this->entity);
+                    $entidade->setDtCadastro(new \DateTime());
+                    $entidade->setNoProduto($noProduto);
+                    $entidade->setDsProduto($dsProduto);
+                    $entidade->setNuValor($nuPreco);
+
+                    $this->persist($entidade);
+                }
             } else {
                 $this->addMessage("Um cardápio tem que ter pelo menos um produto.");
             }
@@ -92,14 +116,16 @@ class Cardapio extends CrudService
 
     public function uploadSingleFile($folder, $fileInput = null, $key = 0)
     {
-        $files = $this->getRequest()->files->get('noImagem');
-        if ($file = $files[$key]) {
-            $fileName = md5(uniqid() . microtime()) . '.' . $file->getClientOriginalExtension();
-            $rootDir = $this->getRequest()->server->get('DOCUMENT_ROOT');
-            $path = DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR;
-            $file->move($rootDir . $path, $fileName);
-            $this->getRequest()->files->remove($fileInput);
-            return str_replace('\\', '/', $path . $fileName);
+        $files = $this->getRequest()->files->get($fileInput);
+        if(isset($files[$key])) {
+            if ($file = $files[$key]) {
+                $fileName = md5(uniqid() . microtime()) . '.' . $file->getClientOriginalExtension();
+                $rootDir = $this->getRequest()->server->get('DOCUMENT_ROOT');
+                $path = DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR;
+                $file->move($rootDir . $path, $fileName);
+
+                return str_replace('\\', '/', $path . $fileName);
+            }
         }
     }
 
