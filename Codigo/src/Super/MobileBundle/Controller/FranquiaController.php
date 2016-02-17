@@ -85,6 +85,8 @@ class FranquiaController extends AbstractMobile
     {
         $request = $this->getRequest();
 
+        echo '<pre>'; var_dump($request);die;
+
         $idFranquia = $this->getService('service.franquia')->find($request->idFranquia);
 
         if($idFranquia) {
