@@ -83,22 +83,24 @@ class FranquiaController extends AbstractMobile
      */
     public function listarCardapioAction()
     {
-        $request = $this->getRequest();
-
+        $request    = $this->getRequest();
         $idFranquia = $this->getService('service.franquia')->find($request->idFranquia);
 
         if($idFranquia) {
 
             $arrCardapio = $arrProduto = array();
-            $idCardapio = $idFranquia->getIdCardapio();
+            $idFranquiaCardapio = $idFranquia->getIdFranquiaCardapio();
 
-            foreach($idCardapio->getIdProduto() as $key => $idProduto) {
-                $arrProduto[$key] = array(
-                    'noProduto' => $idProduto->getNoProduto(),
-                    'dsProduto' => $idProduto->getDsProduto(),
-                    'nuValor'   => $idProduto->getNuValor(),
-                    'noImagem'  => $this->getService()->siteURL().$idProduto->getNoImagem()
-                );
+            foreach($idFranquiaCardapio as $idCardapio) {
+                $idCardapio = $idCardapio->getIdCardapio();
+                foreach ($idCardapio->getIdProduto() as $key => $idProduto) {
+                    $arrProduto[$key] = array(
+                        'noProduto' => $idProduto->getNoProduto(),
+                        'dsProduto' => $idProduto->getDsProduto(),
+                        'nuValor' => $idProduto->getNuValor(),
+                        'noImagem' => $this->getService()->siteURL() . $idProduto->getNoImagem()
+                    );
+                }
             }
 
             //prevendo json quando possuir mais de 1 cardapio
