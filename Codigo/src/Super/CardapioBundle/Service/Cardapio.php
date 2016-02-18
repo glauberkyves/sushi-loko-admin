@@ -4,7 +4,6 @@ namespace Super\CardapioBundle\Service;
 
 use Base\CrudBundle\Service\CrudService;
 use Base\BaseBundle\Entity\AbstractEntity;
-use Base\BaseBundle\Service\Data;
 
 class Cardapio extends CrudService
 {
