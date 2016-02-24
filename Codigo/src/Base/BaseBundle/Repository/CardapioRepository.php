@@ -20,7 +20,7 @@ class CardapioRepository extends AbstractRepository
 
         return $this
             ->createQueryBuilder('c')
-            ->select('c.idCardapio, c.noCardapio')
+            ->select('c.idCardapio, c.noCardapio, c.noCardapioSuper')
             ->where('c.idFranqueador = :idFranqueador')
             ->setParameter('idFranqueador', $idFranqueador);
     }
