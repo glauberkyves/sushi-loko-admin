@@ -93,6 +93,8 @@ class FranquiaController extends AbstractMobile
 
             foreach($idFranquiaCardapio as $idCardapio) {
                 $idCardapio = $idCardapio->getIdCardapio();
+
+                $arrProduto = array();
                 foreach ($idCardapio->getIdProduto() as $key => $idProduto) {
                     $arrProduto[$key] = array(
                         'noProduto' => $idProduto->getNoProduto(),
@@ -101,13 +103,12 @@ class FranquiaController extends AbstractMobile
                         'noImagem' => $this->getService()->siteURL() . $idProduto->getNoImagem()
                     );
                 }
-            }
 
-            //prevendo json quando possuir mais de 1 cardapio
-            $arrCardapio[] = array(
-                'noCardapio'  => $idCardapio->getNoCardapio(),
-                'arrProdutos' => $arrProduto
-            );
+                $arrCardapio[$idCardapio->getIdCardapio()] = array(
+                    'noCardapio'  => $idCardapio->getNoCardapio(),
+                    'arrProdutos' => $arrProduto
+                );
+            }
 
             if($arrProduto) {
                 $this->add('valido', true);
