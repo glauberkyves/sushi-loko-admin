@@ -16,6 +16,7 @@
                 <tr>
                     <th>Imagem</th>
                     <th>Nome</th>
+                    <th>Descrição</th>
                     <th>Preço</th>
                 </tr>
                 </thead>
@@ -25,10 +26,11 @@
                         {% if produto.noImagem != "" %}
                             <td><img width="50" src="{{ produto.noImagem }}"></td>
                         {% else %}
-                            <td><img width="50" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+                            <td><img width="50" src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=Sem+imagem"
                                      alt=""/></td>
                         {% endif %}
                         <td>{{ produto.noProduto|capitalize }}</td>
+                        <td>{{ produto.dsProduto }}</td>
                         <td>R$: {{ produto.nuValor }}</td>
                     </tr>
                 {% endfor %}

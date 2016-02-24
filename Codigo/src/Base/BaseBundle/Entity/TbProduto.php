@@ -38,7 +38,7 @@ class TbProduto extends AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="no_imagem", type="string", length=100, nullable=false)
+     * @ORM\Column(name="no_imagem", type="string", length=100, nullable=true)
      */
     private $noImagem;
 

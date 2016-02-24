@@ -19,10 +19,10 @@ class CrudService extends AbstractService
     {
         $result = $this->getRepository()->getResultGrid($request);
 
-        $sEcho = $request->query->get('sEcho', 1);
+        $sEcho = $request->query->get('sEcho', 0);
         $page  = $request->query->get('iDisplayStart', 0);
         $rows  = $request->query->get('iDisplayLength', 10);
-        $page  = floor($page/$rows) + 1;
+        $page  = ceil($page/$rows) + 1;
 
         $paginator  = new Paginator();
         $pagination = $paginator->paginate($result, $page, $rows);

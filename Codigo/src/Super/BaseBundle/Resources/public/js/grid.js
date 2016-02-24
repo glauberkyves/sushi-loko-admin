@@ -13,7 +13,7 @@ $.extend($.componentGrid, {
     data:    null,
     options: {
         processing:       true,
-        responsive:       true,
+        responsive:       false,
         serverSide:       true,
         sAjaxSource:      false,
         AutoWidth:        false,
