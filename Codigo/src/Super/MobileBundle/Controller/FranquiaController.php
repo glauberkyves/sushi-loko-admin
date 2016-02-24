@@ -104,7 +104,7 @@ class FranquiaController extends AbstractMobile
                     );
                 }
 
-                $arrCardapio[$idCardapio->getIdCardapio()] = array(
+                $arrCardapio[] = array(
                     'noCardapio'  => $idCardapio->getNoCardapio(),
                     'arrProdutos' => $arrProduto
                 );
