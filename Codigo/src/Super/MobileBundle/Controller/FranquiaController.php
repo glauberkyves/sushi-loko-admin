@@ -110,7 +110,7 @@ class FranquiaController extends AbstractMobile
                 );
             }
 
-            if($arrProduto) {
+            if($arrCardapio) {
                 $this->add('valido', true);
                 $this->add('arrCardapio', $arrCardapio);
             } else {
