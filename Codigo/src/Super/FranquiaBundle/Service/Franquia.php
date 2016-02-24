@@ -214,7 +214,7 @@ class Franquia extends CrudService
 
         $this->vars['cmbCardapio'] = $this->getService('service.cardapio')->getComboDefault(
             array('stAtivo' => true),
-            array('noCardapio' => 'ASC')
+            array('noCardapioSuper' => 'ASC')
         );
 
         $this->vars['cmbPromocao'] = $this->getService('service.promocao')->getComboDefault(

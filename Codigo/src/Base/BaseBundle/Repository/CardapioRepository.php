@@ -44,4 +44,25 @@ class CardapioRepository extends AbstractRepository
             }
         }
     }
+
+    /**
+     * @override
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return array The objects.
+     * @return array
+     */
+    public function getComboDefault(array $criteria = array(), array $orderBy = null, $limit = null, $offset = null)
+    {
+        $itens  = array();
+        $result = $this->findBy($criteria, $orderBy, $limit, $offset);
+
+        foreach ($result as $item) {
+            $itens[$item->getIdCardapio()] = $item->getNoCardapioSuper();
+        }
+
+        return $itens;
+    }
 }

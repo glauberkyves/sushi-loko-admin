@@ -29,6 +29,13 @@ class TbCardapio extends AbstractEntity
     private $noCardapio;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="no_cardapio_super", type="string", length=100, nullable=false)
+     */
+    private $noCardapioSuper;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="st_ativo", type="integer", nullable=false)
@@ -81,6 +88,22 @@ class TbCardapio extends AbstractEntity
     public function setIdCardapio($idCardapio)
     {
         $this->idCardapio = $idCardapio;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNoCardapioSuper()
+    {
+        return $this->noCardapioSuper;
+    }
+
+    /**
+     * @param string $noCardapioSuper
+     */
+    public function setNoCardapioSuper($noCardapioSuper)
+    {
+        $this->noCardapioSuper = $noCardapioSuper;
     }
 
     /**
