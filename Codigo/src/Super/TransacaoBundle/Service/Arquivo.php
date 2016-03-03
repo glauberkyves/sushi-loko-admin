@@ -103,17 +103,17 @@ class Arquivo extends CrudService
         );
 
         if (!$idUsuario) {
-            $request = $this->getRequest();
-            $request->request->set('nuCpf', $dadosArquivo['nuCpf']);
-            $request->request->set('noSenha', '123456');
-            $request->request->set('noPessoa', 'Teste Arquivo');
-            $request->request->set('noEmail', 'testearquivo@testearquivo.com.br');
-            $request->request->set('sgSexo', 'm');
-            $request->request->set('nuCep', '12345678');
-
-            $idUsuario     = $this->getService('service.usuario')->save();
-            $idFranqueador = $idFranquia->getIdFranqueador();
-            $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
+//            $request = $this->getRequest();
+//            $request->request->set('nuCpf', $dadosArquivo['nuCpf']);
+//            $request->request->set('noSenha', '123456');
+//            $request->request->set('noPessoa', 'Teste Arquivo');
+//            $request->request->set('noEmail', 'testearquivo@testearquivo.com.br');
+//            $request->request->set('sgSexo', 'm');
+//            $request->request->set('nuCep', '12345678');
+//
+//            $idUsuario     = $this->getService('service.usuario')->save();
+//            $idFranqueador = $idFranquia->getIdFranqueador();
+//            $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
 
             return;
         }
