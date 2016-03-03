@@ -363,35 +363,38 @@
                                         </thead>
 
                                         <tbody>
+                                        {% set arrFranquia = [] %}
                                         {% for transacao in entity.getIdUsuario().getIdTransacao() %}
                                             {% if transacao.getIdArquivo() %}
-                                                <tr class="">
-                                                    <td class="">
-                                                        {{ transacao.getIdFranquia().getNoFranquia() }}
-                                                    </td>
-                                                    <td class="">
-                                                        {% set total = 0 %}
-                                                        {% for franquia in entity.getIdUsuario().getIdTransacao() %}
-                                                            {% if franquia.getIdArquivo()
-                                                            and transacao.getIdFranquia().getIdFranquia() == franquia.getIdFranquia().getIdFranquia() %}
-                                                                {% set total = total + 1 %}
-                                                            {% endif %}
-                                                        {% endfor %}
+                                                {% if transacao.getIdFranquia().getIdFranquia() in arrFranquia == false %}
+                                                    {% set arrFranquia = arrFranquia|merge([transacao.getIdFranquia().getIdFranquia()]) %}
+                                                    <tr class="">
+                                                        <td class="">
+                                                            {{ transacao.getIdFranquia().getNoFranquia() }}
+                                                        </td>
+                                                        <td class="">
+                                                            {% set total = 0 %}
+                                                            {% for franquia in entity.getIdUsuario().getIdTransacao() %}
+                                                                {% if franquia.getIdArquivo()
+                                                                and transacao.getIdFranquia().getIdFranquia() == franquia.getIdFranquia().getIdFranquia() %}
+                                                                    {% set total = total + 1 %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {{ total }}
+                                                        </td>
+                                                        <td class="">
+                                                            {% set totalGasto = 0 %}
+                                                            {% for franquia in entity.getIdUsuario().getIdTransacao() %}
+                                                                {% if franquia.getIdArquivo()
+                                                                and transacao.getIdFranquia().getIdFranquia() == franquia.getIdFranquia().getIdFranquia() %}
+                                                                    {% set totalGasto = totalGasto + franquia.getIdArquivo().getNuValor() %}
+                                                                {% endif %}
+                                                            {% endfor %}
 
-                                                        {{ total }}
-                                                    </td>
-                                                    <td class="">
-                                                        {% set totalGasto = 0 %}
-                                                        {% for franquia in entity.getIdUsuario().getIdTransacao() %}
-                                                            {% if franquia.getIdArquivo()
-                                                            and transacao.getIdFranquia().getIdFranquia() == franquia.getIdFranquia().getIdFranquia() %}
-                                                                {% set totalGasto = totalGasto + franquia.getIdArquivo().getNuValor() %}
-                                                            {% endif %}
-                                                        {% endfor %}
-
-                                                        R$ {{ totalGasto|number_format(2, ',', '.') }}
-                                                    </td>
-                                                </tr>
+                                                            R$ {{ totalGasto|number_format(2, ',', '.') }}
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
                                         </tbody>
