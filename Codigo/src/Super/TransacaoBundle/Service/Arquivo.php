@@ -85,8 +85,8 @@ class Arquivo extends CrudService
         $entity = new TbTransacao();
 
         $criteria = array(
-//            'nuCodigoLoja'  => $dadosArquivo['nuCodigoLoja'],
-            'nuCodigoLoja'  => 30,
+            'nuCodigoLoja'  => $dadosArquivo['nuCodigoLoja'],
+//            'nuCodigoLoja'  => 30,
             'idFranqueador' => $dadosArquivo['idFranqueador']
         );
 
@@ -115,7 +115,7 @@ class Arquivo extends CrudService
             $idFranqueador = $idFranquia->getIdFranqueador();
             $this->getService('service.franqueador_usuario')->saveFranqueadorUsuario($idFranqueador, $idUsuario);
 
-//            return;
+            return;
         }
 
         $entity->setIdUsuario($idUsuario);
