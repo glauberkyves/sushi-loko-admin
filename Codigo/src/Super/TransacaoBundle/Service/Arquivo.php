@@ -59,7 +59,7 @@ class Arquivo extends CrudService
                         $this->saveTransacao($dadosArquivo);
 
                         $pathFileFTP = str_replace('\\', '/', $config->getNoPasta() . DIRECTORY_SEPARATOR . $arquivo->getFilename());
-//                        ftp_delete($ftp, $pathFileFTP) or new \Exception();
+                        ftp_delete($ftp, $pathFileFTP) or new \Exception();
 
                         array_push($arrArquivo, $dadosArquivo);
                         unlink($file);
