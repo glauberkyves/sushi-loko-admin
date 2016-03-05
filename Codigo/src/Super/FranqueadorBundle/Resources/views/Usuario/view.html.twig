@@ -435,6 +435,17 @@
                 "bFilter": false,
                 "bInfo": false
             });
+
+            var ant = 0
+
+            $('table:last tbody tr td:nth-child(2)').each(function(){
+                if(parseInt($.trim($(this).html())) > ant){
+                    ant = parseInt($.trim($(this).html()))
+
+                    console.log($(this).parent('tr').find('td:first').html())
+                    $('aside#franquia div.bio-row:nth-child(2) p').html('<b>Franquia mais visitada: </b>' + $(this).parent('tr').find('td:first').html())
+                }
+            })
         });
 
     </script>
